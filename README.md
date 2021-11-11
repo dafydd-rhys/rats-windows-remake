@@ -24,7 +24,7 @@ The features of this program:
 * [Dafydd Maund](https://github.com/Stryzhh)
 * [Dawid Wisniewski](https://github.com/SnickyBicky)
 * [Stefan Daitoiu](https://github.com/Ethosss)
-* [Gareth Wade](https://github.com/Stryzhh)
+* [Gareth Wade](https://github.com/WickedI)
 * [Bryan Kok](https://github.com/DishonestOne)
 * [Maurice Petersen](https://github.com/devhambe)
 * [Harry Boyce](https://github.com/Stryzhh)
