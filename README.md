@@ -27,5 +27,5 @@ The features of this program:
 * [Gareth Wade](https://github.com/WickedI)
 * [Bryan Kok](https://github.com/DishonestOne)
 * [Maurice Petersen](https://github.com/devhambe)
-* [Harry Boyce](https://github.com/Stryzhh)
+* [Harry Boyce](https://github.com/harryboyce2011556)
 * [Chunyuan Zhang](https://github.com/HtmlIsTheBestProgrammingLanaguage)
