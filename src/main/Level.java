@@ -1,14 +1,14 @@
 package main;
 
-import entity.Item;
+import entity.Weapon;
 import tile.Tile;
 
 public class Level {
 
-    protected void placeItem(Item selectedItem, Tile tile){
+    protected void placeItem(Weapon selectedWeapon, Tile tile){
 
         if(tile.getClass().getName().equals("PathTile")){
-            tile.getEntitiesOnTile().add(selectedItem);
+            tile.getEntitiesOnTile().add(selectedWeapon);
         } else {
             System.out.println("Invalid placement");
         }

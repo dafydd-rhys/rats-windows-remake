@@ -1,8 +1,8 @@
 package entity.weapon;
 
-import entity.Item;
+import entity.Weapon;
 
-public class Bomb extends Item { //used to extend Entities.Item
+public class Bomb extends Weapon { //used to extend Entities.Item
 
     public Bomb(){
         this.entityName = "Bomb";
