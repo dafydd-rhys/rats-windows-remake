@@ -1,4 +1,4 @@
-package Scoreboard;
+package scoreboard;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

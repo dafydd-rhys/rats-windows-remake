@@ -1,4 +1,4 @@
-package Scoreboard;
+package scoreboard;
 
 //represents one player on scoreboard
 public class ScoreboardPlayer {
