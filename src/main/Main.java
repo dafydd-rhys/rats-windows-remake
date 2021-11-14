@@ -19,7 +19,13 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
         Platform.setImplicitExit(false);
-        Parent startWindow = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\ui_resources\\main.fxml"));
+        String OS = System.getProperty("os.name");
+        Parent startWindow;
+        if (OS.contains("Windows")) {
+            startWindow = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\resources\\fxml\\main.fxml"));
+        } else {
+            startWindow = FXMLLoader.load(new URL("file:/" + System.getProperty("user.home") + "\\src\\resources\\fxml\\main.fxml"));
+        }
 
         //ResizeHelper.addResizeListener(window);
         window.initStyle(StageStyle.UNDECORATED);
