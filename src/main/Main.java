@@ -1,7 +1,7 @@
 package main;
 
 import java.net.URL;
-import java.util.Objects;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.Default.ResizeHelper;
 
 public class Main extends Application {
 
