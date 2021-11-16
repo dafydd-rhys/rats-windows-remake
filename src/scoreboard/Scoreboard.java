@@ -15,16 +15,22 @@ public class Scoreboard {
     - this class shows the top 10 players
     - all public & static, will be accessed and used from scoreboard UI controller
      */
-    private static final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
+    private final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
+    private final String directory;
+
+    public Scoreboard(int level) throws IOException {
+        this.directory = "src/resources/config/scoreboard/scoreboard-level" + level + ".txt";
+        load();
+    }
 
     public List<ScoreboardPlayer> getScoreboard() {
         return scoreboardPlayers;
     }
 
     //loads scoreboard
-    public static void load() throws IOException {
+    public void load() throws IOException {
         scoreboardPlayers.clear();
-        BufferedReader reader = new BufferedReader(new FileReader("src/resources/scoreboard.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(directory));
         String line;
 
         while ((line = reader.readLine()) != null) {
@@ -34,7 +40,7 @@ public class Scoreboard {
     }
 
     //add player to scoreboard
-    public static void add(ScoreboardPlayer player) throws IOException {
+    public void add(ScoreboardPlayer player) throws IOException {
         if (player.getScore() > scoreboardPlayers.get(scoreboardPlayers.size() - 1).getScore()) {
             if (scoreboardPlayers.size() > 9) {
                 remove(scoreboardPlayers.get(scoreboardPlayers.size() - 1));
@@ -45,12 +51,12 @@ public class Scoreboard {
     }
 
     //remove player from scoreboard
-    public static void remove(ScoreboardPlayer player) {
+    public void remove(ScoreboardPlayer player) {
         scoreboardPlayers.remove(player);
     }
 
     //sorts leaderboard (highest-to-lowest score)
-    public static void sort() throws IOException {
+    public void sort() throws IOException {
         for (int i = 0; i < scoreboardPlayers.size(); i++) {
             int pos = i;
             for (int j = i + 1; j < scoreboardPlayers.size(); j++) {
@@ -71,8 +77,8 @@ public class Scoreboard {
     }
 
     //updates scoreboard in file
-    private static void writeToFile() throws IOException {
-        PrintWriter writer = new PrintWriter("src/scoreboard.txt", StandardCharsets.UTF_8);
+    private void writeToFile() throws IOException {
+        PrintWriter writer = new PrintWriter(directory, StandardCharsets.UTF_8);
 
         for (ScoreboardPlayer player : scoreboardPlayers) {
             writer.println(player.getName() + ":" + player.getScore());
