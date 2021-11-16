@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Scoreboard
+ *
+ * @author Dafydd-Rhys Maund (2003900)
+ */
 public class Scoreboard {
 
     /*

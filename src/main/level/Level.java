@@ -1,8 +1,13 @@
-package main;
+package main.level;
 
 import entity.Item;
 import tile.Tile;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public class Level {
 
     protected void placeItem(Item selectedItem, Tile tile) {

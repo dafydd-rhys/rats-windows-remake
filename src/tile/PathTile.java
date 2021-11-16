@@ -1,9 +1,13 @@
 package tile;
 
 import entity.Entity;
-
 import java.util.ArrayList;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public class PathTile extends Tile {
 
     public PathTile(int coordX, int coordY, ArrayList<Entity> entitiesOnTile) {
@@ -12,4 +16,5 @@ public class PathTile extends Tile {
         this.isWalkable = false;
         this.isCovering = false;
     }
+
 }

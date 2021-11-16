@@ -1,6 +1,10 @@
 package scoreboard;
 
-//represents one player on scoreboard
+/**
+ * ScoreboardPlayer
+ *
+ * @author Dafydd-Rhys Maund (2003900)
+ */
 public class ScoreboardPlayer {
 
     private String name;

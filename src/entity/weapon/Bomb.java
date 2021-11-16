@@ -2,6 +2,11 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public class Bomb extends Item { //used to extend Entities.Item
 
     public Bomb(){
