@@ -1,5 +1,10 @@
 package entity;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public abstract class Item extends Entity {
 
     protected boolean friendlyFire; //whether we want an item to affect our friends- deathrats

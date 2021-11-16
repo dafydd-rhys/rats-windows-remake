@@ -1,5 +1,10 @@
 package entity;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public class Rat extends Entity {
 
     private boolean isFemale;

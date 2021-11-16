@@ -2,6 +2,11 @@ package entity;
 
 import javafx.scene.image.Image;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public abstract class Entity {
 
     protected String entityName;

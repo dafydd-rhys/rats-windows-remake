@@ -2,11 +2,13 @@ package tile;
 
 import javafx.scene.image.Image;
 import entity.Entity;
-/**
- * Superclass for different kinds of Tiles - GrassTile, PathTile, TunnelTile
- */
 import java.util.ArrayList;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public abstract class Tile {
 
     //these are common for all of the subclasses, they are not preset
@@ -58,4 +60,5 @@ public abstract class Tile {
     public boolean isCovering() {
         return isCovering;
     }
+
 }

@@ -4,6 +4,11 @@ import entity.Entity;
 
 import java.util.ArrayList;
 
+/**
+ * LevelFileGenerator
+ *
+ * @author Dawid Wisniewski
+ */
 public class TunnelTile extends Tile {
 
     public TunnelTile(int coordX, int coordY, ArrayList<Entity> entitiesOnTile) {

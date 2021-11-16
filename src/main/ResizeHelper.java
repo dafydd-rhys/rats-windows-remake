@@ -10,6 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * ResizeHelper - eliminates bug when trying to move/resize undecorated window
+ *
+ * @author Dafydd-Rhys Maund (2003900)
+ */
 public class ResizeHelper {
 
     public static void addResizeListener(Stage stage) {
