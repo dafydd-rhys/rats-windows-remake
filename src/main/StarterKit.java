@@ -51,9 +51,10 @@ public class StarterKit extends Application {
      * @param primaryStage The stage that is to be used for the application.
      */
     public void start(Stage primaryStage) {
-        playerImage = new Image("player.png");
-        dirtImage = new Image("dirt.png");
-        iconImage = new Image("icon.png");
+        String path = System.getProperty("user.dir") + "/src/resources/images/";
+        playerImage = new Image(path + "player.png");
+        dirtImage = new Image(path+ "grass.png");
+        iconImage = new Image(path+ "bomb.png");
 
         Pane root = buildGUI();
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
