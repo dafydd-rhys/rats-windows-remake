@@ -21,7 +21,7 @@ public class MaleSexChange extends Item {
     }
 
     public void activate(entity.Rat targetRat) {
-        if (targetRat.getGender == true) {
+        if (targetRat.getGender() == true) {
             targetRat.setGender(false);
         }
         this.hp -= 1;
