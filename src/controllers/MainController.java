@@ -15,6 +15,7 @@ import main.Functions;
  * Main
  *
  * @author Dafydd-Rhys Maund (2003900)
+ * @author Gareth Wade (1901805)
  */
 public class MainController implements Initializable {
 
