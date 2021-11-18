@@ -2,6 +2,12 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * Poison
+ *
+ * @author Harry Boyce, Bryan Kok
+ */
+
 public class Poison extends Item {
 
     public Poison(){
@@ -12,6 +18,10 @@ public class Poison extends Item {
         this.range = 1;
         this.friendlyFire = false;
         this.isAttackable = false;
+    }
+
+    public void activate() {
+
     }
 
 }

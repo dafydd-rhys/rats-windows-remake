@@ -2,6 +2,12 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * NoEntrySign
+ *
+ * @author Harry Boyce, Bryan Kok
+ */
+
 public class NoEntrySign extends Item{
 
     public NoEntrySign(){
@@ -12,6 +18,10 @@ public class NoEntrySign extends Item{
         this.range = 1;
         this.friendlyFire = true;
         this.isAttackable = false;
+    }
+
+    public void activate() {
+
     }
 
 }

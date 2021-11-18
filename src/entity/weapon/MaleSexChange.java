@@ -2,6 +2,12 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * MaleSexChange
+ *
+ * @author Harry Boyce, Bryan Kok
+ */
+
 public class MaleSexChange extends Item {
 
     public MaleSexChange(){
@@ -12,6 +18,10 @@ public class MaleSexChange extends Item {
         this.range = 1;
         this.friendlyFire = false;
         this.isAttackable = false;
+    }
+
+    public void activate() {
+
     }
 
 }

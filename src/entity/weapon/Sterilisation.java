@@ -2,6 +2,12 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * Sterilisation
+ *
+ * @author Harry Boyce, Bryan Kok
+ */
+
 public class Sterilisation extends Item{
 
     public Sterilisation(){
@@ -12,6 +18,10 @@ public class Sterilisation extends Item{
         this.range = 2;
         this.friendlyFire = false;
         this.isAttackable = false;
+    }
+
+    public void activate() {
+
     }
 
 }
