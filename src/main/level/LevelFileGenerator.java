@@ -1,10 +1,12 @@
 package main.level;
 
-import javafx.scene.Node;
+import java.io.IOException;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 
 /**
  * LevelFileGenerator
@@ -13,55 +15,54 @@ import javafx.scene.layout.RowConstraints;
  */
 public class LevelFileGenerator {
 
+    private final Canvas canvas;
     private final char[][] level;
     private final char[][] spawns;
-    private final Image male = new Image("src/resources/images/male-rat.png");
-    private final Image female = new Image("src/resources/images/female-rat.png");
-    private final Image tunnel = new Image("src/resources/images/tunnel.png");
-    private final Image path = new Image("src/resources/images/path.png");
-    private final Image grass = new Image("src/resources/images/grass.png");
+    private final String dir = System.getProperty("user.dir") + "/src/resources/images/";
+    private final Image tunnel = new Image(dir + "tunnel.png");
+    private final Image path = new Image(dir + "path.png");
+    private final Image grass = new Image(dir + "grass.png");
+    private final Image male = new Image(dir + "male-rat.png");
+    private final Image female = new Image(dir + "female-rat.png");
+    private final Image bomb = new Image(dir + "bomb.png");
 
-    public LevelFileGenerator(GridPane pane, char[][] level, char[][] spawns) {
+    public LevelFileGenerator(Canvas canvas, char[][] level, char[][] spawns) throws IOException {
+        this.canvas = canvas;
         this.level = level;
         this.spawns = spawns;
-        generateLevel(pane);
+        generateLevel();
     }
 
-    private void generateLevel(GridPane pane) {
-        RowConstraints constraints = new RowConstraints(50);
-        pane.getRowConstraints().add(constraints);
+    private void generateLevel() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        for (int i = 0; i < level.length; i++) {
-            for (int j = 0; j < level[i].length; j++) {
-                if (level[i][j] == 'G') {
-                    pane.add(new ImageView(grass), i, j);
-                } else if (level[i][j] == 'P') {
-                    pane.add(new ImageView(path), i, j);
+        for (int y = 0; y < level.length; y++) {
+            for (int x = 0; x < level[y].length; x++) {
+                if (level[y][x] == 'G') {
+                    gc.drawImage(grass, x * 50, y * 50);
+                } else if (level[y][x] == 'P') {
+                    gc.drawImage(path, x * 50, y * 50);
                 } else {
-                    pane.add(new ImageView(tunnel), i, j);
+                    gc.drawImage(tunnel, x * 50, y * 50);
                 }
-            }
-        }
-
-        for (int i = 0; i < spawns.length; i++) {
-            for (int j = 0; j < spawns[i].length; j++) {
-                Node tile = getNode(pane, i, j);
-                if (spawns[i][j] == 'M') {
-                    //add male rat to tile
-                } else if (spawns[i][j] == 'F') {
-                    //add female rat to tile
+                if (spawns[y][x] == 'M') {
+                    gc.drawImage(rotate(male, 90), x * 50, y * 50);
+                } else if (spawns[y][x] == 'F') {
+                    gc.drawImage(rotate(female, -90), x * 50, y * 50);
                 }
             }
         }
     }
 
-    private Node getNode(GridPane gridPane, int col, int row) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-                return node;
-            }
-        }
-        return null;
+    private Image rotate(final Image image, final int degree) {
+        ImageView iv = new ImageView(image);
+        iv.setRotate(degree);
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+
+        return iv.snapshot(params, null);
     }
 
 }

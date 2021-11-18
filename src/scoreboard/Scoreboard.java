@@ -20,10 +20,11 @@ public class Scoreboard {
     - this class shows the top 10 players
     - all public & static, will be accessed and used from scoreboard UI controller
      */
+    public static int level;
     private final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
     private final String directory;
 
-    public Scoreboard(int level) throws IOException {
+    public Scoreboard() throws IOException {
         this.directory = "src/resources/config/scoreboard/scoreboard-level" + level + ".txt";
         load();
     }

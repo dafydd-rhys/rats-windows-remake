@@ -28,7 +28,7 @@ public class MainController implements Initializable {
     private void onActions() {
         proceed.setOnAction(e -> {
             try {
-                Functions.openWindow("\\src\\resources\\fxml\\game.fxml", "Game Screen");
+                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
                 Functions.close((Stage) proceed.getScene().getWindow());
             } catch (IOException ex) {
                 ex.printStackTrace();
