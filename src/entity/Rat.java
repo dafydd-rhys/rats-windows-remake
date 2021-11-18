@@ -3,7 +3,8 @@ package entity;
 /**
  * LevelFileGenerator
  *
- * @author Dawid Wisniewski
+ * @author Dawid Wisniewski, Bryan Kok
+ * @version 1.1
  */
 public class Rat extends Entity {
 
@@ -22,4 +23,11 @@ public class Rat extends Entity {
         this.isPregnant = false;
     }
 
+    public Boolean getGender(){
+        return isFemale;
+    }
+
+    public void setGender(boolean isItFemale){
+        this.isFemale = isItFemale;
+    }
 }

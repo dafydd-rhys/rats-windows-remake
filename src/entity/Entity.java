@@ -3,9 +3,10 @@ package entity;
 import javafx.scene.image.Image;
 
 /**
- * LevelFileGenerator
+ * Entity
  *
- * @author Dawid Wisniewski
+ * @author Dawid Wisniewski, Bryan Kok
+ * @version 1.1
  */
 public abstract class Entity {
 
@@ -19,8 +20,9 @@ public abstract class Entity {
     protected int currentPosY;
     protected boolean isActive;
 
-    protected void inflictDamage(Entity targetedEntity){
-        System.out.println("This is test. Damage inflicted!");
+    protected void inflictDamage(int damageDealt, Entity damageTarget){
+        damageTarget.setHp(damageTarget.getHp() - damageDealt);
+        System.out.println(damageTarget.getEntityName() + " is dealt " + damageDealt + " damage!");
     };
 
     public String getEntityName() {

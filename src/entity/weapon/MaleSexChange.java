@@ -27,5 +27,4 @@ public class MaleSexChange extends Item {
         this.hp -= 1;
         // remove
     }
-
 }
