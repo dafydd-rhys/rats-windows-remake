@@ -7,6 +7,7 @@ import entity.Item;
  *
  * @author Dawid Wisniewski
  */
+
 public class Bomb extends Item { //used to extend Entities.Item
 
     public Bomb(){
@@ -19,5 +20,8 @@ public class Bomb extends Item { //used to extend Entities.Item
         this.isAttackable = false;
     }
 
-    //some methods and mechanics of Bomb
+    public void activate() {
+
+    }
+
 }

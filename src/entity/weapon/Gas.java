@@ -2,6 +2,12 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * Gas
+ *
+ * @author Harry Boyce, Bryan Kok
+ */
+
 public class Gas  extends Item{
 
     public Gas(){
@@ -12,6 +18,10 @@ public class Gas  extends Item{
         this.range = 1;
         this.friendlyFire = true;
         this.isAttackable = false;
+    }
+
+    public void activate() {
+
     }
 
 }

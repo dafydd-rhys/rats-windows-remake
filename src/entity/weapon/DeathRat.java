@@ -2,6 +2,12 @@ package entity.weapon;
 
 import entity.Item;
 
+/**
+ * DeathRat
+ *
+ * @author Harry Boyce, Bryan Kok
+ */
+
 public class DeathRat extends Item {
 
     public DeathRat(){
@@ -12,6 +18,10 @@ public class DeathRat extends Item {
         this.range = 1;
         this.friendlyFire = true;
         this.isAttackable = false;
+    }
+
+    public void activate() {
+
     }
 
 }
