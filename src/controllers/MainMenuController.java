@@ -46,7 +46,7 @@ public class MainMenuController implements Initializable {
         scoreboard.setOnAction(e -> {
             try {
                 Functions.openWindow("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
-                Functions.close((Stage) proceed.getScene().getWindow());
+                Functions.close((Stage) scoreboard.getScene().getWindow());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -54,7 +54,7 @@ public class MainMenuController implements Initializable {
         settings.setOnAction(e -> {
             try {
                 Functions.openWindow("\\src\\resources\\fxml\\settings.fxml", "Settings");
-                Functions.close((Stage) proceed.getScene().getWindow());
+                Functions.close((Stage) settings.getScene().getWindow());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
