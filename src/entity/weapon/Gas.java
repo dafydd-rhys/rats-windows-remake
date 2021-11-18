@@ -8,7 +8,7 @@ public class Gas  extends Item{
         this.entityName = "Gas";
         this.image = null;
         this.hp = 3;
-        this.damage = 1;
+        this.damage = 0;
         this.range = 1;
         this.friendlyFire = true;
         this.isAttackable = false;

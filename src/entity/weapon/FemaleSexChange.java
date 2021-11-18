@@ -14,4 +14,11 @@ public class FemaleSexChange extends Item {
         this.isAttackable = false;
     }
 
+    public void activate(entity.Rat targetRat){
+        if (targetRat.getGender() == false) {
+            targetRat.setGender(true);
+        }
+        setHp(getHp() - 1);
+    }
+
 }

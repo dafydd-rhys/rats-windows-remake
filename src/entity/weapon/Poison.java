@@ -14,4 +14,9 @@ public class Poison extends Item {
         this.isAttackable = false;
     }
 
+    public void activate(entity.Rat targetRat){
+        inflictDamage(this.damage, targetRat);
+        setHp(getHp() - 1);
+    }
+
 }
