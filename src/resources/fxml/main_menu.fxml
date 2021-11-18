@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainMenuController">
+   <children>
+      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!" />
+            <JFXButton layoutX="731.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" text="Button">
+               <graphic>
+                  <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/maximise.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/rats-icon.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="765.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+               <graphic>
+                  <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="697.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+               <graphic>
+                  <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/minimize.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="abilities" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" />
+      <AnchorPane layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
+         <children>
+            <ImageView fx:id="logo" fitHeight="191.0" fitWidth="200.0" layoutX="198.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/rats-icon.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="exit" layoutX="207.0" layoutY="427.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Exit Game" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="option_3" layoutX="207.0" layoutY="365.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Settings" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="scoreboard" layoutX="207.0" layoutY="303.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Scoreboard" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="proceed" layoutX="207.0" layoutY="241.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Start Game" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="settings" layoutX="557.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: #6eace0;" text="Button" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="settingsIcon" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/settings.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="volume" layoutX="11.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: #6eace0;" text="Button" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="volumeIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/volume.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
