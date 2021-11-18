@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScoreboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScoreboardController">
    <children>
       <AnchorPane layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
          <children>
@@ -16,56 +19,6 @@
                   <Image url="@../images/rats-icon.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="scoreboard1" layoutX="39.0" layoutY="174.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 1" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard2" layoutX="39.0" layoutY="236.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 2" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard3" layoutX="39.0" layoutY="298.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 3" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard4" layoutX="39.0" layoutY="360.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 4" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard5" layoutX="39.0" layoutY="422.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 5" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard6" layoutX="305.0" layoutY="174.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 6" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard7" layoutX="305.0" layoutY="236.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 7" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard8" layoutX="305.0" layoutY="298.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 8" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard9" layoutX="305.0" layoutY="360.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 9" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="scoreboard10" layoutX="305.0" layoutY="422.0" prefHeight="52.0" prefWidth="255.0" style="-fx-background-color: #6eace0;" text="Level 10" textFill="WHITE">
-               <font>
-                  <Font name="Calibri Light" size="16.0" />
-               </font>
-            </JFXButton>
             <JFXButton fx:id="back" layoutX="11.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: #6eace0;" text="Button" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="16.0" />
@@ -78,6 +31,15 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <TableView id="scores" fx:id="scoreTable" layoutX="92.0" layoutY="188.0" prefHeight="311.0" prefWidth="488.0">
+               <columns>
+                  <TableColumn fx:id="Position" prefWidth="85.0" text="Level " />
+                  <TableColumn fx:id="levelOne" prefWidth="65.0" text="Rank " />
+                  <TableColumn fx:id="levelTwo" prefWidth="65.0" text="Name" />
+                  <TableColumn fx:id="levelThree" prefWidth="65.0" text="Score" />
+               </columns>
+            </TableView>
+            <ComboBox fx:id="levelSelector" layoutX="11.0" layoutY="163.0" prefWidth="150.0" promptText="Level Select" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="599.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="201.0" style="-fx-background-color: grey;" />

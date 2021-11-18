@@ -6,6 +6,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.Functions;
 import scoreboard.Scoreboard;
@@ -19,87 +23,56 @@ import scoreboard.Scoreboard;
 public class ScoreboardController implements Initializable {
 
     @FXML
-    private JFXButton scoreboard1;
-    @FXML
-    private JFXButton scoreboard2;
-    @FXML
-    private JFXButton scoreboard3;
-    @FXML
-    private JFXButton scoreboard4;
-    @FXML
-    private JFXButton scoreboard5;
-    @FXML
-    private JFXButton scoreboard6;
-    @FXML
-    private JFXButton scoreboard7;
-    @FXML
-    private JFXButton scoreboard8;
-    @FXML
-    private JFXButton scoreboard9;
-    @FXML
-    private JFXButton scoreboard10;
+    private TableColumn<?, ?> Position;
+
     @FXML
     private JFXButton back;
 
+    @FXML
+    private ImageView backIcon;
+
+    @FXML
+    private ImageView closeIcon;
+
+    @FXML
+    private TableColumn<?, ?> levelOne;
+
+    @FXML
+    private ComboBox<String> levelSelector;
+
+    @FXML
+    private TableColumn<?, ?> levelThree;
+
+    @FXML
+    private TableColumn<?, ?> levelTwo;
+
+    @FXML
+    private ImageView logo;
+
+    @FXML
+    private ImageView maximiseIcon;
+
+    @FXML
+    private ImageView minimizeIcon;
+
+    @FXML
+    private ImageView minimizedLogo;
+
+    @FXML
+    private TableView<?> scoreTable;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        OnActions();
-        setImages();
+
+        levelSelector.getItems().addAll(
+                "Level 1",
+                "Level 2",
+                "Level 3",
+                "Level 4",
+                "Level 5",
+                "Level 6");
     }
 
-    private void OnActions() {
-        scoreboard1.setOnAction(e -> {
-            openScoreboard(1);
-        });
-        scoreboard2.setOnAction(e -> {
-            openScoreboard(2);
-        });
-        scoreboard3.setOnAction(e -> {
-            openScoreboard(3);
-        });
-        scoreboard4.setOnAction(e -> {
-            openScoreboard(4);
-        });
-        scoreboard5.setOnAction(e -> {
-            openScoreboard(5);
-        });
-        scoreboard6.setOnAction(e -> {
-            openScoreboard(6);
-        });
-        scoreboard7.setOnAction(e -> {
-            openScoreboard(7);
-        });
-        scoreboard8.setOnAction(e -> {
-            openScoreboard(8);
-        });
-        scoreboard9.setOnAction(e -> {
-            openScoreboard(9);
-        });
-        scoreboard10.setOnAction(e -> {
-            openScoreboard(10);
-        });
-        back.setOnAction(e -> {
-            Functions.close((Stage) back.getScene().getWindow());
-            try {
-                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-    }
 
-    private void openScoreboard(int level) {
-        Scoreboard.level = level;
-        Functions.close((Stage) back.getScene().getWindow());
-        try {
-            Functions.openWindow("\\src\\resources\\fxml\\top10.fxml", "Top10");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void setImages() {
-
-    }
 
 }
