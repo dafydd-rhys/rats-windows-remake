@@ -21,7 +21,10 @@ public class Sterilisation extends Item{
     }
 
     public void activate() {
-
+        // makeSterile
+        // tick
+        // sterile baby rat -> sterile adult rat
+        // sterile adult rat -> cannot mate
     }
 
 }

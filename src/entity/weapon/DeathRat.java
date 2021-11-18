@@ -21,6 +21,13 @@ public class DeathRat extends Item {
     }
 
     public void activate() {
+        delayTwoTicks();
+        // move like rat
+        // kill first 5 rats
+        // remove
+    }
+
+    public void delayTwoTicks() {
 
     }
 

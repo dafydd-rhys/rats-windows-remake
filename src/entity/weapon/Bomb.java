@@ -3,9 +3,9 @@ package entity.weapon;
 import entity.Item;
 
 /**
- * LevelFileGenerator
+ * Bomb
  *
- * @author Dawid Wisniewski
+ * @author Harry Boyce, Bryan Kok
  */
 
 public class Bomb extends Item { //used to extend Entities.Item
@@ -20,7 +20,19 @@ public class Bomb extends Item { //used to extend Entities.Item
         this.isAttackable = false;
     }
 
-    public void activate() {
+    public void activate(entity.Rat targetRat) {
+        countdown();
+        explode();
+
+        // kill
+        // destroy
+    }
+
+    private void countdown() {
+
+    }
+
+    private void explode() {
 
     }
 

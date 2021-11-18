@@ -20,8 +20,12 @@ public class MaleSexChange extends Item {
         this.isAttackable = false;
     }
 
-    public void activate() {
-
+    public void activate(entity.Rat targetRat) {
+        if (targetRat.getGender == true) {
+            targetRat.setGender(false);
+        }
+        this.hp -= 1;
+        // remove
     }
 
 }

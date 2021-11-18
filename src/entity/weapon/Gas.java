@@ -13,7 +13,7 @@ public class Gas  extends Item{
     public Gas(){
         this.entityName = "Gas";
         this.image = null;
-        this.hp = 3;
+        this.hp = 6;
         this.damage = 1;
         this.range = 1;
         this.friendlyFire = true;
@@ -21,7 +21,19 @@ public class Gas  extends Item{
     }
 
     public void activate() {
+        expand();
+        // remove
+    }
 
+    public void expand() {
+        do {
+            if (this.hp > 2) {
+                // expanding
+            } else {
+                //shrinking
+            }
+            //this.hp -= 1;
+        } while (this.hp > 0);
     }
 
 }

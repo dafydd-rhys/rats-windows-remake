@@ -21,7 +21,9 @@ public class NoEntrySign extends Item{
     }
 
     public void activate() {
-
+        // prevent rat from passing
+            // take damage
+            // new image after damage
     }
 
 }
