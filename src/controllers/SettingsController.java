@@ -5,37 +5,37 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXSlider;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import main.Functions;
 
 /**
- * Main
+ * Settings Controller
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Gareth Wade (1901805)
  */
-public class MainController implements Initializable {
-
+public class SettingsController implements Initializable {
     @FXML
-    private JFXButton proceed;
-
+    private Slider musicSlider;
     @FXML
-    private ComboBox<String> selectBiome;
+    private Slider sfxSlider;
+    @FXML
+    private JFXButton mainMenuButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
-        selectBiome.getItems().addAll("Grass","Sand","Snow");
     }
 
     private void onActions() {
-        proceed.setOnAction(e -> {
+        mainMenuButton.setOnAction(e -> {
             try {
-                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
-                Functions.close((Stage) proceed.getScene().getWindow());
+                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
+                Functions.close((Stage) mainMenuButton.getScene().getWindow());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

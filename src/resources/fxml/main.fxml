@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;">
          <children>
@@ -29,7 +29,7 @@
                         <Image url="@../images/rats-icon.png" />
                      </image>
                   </ImageView>
-                  <ComboBox editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Biome" />
+                  <ComboBox fx:id="selectBiome" editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Biome" />
                   <Text fill="#514d4d" layoutX="154.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Biome" />
                </children>
             </AnchorPane>
