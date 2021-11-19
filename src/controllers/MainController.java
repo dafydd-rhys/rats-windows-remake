@@ -40,8 +40,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
-        selectBiome.getItems().addAll("Default","Beach","Christmas");
-        playerName.setPrefSize(300, 30);
+        selectBiome.getItems().addAll("Default", "Beach", "Christmas");
     }
 
     private void onActions() {
