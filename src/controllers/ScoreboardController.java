@@ -32,30 +32,36 @@ import scoreboard.ScoreboardPlayer;
  */
 public class ScoreboardController implements Initializable {
 
-    @FXML
-    private AnchorPane window;
-    @FXML
-    private ComboBox<String> levelSelector;
-    @FXML
-    private TableView<ScoreboardPlayer> scoreboard;
-    @FXML
-    private TableColumn<ScoreboardPlayer, String> level;
-    @FXML
-    private TableColumn<ScoreboardPlayer, Integer> rank;
-    @FXML
-    private TableColumn<ScoreboardPlayer, String> name;
-    @FXML
-    private TableColumn<ScoreboardPlayer, Integer> score;
-
-    @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
-    private JFXButton exit;
-    @FXML
-    private JFXButton back;
-
+    /** window - represents the parent of all elements */
+    @FXML private AnchorPane window;
+    /** levelSelector - combo box holding all scoreboard options */
+    @FXML private ComboBox<String> levelSelector;
+    /** scoreboard - table that holds the top 10 players */
+    @FXML private TableView<ScoreboardPlayer> scoreboard;
+    /** level - level row representing the top 10 players for this particular level */
+    @FXML private TableColumn<ScoreboardPlayer, String> level;
+    /** rank - rank of the player in question */
+    @FXML private TableColumn<ScoreboardPlayer, Integer> rank;
+    /** name - name of the player in question */
+    @FXML private TableColumn<ScoreboardPlayer, String> name;
+    /** score - score of the player in question */
+    @FXML private TableColumn<ScoreboardPlayer, Integer> score;
+    /** minimize - button that minimizes window */
+    @FXML private JFXButton minimize;
+    /** maximise - button that minimizes window */
+    @FXML private JFXButton maximise;
+    /** back - button that goes back to previous window */
+    @FXML private JFXButton back;
+    /** exit - button that exits program */
+    @FXML private JFXButton exit;
+    
+    /**
+     * Main
+     *
+     * @author Dafydd-Rhys Maund (2003900)
+     * initialize - when the fxml is loaded do this straight away
+     * loads all players from all scoreboards into scoreboard table.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         levelSelector.getItems().addAll("Level 1", "Level 2",
@@ -80,6 +86,14 @@ public class ScoreboardController implements Initializable {
         onActions();
     }
 
+    /**
+     * OnActions() - adds listeners to buttons (i.e when button is clicked -> do this)
+     *
+     * minimize - minimize window
+     * maximise - maximise window
+     * back - go back to previous window
+     * exit - exit program
+     */
     private void onActions() {
         minimize.setOnAction(e -> Functions.minimize(window));
         maximise.setOnAction(e -> Functions.maximise(window));
@@ -94,6 +108,12 @@ public class ScoreboardController implements Initializable {
         });
     }
 
+    /**
+     * scoreboardListener() - adds listener to comboBox (i.e when combo box is edited -> do this)
+     *
+     * levelSelector - combo box
+     * when combo box is changed check in row 1 (level row) for all rows that contain new value and show them
+     */
     private void scoreboardListener() {
         FilteredList<ScoreboardPlayer> filteredData = new FilteredList<>(scoreboard.getItems(), p -> true);
         levelSelector.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> filteredData.setPredicate(myObject -> {
