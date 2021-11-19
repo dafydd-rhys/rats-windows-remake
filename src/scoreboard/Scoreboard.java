@@ -1,6 +1,7 @@
 package scoreboard;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,15 +34,35 @@ public class Scoreboard {
         return scoreboardPlayers;
     }
 
+    public static ArrayList<ScoreboardPlayer> getAll() throws IOException {
+        ArrayList<ScoreboardPlayer> allScoreboardPlayers = new ArrayList<>();
+
+        for (int i = 1; i < 7; i++) {
+            String dir = "src/resources/config/scoreboard/scoreboard-level" + i + ".txt";
+            BufferedReader reader = new BufferedReader(new FileReader(dir));
+
+            int count = 1;
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] split = line.split(":");
+                allScoreboardPlayers.add(new ScoreboardPlayer("Level " + i, count, split[0], Integer.parseInt(split[1])));
+                count++;
+            }
+        }
+        return allScoreboardPlayers;
+    }
+
     //loads scoreboard
     public void load() throws IOException {
         scoreboardPlayers.clear();
         BufferedReader reader = new BufferedReader(new FileReader(directory));
-        String line;
 
+        int count = 1;
+        String line;
         while ((line = reader.readLine()) != null) {
             String[] split = line.split(":");
-            scoreboardPlayers.add(new ScoreboardPlayer(split[0], Integer.parseInt(split[1])));
+            scoreboardPlayers.add(new ScoreboardPlayer("Level " + level, count, split[0], Integer.parseInt(split[1])));
+            count++;
         }
     }
 

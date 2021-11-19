@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import main.Functions;
+import main.TickTimer;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReaderTest;
 
@@ -75,7 +76,7 @@ public class GameController implements Initializable {
     }
 
     private void tick() {
-
+        //TickTimer.start();
     }
 
     private void onActions() {

@@ -3,16 +3,25 @@ package controllers;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.Functions;
 import scoreboard.Scoreboard;
+import scoreboard.ScoreboardPlayer;
 
 
 /**
@@ -23,56 +32,68 @@ import scoreboard.Scoreboard;
 public class ScoreboardController implements Initializable {
 
     @FXML
-    private TableColumn<?, ?> Position;
-
+    private ComboBox<String> levelSelector;
     @FXML
-    private JFXButton back;
+    private TableView<ScoreboardPlayer> scoreboard;
+    @FXML
+    private TableColumn<ScoreboardPlayer, String> level;
+    @FXML
+    private TableColumn<ScoreboardPlayer, Integer> rank;
+    @FXML
+    private TableColumn<ScoreboardPlayer, String> name;
+    @FXML
+    private TableColumn<ScoreboardPlayer, Integer> score;
 
     @FXML
     private ImageView backIcon;
-
     @FXML
     private ImageView closeIcon;
-
-    @FXML
-    private TableColumn<?, ?> levelOne;
-
-    @FXML
-    private ComboBox<String> levelSelector;
-
-    @FXML
-    private TableColumn<?, ?> levelThree;
-
-    @FXML
-    private TableColumn<?, ?> levelTwo;
-
     @FXML
     private ImageView logo;
-
     @FXML
     private ImageView maximiseIcon;
-
     @FXML
     private ImageView minimizeIcon;
-
     @FXML
     private ImageView minimizedLogo;
-
     @FXML
-    private TableView<?> scoreTable;
+    private JFXButton back;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        levelSelector.getItems().addAll("Level 1", "Level 2",
+                "Level 3", "Level 4", "Level 5", "Level 6");
+        level.setCellValueFactory(new PropertyValueFactory<>("Level"));
+        rank.setCellValueFactory(new PropertyValueFactory<>("Rank"));
+        name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        score.setCellValueFactory(new PropertyValueFactory<>("Score"));
 
-        levelSelector.getItems().addAll(
-                "Level 1",
-                "Level 2",
-                "Level 3",
-                "Level 4",
-                "Level 5",
-                "Level 6");
+        ArrayList<ScoreboardPlayer> players = new ArrayList<>();
+        try {
+            players = Scoreboard.getAll();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (ScoreboardPlayer player : players) {
+            scoreboard.getItems().add(player);
+        }
+        scoreboardListener();
+        levelSelector.setValue("Level 1");
     }
 
-
+    private void scoreboardListener() {
+        FilteredList<ScoreboardPlayer> filteredData = new FilteredList<>(scoreboard.getItems(), p -> true);
+        levelSelector.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> filteredData.setPredicate(myObject -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+            return String.valueOf(myObject.getLevel()).toLowerCase().contains(lowerCaseFilter);
+        }));
+        SortedList<ScoreboardPlayer> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(scoreboard.comparatorProperty());
+        scoreboard.setItems(sortedData);
+    }
 
 }

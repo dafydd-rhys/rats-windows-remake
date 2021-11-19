@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScoreboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScoreboardController">
    <children>
       <AnchorPane layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
          <children>
@@ -31,15 +31,15 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <TableView id="scores" fx:id="scoreTable" layoutX="92.0" layoutY="188.0" prefHeight="311.0" prefWidth="488.0">
+            <TableView id="scores" fx:id="scoreboard" layoutX="64.0" layoutY="206.0" prefHeight="285.0" prefWidth="472.0">
                <columns>
-                  <TableColumn fx:id="Position" prefWidth="85.0" text="Level " />
-                  <TableColumn fx:id="levelOne" prefWidth="65.0" text="Rank " />
-                  <TableColumn fx:id="levelTwo" prefWidth="65.0" text="Name" />
-                  <TableColumn fx:id="levelThree" prefWidth="65.0" text="Score" />
+                  <TableColumn fx:id="level" prefWidth="105.0" text="Level " />
+                  <TableColumn fx:id="rank" prefWidth="107.0" text="Rank " />
+                  <TableColumn fx:id="name" prefWidth="123.0" text="Name" />
+                  <TableColumn fx:id="score" prefWidth="122.0" text="Score" />
                </columns>
             </TableView>
-            <ComboBox fx:id="levelSelector" layoutX="11.0" layoutY="163.0" prefWidth="150.0" promptText="Level Select" />
+            <ComboBox fx:id="levelSelector" layoutX="64.0" layoutY="178.0" prefWidth="150.0" promptText="Level Select" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="599.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="201.0" style="-fx-background-color: grey;" />

@@ -8,4 +8,3 @@ john:6
 john:5
 john:4
 john:3
-john:2

@@ -8,4 +8,3 @@ joe:6
 jack:5
 john:4
 jonathan:3
-jill:2
