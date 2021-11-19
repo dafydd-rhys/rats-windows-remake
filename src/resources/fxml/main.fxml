@@ -10,31 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;">
          <children>
-            <AnchorPane layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
-               <children>
-                  <TextField layoutX="151.0" layoutY="273.0" prefHeight="41.0" prefWidth="300.0" promptText="Player Name" />
-                  <Text fill="#514d4d" layoutX="154.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Name" />
-                  <JFXButton fx:id="proceed" layoutX="214.0" layoutY="407.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Continue" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="16.0" />
-                     </font>
-                  </JFXButton>
-                  <Text fill="#514d4d" layoutX="244.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rats! (1996) Remake!" />
-                  <ImageView fx:id="logo" fitHeight="161.0" fitWidth="186.0" layoutX="221.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/rats-icon.png" />
-                     </image>
-                  </ImageView>
-                  <ComboBox fx:id="selectBiome" editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Biome" />
-                  <Text fill="#514d4d" layoutX="154.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Biome" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="599.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="201.0" style="-fx-background-color: grey;" />
-            <JFXButton layoutX="764.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="exit" layoutX="764.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
                <graphic>
                   <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -43,7 +23,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="696.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="minimize" layoutX="696.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -52,7 +32,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="730.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="maximise" layoutX="730.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
                <graphic>
                   <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -69,5 +49,25 @@
             <Label layoutX="35.0" layoutY="6.0" text="Rats! (1996) Remake!" />
          </children>
       </AnchorPane>
+      <AnchorPane layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
+         <children>
+            <TextField layoutX="151.0" layoutY="273.0" prefHeight="41.0" prefWidth="300.0" promptText="Player Name" />
+            <Text fill="#514d4d" layoutX="154.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Name" />
+            <JFXButton fx:id="proceed" layoutX="214.0" layoutY="407.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Continue" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="16.0" />
+               </font>
+            </JFXButton>
+            <Text fill="#514d4d" layoutX="244.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rats! (1996) Remake!" />
+            <ImageView fx:id="logo" fitHeight="161.0" fitWidth="186.0" layoutX="221.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/rats-icon.png" />
+               </image>
+            </ImageView>
+            <ComboBox fx:id="selectBiome" editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Biome" />
+            <Text fill="#514d4d" layoutX="154.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Biome" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="201.0" style="-fx-background-color: grey;" />
    </children>
 </AnchorPane>

@@ -1,18 +1,20 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import entity.Rat;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import main.Functions;
-import main.TickTimer;
 import main.level.LevelFileGenerator;
-import main.level.LevelFileReaderTest;
+import main.level.LevelFileReader;
 
 /**
  * Main
@@ -22,28 +24,48 @@ import main.level.LevelFileReaderTest;
 public class GameController implements Initializable {
 
     @FXML
+    private AnchorPane window;
+    @FXML
     private AnchorPane bar;
     @FXML
     private AnchorPane abilities;
     @FXML
+    private ScrollPane gameScroll;
+    @FXML
     private BorderPane game;
+    @FXML
+    private JFXButton minimize;
+    @FXML
+    private JFXButton maximise;
+    @FXML
+    private JFXButton exit;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Canvas canvas = new Canvas(600, 500);
+        Canvas canvas = new Canvas(1000, 1000);
         game.setCenter(canvas);
+        gameScroll.setPannable(true);
 
         try {
-            LevelFileReaderTest levelTest = new LevelFileReaderTest(1);
-            char[][] lvl = levelTest.getLevel();
-            char[][] spawns = levelTest.getSpawns();
-            new LevelFileGenerator(canvas, lvl, spawns);
+            LevelFileReader level = new LevelFileReader(1);
+            new LevelFileGenerator(canvas, level.getLevel(), level.getSpawns());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        onActions();
         setImages();
+        onActions();
+    }
+
+    private void setImages() {
+
+    }
+
+    private void onActions() {
+        bar.setOnMouseDragged(E -> Functions.dragWindow(bar));
+        minimize.setOnAction(e -> Functions.minimize(window));
+        maximise.setOnAction(e -> Functions.maximise(window));
+        exit.setOnAction(e -> Functions.exit());
     }
 
     private void movement(final Rat rat) {
@@ -77,14 +99,6 @@ public class GameController implements Initializable {
 
     private void tick() {
         //TickTimer.start();
-    }
-
-    private void onActions() {
-        bar.setOnMouseDragged(E -> Functions.dragWindow(bar));
-    }
-
-    private void setImages() {
-
     }
 
 }

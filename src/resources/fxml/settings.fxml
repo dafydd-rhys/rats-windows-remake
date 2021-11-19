@@ -9,12 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
    <children>
       <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;">
          <children>
             <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!" />
-            <JFXButton layoutX="731.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" text="Button">
+            <JFXButton fx:id="maximise" layoutX="731.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" text="Button">
                <graphic>
                   <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +28,7 @@
                   <Image url="@../images/rats-icon.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="765.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="exit" layoutX="765.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
                <graphic>
                   <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +37,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="697.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="minimize" layoutX="697.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -51,24 +51,24 @@
       <AnchorPane fx:id="abilities" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" />
       <AnchorPane layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
          <children>
-            <ImageView fx:id="logo" fitHeight="191.0" fitWidth="200.0" layoutX="198.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo" fitHeight="191.0" fitWidth="200.0" layoutX="210.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/rats-icon.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="mainMenuButton" layoutX="207.0" layoutY="427.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Main Menu" textFill="WHITE">
+            <JFXButton fx:id="mainMenuButton" layoutX="213.0" layoutY="407.0" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #6eace0;" text="Back To Menu" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="16.0" />
                </font>
             </JFXButton>
-            <Text layoutX="144.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Music" wrappingWidth="47.0">
+            <Text layoutX="155.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Music" wrappingWidth="47.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Slider fx:id="musicSlider" layoutX="294.0" layoutY="255.0" />
-            <Slider fx:id="sfxSlider" layoutX="294.0" layoutY="305.0" />
-            <Text layoutX="144.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sound Effects">
+            <Slider fx:id="musicSlider" layoutX="305.0" layoutY="282.0" />
+            <Slider fx:id="sfxSlider" layoutX="305.0" layoutY="332.0" />
+            <Text layoutX="155.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sound Effects">
                <font>
                   <Font size="18.0" />
                </font>

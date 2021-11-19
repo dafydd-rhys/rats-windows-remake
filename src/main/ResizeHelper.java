@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Objects;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -145,10 +146,19 @@ public class ResizeHelper {
                 startScreenY = mouseEvent.getScreenY();
             } else if (MouseEvent.MOUSE_DRAGGED.equals(mouseEventType)) {
                 if (Cursor.DEFAULT.equals(cursorEvent)) {
-                    stage.setX(stage.getX() + mouseEvent.getScreenX() - startScreenX);
-                    startScreenX = mouseEvent.getScreenX();
-                    stage.setY(stage.getY() + mouseEvent.getScreenY() - startScreenY);
-                    startScreenY = mouseEvent.getScreenY();
+                    ObservableList<Node> children = stage.getScene().getRoot().getChildrenUnmodifiable();
+                    for (Node child : children) {
+                        if (child.getId() != null) {
+                            if (Objects.equals(child.getId(), "bar")) {
+                                child.setOnMouseDragged(e -> {
+                                    stage.setX(stage.getX() + mouseEvent.getScreenX() - startScreenX);
+                                    startScreenX = mouseEvent.getScreenX();
+                                    stage.setY(stage.getY() + mouseEvent.getScreenY() - startScreenY);
+                                    startScreenY = mouseEvent.getScreenY();
+                                });
+                            }
+                        }
+                    }
                 }
             }
         }

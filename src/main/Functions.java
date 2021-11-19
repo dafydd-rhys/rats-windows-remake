@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.*;
 
 /**
  * Main
@@ -29,12 +30,17 @@ public class Functions {
         Parent window = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
         Stage newWindow = new Stage();
 
-        //ResizeHelper.addResizeListener(window);
         newWindow.setAlwaysOnTop(true);
         newWindow.initStyle(StageStyle.UNDECORATED);
         newWindow.setTitle(title);
         newWindow.setScene(new Scene(window));
+        ResizeHelper.addResizeListener(newWindow);
         newWindow.show();
+    }
+
+    public static void maximise(AnchorPane window) {
+        Stage thisWindow = (Stage) window.getScene().getWindow();
+        thisWindow.setMaximized(!thisWindow.isMaximized());
     }
 
     public static void minimize(AnchorPane window) {
@@ -42,8 +48,20 @@ public class Functions {
         thisWindow.setIconified(true);
     }
 
-    public static void close(Stage stage) {
-        stage.close();
+    public static void close(AnchorPane window) {
+        Stage thisWindow = (Stage) window.getScene().getWindow();
+        thisWindow.close();
+    }
+
+    public static void exit() {
+        JFrame frame = new JFrame();
+        frame.setAlwaysOnTop(true);
+
+        int reply = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit",
+                "Close Program", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            System.exit(1);
+        }
     }
 
 }

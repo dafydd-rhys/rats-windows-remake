@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Functions;
 import scoreboard.Scoreboard;
@@ -32,6 +33,8 @@ import scoreboard.ScoreboardPlayer;
 public class ScoreboardController implements Initializable {
 
     @FXML
+    private AnchorPane window;
+    @FXML
     private ComboBox<String> levelSelector;
     @FXML
     private TableView<ScoreboardPlayer> scoreboard;
@@ -45,17 +48,11 @@ public class ScoreboardController implements Initializable {
     private TableColumn<ScoreboardPlayer, Integer> score;
 
     @FXML
-    private ImageView backIcon;
+    private JFXButton minimize;
     @FXML
-    private ImageView closeIcon;
+    private JFXButton maximise;
     @FXML
-    private ImageView logo;
-    @FXML
-    private ImageView maximiseIcon;
-    @FXML
-    private ImageView minimizeIcon;
-    @FXML
-    private ImageView minimizedLogo;
+    private JFXButton exit;
     @FXML
     private JFXButton back;
 
@@ -80,6 +77,13 @@ public class ScoreboardController implements Initializable {
         }
         scoreboardListener();
         levelSelector.setValue("Level 1");
+        onActions();
+    }
+
+    private void onActions() {
+        minimize.setOnAction(e -> Functions.minimize(window));
+        maximise.setOnAction(e -> Functions.maximise(window));
+        exit.setOnAction(e -> Functions.exit());
     }
 
     private void scoreboardListener() {

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Functions;
 
@@ -18,6 +19,8 @@ import main.Functions;
 public class MainMenuController implements Initializable {
 
     @FXML
+    private AnchorPane window;
+    @FXML
     private JFXButton proceed;
     @FXML
     private JFXButton scoreboard;
@@ -26,7 +29,13 @@ public class MainMenuController implements Initializable {
     @FXML
     private JFXButton volume;
     @FXML
+    private JFXButton minimize;
+    @FXML
+    private JFXButton maximise;
+    @FXML
     private JFXButton exit;
+    @FXML
+    private JFXButton btnExit;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -38,7 +47,7 @@ public class MainMenuController implements Initializable {
         proceed.setOnAction(e -> {
             try {
                 Functions.openWindow("\\src\\resources\\fxml\\game.fxml", "Game Screen");
-                Functions.close((Stage) proceed.getScene().getWindow());
+                Functions.close(window);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -46,7 +55,7 @@ public class MainMenuController implements Initializable {
         scoreboard.setOnAction(e -> {
             try {
                 Functions.openWindow("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
-                Functions.close((Stage) scoreboard.getScene().getWindow());
+                Functions.close(window);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -54,13 +63,16 @@ public class MainMenuController implements Initializable {
         settings.setOnAction(e -> {
             try {
                 Functions.openWindow("\\src\\resources\\fxml\\settings.fxml", "Settings");
-                Functions.close((Stage) settings.getScene().getWindow());
+                Functions.close(window);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
         //volume.setOnAction(e -> music?);
-        exit.setOnAction(e -> System.exit(1));
+        minimize.setOnAction(e -> Functions.minimize(window));
+        maximise.setOnAction(e -> Functions.maximise(window));
+        exit.setOnAction(e -> Functions.exit());
+        btnExit.setOnAction(e -> Functions.exit());
     }
 
     private void setImages() {

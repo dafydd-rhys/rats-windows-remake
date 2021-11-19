@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Functions;
 
@@ -20,10 +21,17 @@ import main.Functions;
 public class MainController implements Initializable {
 
     @FXML
-    private JFXButton proceed;
-
+    private AnchorPane window;
     @FXML
     private ComboBox<String> selectBiome;
+    @FXML
+    private JFXButton minimize;
+    @FXML
+    private JFXButton maximise;
+    @FXML
+    private JFXButton exit;
+    @FXML
+    private JFXButton proceed;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,11 +44,14 @@ public class MainController implements Initializable {
         proceed.setOnAction(e -> {
             try {
                 Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
-                Functions.close((Stage) proceed.getScene().getWindow());
+                Functions.close(window);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
+        minimize.setOnAction(e -> Functions.minimize(window));
+        maximise.setOnAction(e -> Functions.maximise(window));
+        exit.setOnAction(e -> Functions.exit());
     }
 
     private void setImages() {
