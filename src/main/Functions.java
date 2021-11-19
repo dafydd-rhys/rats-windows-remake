@@ -21,6 +21,8 @@ public class Functions {
         Parent window = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
         Stage newWindow = new Stage();
 
+        newWindow.setMinHeight(530);
+        newWindow.setMinWidth(800);
         newWindow.setAlwaysOnTop(true);
         newWindow.initStyle(StageStyle.UNDECORATED);
         newWindow.setTitle(title);
