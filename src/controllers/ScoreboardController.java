@@ -84,6 +84,14 @@ public class ScoreboardController implements Initializable {
         minimize.setOnAction(e -> Functions.minimize(window));
         maximise.setOnAction(e -> Functions.maximise(window));
         exit.setOnAction(e -> Functions.exit());
+        back.setOnAction(e-> {
+            try {
+                Functions.close(window);
+                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     private void scoreboardListener() {

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Functions;
@@ -31,13 +32,16 @@ public class MainController implements Initializable {
     @FXML
     private JFXButton exit;
     @FXML
+    private TextField playerName;
+    @FXML
     private JFXButton proceed;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
-        selectBiome.getItems().addAll("Grass","Sand","Snow");
+        selectBiome.getItems().addAll("Default","Beach","Christmas");
+        playerName.setPrefSize(300, 30);
     }
 
     private void onActions() {

@@ -62,7 +62,6 @@ public class GameController implements Initializable {
     }
 
     private void onActions() {
-        bar.setOnMouseDragged(E -> Functions.dragWindow(bar));
         minimize.setOnAction(e -> Functions.minimize(window));
         maximise.setOnAction(e -> Functions.maximise(window));
         exit.setOnAction(e -> Functions.exit());

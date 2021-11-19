@@ -11,10 +11,10 @@
 
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
    <children>
-      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!" />
-            <JFXButton fx:id="maximise" layoutX="731.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" text="Button">
+            <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="7.0" />
+            <JFXButton fx:id="maximise" layoutX="729.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" text="Button" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="7.0">
                <graphic>
                   <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -23,12 +23,12 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="6.0">
                <image>
                   <Image url="@../images/rats-icon.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="exit" layoutX="765.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="exit" layoutX="763.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
                <graphic>
                   <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +37,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="minimize" layoutX="697.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="minimize" layoutX="695.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="7.0">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -48,8 +48,8 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="abilities" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" />
-      <AnchorPane layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
+      <AnchorPane fx:id="abilities" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0" />
+      <AnchorPane layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="31.0">
          <children>
             <ImageView fx:id="logo" fitHeight="191.0" fitWidth="200.0" layoutX="210.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>

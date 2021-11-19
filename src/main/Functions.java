@@ -17,15 +17,6 @@ import javax.swing.*;
  */
 public class Functions {
 
-    public static void dragWindow(AnchorPane window) {
-        Stage thisWindow = (Stage) window.getScene().getWindow();
-
-        window.setOnMousePressed(pressEvent -> window.setOnMouseDragged(dragEvent -> {
-            thisWindow.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
-            thisWindow.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
-        }));
-    }
-
     public static void openWindow(String path, String title) throws IOException {
         Parent window = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
         Stage newWindow = new Stage();
@@ -60,6 +51,18 @@ public class Functions {
         int reply = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit",
                 "Close Program", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
+            System.exit(1);
+        }
+    }
+
+    public static void exitGame() {
+        JFrame frame = new JFrame();
+        frame.setAlwaysOnTop(true);
+
+        int reply = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit",
+                "Close Program", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+
             System.exit(1);
         }
     }
