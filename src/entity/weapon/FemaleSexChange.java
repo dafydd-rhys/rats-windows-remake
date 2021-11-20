@@ -21,8 +21,8 @@ public class FemaleSexChange extends Item {
     }
 
     public void activate(entity.Rat targetRat) {
-        if (targetRat.getGender() == false) {
-            targetRat.setGender(true);
+        if (!targetRat.isFemale()) {
+            targetRat.setFemale(true);
         }
         this.hp -= 1;
         // remove
