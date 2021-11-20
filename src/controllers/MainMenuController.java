@@ -27,7 +27,9 @@ public class MainMenuController implements Initializable {
     @FXML
     private JFXButton settings;
     @FXML
-    private JFXButton volume;
+    private JFXButton sfxMute;
+    @FXML
+    private JFXButton musicMute;
     @FXML
     private JFXButton minimize;
     @FXML
