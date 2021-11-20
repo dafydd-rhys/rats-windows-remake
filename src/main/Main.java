@@ -18,7 +18,8 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
         Platform.setImplicitExit(false);
-        Functions.openWindow("\\src\\resources\\fxml\\main.fxml", "Player Entry Screen");
+        StageFunctions.setStage(window);
+        StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Player Entry Screen");
     }
 
 }

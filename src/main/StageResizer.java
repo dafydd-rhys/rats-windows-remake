@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Dafydd-Rhys Maund (2003900)
  */
-public class ResizeHelper {
+public class StageResizer {
 
     public static void addResizeListener(Stage stage) {
         ResizeListener resizeListener = new ResizeListener(stage);

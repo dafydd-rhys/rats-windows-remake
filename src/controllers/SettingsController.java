@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXSlider;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import main.Functions;
+import main.StageFunctions;
 
 /**
  * Settings Controller
@@ -44,15 +42,14 @@ public class SettingsController implements Initializable {
     private void onActions() {
         mainMenuButton.setOnAction(e -> {
             try {
-                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
-                Functions.close(window);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
-        minimize.setOnAction(e -> Functions.minimize(window));
-        maximise.setOnAction(e -> Functions.maximise(window));
-        exit.setOnAction(e -> Functions.exit());
+        minimize.setOnAction(e -> StageFunctions.minimize());
+        maximise.setOnAction(e -> StageFunctions.maximise());
+        exit.setOnAction(e -> StageFunctions.exit());
     }
 
     private void setImages() {

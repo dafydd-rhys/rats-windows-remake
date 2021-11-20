@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScoreboardController">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScoreboardController">
    <children>
       <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -82,7 +82,7 @@
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
                <children>
-                  <ImageView fx:id="logo" fitHeight="300.0" fitWidth="200.0" layoutX="200.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logo" fitHeight="166.0" fitWidth="161.0" layoutX="220.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/rats-icon.png" />
                      </image>
@@ -99,7 +99,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <TableView id="scores" fx:id="scoreboard" layoutX="100.0" layoutY="200.0" prefHeight="280.0" prefWidth="400.0">
+                  <TableView id="scores" fx:id="scoreboard" layoutX="100.0" layoutY="215.0" prefHeight="265.0" prefWidth="400.0">
                      <columns>
                         <TableColumn fx:id="level" prefWidth="100.0" resizable="false" text="Level " />
                         <TableColumn fx:id="rank" prefWidth="100.0" resizable="false" text="Rank " />
@@ -107,7 +107,7 @@
                         <TableColumn fx:id="score" prefWidth="100.0" resizable="false" text="Score" />
                      </columns>
                   </TableView>
-                  <ComboBox fx:id="levelSelector" layoutX="100.0" layoutY="170.0" prefWidth="150.0" promptText="Level Select" />
+                  <ComboBox fx:id="levelSelector" layoutX="100.0" layoutY="183.0" prefWidth="150.0" promptText="Level Select" />
                </children>
             </AnchorPane>
          </children>

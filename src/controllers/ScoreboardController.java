@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -17,10 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import main.Functions;
+import main.StageFunctions;
 import scoreboard.Scoreboard;
 import scoreboard.ScoreboardPlayer;
 
@@ -95,13 +89,12 @@ public class ScoreboardController implements Initializable {
      * exit - exit program
      */
     private void onActions() {
-        minimize.setOnAction(e -> Functions.minimize(window));
-        maximise.setOnAction(e -> Functions.maximise(window));
-        exit.setOnAction(e -> Functions.exit());
+        minimize.setOnAction(e -> StageFunctions.minimize());
+        maximise.setOnAction(e -> StageFunctions.maximise());
+        exit.setOnAction(e -> StageFunctions.exit());
         back.setOnAction(e-> {
             try {
-                Functions.close(window);
-                Functions.openWindow("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

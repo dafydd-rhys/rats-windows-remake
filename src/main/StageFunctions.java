@@ -15,35 +15,33 @@ import javax.swing.*;
  *
  * @author Dafydd-Rhys Maund (2003900)
  */
-public class Functions {
+public class StageFunctions {
 
-    public static void openWindow(String path, String title) throws IOException {
-        Parent window = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
-        Stage newWindow = new Stage();
+    private static Stage stage;
 
-        newWindow.setMinHeight(530);
-        newWindow.setMinWidth(800);
-        newWindow.setAlwaysOnTop(true);
-        newWindow.initStyle(StageStyle.UNDECORATED);
-        newWindow.setTitle(title);
-        newWindow.setScene(new Scene(window));
-        ResizeHelper.addResizeListener(newWindow);
-        newWindow.show();
+    public static void setStage(Stage stage) {
+        StageFunctions.stage = stage;
+        stage.initStyle(StageStyle.UNDECORATED);
     }
 
-    public static void maximise(AnchorPane window) {
-        Stage thisWindow = (Stage) window.getScene().getWindow();
-        thisWindow.setMaximized(!thisWindow.isMaximized());
+    public static void changeScene(String path, String title) throws IOException {
+        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
+
+        stage.setMinHeight(530);
+        stage.setMinWidth(800);
+        stage.setAlwaysOnTop(true);
+        stage.setTitle(title);
+        stage.setScene(new Scene(scene));
+        StageResizer.addResizeListener(stage);
+        stage.show();
     }
 
-    public static void minimize(AnchorPane window) {
-        Stage thisWindow = (Stage) window.getScene().getWindow();
-        thisWindow.setIconified(true);
+    public static void maximise() {
+        stage.setMaximized(!stage.isMaximized());
     }
 
-    public static void close(AnchorPane window) {
-        Stage thisWindow = (Stage) window.getScene().getWindow();
-        thisWindow.close();
+    public static void minimize() {
+        stage.setIconified(true);
     }
 
     public static void exit() {

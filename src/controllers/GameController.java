@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import entity.Rat;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import main.Functions;
+import main.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
 
@@ -62,9 +61,9 @@ public class GameController implements Initializable {
     }
 
     private void onActions() {
-        minimize.setOnAction(e -> Functions.minimize(window));
-        maximise.setOnAction(e -> Functions.maximise(window));
-        exit.setOnAction(e -> Functions.exit());
+        minimize.setOnAction(e -> StageFunctions.minimize());
+        maximise.setOnAction(e -> StageFunctions.maximise());
+        exit.setOnAction(e -> StageFunctions.exit());
     }
 
     private void movement(final Rat rat) {

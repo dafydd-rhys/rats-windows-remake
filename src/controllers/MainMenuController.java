@@ -7,8 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import main.Functions;
+import main.StageFunctions;
 
 /**
  * Main
@@ -48,33 +47,30 @@ public class MainMenuController implements Initializable {
     private void onActions() {
         proceed.setOnAction(e -> {
             try {
-                Functions.openWindow("\\src\\resources\\fxml\\game.fxml", "Game Screen");
-                Functions.close(window);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Game Screen");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
         scoreboard.setOnAction(e -> {
             try {
-                Functions.openWindow("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
-                Functions.close(window);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
         settings.setOnAction(e -> {
             try {
-                Functions.openWindow("\\src\\resources\\fxml\\settings.fxml", "Settings");
-                Functions.close(window);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\settings.fxml", "Settings");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
         //volume.setOnAction(e -> music?);
-        minimize.setOnAction(e -> Functions.minimize(window));
-        maximise.setOnAction(e -> Functions.maximise(window));
-        exit.setOnAction(e -> Functions.exit());
-        btnExit.setOnAction(e -> Functions.exit());
+        minimize.setOnAction(e -> StageFunctions.minimize());
+        maximise.setOnAction(e -> StageFunctions.maximise());
+        exit.setOnAction(e -> StageFunctions.exit());
+        btnExit.setOnAction(e -> StageFunctions.exit());
     }
 
     private void setImages() {
