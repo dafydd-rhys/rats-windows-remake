@@ -7,7 +7,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -51,6 +53,7 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        new PlayerController(window,canvas);
 
         setImages();
         onActions();
