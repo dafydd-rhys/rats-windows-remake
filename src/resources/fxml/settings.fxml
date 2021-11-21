@@ -103,25 +103,6 @@
                         <Font name="Calibri Light" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="sfxTest" buttonType="RAISED" layoutX="324.0" layoutY="349.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="#da7373" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0">
-                           <image>
-                              <Image url="@../images/sfx-on.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="musicTest" buttonType="RAISED" layoutX="200.0" layoutY="348.0" prefHeight="50.0" prefWidth="50.0" textFill="#f5f0f0">
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0">
-                           <image>
-                              <Image url="@../images/music-on.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <Text layoutX="244.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Headphone warning!" />
                </children>
             </AnchorPane>
          </children>

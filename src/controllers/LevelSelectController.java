@@ -110,7 +110,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-
+        musicMute.setOnAction(e -> StageFunctions.muteMusic());
+        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

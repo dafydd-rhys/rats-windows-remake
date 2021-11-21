@@ -52,6 +52,22 @@ public class StageFunctions {
         stage.show();
     }
 
+    public static void muteMusic() {
+        if(Audio.isMusicMuted()) {
+            Audio.unmuteMusic();
+        } else {
+            Audio.muteMusic();
+        }
+    }
+
+    public static void muteEffects() {
+        if(Audio.isEffectsMuted()) {
+            Audio.unmuteEffects();
+        } else {
+            Audio.muteEffects();
+        }
+    }
+
     public static void maximise() {
         stage.setMaximized(!stage.isMaximized());
     }

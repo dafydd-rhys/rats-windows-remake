@@ -68,7 +68,8 @@ public class MainMenuController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        //volume.setOnAction(e -> music?);
+        musicMute.setOnAction(e -> StageFunctions.muteMusic());
+        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

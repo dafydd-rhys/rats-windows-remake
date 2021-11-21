@@ -25,10 +25,13 @@ public class Audio {
     private static float effects = 50f;
     private static float musicVolume = -50f + (music * 0.50f);
     private static float effectsVolume = -50f + (music * 0.50f);
+    private static boolean musicMuted = false;
+    private static boolean effectsMuted = false;
     private static final File clickPath = new File(System.getProperty("user.dir") + "\\src\\resources\\audio\\menu\\click.wav");
     private static final File musicPath = new File(System.getProperty("user.dir") + "\\src\\resources\\audio\\menu\\music.wav");
     private static final String settingsPath = System.getProperty("user.dir") + "\\src\\resources\\config\\settings.txt";
     private static Clip musicClip = null;
+    private static Clip clickEffect = null;
 
     public static void playMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
@@ -54,7 +57,7 @@ public class Audio {
     public static void clickEffect() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (effectsVolume != -50f) {
             AudioInputStream audio = AudioSystem.getAudioInputStream(clickPath);
-            Clip clickEffect = AudioSystem.getClip();
+            clickEffect = AudioSystem.getClip();
             clickEffect.open(audio);
             ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
             clickEffect.start();
@@ -81,6 +84,32 @@ public class Audio {
     public static float getEffects() {
         return effects;
     }
+
+    public static void muteMusic() {
+        ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
+        musicMuted = !musicMuted;
+    }
+
+    public static void unmuteMusic() {
+        ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
+        musicMuted = !musicMuted;
+    }
+
+    //Needs to be changed
+    public static void muteEffects() {
+        ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
+        effectsMuted = !effectsMuted;
+    }
+
+    //Needs to be changed
+    public static void unmuteEffects() {
+        ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
+        effectsMuted = !effectsMuted;
+    }
+
+    public static boolean isMusicMuted() {return musicMuted;}
+
+    public static boolean isEffectsMuted() {return effectsMuted;}
 
     public static void getValues() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(settingsPath));
