@@ -1,11 +1,2 @@
-ooi:11
-deez:11
-j:10
-ja:9
-jae:8
-jo:7
-joe:6
-jack:5
-john:4
-jonathan:3
-jill:2
+musicVolume:32.142857
+effectsVolume:41.666668

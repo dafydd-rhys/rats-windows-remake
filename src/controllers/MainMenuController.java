@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import main.StageFunctions;
 
 /**
@@ -48,29 +50,41 @@ public class MainMenuController implements Initializable {
         levels.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\level_select.fxml", "Level Select");
-            } catch (IOException ex) {
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
         scoreboard.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
-            } catch (IOException ex) {
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
                 ex.printStackTrace();
             }
         });
         settings.setOnAction(e -> {
             try {
-                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
-            } catch (IOException ex) {
+                StageFunctions.openSettings();
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
         //volume.setOnAction(e -> music?);
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
-        exit.setOnAction(e -> StageFunctions.exit());
-        btnExit.setOnAction(e -> StageFunctions.exit());
+        exit.setOnAction(e -> {
+            try {
+                StageFunctions.exit();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+                ex.printStackTrace();
+            }
+        });
+        btnExit.setOnAction(e -> {
+            try {
+                StageFunctions.exit();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     private void setImages() {

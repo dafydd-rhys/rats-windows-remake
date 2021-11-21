@@ -7,12 +7,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import main.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
@@ -68,14 +68,20 @@ public class GameController implements Initializable {
     private void onActions() {
         settings.setOnAction(e -> {
             try {
-                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
-            } catch (IOException ex) {
+                StageFunctions.openSettings();
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
-        exit.setOnAction(e -> StageFunctions.exit());
+        exit.setOnAction(e -> {
+            try {
+                StageFunctions.exit();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     private void movement(final Rat rat) {

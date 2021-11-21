@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 /**
@@ -24,7 +26,8 @@ public class StageFunctions {
         stage.initStyle(StageStyle.UNDECORATED);
     }
 
-    public static void changeScene(String path, String title) throws IOException {
+    public static void changeScene(String path, String title) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        Audio.clickEffect();
         Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
 
         stage.setMinHeight(530);
@@ -36,13 +39,14 @@ public class StageFunctions {
         stage.show();
     }
 
-    public static void openSettings(String path, String title) throws IOException {
-        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
+    public static void openSettings() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        Audio.clickEffect();
+        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\resources\\fxml\\settings.fxml"));
 
         stage.setMinHeight(530);
         stage.setMinWidth(800);
         stage.setAlwaysOnTop(true);
-        stage.setTitle(title);
+        stage.setTitle("Settings");
         stage.setScene(new Scene(scene));
         StageResizer.addResizeListener(stage);
         stage.show();
@@ -56,7 +60,8 @@ public class StageFunctions {
         stage.setIconified(true);
     }
 
-    public static void exit() {
+    public static void exit() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Audio.clickEffect();
         JFrame frame = new JFrame();
         frame.setAlwaysOnTop(true);
 
@@ -67,7 +72,8 @@ public class StageFunctions {
         }
     }
 
-    public static void exitGame() {
+    public static void exitGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Audio.clickEffect();
         JFrame frame = new JFrame();
         frame.setAlwaysOnTop(true);
 

@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import main.StageFunctions;
 
 /**
@@ -42,27 +44,32 @@ public class MainController implements Initializable {
         onActions();
         setImages();
         selectBiome.getItems().addAll("Default", "Beach", "Christmas");
-
     }
 
     private void onActions() {
         proceed.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
-            } catch (IOException ex) {
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
         settings.setOnAction(e -> {
             try {
-                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
-            } catch (IOException ex) {
+                StageFunctions.openSettings();
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
-        exit.setOnAction(e -> StageFunctions.exit());
+        exit.setOnAction(e -> {
+            try {
+                StageFunctions.exit();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     private void setImages() {

@@ -14,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import main.StageFunctions;
 import scoreboard.Scoreboard;
 import scoreboard.ScoreboardPlayer;
@@ -23,6 +25,7 @@ import scoreboard.ScoreboardPlayer;
  * Main
  *
  * @author Dafydd-Rhys Maund (2003900)
+ * @author Stefan-Cristian Daitoiu (2033160)
  */
 public class ScoreboardController implements Initializable {
 
@@ -94,18 +97,24 @@ public class ScoreboardController implements Initializable {
     private void onActions() {
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
-        exit.setOnAction(e -> StageFunctions.exit());
+        exit.setOnAction(e -> {
+            try {
+                StageFunctions.exit();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+                ex.printStackTrace();
+            }
+        });
         back.setOnAction(e-> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
-            } catch (IOException ex) {
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
         settings.setOnAction(e -> {
             try {
-                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
-            } catch (IOException ex) {
+                StageFunctions.openSettings();
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });

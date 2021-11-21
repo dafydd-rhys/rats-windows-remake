@@ -67,8 +67,6 @@ public class PlayerController {
 
          */
 
-
-
         ImageView draggableImage = new ImageView();
         draggableImage.setImage(bomb);
         draggableImage.setFitHeight(40);
@@ -96,10 +94,7 @@ public class PlayerController {
             event.consume();
         });
 
-
-
-
-/*
+        /*
         ap.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
