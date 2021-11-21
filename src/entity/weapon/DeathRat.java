@@ -20,11 +20,9 @@ public class DeathRat extends Item {
         this.isAttackable = false;
     }
 
-    public void activate() {
-        delayTwoTicks();
-        // move like rat
-        // kill first 5 rats
-        // remove
+    public void activate(entity.Rat targetRat) {
+        inflictDamage(this.damage, targetRat);
+        this.hp -= 1;
     }
 
     public void delayTwoTicks() {
