@@ -35,6 +35,8 @@ public class GameController implements Initializable {
     @FXML
     private BorderPane game;
     @FXML
+    private JFXButton settings;
+    @FXML
     private JFXButton minimize;
     @FXML
     private JFXButton maximise;
@@ -64,6 +66,13 @@ public class GameController implements Initializable {
     }
 
     private void onActions() {
+        settings.setOnAction(e -> {
+            try {
+                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> StageFunctions.exit());

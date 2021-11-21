@@ -40,6 +40,8 @@ public class ScoreboardController implements Initializable {
     @FXML private TableColumn<ScoreboardPlayer, String> name;
     /** score - score of the player in question */
     @FXML private TableColumn<ScoreboardPlayer, Integer> score;
+    /** settings - button that opens the setting window */
+    @FXML private JFXButton settings;
     /** minimize - button that minimizes window */
     @FXML private JFXButton minimize;
     /** maximise - button that minimizes window */
@@ -87,6 +89,7 @@ public class ScoreboardController implements Initializable {
      * maximise - maximise window
      * back - go back to previous window
      * exit - exit program
+     * settings - open settings window
      */
     private void onActions() {
         minimize.setOnAction(e -> StageFunctions.minimize());
@@ -95,6 +98,13 @@ public class ScoreboardController implements Initializable {
         back.setOnAction(e-> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        settings.setOnAction(e -> {
+            try {
+                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

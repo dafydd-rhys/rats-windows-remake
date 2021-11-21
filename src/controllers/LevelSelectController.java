@@ -94,7 +94,7 @@ public class LevelSelectController implements Initializable {
         });
         settings.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\settings.fxml", "Settings");
+                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

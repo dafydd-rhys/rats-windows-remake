@@ -36,6 +36,18 @@ public class StageFunctions {
         stage.show();
     }
 
+    public static void openSettings(String path, String title) throws IOException {
+        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
+
+        stage.setMinHeight(530);
+        stage.setMinWidth(800);
+        stage.setAlwaysOnTop(true);
+        stage.setTitle(title);
+        stage.setScene(new Scene(scene));
+        StageResizer.addResizeListener(stage);
+        stage.show();
+    }
+
     public static void maximise() {
         stage.setMaximized(!stage.isMaximized());
     }

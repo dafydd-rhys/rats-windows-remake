@@ -25,6 +25,8 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<String> selectBiome;
     @FXML
+    private JFXButton settings;
+    @FXML
     private JFXButton minimize;
     @FXML
     private JFXButton maximise;
@@ -46,6 +48,13 @@ public class MainController implements Initializable {
         proceed.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        settings.setOnAction(e -> {
+            try {
+                StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
