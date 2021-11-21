@@ -20,7 +20,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private AnchorPane window;
     @FXML
-    private JFXButton proceed;
+    private JFXButton levels;
     @FXML
     private JFXButton scoreboard;
     @FXML
@@ -45,9 +45,9 @@ public class MainMenuController implements Initializable {
     }
 
     private void onActions() {
-        proceed.setOnAction(e -> {
+        levels.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Game Screen");
+                StageFunctions.changeScene("\\src\\resources\\fxml\\level_select.fxml", "Level Select");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
