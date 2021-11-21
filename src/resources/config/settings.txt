@@ -1,2 +1,2 @@
-musicVolume:32.142857
-effectsVolume:41.666668
+musicVolume:7.936507
+effectsVolume:7.1428566

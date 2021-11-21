@@ -1,4 +1,4 @@
-package main;
+package main.stage;
 
 import java.util.Objects;
 import javafx.collections.ObservableList;

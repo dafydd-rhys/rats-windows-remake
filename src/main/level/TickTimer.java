@@ -1,4 +1,4 @@
-package main;
+package main.level;
 
 import javax.swing.*;
 

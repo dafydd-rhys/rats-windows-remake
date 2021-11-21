@@ -1,7 +1,5 @@
 package entity.weapon;
 
-import entity.Item;
-
 /**
  * Gas
  *

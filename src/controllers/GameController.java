@@ -1,7 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import entity.Rat;
+import entity.rats.Rat;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import main.StageFunctions;
+import main.stage.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
 

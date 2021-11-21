@@ -1,6 +1,6 @@
 package main.level;
 
-import entity.Item;
+import entity.weapon.Item;
 import tile.Tile;
 
 /**

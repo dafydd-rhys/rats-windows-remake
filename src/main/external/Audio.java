@@ -1,4 +1,4 @@
-package main;
+package main.external;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,8 +23,8 @@ public class Audio {
 
     private static float music = 50f;
     private static float effects = 50f;
-    private static float musicVolume = (-50f + (music * 0.50f));
-    private static float effectsVolume = (-50f + (music * 0.50f));
+    private static float musicVolume = -50f + (music * 0.50f);
+    private static float effectsVolume = -50f + (music * 0.50f);
     private static final File clickPath = new File(System.getProperty("user.dir") + "\\src\\resources\\audio\\menu\\click.wav");
     private static final File musicPath = new File(System.getProperty("user.dir") + "\\src\\resources\\audio\\menu\\music.wav");
     private static final String settingsPath = System.getProperty("user.dir") + "\\src\\resources\\config\\settings.txt";
@@ -63,7 +63,7 @@ public class Audio {
 
     public static void setMusic(float volume) throws IOException {
         Audio.music = volume;
-        musicVolume = (-50f + (music * 0.50f));
+        musicVolume = -50f + (music * 0.50f);
         ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
         writeValues();
     }
@@ -74,7 +74,7 @@ public class Audio {
 
     public static void setEffects(float volume) throws IOException {
         Audio.effects = volume;
-        effectsVolume = (-50f + (effects * 0.50f));
+        effectsVolume = -50f + (effects * 0.50f);
         writeValues();
     }
 
@@ -90,10 +90,10 @@ public class Audio {
             String[] split = line.split(":");
             if (Objects.equals(split[0], "musicVolume")) {
                 music = Float.parseFloat(split[1]);
-                musicVolume = (-50f + (music * 0.50f));
+                musicVolume = -50f + (music * 0.50f);
             } else if (Objects.equals(split[0], "effectsVolume")) {
                 effects = Float.parseFloat(split[1]);
-                effectsVolume = (-50f + (effects * 0.50f));
+                effectsVolume = -50f + (effects * 0.50f);
             }
         }
     }

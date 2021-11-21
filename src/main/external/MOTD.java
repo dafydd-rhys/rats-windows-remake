@@ -1,4 +1,4 @@
-package main;
+package main.external;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package entity.weapon;
 
-import entity.Item;
+import entity.rats.Rat;
 
 /**
  * MaleSexChange
@@ -20,7 +20,7 @@ public class MaleSexChange extends Item {
         this.isAttackable = false;
     }
 
-    public void activate(entity.Rat targetRat) {
+    public void activate(Rat targetRat) {
         if (targetRat.isFemale()) {
             targetRat.setFemale(false);
         }

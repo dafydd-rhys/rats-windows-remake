@@ -1,6 +1,6 @@
 package entity.weapon;
 
-import entity.Item;
+import entity.rats.Rat;
 
 /**
  * Bomb
@@ -20,7 +20,7 @@ public class Bomb extends Item { //used to extend Entities.Item
         this.isAttackable = false;
     }
 
-    public void activate(entity.Rat targetRat) {
+    public void activate(Rat targetRat) {
         countdown();
         explode();
 

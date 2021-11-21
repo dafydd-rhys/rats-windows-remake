@@ -2,15 +2,10 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 
-import java.awt.event.ActionEvent;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -18,11 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import main.Audio;
-import main.StageFunctions;
+import main.external.Audio;
+import main.stage.StageFunctions;
 
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  * Settings Controller

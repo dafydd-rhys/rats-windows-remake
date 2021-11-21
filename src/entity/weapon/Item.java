@@ -1,4 +1,6 @@
-package entity;
+package entity.weapon;
+
+import entity.Entity;
 
 /**
  * LevelFileGenerator

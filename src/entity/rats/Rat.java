@@ -1,5 +1,7 @@
-package entity;
+package entity.rats;
 
+import entity.Entity;
+import javafx.scene.image.Image;
 import tile.Tile;
 
 import java.util.ArrayList;
@@ -10,7 +12,10 @@ import java.util.Random;
  *
  * @author Dawid Wisniewski, Maurice Petersen
  */
-public class Rat extends Entity {
+public abstract class Rat extends Entity {
+
+    protected String image;
+    protected int hp;
 
     private final int MOVEMENT_SPEED_ADULT = 10;
     private final int MOVEMENT_SPEED_BABY = 20;
@@ -45,7 +50,7 @@ public class Rat extends Entity {
     public void findPartner(Tile currentTile) {
         ArrayList<Entity> entities = currentTile.getEntitiesOnTile();
         for (Entity e : entities) {
-            if (e.getClass().getName().equals("entity.Rat")) {
+            if (e.getClass().getName().equals("entity.rats.Rat")) {
                 Rat partner = (Rat) e;
                 if (this.isFemale != partner.isFemale
                     && this.isAdult && partner.isAdult

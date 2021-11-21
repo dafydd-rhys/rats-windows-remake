@@ -3,6 +3,8 @@ package main;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import main.external.Audio;
+import main.stage.StageFunctions;
 
 /**
  * Main

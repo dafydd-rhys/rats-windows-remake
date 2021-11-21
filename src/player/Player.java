@@ -27,35 +27,37 @@ public class Player
     index of the largest number of item player can have.
      */
 
-    public void Player() {
+    public void setPlayerName(String PlayerName) {
+        this.PlayerName = PlayerName;
     }
 
     public String getPlayerName() {
         return PlayerName;
     }
-    public void setPlayerName(String PlayerName) {
-        this.PlayerName = PlayerName;
+
+    public void setPlayerItems(double[] PlayerItems) {
+        this.PlayerItems = PlayerItems;
     }
 
     public double[] getPlayerItems() {
         return PlayerItems;
     }
-    public void setPlayerItems(double[] PlayerItems) {
-        this.PlayerItems = PlayerItems;
+
+    public void setPlayerScore(boolean PlayerScore) {
+        this.PlayerScore = PlayerScore;
     }
 
     public boolean getPlayerScore() {
         return PlayerScore;
     }
-    public void setPlayerScore(boolean PlayerScore) {
-        this.PlayerScore = PlayerScore;
+
+    public void setMaxNumberOfItems(double[] MaxNumberOfItems) {
+        this.MaxNumberOfItems = MaxNumberOfItems;
     }
 
     public double[] getMaxNumberOfItems() {
         return MaxNumberOfItems;
     }
-    public void setMaxNumberOfItems(double[] MaxNumberOfItems) {
-        this.MaxNumberOfItems = MaxNumberOfItems;
-    }
+
 }
 
