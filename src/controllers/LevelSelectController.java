@@ -19,17 +19,19 @@ public class LevelSelectController implements Initializable {
     @FXML
     private AnchorPane window;
     @FXML
-    private JFXButton level_1;
+    private JFXButton level1;
     @FXML
-    private JFXButton level_2;
+    private JFXButton level2;
     @FXML
-    private JFXButton level_3;
+    private JFXButton level3;
     @FXML
-    private JFXButton level_4;
+    private JFXButton level4;
     @FXML
-    private JFXButton level_5;
+    private JFXButton level5;
     @FXML
-    private JFXButton level_6;
+    private JFXButton level6;
+    @FXML
+    private JFXButton mainMenuButton;
     @FXML
     private JFXButton settings;
     @FXML
@@ -50,42 +52,42 @@ public class LevelSelectController implements Initializable {
     }
 
     private void onActions() {
-        level_1.setOnAction(e -> {
+        level1.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
-        level_2.setOnAction(e -> {
+        level2.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
-        level_3.setOnAction(e -> {
+        level3.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
-        level_4.setOnAction(e -> {
+        level4.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
-        level_5.setOnAction(e -> {
+        level5.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
-        level_6.setOnAction(e -> {
+        level6.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException ex) {
@@ -95,6 +97,13 @@ public class LevelSelectController implements Initializable {
         settings.setOnAction(e -> {
             try {
                 StageFunctions.openSettings("\\src\\resources\\fxml\\settings.fxml", "Settings");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        mainMenuButton.setOnAction(e -> {
+            try {
+                StageFunctions.openSettings("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

@@ -3,7 +3,7 @@ package player;
 /**
  * Player
  *
- * @author ChunyuanZhang (2131205)
+ * @author Chunyuan Zhang (2131205)
  */
 
 public class Player

@@ -42,6 +42,7 @@ public class MainController implements Initializable {
         onActions();
         setImages();
         selectBiome.getItems().addAll("Default", "Beach", "Christmas");
+
     }
 
     private void onActions() {

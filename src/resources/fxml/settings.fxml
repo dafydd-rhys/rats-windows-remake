@@ -91,18 +91,37 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Slider fx:id="musicSlider" layoutX="281.0" layoutY="317.0" />
+                  <Slider fx:id="sfxSlider" layoutX="281.0" layoutY="317.0" showTickLabels="true" showTickMarks="true" />
                   <Text layoutX="155.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sound Effects">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Slider fx:id="sfxSlider" layoutX="281.0" layoutY="274.0" />
+                  <Slider fx:id="musicSlider" layoutX="281.0" layoutY="274.0" showTickLabels="true" showTickMarks="true" />
                   <JFXButton fx:id="mainMenuButton" alignment="CENTER" layoutX="200.0" layoutY="430.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Back To Menu" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="16.0" />
                      </font>
                   </JFXButton>
+                  <JFXButton fx:id="sfxTest" buttonType="RAISED" layoutX="324.0" layoutY="349.0" prefHeight="50.0" prefWidth="50.0" ripplerFill="#da7373" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0">
+                           <image>
+                              <Image url="@../images/sfx-on.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="musicTest" buttonType="RAISED" layoutX="200.0" layoutY="348.0" prefHeight="50.0" prefWidth="50.0" textFill="#f5f0f0">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0">
+                           <image>
+                              <Image url="@../images/music-on.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Text layoutX="244.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Headphone warning!" />
                </children>
             </AnchorPane>
          </children>
