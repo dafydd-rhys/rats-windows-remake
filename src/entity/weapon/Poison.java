@@ -14,7 +14,7 @@ public class Poison extends Item {
         this.entityName = "Poison";
         this.image = null;
         this.hp = 1;
-        this.damage = 1;
+        this.damage = 5;
         this.range = 1;
         this.friendlyFire = false;
         this.isAttackable = false;
