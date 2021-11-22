@@ -1,11 +1,13 @@
 package entity.weapon;
 
 import entity.Entity;
+import javafx.scene.image.Image;
 
 /**
  * LevelFileGenerator
  *
  * @author Dawid Wisniewski
+ * @author Gareth Wade (1901805)
  */
 public abstract class Item extends Entity {
 
@@ -30,4 +32,5 @@ public abstract class Item extends Entity {
     public void setAttackable(boolean attackable) {
         isAttackable = attackable;
     }
+
 }

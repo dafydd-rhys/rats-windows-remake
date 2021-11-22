@@ -20,6 +20,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import main.level.Inventory;
 import main.stage.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
@@ -28,12 +30,14 @@ import main.level.LevelFileReader;
  * Main
  *
  * @author Dafydd-Rhys Maund (2003900)
+ * @author Gareth Wade (1901805)
  */
 public class GameController implements Initializable {
 
     private Canvas canvas;
     private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
     private final Image bomb = new Image(dir + "bomb.png");
+    private final Image deathRat = new Image(dir + "male-rat.png");
 
     @FXML
     private AnchorPane window;
@@ -71,47 +75,51 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
 
-        draggableImage();
+        draggableImage(bomb, "bomb", 0);
+        draggableImage(deathRat, "deathRat", 1);
         setImages();
         onActions();
     }
 
-    private void draggableImage() {
+    private void draggableImage(Image image, String itemString, int xOffset) {
         ImageView draggableImage = new ImageView();
-        draggableImage.setImage(bomb);
-        draggableImage.setFitHeight(40);
-        draggableImage.setFitWidth(40);
+        draggableImage.setImage(image);
+        draggableImage.setFitHeight(50);
+        draggableImage.setFitWidth(50);
         AnchorPane.setRightAnchor(draggableImage, 150.0);
-        AnchorPane.setTopAnchor(draggableImage, 30.0);
+        AnchorPane.setTopAnchor(draggableImage, 50.0 * xOffset);
         abilities.getChildren().add(draggableImage);
 
         draggableImage.setOnDragDetected(event -> {
             Dragboard db = draggableImage.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
-            content.putString("bomb");
+            content.putString(itemString);
             db.setContent(content);
-            event.consume();
         });
 
         canvas.setOnDragOver(event -> {
             if (event.getGestureSource() == draggableImage) {
                 event.acceptTransferModes(TransferMode.ANY);
-                event.consume();
             }
         });
 
         canvas.setOnDragDropped(event -> {
             dragAndDrop(event, canvas, draggableImage.getImage());
-            event.consume();
         });
     }
 
     public void dragAndDrop(DragEvent event, Canvas canvas, Image image) {
-        int x = ((int) event.getX() / 50) * 50 + 10;
-        int y = ((int) event.getY() / 50) * 50 + 10;
+        int x = ((int) event.getX() / 50);
+        int y = ((int) event.getY() / 50);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(image, x, y);
+        gc.drawImage(image, x * 50 + 12.5, y * 50 + 12.5);
+
+        if (this.bomb.equals(image)) {
+            Inventory.createItem("bomb", x, y);
+        } else if (this.deathRat.equals(image)) {
+            Inventory.createItem("deathRat", x, y);
+        }
     }
 
     private void setImages() {

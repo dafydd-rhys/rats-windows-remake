@@ -8,7 +8,7 @@ package entity.weapon;
 
 public class DeathRat extends Item {
 
-    public DeathRat(){
+    public DeathRat(int x, int y){
         this.entityName = "DeathRat";
         this.image = null;
         this.hp = 5;
@@ -16,6 +16,8 @@ public class DeathRat extends Item {
         this.range = 1;
         this.friendlyFire = true;
         this.isAttackable = false;
+        this.currentPosX = x;
+        this.currentPosY = y;
     }
 
     public void activate() {
