@@ -1,9 +1,11 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
+import entity.Entity;
 import entity.rats.Rat;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,10 +23,13 @@ import javafx.scene.layout.BorderPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import javax.swing.*;
 import main.level.Inventory;
+import main.level.Level;
 import main.stage.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
+import tile.Tile;
 
 /**
  * Main
@@ -36,8 +41,8 @@ public class GameController implements Initializable {
 
     private Canvas canvas;
     private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
-    private final Image bomb = new Image(dir + "bomb.png");
-    private final Image deathRat = new Image(dir + "male-rat.png");
+    private final Image bombImage = new Image(dir + "bomb.png");
+    private final Image maleRat = new Image(dir + "male-rat.png");
 
     @FXML
     private AnchorPane window;
@@ -62,6 +67,13 @@ public class GameController implements Initializable {
     @FXML
     private JFXButton exit;
 
+    private final ArrayList<ImageView> items = new ArrayList<>();
+    private final ImageView bomb = new ImageView();
+    private final ImageView rat = new ImageView();
+
+    private static double seconds;
+    private static double currentTick;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         canvas = new Canvas(1000, 1000);
@@ -75,37 +87,53 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
 
-        draggableImage(bomb, "bomb", 0);
-        draggableImage(deathRat, "deathRat", 1);
+        items.add(bomb);
+        items.add(rat);
+        draggableImage(bomb, bombImage, "bomb", 0);
+        draggableImage(rat, maleRat, "deathRat", 1);
+
+        Tile[][] tiles = Level.getTiles();
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
+                for (Entity entity : entities) {
+                    System.out.println(entity.getEntityName() + " at " + x + ',' + y);
+                }
+            }
+        }
+
+        ticker.start();
         setImages();
         onActions();
     }
 
-    private void draggableImage(Image image, String itemString, int xOffset) {
-        ImageView draggableImage = new ImageView();
-        draggableImage.setImage(image);
-        draggableImage.setFitHeight(50);
-        draggableImage.setFitWidth(50);
-        AnchorPane.setRightAnchor(draggableImage, 150.0);
-        AnchorPane.setTopAnchor(draggableImage, 50.0 * xOffset);
-        abilities.getChildren().add(draggableImage);
+    private void draggableImage(ImageView item, Image image, String itemString, int xOffset) {
+        item.setImage(image);
+        item.setFitHeight(50);
+        item.setFitWidth(50);
+        AnchorPane.setRightAnchor(item, 150.0);
+        AnchorPane.setTopAnchor(item, 50.0 * xOffset);
+        abilities.getChildren().add(item);
 
-        draggableImage.setOnDragDetected(event -> {
-            Dragboard db = draggableImage.startDragAndDrop(TransferMode.ANY);
+        item.setOnDragDetected(event -> {
+            Dragboard db = item.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
             content.putString(itemString);
             db.setContent(content);
         });
 
+        final ImageView[] thisImage = new ImageView[1];
         canvas.setOnDragOver(event -> {
-            if (event.getGestureSource() == draggableImage) {
-                event.acceptTransferModes(TransferMode.ANY);
+            for (ImageView i : items) {
+                if (event.getGestureSource() == i) {
+                    thisImage[0] = i;
+                    event.acceptTransferModes(TransferMode.ANY);
+                }
             }
         });
 
-        canvas.setOnDragDropped(event -> {
-            dragAndDrop(event, canvas, draggableImage.getImage());
-        });
+        canvas.setOnDragDropped(event -> dragAndDrop(event, canvas, thisImage[0].getImage()));
+
     }
 
     public void dragAndDrop(DragEvent event, Canvas canvas, Image image) {
@@ -115,9 +143,9 @@ public class GameController implements Initializable {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(image, x * 50 + 12.5, y * 50 + 12.5);
 
-        if (this.bomb.equals(image)) {
+        if (this.bombImage.equals(image)) {
             Inventory.createItem("bomb", x, y);
-        } else if (this.deathRat.equals(image)) {
+        } else if (this.maleRat.equals(image)) {
             Inventory.createItem("deathRat", x, y);
         }
     }
@@ -177,8 +205,17 @@ public class GameController implements Initializable {
          */
     }
 
-    private void tick() {
-        //TickTimer.start();
+    private static final Timer ticker = new Timer(500, e -> {
+        //two ticks a second
+        currentTick += 1;
+        seconds = currentTick / 2;
+        tick();
+    });
+
+    private static void tick() {
+        Tile[][] tiles = Level.getTiles();
+        System.out.println("tick-" + currentTick);
+        System.out.println("seconds passed: " + seconds);
     }
 
 }

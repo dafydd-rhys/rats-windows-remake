@@ -3,6 +3,7 @@ package tile;
 import javafx.scene.image.Image;
 import entity.Entity;
 import java.util.ArrayList;
+import main.level.Level;
 
 /**
  * LevelFileGenerator
@@ -49,12 +50,12 @@ public abstract class Tile {
         return y;
     }
 
-    public void addEntityToTile(ArrayList<Entity> tile, Entity entity) {
-        tile.add(entity);
+    public void addEntityToTile(Entity entity) {
+        entitiesOnTile.add(entity);
     }
 
-    public void removeEntityFromTile(ArrayList<Entity> tile, Entity entity) {
-        tile.remove(entity);
+    public void removeEntityFromTile(Entity entity) {
+        entitiesOnTile.remove(entity);
     }
 
     public ArrayList<Entity> getEntitiesOnTile() {

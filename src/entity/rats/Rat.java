@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public abstract class Rat extends Entity {
 
-    protected String image;
+    protected static Image image;
     protected int hp;
 
     private final int MOVEMENT_SPEED_ADULT = 10;
@@ -31,7 +31,6 @@ public abstract class Rat extends Entity {
 
     public Rat(boolean isFemale) {
         this.entityName = "Rat";
-        this.image = null;
         this.hp = 1;
         this.damage = 1;
         this.range = 0;
@@ -78,9 +77,8 @@ public abstract class Rat extends Entity {
      */
     public void giveBirth() {
         Random rand = new Random();
-        int maxRats = MAX_BABY_RATS;
         int minRats = MIN_BABY_RATS;
-        int randomNum = rand.nextInt((maxRats - minRats) + 1) + minRats;
+        int randomNum = rand.nextInt((MAX_BABY_RATS - minRats) + 1) + minRats;
         if (this.isAdult && this.isFemale && this.pregnancyStage == 10) {
             for (int i = 0; i < randomNum; i++) {
                 System.out.println(i + "Born");
@@ -104,6 +102,10 @@ public abstract class Rat extends Entity {
 
     public void setFemale(boolean female) {
         isFemale = female;
+    }
+
+    public static Image getImage() {
+        return image;
     }
 
     public boolean isAdult() {

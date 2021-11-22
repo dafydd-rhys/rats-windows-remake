@@ -13,7 +13,7 @@ public class GrassTile extends Tile{
 
     public GrassTile(int x, int y, ArrayList<Entity> entitiesOnTile) {
         super(x, y, entitiesOnTile);
-        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/grass.png");
+        image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/grass.png");
         this.isWalkable = false;
         this.isCovering = false;
     }

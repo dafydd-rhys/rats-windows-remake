@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 public abstract class Entity {
 
     protected String entityName;
-    protected Image image;
+    protected static Image image;
     protected int hp;
     protected int damage;
     protected int range;
@@ -23,7 +23,7 @@ public abstract class Entity {
     protected void inflictDamage(int damageDealt, Entity damageTarget){
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
         System.out.println(damageTarget.getEntityName() + " is dealt " + damageDealt + " damage!");
-    };
+    }
 
     public String getEntityName() {
         return entityName;
@@ -33,12 +33,12 @@ public abstract class Entity {
         this.entityName = entityName;
     }
 
-    public Image getImage() {
+    public static Image getImage() {
         return image;
     }
 
     public void setImage(Image image) {
-        this.image = image;
+        Entity.image = image;
     }
 
     public int getHp() {
