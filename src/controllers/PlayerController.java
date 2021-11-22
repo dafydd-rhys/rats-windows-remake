@@ -21,14 +21,16 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+import static java.lang.Math.floor;
+
 public class PlayerController {
     private final String dir = System.getProperty("user.dir") + "/src/resources/images/";
     private final Image bomb = new Image(dir + "bomb.png");
     Point2D dragDistance = null;
 
     public void canvasDragDroppedOccurred(DragEvent event, Canvas canvas) {
-        double x = event.getX();
-        double y = event.getY();
+        double x = ((int) event.getX() / 50) * 50;
+        double y = ((int) event.getY() / 50) * 50;
 
         String s = String.format("player dropped bomb at (%f, %f) of the canvas.", x, y);
         System.out.println(s);
