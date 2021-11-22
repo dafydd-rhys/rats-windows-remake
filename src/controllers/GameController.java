@@ -5,6 +5,7 @@ import entity.Entity;
 import entity.rats.Rat;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -92,16 +93,6 @@ public class GameController implements Initializable {
         draggableImage(bomb, bombImage, "bomb", 0);
         draggableImage(rat, maleRat, "deathRat", 1);
 
-        Tile[][] tiles = Level.getTiles();
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
-                for (Entity entity : entities) {
-                    System.out.println(entity.getEntityName() + " at " + x + ',' + y);
-                }
-            }
-        }
-
         ticker.start();
         setImages();
         onActions();
@@ -132,6 +123,8 @@ public class GameController implements Initializable {
             }
         });
 
+        printEntities();
+
         canvas.setOnDragDropped(event -> dragAndDrop(event, canvas, thisImage[0].getImage()));
 
     }
@@ -147,6 +140,18 @@ public class GameController implements Initializable {
             Inventory.createItem("bomb", x, y);
         } else if (this.maleRat.equals(image)) {
             Inventory.createItem("deathRat", x, y);
+        }
+    }
+
+    private static void printEntities() {
+        Tile[][] tiles = Level.getTiles();
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
+                for (Entity entity : entities) {
+                    System.out.println(entity.getEntityName() + " at " + x + ',' + y);
+                }
+            }
         }
     }
 
@@ -214,8 +219,25 @@ public class GameController implements Initializable {
 
     private static void tick() {
         Tile[][] tiles = Level.getTiles();
-        System.out.println("tick-" + currentTick);
-        System.out.println("seconds passed: " + seconds);
+
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
+                for (int i = 0; i < entities.size(); i++) {
+                    if (entities.get(i).getEntityName().equals("Rat")) {
+                        Rat rat = (Rat) entities.get(i);
+                        if ((x + 1) < 20) {
+                            tiles[y][x + 1].addEntityToTile(rat);
+                            entities.remove(rat);
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("---------------------");
+        printEntities();
+        System.out.println("---------------------");
     }
 
 }

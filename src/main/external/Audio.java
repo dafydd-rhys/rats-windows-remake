@@ -36,11 +36,12 @@ public class Audio {
     private static Clip clickEffect = null;
 
     public static void playMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        if (musicVolume > muted && !musicMuted) {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
+        AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
+        musicClip = AudioSystem.getClip();
+        musicClip.open(audio);
 
-            musicClip = AudioSystem.getClip();
-            musicClip.open(audio);
+        System.out.println(musicVolume);
+        if (musicVolume > muted && !musicMuted) {
             ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
             musicClip.start();
             musicClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -90,8 +91,10 @@ public class Audio {
     }
 
     public static void muteMusic() {
-        ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
-        musicMuted = !musicMuted;
+        if (musicVolume > muted) {
+            ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
+            musicMuted = !musicMuted;
+        }
     }
 
     public static void resumeMusic() {
@@ -101,8 +104,10 @@ public class Audio {
 
     //Needs to be changed
     public static void muteEffects() {
-        ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
-        effectsMuted = !effectsMuted;
+        if (effectsVolume > muted) {
+            ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
+            effectsMuted = !effectsMuted;
+        }
     }
 
     //Needs to be changed
