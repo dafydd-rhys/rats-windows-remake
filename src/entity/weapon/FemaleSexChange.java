@@ -23,9 +23,9 @@ public class FemaleSexChange extends Item {
     public void activate(Rat targetRat) {
         if (!targetRat.isFemale()) {
             targetRat.setFemale(true);
+            //add sprite change
         }
         this.hp -= 1;
-        // remove
     }
 
 }
