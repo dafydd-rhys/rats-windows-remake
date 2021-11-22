@@ -8,7 +8,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javax.sound.sampled.LineUnavailableException;
@@ -24,6 +31,10 @@ import main.level.LevelFileReader;
  */
 public class GameController implements Initializable {
 
+    private Canvas canvas;
+    private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
+    private final Image bomb = new Image(dir + "bomb.png");
+
     @FXML
     private AnchorPane window;
     @FXML
@@ -35,9 +46,9 @@ public class GameController implements Initializable {
     @FXML
     private BorderPane game;
     @FXML
-    private JFXButton sfxMute;
+    private JFXButton sfx;
     @FXML
-    private JFXButton musicMute;
+    private JFXButton music;
     @FXML
     private JFXButton settings;
     @FXML
@@ -49,7 +60,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Canvas canvas = new Canvas(1000, 1000);
+        canvas = new Canvas(1000, 1000);
         game.setCenter(canvas);
         gameScroll.setPannable(true);
 
@@ -59,10 +70,48 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new PlayerController(window,canvas);
 
+        draggableImage();
         setImages();
         onActions();
+    }
+
+    private void draggableImage() {
+        ImageView draggableImage = new ImageView();
+        draggableImage.setImage(bomb);
+        draggableImage.setFitHeight(40);
+        draggableImage.setFitWidth(40);
+        AnchorPane.setRightAnchor(draggableImage, 150.0);
+        AnchorPane.setTopAnchor(draggableImage, 30.0);
+        abilities.getChildren().add(draggableImage);
+
+        draggableImage.setOnDragDetected(event -> {
+            Dragboard db = draggableImage.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString("bomb");
+            db.setContent(content);
+            event.consume();
+        });
+
+        canvas.setOnDragOver(event -> {
+            if (event.getGestureSource() == draggableImage) {
+                event.acceptTransferModes(TransferMode.ANY);
+                event.consume();
+            }
+        });
+
+        canvas.setOnDragDropped(event -> {
+            dragAndDrop(event, canvas, draggableImage.getImage());
+            event.consume();
+        });
+    }
+
+    public void dragAndDrop(DragEvent event, Canvas canvas, Image image) {
+        int x = ((int) event.getX() / 50) * 50 + 10;
+        int y = ((int) event.getY() / 50) * 50 + 10;
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.drawImage(image, x, y);
     }
 
     private void setImages() {
@@ -77,8 +126,9 @@ public class GameController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        musicMute.setOnAction(e -> StageFunctions.muteMusic());
-        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
+
+        music.setOnAction(e -> StageFunctions.muteMusic());
+        sfx.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

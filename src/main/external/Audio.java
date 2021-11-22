@@ -23,6 +23,8 @@ public class Audio {
 
     private static float music = 50f;
     private static float effects = 50f;
+
+    private static final float muted = -50f;
     private static float musicVolume = -50f + (music * 0.50f);
     private static float effectsVolume = -50f + (music * 0.50f);
     private static boolean musicMuted = false;
@@ -34,17 +36,19 @@ public class Audio {
     private static Clip clickEffect = null;
 
     public static void playMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
+        if (musicVolume > muted && !musicMuted) {
+            AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
 
-        musicClip = AudioSystem.getClip();
-        musicClip.open(audio);
-        ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
-        musicClip.start();
-        musicClip.loop(Clip.LOOP_CONTINUOUSLY);
+            musicClip = AudioSystem.getClip();
+            musicClip.open(audio);
+            ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
+            musicClip.start();
+            musicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
 
     public static void playGameEffect(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        if (effectsVolume != -50f) {
+        if (effectsVolume > muted && !effectsMuted) {
             File effectPath = new File(path);
             AudioInputStream audio = AudioSystem.getAudioInputStream(effectPath);
             Clip clickEffect = AudioSystem.getClip();
@@ -55,7 +59,7 @@ public class Audio {
     }
 
     public static void clickEffect() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        if (effectsVolume != -50f) {
+        if (effectsVolume > muted && !effectsMuted) {
             AudioInputStream audio = AudioSystem.getAudioInputStream(clickPath);
             clickEffect = AudioSystem.getClip();
             clickEffect.open(audio);
@@ -90,7 +94,7 @@ public class Audio {
         musicMuted = !musicMuted;
     }
 
-    public static void unmuteMusic() {
+    public static void resumeMusic() {
         ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
         musicMuted = !musicMuted;
     }
@@ -102,7 +106,7 @@ public class Audio {
     }
 
     //Needs to be changed
-    public static void unmuteEffects() {
+    public static void resumeEffects() {
         ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
         effectsMuted = !effectsMuted;
     }

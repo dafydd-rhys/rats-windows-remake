@@ -33,9 +33,9 @@ public class SettingsController implements Initializable {
     @FXML
     private Slider sfxSlider;
     @FXML
-    private JFXButton musicMute;
+    private JFXButton music;
     @FXML
-    private JFXButton sfxMute;
+    private JFXButton sfx;
     @FXML
     private JFXButton mainMenuButton;
     @FXML
@@ -76,8 +76,8 @@ public class SettingsController implements Initializable {
             }
         });
 
-        musicMute.setOnAction(e -> StageFunctions.muteMusic());
-        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> StageFunctions.muteMusic());
+        sfx.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

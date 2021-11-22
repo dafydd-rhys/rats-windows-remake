@@ -27,9 +27,9 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox<String> selectBiome;
     @FXML
-    private JFXButton sfxMute;
+    private JFXButton sfx;
     @FXML
-    private JFXButton musicMute;
+    private JFXButton music;
     @FXML
     private JFXButton settings;
     @FXML
@@ -65,8 +65,8 @@ public class MainController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        musicMute.setOnAction(e -> StageFunctions.muteMusic());
-        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> StageFunctions.muteMusic());
+        sfx.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

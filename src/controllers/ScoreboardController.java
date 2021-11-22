@@ -44,9 +44,9 @@ public class ScoreboardController implements Initializable {
     /** score - score of the player in question */
     @FXML private TableColumn<ScoreboardPlayer, Integer> score;
     /** sfxMute - button that mutes effect sound */
-    @FXML private JFXButton sfxMute;
+    @FXML private JFXButton sfx;
     /** musicMute - button that mutes music */
-    @FXML private JFXButton musicMute;
+    @FXML private JFXButton music;
     /** settings - button that opens the setting window */
     @FXML private JFXButton settings;
     /** minimize - button that minimizes window */
@@ -99,8 +99,8 @@ public class ScoreboardController implements Initializable {
      * settings - open settings window
      */
     private void onActions() {
-        musicMute.setOnAction(e -> StageFunctions.muteMusic());
-        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> StageFunctions.muteMusic());
+        sfx.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

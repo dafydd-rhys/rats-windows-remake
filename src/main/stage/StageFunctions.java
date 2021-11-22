@@ -54,7 +54,7 @@ public class StageFunctions {
 
     public static void muteMusic() {
         if(Audio.isMusicMuted()) {
-            Audio.unmuteMusic();
+            Audio.resumeMusic();
         } else {
             Audio.muteMusic();
         }
@@ -62,7 +62,7 @@ public class StageFunctions {
 
     public static void muteEffects() {
         if(Audio.isEffectsMuted()) {
-            Audio.unmuteEffects();
+            Audio.resumeEffects();
         } else {
             Audio.muteEffects();
         }

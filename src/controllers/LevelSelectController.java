@@ -37,9 +37,9 @@ public class LevelSelectController implements Initializable {
     @FXML
     private JFXButton settings;
     @FXML
-    private JFXButton sfxMute;
+    private JFXButton sfx;
     @FXML
-    private JFXButton musicMute;
+    private JFXButton music;
     @FXML
     private JFXButton minimize;
     @FXML
@@ -110,8 +110,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        musicMute.setOnAction(e -> StageFunctions.muteMusic());
-        sfxMute.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> StageFunctions.muteMusic());
+        sfx.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

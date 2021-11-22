@@ -1,5 +1,6 @@
 package main.level;
 
+import entity.rats.MaleRat;
 import java.io.IOException;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -7,6 +8,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import tile.GrassTile;
+import tile.PathTile;
+import tile.Tile;
+import tile.TunnelTile;
 
 /**
  * LevelFileGenerator
@@ -16,36 +21,37 @@ import javafx.scene.paint.Color;
 public class LevelFileGenerator {
 
     private final Canvas canvas;
-    private final char[][] level;
+    private final char[][] tiles;
     private final char[][] spawns;
-    private final String dir = System.getProperty("user.dir") + "/src/resources/images/";
-    private final Image tunnel = new Image(dir + "tunnel.png");
-    private final Image path = new Image(dir + "path.png");
-    private final Image grass = new Image(dir + "grass.png");
-    private final Image male = new Image(dir + "male-rat.png");
-    private final Image female = new Image(dir + "female-rat.png");
-    private final Image bomb = new Image(dir + "bomb.png");
 
-    public LevelFileGenerator(Canvas canvas, char[][] level, char[][] spawns) throws IOException {
+    private final String entitiesDir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
+    private final Image male = new Image(entitiesDir + "male-rat.png");
+    private final Image female = new Image(entitiesDir + "female-rat.png");
+
+    public LevelFileGenerator(Canvas canvas, char[][] tiles, char[][] spawns) throws IOException {
         this.canvas = canvas;
-        this.level = level;
+        this.tiles = tiles;
         this.spawns = spawns;
         generateLevel();
     }
 
     private void generateLevel() {
+        Tile[][] tilesArray = new Tile[20][20];
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        for (int y = 0; y < level.length; y++) {
-            for (int x = 0; x < level[y].length; x++) {
-                if (level[y][x] == 'G') {
-                    gc.drawImage(grass, x * 50, y * 50);
-                } else if (level[y][x] == 'P') {
-                    gc.drawImage(path, x * 50, y * 50);
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                if (tiles[y][x] == 'G') {
+                    tilesArray[y][x] = new GrassTile(x, y, null);
+                    gc.drawImage(GrassTile.getImage(), x * 50, y * 50);
+                } else if (tiles[y][x] == 'P') {
+                    tilesArray[y][x] = new PathTile(x, y, null);
+                    gc.drawImage(PathTile.getImage(), x * 50, y * 50);
                 } else {
-                    gc.drawImage(tunnel, x * 50, y * 50);
+                    tilesArray[y][x] = new TunnelTile(x, y, null);
+                    gc.drawImage(TunnelTile.getImage(), x * 50, y * 50);
                 }
                 if (spawns[y][x] == 'M') {
                     gc.drawImage(rotate(male, 90), x * 50, y * 50);
@@ -54,6 +60,7 @@ public class LevelFileGenerator {
                 }
             }
         }
+        new Level(tilesArray);
     }
 
     private Image rotate(final Image image, final int degree) {
