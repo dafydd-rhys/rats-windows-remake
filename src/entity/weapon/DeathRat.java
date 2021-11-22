@@ -1,5 +1,7 @@
 package entity.weapon;
 
+import entity.rats.Rat;
+
 /**
  * DeathRat
  *
@@ -19,12 +21,12 @@ public class DeathRat extends Item {
         this.currentPosX = x;
         this.currentPosY = y;
     }
-/*
-    public void activate(entity.Rat targetRat) {
+
+    public void activate(Rat targetRat) {
         inflictDamage(this.damage, targetRat);
         this.hp -= 1;
     }
-*/
+
     public void delayTwoTicks() {
 
     }
