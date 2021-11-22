@@ -1,7 +1,7 @@
 package main.level;
 
 import entity.weapon.Bomb;
-import entity.weapon.DeathRat;
+import entity.rats.DeathRat;
 
 import java.util.HashMap;
 
@@ -28,7 +28,7 @@ public class Inventory {
                 Bomb bomb = new Bomb(x, y);
                 break;
             case "deathRat":
-                DeathRat deathRat = new DeathRat(x, y);
+                DeathRat deathRat = new DeathRat(false);
                 break;
         }
 
