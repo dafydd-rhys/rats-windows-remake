@@ -18,7 +18,7 @@ public class NoEntrySign extends Item{
 
     public NoEntrySign(int x, int y) {
         this.entityName = "No Entry Sign";
-        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign.png");
+        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-5.png");
         this.hp = 5;
         this.damage = 0;
         this.range = 1;
@@ -40,10 +40,10 @@ public class NoEntrySign extends Item{
                     // [needs a method to prevent targetRat from passing here]
                     this.hp -= 1;
                     switch (this.hp) {
-                        case 4 -> this.image = null;
-                        case 3 -> this.image = null;
-                        case 2 -> this.image = null;
-                        case 1 -> this.image = null;
+                        case 4 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png");
+                        case 3 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-3.png");
+                        case 2 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png");;
+                        case 1 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png");;
                         case 0 -> {
                             this.image = null;
                             tile[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
