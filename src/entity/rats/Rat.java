@@ -1,12 +1,11 @@
 package entity.rats;
 
 import entity.Entity;
-import java.awt.image.BufferedImage;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import tile.Tile;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -14,25 +13,31 @@ import java.util.Random;
  *
  * @author Dawid Wisniewski, Dafydd Maund, Maurice Petersen
  */
-public abstract class Rat extends Entity {
+public class Rat extends Entity {
 
-    protected Direction direction;
-    protected Image image;
-    protected Image upImage;
-    protected Image downImage;
-    protected Image leftImage;
-    protected Image rightImage;
-    protected Image rotatedImage;
-    protected int hp;
+    private Direction direction;
+    private Image image;
+    private Image upImage;
+    private Image downImage;
+    private Image leftImage;
+    private Image rightImage;
+    private Image rotatedImage;
+    private int hp;
 
     private final int SPEED = 1;
+    private final int BABY_SPEED = 2;
 
-    private boolean isFemale;
     private boolean isAdult;
-    private boolean isPregnant;
     private boolean isSterilised;
+    private Gender gender;
     private int moveSpeed;
+    private boolean isPregnant;
     private int pregnancyStage;
+
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
 
     public enum Direction {
         UP(),
@@ -41,17 +46,36 @@ public abstract class Rat extends Entity {
         DOWN()
     }
 
-    public Rat(boolean isFemale, boolean isAdult) {
+    public Rat(Gender gender, boolean isAdult) {
         this.entityName = "Rat";
         this.hp = 1;
         this.damage = 1;
         this.range = 0;
-        this.isFemale = isFemale;
+        this.gender = gender;
         this.isAdult = isAdult;
-        this.isPregnant = false;
         this.isSterilised = false;
-        this.moveSpeed = SPEED;
+        this.isPregnant = false;
         this.pregnancyStage = 0;
+
+        if (isAdult) {
+            this.moveSpeed = SPEED;
+        } else {
+            this.moveSpeed = BABY_SPEED;
+        }
+
+        if (gender == Gender.FEMALE) {
+            image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-rat.png");
+        } else {
+            image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png");
+        }
+
+        upImage = image;
+        leftImage = Entity.rotate(image, 270);
+        rightImage = Entity.rotate(image, 90);
+        downImage = Entity.rotate(image, 180);
+
+        List<Direction> values = List.of(Direction.values());
+        direction = values.get(new Random().nextInt(values.size()));
     }
 
     /**
@@ -63,9 +87,15 @@ public abstract class Rat extends Entity {
         for (Entity e : entities) {
             if (e.getClass().getName().equals("entity.rats.Rat")) {
                 Rat partner = (Rat) e;
-                if (this.isFemale != partner.isFemale
-                    && this.isAdult && partner.isAdult
-                    && !this.isSterilised && !partner.isSterilised) {
+
+                /*
+                Checks if opposite genders,
+                Checks if both adults,
+                Checks if both not sterilised
+                 */
+                if (this.getGender() != partner.getGender()
+                        && this.isAdult() && partner.isAdult()
+                        && !this.isSterilised() && !partner.isSterilised()) {
                     this.mate(partner);
                 }
             }
@@ -73,27 +103,38 @@ public abstract class Rat extends Entity {
     }
 
     /**
-     *
-     * @param rat rat to mate with.
+     * Mate with another rat.
+     * @param rat other rat.
      */
-    private void mate(Rat rat) {
-        if (this.isFemale && !this.isPregnant) {
-            this.isPregnant = true;
-        } else if (rat.isFemale && !rat.isPregnant) {
-            rat.isPregnant = true;
+    public void mate(Rat rat) {
+        if (this.getGender() == Gender.MALE && !rat.isPregnant()) {
+            rat.setPregnant(true);
+        } else if (this.getGender() == Gender.FEMALE && !this.isPregnant()) {
+            this.setPregnant(true);
         }
+
+        // TODO Make rats stop on tile while reproducing ??
     }
 
     /**
-     *
+     * Allows pregnant female rats to give birth to multiple baby rats.
      */
     public void giveBirth() {
-        Random rand = new Random();
-        int randomNum = rand.nextInt((5) + 1);
 
-        if (this.isAdult && this.isFemale && this.pregnancyStage == 10) {
+        /*
+        Checks if rat is female
+        Checks if rat is pregnant
+        Checks if rat pregnancy stage is at max value
+         */
+        if (this.getGender() == Gender.FEMALE
+                && this.isPregnant()
+                && this.getPregnancyStage() == 10) {
+
+            Random rand = new Random();
+            int randomNum = rand.nextInt((5) + 1);
+
             for (int i = 0; i < randomNum; i++) {
-                System.out.println(i + "Born");
+                // TODO Spawn baby rats
             }
         }
     }
@@ -102,18 +143,34 @@ public abstract class Rat extends Entity {
      * Allows baby rats to grow into adult rats.
      */
     public void growUp() {
-        if (!isAdult) {
-            isAdult = true;
-            moveSpeed = SPEED;
+        if (!this.isAdult()) {
+            this.setAdult(true);
+            this.setMoveSpeed(SPEED);
         }
     }
 
-    public boolean isFemale() {
-        return isFemale;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setFemale(boolean female) {
-        isFemale = female;
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public boolean isPregnant() {
+        return isPregnant;
+    }
+
+    public void setPregnant(boolean pregnant) {
+        isPregnant = pregnant;
+    }
+
+    public int getPregnancyStage() {
+        return pregnancyStage;
+    }
+
+    public void setPregnancyStage(int pregnancyStage) {
+        this.pregnancyStage = pregnancyStage;
     }
 
     public void setRotatedImage(Image image) {
@@ -136,14 +193,6 @@ public abstract class Rat extends Entity {
         isAdult = adult;
     }
 
-    public boolean isPregnant() {
-        return isPregnant;
-    }
-
-    public void setPregnant(boolean pregnant) {
-        isPregnant = pregnant;
-    }
-
     public boolean isSterilised() {
         return isSterilised;
     }
@@ -158,14 +207,6 @@ public abstract class Rat extends Entity {
 
     public void setMoveSpeed(int moveSpeed) {
         this.moveSpeed = moveSpeed;
-    }
-
-    public int getPregnancyStage() {
-        return pregnancyStage;
-    }
-
-    public void setPregnancyStage(int pregnancyStage) {
-        this.pregnancyStage = pregnancyStage;
     }
 
     public Direction getDirection() {

@@ -1,8 +1,6 @@
 package main.level;
 
 import entity.Entity;
-import entity.rats.FemaleRat;
-import entity.rats.MaleRat;
 import entity.rats.Rat;
 import entity.weapon.Bomb;
 import java.io.IOException;
@@ -57,7 +55,7 @@ public class LevelFileGenerator {
                     gc.drawImage(tunnel.getImage(), x * 50, y * 50);
                 }
                 if (spawns[y][x] == 'M') {
-                    MaleRat maleRat = new MaleRat(false);
+                    Rat maleRat = new Rat(Rat.Gender.MALE, true);
                     maleRat.setCurrentPosX(x);
                     maleRat.setCurrentPosY(y);
                     
@@ -68,7 +66,7 @@ public class LevelFileGenerator {
                         gc.drawImage(maleRat.getImage(), x * 50, y * 50);
                     }
                 } else if (spawns[y][x] == 'F') {
-                    FemaleRat femaleRat = new FemaleRat(true);
+                    Rat femaleRat = new Rat(Rat.Gender.FEMALE, true);
                     femaleRat.setCurrentPosX(x);
                     femaleRat.setCurrentPosY(y);
 
