@@ -1,6 +1,8 @@
 package entity.rats;
 
 import entity.Entity;
+import java.awt.image.BufferedImage;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import tile.Tile;
 
@@ -10,17 +12,20 @@ import java.util.Random;
 /**
  * Rat.java
  *
- * @author Dawid Wisniewski, Maurice Petersen
+ * @author Dawid Wisniewski, Dafydd Maund, Maurice Petersen
  */
 public abstract class Rat extends Entity {
 
-    protected static Image image;
+    protected Direction direction;
+    protected Image image;
+    protected Image upImage;
+    protected Image downImage;
+    protected Image leftImage;
+    protected Image rightImage;
+    protected Image rotatedImage;
     protected int hp;
 
-    private final int MOVEMENT_SPEED_ADULT = 10;
-    private final int MOVEMENT_SPEED_BABY = 20;
-    private final int MIN_BABY_RATS = 0;
-    private final int MAX_BABY_RATS = 5;
+    private final int SPEED = 1;
 
     private boolean isFemale;
     private boolean isAdult;
@@ -28,6 +33,13 @@ public abstract class Rat extends Entity {
     private boolean isSterilised;
     private int moveSpeed;
     private int pregnancyStage;
+
+    public enum Direction {
+        UP(),
+        LEFT(),
+        RIGHT(),
+        DOWN()
+    }
 
     public Rat(boolean isFemale) {
         this.entityName = "Rat";
@@ -38,7 +50,7 @@ public abstract class Rat extends Entity {
         this.isAdult = false;
         this.isPregnant = false;
         this.isSterilised = false;
-        this.moveSpeed = MOVEMENT_SPEED_BABY;
+        this.moveSpeed = SPEED;
         this.pregnancyStage = 0;
     }
 
@@ -77,8 +89,8 @@ public abstract class Rat extends Entity {
      */
     public void giveBirth() {
         Random rand = new Random();
-        int minRats = MIN_BABY_RATS;
-        int randomNum = rand.nextInt((MAX_BABY_RATS - minRats) + 1) + minRats;
+        int randomNum = rand.nextInt((5) + 1);
+
         if (this.isAdult && this.isFemale && this.pregnancyStage == 10) {
             for (int i = 0; i < randomNum; i++) {
                 System.out.println(i + "Born");
@@ -92,7 +104,7 @@ public abstract class Rat extends Entity {
     public void growUp() {
         if (!isAdult) {
             isAdult = true;
-            moveSpeed = MOVEMENT_SPEED_ADULT;
+            moveSpeed = SPEED;
         }
     }
 
@@ -104,7 +116,15 @@ public abstract class Rat extends Entity {
         isFemale = female;
     }
 
-    public static Image getImage() {
+    public void setRotatedImage(Image image) {
+        rotatedImage = image;
+    }
+
+    public Image getRotatedImage() {
+        return rotatedImage;
+    }
+
+    public Image getImage() {
         return image;
     }
 
@@ -146,6 +166,30 @@ public abstract class Rat extends Entity {
 
     public void setPregnancyStage(int pregnancyStage) {
         this.pregnancyStage = pregnancyStage;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public Image getUpImage() {
+        return upImage;
+    }
+
+    public Image getDownImage() {
+        return downImage;
+    }
+
+    public Image getLeftImage() {
+        return leftImage;
+    }
+
+    public Image getRightImage() {
+        return rightImage;
     }
 
 }

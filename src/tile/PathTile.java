@@ -16,6 +16,7 @@ public class PathTile extends Tile {
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path.png");
         this.isWalkable = false;
         this.isCovering = false;
+        this.type = TYPE.PATH;
     }
 
 }

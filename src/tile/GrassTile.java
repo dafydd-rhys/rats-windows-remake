@@ -16,6 +16,7 @@ public class GrassTile extends Tile{
         image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/grass.png");
         this.isWalkable = false;
         this.isCovering = false;
+        this.type = TYPE.GRASS;
     }
 
 }

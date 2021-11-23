@@ -3,6 +3,7 @@ package main.level;
 import entity.Entity;
 import entity.rats.FemaleRat;
 import entity.rats.MaleRat;
+import entity.rats.Rat;
 import entity.weapon.Bomb;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,16 +26,12 @@ import tile.TunnelTile;
  */
 public class LevelFileGenerator {
 
-    private final Canvas canvas;
+    private final GraphicsContext gc;
     private final char[][] tiles;
     private final char[][] spawns;
 
-    private final String entitiesDir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
-    private final Image male = new Image(entitiesDir + "male-rat.png");
-    private final Image female = new Image(entitiesDir + "female-rat.png");
-
-    public LevelFileGenerator(Canvas canvas, char[][] tiles, char[][] spawns) throws IOException {
-        this.canvas = canvas;
+    public LevelFileGenerator(GraphicsContext gc, char[][] tiles, char[][] spawns) throws IOException {
+        this.gc = gc;
         this.tiles = tiles;
         this.spawns = spawns;
         generateLevel();
@@ -42,41 +39,46 @@ public class LevelFileGenerator {
 
     private void generateLevel() {
         Tile[][] tilesArray = new Tile[20][20];
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        ArrayList<Rat> ratsArray = new ArrayList<>();
 
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] == 'G') {
-                    tilesArray[y][x] = new GrassTile(x, y, new ArrayList<>());
-                    gc.drawImage(GrassTile.getImage(), x * 50, y * 50);
+                    GrassTile grass = new GrassTile(x, y, new ArrayList<>());
+                    tilesArray[y][x] = grass;
+                    gc.drawImage(grass.getImage(), x * 50, y * 50);
                 } else if (tiles[y][x] == 'P') {
-                    tilesArray[y][x] = new PathTile(x, y, new ArrayList<>());
-                    gc.drawImage(PathTile.getImage(), x * 50, y * 50);
+                    PathTile path = new PathTile(x, y, new ArrayList<>());
+                    tilesArray[y][x] = path;
+                    gc.drawImage(path.getImage(), x * 50, y * 50);
                 } else {
-                    tilesArray[y][x] = new TunnelTile(x, y, new ArrayList<>());
-                    gc.drawImage(TunnelTile.getImage(), x * 50, y * 50);
+                    TunnelTile tunnel = new TunnelTile(x, y, new ArrayList<>());
+                    tilesArray[y][x] = tunnel;
+                    gc.drawImage(tunnel.getImage(), x * 50, y * 50);
                 }
                 if (spawns[y][x] == 'M') {
-                    tilesArray[y][x].addEntityToTile(new MaleRat(false));
-                    gc.drawImage(rotate(MaleRat.getImage(), 90), x * 50, y * 50);
+                    MaleRat maleRat = new MaleRat(false);
+                    maleRat.setCurrentPosX(x);
+                    maleRat.setCurrentPosY(y);
+                    
+                    tilesArray[y][x].addEntityToTile(maleRat);
+                    ratsArray.add(maleRat);
+
+                    gc.drawImage(maleRat.getImage(), x * 50, y * 50);
                 } else if (spawns[y][x] == 'F') {
-                    tilesArray[y][x].addEntityToTile(new FemaleRat(true));
-                    gc.drawImage(rotate(FemaleRat.getImage(), -90), x * 50, y * 50);
+                    FemaleRat femaleRat = new FemaleRat(true);
+                    femaleRat.setCurrentPosX(x);
+                    femaleRat.setCurrentPosY(y);
+
+                    tilesArray[y][x].addEntityToTile(femaleRat);
+                    ratsArray.add(femaleRat);
+
+                    gc.drawImage(femaleRat.getImage(), x * 50, y * 50);
                 }
             }
         }
-        new Level(tilesArray);
-    }
 
-    private Image rotate(final Image image, final int degree) {
-        ImageView iv = new ImageView(image);
-        iv.setRotate(degree);
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-
-        return iv.snapshot(params, null);
+        new Level(tilesArray, ratsArray);
     }
 
 }

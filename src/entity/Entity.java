@@ -1,6 +1,9 @@
 package entity;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * Entity
@@ -11,7 +14,7 @@ import javafx.scene.image.Image;
 public abstract class Entity {
 
     protected String entityName;
-    protected static Image image;
+    protected Image image;
     protected int hp;
     protected int damage;
     protected int range;
@@ -33,12 +36,12 @@ public abstract class Entity {
         this.entityName = entityName;
     }
 
-    public static Image getImage() {
+    public Image getImage() {
         return image;
     }
 
     public void setImage(Image image) {
-        Entity.image = image;
+        this.image = image;
     }
 
     public int getHp() {
@@ -87,6 +90,15 @@ public abstract class Entity {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public static Image rotate(Image img, int angle) {
+        ImageView iv = new ImageView(img);
+        iv.setRotate(angle);
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+
+        return iv.snapshot(params, null);
     }
 
 }

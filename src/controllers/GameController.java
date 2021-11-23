@@ -5,8 +5,8 @@ import entity.Entity;
 import entity.rats.Rat;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,8 +23,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import javax.swing.*;
+import main.Movement;
 import main.level.Inventory;
 import main.level.Level;
 import main.stage.StageFunctions;
@@ -40,7 +40,8 @@ import tile.Tile;
  */
 public class GameController implements Initializable {
 
-    private Canvas canvas;
+    private static Canvas canvas;
+    private static GraphicsContext gc;
     private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
     private final Image bombImage = new Image(dir + "bomb.png");
     private final Image maleRat = new Image(dir + "male-rat.png");
@@ -78,12 +79,16 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         canvas = new Canvas(1000, 1000);
+        gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
         game.setCenter(canvas);
         gameScroll.setPannable(true);
 
         try {
             LevelFileReader level = new LevelFileReader(1);
-            new LevelFileGenerator(canvas, level.getLevel(), level.getSpawns());
+            new LevelFileGenerator(gc, level.getLevel(), level.getSpawns());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,6 +150,7 @@ public class GameController implements Initializable {
 
     private static void printEntities() {
         Tile[][] tiles = Level.getTiles();
+
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
@@ -172,6 +178,7 @@ public class GameController implements Initializable {
         sfx.setOnAction(e -> StageFunctions.muteEffects());
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
+
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exit();
@@ -181,33 +188,20 @@ public class GameController implements Initializable {
         });
     }
 
-    private void movement(final Rat rat) {
-        /* AI rat movement
-        if (direction == left) {
-            move(-1);
-        } else if (direction == right) {
-            move(1);
-        } else if (direction == up) {
-            move(1);
-        } else if (direction == down) {
-            move(-1);
-        }
-        drawGame();
-         */
-    }
+    private static void move(final Rat rat) {
+        Movement.tiles = Level.getTiles();
+        Movement.rat = rat;
 
-    private void move(final Rat rat, final int i) {
-        /* check available movement
-        if (rat.getCurrentPosX() + i != GrassTile) {
-            rat.setCurrentPosX(rat.getCurrentPosX() + i);
-        } else if (rat.getCurrentPosY() + i != GrassTile) {
-            rat.setCurrentPosY(rat.getCurrentPosY() + i);
-        } else if (rat.getCurrentPosX() - i != GrassTile) {
-            rat.setCurrentPosX(rat.getCurrentPosX() + i);
-        } else if (rat.getCurrentPosY() - i != GrassTile) {
-            rat.setCurrentPosX(rat.getCurrentPosY() + i);
+        if (rat.getDirection() == Rat.Direction.LEFT) {
+            Movement.tryLeft();
+        } else if (rat.getDirection() == Rat.Direction.RIGHT) {
+            Movement.tryRight();
+        } else if (rat.getDirection() == Rat.Direction.UP) {
+            Movement.tryUp();
+        } else if (rat.getDirection() == Rat.Direction.DOWN) {
+            Movement.tryDown();
         }
-         */
+        draw();
     }
 
     private static final Timer ticker = new Timer(500, e -> {
@@ -218,26 +212,29 @@ public class GameController implements Initializable {
     });
 
     private static void tick() {
+        ArrayList<Rat> rats = Level.getRats();
+
+        if (seconds % 1 == 0) {
+            for (Rat rat : rats) {
+                move(rat);
+            }
+        }
+    }
+
+    private static void draw() {
         Tile[][] tiles = Level.getTiles();
+        ArrayList<Rat> rats = Level.getRats();
 
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
-                ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
-                for (int i = 0; i < entities.size(); i++) {
-                    if (entities.get(i).getEntityName().equals("Rat")) {
-                        Rat rat = (Rat) entities.get(i);
-                        if ((x + 1) < 20) {
-                            tiles[y][x + 1].addEntityToTile(rat);
-                            entities.remove(rat);
-                        }
-                    }
-                }
+                Image image = tiles[y][x].getImage();
+                gc.drawImage(image, x * 50, y * 50);
             }
         }
 
-        System.out.println("---------------------");
-        printEntities();
-        System.out.println("---------------------");
+        for (Rat rat : rats) {
+            gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
+        }
     }
 
 }

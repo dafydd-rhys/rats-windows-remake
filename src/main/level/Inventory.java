@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class Inventory {
 
-    HashMap<String, Integer> inventoryList = new HashMap<>();
+    private HashMap<String, Integer> inventoryList = new HashMap<>();
 
     //Initialize inventory with items at start of a level
     public void initializeInventory() {
