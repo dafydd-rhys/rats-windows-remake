@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -51,50 +52,51 @@ public class MainController implements Initializable {
     @FXML
     private ImageView effectsImage;
 
-    private String defaultTheme = "Default";
-    private Player newPlayer;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        listeners();
         onActions();
-        setImages();
+
+        settings.setDisable(true);
         selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
+    private void listeners() {
+        proceed.disableProperty().bind(Bindings.isEmpty(playerName.textProperty())
+                .or(selectTheme.valueProperty().isNull()));
+    }
+
     private void onActions() {
         proceed.setOnAction(e -> {
-            if(selectTheme.getSelectionModel().getSelectedItem() == null) {
-                newPlayer = new Player(playerName.getCharacters().toString(), defaultTheme);
-            } else {
-                newPlayer = new Player(playerName.getCharacters().toString(), selectTheme.getSelectionModel().getSelectedItem());
+            try {
+                new Player(playerName.getText(), selectTheme.getSelectionModel().getSelectedItem());
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            System.out.println(newPlayer.getPlayerName());
-            System.out.println(newPlayer.getThemeChoice());
+
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
-        settings.setOnAction(e -> {
-            try {
-                StageFunctions.openSettings();
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-                ex.printStackTrace();
-            }
-        });
+
         music.setOnAction(e -> {
             StageFunctions.muteMusic();
             StageFunctions.toggleOpacity(musicImage);
         });
+
         sfx.setOnAction(e -> {
             StageFunctions.muteEffects();
             StageFunctions.toggleOpacity(effectsImage);
         });
+
         minimize.setOnAction(e -> StageFunctions.minimize());
+
         maximise.setOnAction(e -> StageFunctions.maximise());
+
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exit();
@@ -102,10 +104,6 @@ public class MainController implements Initializable {
                 ex.printStackTrace();
             }
         });
-    }
-
-    private void setImages() {
-
     }
 
 }

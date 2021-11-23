@@ -140,7 +140,7 @@ public class Audio {
     }
 
     public static double isMuted(String sound) {
-        if(sound == "music") {
+        if(Objects.equals(sound, "music")) {
             if(musicMuted) {
                 return 0.2;
             } else { return 1; }

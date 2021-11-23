@@ -64,7 +64,9 @@ public class LevelFileGenerator {
                     tilesArray[y][x].addEntityToTile(maleRat);
                     ratsArray.add(maleRat);
 
-                    gc.drawImage(maleRat.getImage(), x * 50, y * 50);
+                    if (!tilesArray[y][x].isCovering()) {
+                        gc.drawImage(maleRat.getImage(), x * 50, y * 50);
+                    }
                 } else if (spawns[y][x] == 'F') {
                     FemaleRat femaleRat = new FemaleRat(true);
                     femaleRat.setCurrentPosX(x);
@@ -73,7 +75,9 @@ public class LevelFileGenerator {
                     tilesArray[y][x].addEntityToTile(femaleRat);
                     ratsArray.add(femaleRat);
 
-                    gc.drawImage(femaleRat.getImage(), x * 50, y * 50);
+                    if (!tilesArray[y][x].isCovering()) {
+                        gc.drawImage(femaleRat.getImage(), x * 50, y * 50);
+                    }
                 }
             }
         }

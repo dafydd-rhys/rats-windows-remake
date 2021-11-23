@@ -1,5 +1,12 @@
 package player;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
 /**
  * Player
  *
@@ -7,20 +14,21 @@ package player;
  * @author Gareth Wade (1901805)
  */
 
-public class Player
-{
+public class Player {
 
-    private String playerName;
-    private String themeChoice;
-    private int maxLevel;
+    private static final String players = System.getProperty("user.dir") + "\\src\\resources\\config\\players.txt";
+    private static String playerName;
+    private static String themeChoice;
+    private static int maxLevel;
 
-    public Player(String playerName, String themeChoice) {
-        this.playerName = playerName;
-        this.themeChoice = themeChoice;
+    public Player(String playerName, String themeChoice) throws IOException {
+        Player.playerName = playerName;
+        Player.themeChoice = themeChoice;
+        alreadyPlayed();
     }
 
     public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+        Player.playerName = playerName;
     }
 
     public String getPlayerName() {
@@ -28,7 +36,7 @@ public class Player
     }
 
     public void setThemeChoice(String themeChoice) {
-        this.themeChoice = themeChoice;
+        Player.themeChoice = themeChoice;
     }
 
     public String getThemeChoice() {
@@ -36,11 +44,31 @@ public class Player
     }
 
     public void setMaxLevel(int maxLevel) {
-        this.maxLevel = maxLevel;
+        Player.maxLevel = maxLevel;
     }
 
-    public int getMaxLevel() {
+    public static int getMaxLevel() {
         return maxLevel;
+    }
+
+    private void alreadyPlayed() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(players));
+
+        boolean found = false;
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] split = line.split(":");
+            if (Objects.equals(split[0], Player.playerName)) {
+                found = true;
+                Player.maxLevel = Integer.parseInt(split[1]);
+            }
+        }
+
+        if (!found) {
+            PrintWriter writer = new PrintWriter(players, StandardCharsets.UTF_8);
+            writer.println(Player.playerName + ":" + 1);
+            writer.close();
+        }
     }
 
 }

@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import main.external.Audio;
 import main.stage.StageFunctions;
+import player.Player;
 
 /**
  * Main
@@ -57,7 +58,24 @@ public class LevelSelectController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
-        setImages();
+
+        int max = Player.getMaxLevel();
+        if (max > 1) {
+            level2.setDisable(false);
+        }
+        if (max > 2) {
+            level3.setDisable(false);
+        }
+        if (max > 3) {
+            level4.setDisable(false);
+        }
+        if (max > 4) {
+            level5.setDisable(false);
+        }
+        if (max > 5) {
+            level6.setDisable(false);
+        }
+
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
@@ -70,6 +88,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         level2.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 2");
@@ -77,6 +96,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         level3.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 3");
@@ -84,6 +104,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         level4.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 4");
@@ -91,6 +112,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         level5.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 5");
@@ -98,6 +120,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         level6.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 6");
@@ -105,6 +128,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         settings.setOnAction(e -> {
             try {
                 StageFunctions.openSettings();
@@ -112,6 +136,7 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         mainMenuButton.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
@@ -119,16 +144,21 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         music.setOnAction(e -> {
             StageFunctions.muteMusic();
             StageFunctions.toggleOpacity(musicImage);
         });
+
         sfx.setOnAction(e -> {
             StageFunctions.muteEffects();
             StageFunctions.toggleOpacity(effectsImage);
         });
+
         minimize.setOnAction(e -> StageFunctions.minimize());
+
         maximise.setOnAction(e -> StageFunctions.maximise());
+
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exit();
@@ -138,7 +168,4 @@ public class LevelSelectController implements Initializable {
         });
     }
 
-    private void setImages() {
-
-    }
 }

@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import main.external.Audio;
 import main.stage.StageFunctions;
+import player.Player;
 
 /**
  * Main
@@ -51,6 +52,7 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
+        System.out.println(Player.getMaxLevel());
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
