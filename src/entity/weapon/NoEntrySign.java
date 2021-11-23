@@ -42,8 +42,8 @@ public class NoEntrySign extends Item{
                     switch (this.hp) {
                         case 4 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png");
                         case 3 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-3.png");
-                        case 2 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png");;
-                        case 1 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png");;
+                        case 2 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png");
+                        case 1 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png");
                         case 0 -> {
                             this.image = null;
                             tile[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
