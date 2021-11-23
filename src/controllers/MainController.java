@@ -16,6 +16,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import main.external.Audio;
 import main.stage.StageFunctions;
+import player.Player;
 
 /**
  * Main
@@ -28,7 +29,7 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane window;
     @FXML
-    private ComboBox<String> selectBiome;
+    private ComboBox<String> selectTheme;
     @FXML
     private JFXButton sfx;
     @FXML
@@ -50,17 +51,27 @@ public class MainController implements Initializable {
     @FXML
     private ImageView effectsImage;
 
+    private String defaultTheme = "Default";
+    private Player newPlayer;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
-        selectBiome.getItems().addAll("Default", "Beach", "Christmas");
+        selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
     private void onActions() {
         proceed.setOnAction(e -> {
+            if(selectTheme.getSelectionModel().getSelectedItem() == null) {
+                newPlayer = new Player(playerName.getCharacters().toString(), defaultTheme);
+            } else {
+                newPlayer = new Player(playerName.getCharacters().toString(), selectTheme.getSelectionModel().getSelectedItem());
+            }
+            System.out.println(newPlayer.getPlayerName());
+            System.out.println(newPlayer.getThemeChoice());
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {

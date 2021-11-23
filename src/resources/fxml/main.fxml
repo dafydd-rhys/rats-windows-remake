@@ -88,7 +88,7 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="playerName" layoutX="151.0" layoutY="273.0" prefHeight="41.0" prefWidth="300.0" promptText="Player Name" />
-                  <ComboBox fx:id="selectBiome" editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Theme" />
+                  <ComboBox fx:id="selectTheme" editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Theme" />
                   <Text fill="#514d4d" layoutX="154.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Theme" AnchorPane.bottomAnchor="158.94921875" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="377.84375" AnchorPane.topAnchor="324.05078125" />
                   <Text fill="#514d4d" layoutX="153.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Name" />
                   <JFXButton fx:id="proceed" alignment="CENTER" layoutX="200.0" layoutY="414.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Continue" textFill="WHITE">
