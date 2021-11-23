@@ -37,8 +37,8 @@ public class MaleSexChange extends Item {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
                 if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
-                    if (targetRat.isFemale()) {
-                        targetRat.setFemale(false);
+                    if (targetRat.getGender() != Rat.Gender.MALE) {
+                        targetRat.setGender(Rat.Gender.MALE);
                         //add sprite change
                     }
                     this.hp -= 1;
