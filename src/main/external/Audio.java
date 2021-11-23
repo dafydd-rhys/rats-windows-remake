@@ -18,6 +18,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * Main
  *
  * @author Dafydd-Rhys Maund (2003900)
+ * @author Gareth Wade (1901805)
  */
 public class Audio {
 
@@ -72,7 +73,9 @@ public class Audio {
     public static void setMusic(float volume) throws IOException {
         Audio.music = volume;
         musicVolume = -50f + (music * 0.50f);
-        ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
+        if(!musicMuted) {
+            ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
+        }
         writeValues();
     }
 
@@ -134,6 +137,18 @@ public class Audio {
                 effectsVolume = -50f + (effects * 0.50f);
             }
         }
+    }
+
+    public static double isMuted(String sound) {
+        if(sound == "music") {
+            if(musicMuted) {
+                return 0.2;
+            } else { return 1; }
+        } else if(sound == "effects") {
+            if(effectsMuted) {
+                return 0.2;
+            } else { return 1; }
+        } else { return 0; }
     }
 
     private static void writeValues() throws IOException {

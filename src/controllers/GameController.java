@@ -28,6 +28,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import main.Movement;
+import main.external.Audio;
 import main.level.Inventory;
 import main.level.Level;
 import main.stage.StageFunctions;
@@ -78,6 +79,10 @@ public class GameController implements Initializable {
     private JFXButton maximise;
     @FXML
     private JFXButton exit;
+    @FXML
+    private ImageView musicImage;
+    @FXML
+    private ImageView effectsImage;
 
     private final ArrayList<ImageView> items = new ArrayList<>();
     private final ImageView bomb = new ImageView();
@@ -129,6 +134,9 @@ public class GameController implements Initializable {
         ticker.start();
         setImages();
         onActions();
+
+        musicImage.setOpacity(Audio.isMuted("music"));
+        effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
     private void draggableImage(ImageView item, Image image, String itemString, int yOffset, int xOffset) {
@@ -214,8 +222,14 @@ public class GameController implements Initializable {
             }
         });
 
-        music.setOnAction(e -> StageFunctions.muteMusic());
-        sfx.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> {
+            StageFunctions.muteMusic();
+            StageFunctions.toggleOpacity(musicImage);
+        });
+        sfx.setOnAction(e -> {
+            StageFunctions.muteEffects();
+            StageFunctions.toggleOpacity(effectsImage);
+        });
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
 
