@@ -16,7 +16,7 @@ public class TunnelTile extends Tile {
         super(coordX, coordY, entitiesOnTile);
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel.png");
         this.isWalkable = false;
-        this.isCovering = false;
+        this.isCovering = true;
         this.type = TYPE.TUNNEL;
     }
 }

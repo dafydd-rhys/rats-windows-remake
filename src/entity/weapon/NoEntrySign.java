@@ -34,28 +34,20 @@ public class NoEntrySign extends Item{
         ArrayList<Entity> entitiesOnTile = tile[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
         if (entitiesOnTile != null) {
-            for (int k = 0; k < entitiesOnTile.size(); k++) {
-                if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
-                    Rat targetRat = (Rat) entitiesOnTile.get(k);
+            for (Entity entity : entitiesOnTile) {
+                if (entity.getEntityName().equals("Rat")) {
+                    Rat targetRat = (Rat) entity;
                     // [needs a method to prevent targetRat from passing here]
                     this.hp -= 1;
                     switch (this.hp) {
-                        case 4:
-                            this.image = null;
-                            break;
-                        case 3:
-                            this.image = null;
-                            break;
-                        case 2:
-                            this.image = null;
-                            break;
-                        case 1:
-                            this.image = null;
-                            break;
-                        case 0:
+                        case 4 -> this.image = null;
+                        case 3 -> this.image = null;
+                        case 2 -> this.image = null;
+                        case 1 -> this.image = null;
+                        case 0 -> {
                             this.image = null;
                             tile[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
-                            break;
+                        }
                     }
 
                 }
