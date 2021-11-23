@@ -41,13 +41,13 @@ public abstract class Rat extends Entity {
         DOWN()
     }
 
-    public Rat(boolean isFemale) {
+    public Rat(boolean isFemale, boolean isAdult) {
         this.entityName = "Rat";
         this.hp = 1;
         this.damage = 1;
         this.range = 0;
         this.isFemale = isFemale;
-        this.isAdult = false;
+        this.isAdult = isAdult;
         this.isPregnant = false;
         this.isSterilised = false;
         this.moveSpeed = SPEED;
