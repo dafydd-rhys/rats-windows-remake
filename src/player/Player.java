@@ -9,6 +9,7 @@ package player;
 
 public class Player
 {
+
     private String playerName;
     private String themeChoice;
     private int maxLevel;
@@ -41,5 +42,5 @@ public class Player
     public int getMaxLevel() {
         return maxLevel;
     }
-}
 
+}

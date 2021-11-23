@@ -17,7 +17,6 @@ public class Level {
 
     private static Tile[][] tiles;
     private static ArrayList<Rat> rats;
-    private static Tile[][] items;
 
     public Level(Tile[][] tiles, ArrayList<Rat> rats) {
         Level.tiles = tiles;

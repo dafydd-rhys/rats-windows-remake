@@ -1,7 +1,16 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
+import entity.weapon.DeathRat;
 import entity.rats.Rat;
+import entity.weapon.Bomb;
+import entity.weapon.FemaleSexChange;
+import entity.weapon.Gas;
+import entity.weapon.Item;
+import entity.weapon.MaleSexChange;
+import entity.weapon.NoEntrySign;
+import entity.weapon.Poison;
+import entity.weapon.Sterilisation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -148,31 +157,49 @@ public class GameController implements Initializable {
         });
 
         canvas.setOnDragDropped(event -> dragAndDrop(event, storedImage[0].getImage()));
+
     }
 
     public void dragAndDrop(DragEvent event, Image image) {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
 
-        gc.drawImage(image, x * 50 + 12.5, y * 50 + 12.5);
+        gc.drawImage(image, x * 50 + 10, y * 50 + 10);
 
         if (this.bombImage.equals(image)) {
-            Inventory.createItem("bomb", x, y);
+            Bomb bomb = new Bomb(x, y);
+            Inventory.addItem(bomb);
+            Level.getTiles()[y][x].addEntityToTile(bomb);
         } else if (this.deathRatImage.equals(image)) {
-            Inventory.createItem("deathRat", x, y);
+            DeathRat deathRat = new DeathRat(x, y);
+            Inventory.addItem(deathRat);
+            Level.getTiles()[y][x].addEntityToTile(deathRat);
         } else if (this.femaleChangeImage.equals(image)) {
-            Inventory.createItem("femaleSexChange", x, y);
+            FemaleSexChange femaleSexChange = new FemaleSexChange(x, y);
+            Inventory.addItem(femaleSexChange);
+            Level.getTiles()[y][x].addEntityToTile(femaleSexChange);
         } else if (this.maleChangeImage.equals(image)) {
-            Inventory.createItem("maleSexChange", x, y);
+            MaleSexChange maleSexChange = new MaleSexChange(x, y);
+            Inventory.addItem(maleSexChange);
+            Level.getTiles()[y][x].addEntityToTile(maleSexChange);
         } else if (this.gasGrenadeImage.equals(image)) {
-            Inventory.createItem("gasGrenade", x, y);
+            Gas gas = new Gas(x, y);
+            Inventory.addItem(gas);
+            Level.getTiles()[y][x].addEntityToTile(gas);
         } else if (this.noEntryImage.equals(image)) {
-            Inventory.createItem("noEntrySign", x, y);
+            NoEntrySign noEntry = new NoEntrySign(x, y);
+            Inventory.addItem(noEntry);
+            Level.getTiles()[y][x].addEntityToTile(noEntry);
         } else if (this.poisonImage.equals(image)) {
-            Inventory.createItem("poison", x, y);
+            Poison poison = new Poison(x, y);
+            Inventory.addItem(poison);
+            Level.getTiles()[y][x].addEntityToTile(poison);
         } else if (this.sterilisationImage.equals(image)) {
-            Inventory.createItem("sterilisation", x, y);
+            Sterilisation sterilisation = new Sterilisation(x, y);
+            Inventory.addItem(sterilisation);
+            Level.getTiles()[y][x].addEntityToTile(sterilisation);
         }
+
     }
 
     private void onActions() {
@@ -245,6 +272,7 @@ public class GameController implements Initializable {
     private static void draw() {
         Tile[][] tiles = Level.getTiles();
         ArrayList<Rat> rats = Level.getRats();
+        ArrayList<Item> weapons = Inventory.getItems();
 
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
@@ -255,6 +283,10 @@ public class GameController implements Initializable {
 
         for (Rat rat : rats) {
             gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
+        }
+
+        for (Item weapon : weapons) {
+            gc.drawImage(weapon.getImage(), weapon.getCurrentPosX() * 50 + 10, weapon.getCurrentPosY() * 50 + 10);
         }
     }
 

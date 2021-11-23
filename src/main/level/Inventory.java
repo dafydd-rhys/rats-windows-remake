@@ -1,9 +1,7 @@
 package main.level;
 
-import entity.weapon.Bomb;
-import entity.rats.DeathRat;
-
-import java.util.HashMap;
+import entity.weapon.Item;
+import java.util.ArrayList;
 
 /**
  * Main
@@ -11,32 +9,20 @@ import java.util.HashMap;
  * @author Dafydd-Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  */
-
 public class Inventory {
 
-    private HashMap<String, Integer> inventoryList = new HashMap<>();
+    private static ArrayList<Item> items = new ArrayList<>();
 
-    //Initialize inventory with items at start of a level
-    public void initializeInventory() {
-        inventoryList.put("bomb", 1);
-        inventoryList.put("deathRat", 1);
+    public static void addItem(Item item) {
+        items.add(item);
     }
 
-    public static void createItem(String itemType, int x, int y) {
-        switch (itemType) {
-            case "bomb":
-                Bomb bomb = new Bomb(x, y);
-                break;
-            case "deathRat":
-                DeathRat deathRat = new DeathRat(false);
-                break;
-        }
-
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 
-    public void removeItem(String itemType) {
-        inventoryList.replace(itemType, inventoryList.get(itemType) - 1);
+    public static ArrayList<Item> getItems() {
+        return items;
     }
-
 
 }

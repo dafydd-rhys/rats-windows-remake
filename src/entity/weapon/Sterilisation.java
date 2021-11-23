@@ -2,6 +2,7 @@ package entity.weapon;
 
 import entity.Entity;
 import entity.rats.Rat;
+import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
 
@@ -13,16 +14,18 @@ import java.util.ArrayList;
  * @author Harry Boyce, Bryan Kok
  */
 
-public class Sterilisation extends Item{
+public class Sterilisation extends Item {
 
-    public Sterilisation(){
+    public Sterilisation(int x, int y) {
         this.entityName = "Sterilisation";
-        this.image = null;
+        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/sterilisation.png");
         this.hp = 8; //8 ticks = 4 seconds
         this.damage = 0;
         this.range = 2;
         this.friendlyFire = false;
         this.isAttackable = false;
+        this.currentPosX = x;
+        this.currentPosY = y;
     }
 
     public void activate() {
@@ -31,9 +34,9 @@ public class Sterilisation extends Item{
             for (int j = 0; j < this.range; j++) {
                 ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
                 if (entitiesOnTile != null) {
-                    for (int k = 0; k < entitiesOnTile.size(); k++) {
-                        if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
-                            Rat targetRat = (Rat) entitiesOnTile.get(k);
+                    for (Entity entity : entitiesOnTile) {
+                        if (entity.getEntityName().equals("Rat")) {
+                            Rat targetRat = (Rat) entity;
                             targetRat.setSterilised(true);
                         }
                     }

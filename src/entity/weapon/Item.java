@@ -12,9 +12,20 @@ import javafx.scene.image.Image;
 public abstract class Item extends Entity {
 
     protected boolean friendlyFire; //whether we want an item to affect our friends- deathrats
-    protected boolean isAttackable; //whether we want rats to attack/decrease hp of the item. In case of e.g. Gas/Bomb we want it false
+    protected boolean isAttackable;
+    protected Image image;//whether we want rats to attack/decrease hp of the item. In case of e.g. Gas/Bomb we want it false
 
     public Item() {
+    }
+
+    @Override
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    @Override
+    public Image getImage() {
+        return image;
     }
 
     public boolean isFriendlyFire() {
