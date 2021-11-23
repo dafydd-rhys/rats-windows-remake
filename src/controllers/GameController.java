@@ -95,7 +95,6 @@ public class GameController implements Initializable {
     private final ImageView[] items = {bomb, deathRat, femaleChange, maleChange,
             gasGrenade, noEntrySign, poison, sterilisation};
 
-    private static double seconds;
     private static double currentTick;
 
     @Override
@@ -255,16 +254,23 @@ public class GameController implements Initializable {
 
     private static final Timer ticker = new Timer(500, e -> {
         currentTick += 1;
-        seconds = currentTick / 2;
         tick();
     });
 
     private static void tick() {
         ArrayList<Rat> rats = Level.getRats();
 
-        if (seconds % 1 == 0) {
+        if (currentTick % 2 == 0) {
             for (Rat rat : rats) {
-                move(rat);
+                if (rat.isAdult()) {
+                    move(rat);
+                }
+            }
+        } else {
+            for (Rat rat : rats) {
+                if (!rat.isAdult()) {
+                    move(rat);
+                }
             }
         }
     }
@@ -282,7 +288,9 @@ public class GameController implements Initializable {
         }
 
         for (Rat rat : rats) {
-            gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
+            if (!Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()){
+                gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
+            }
         }
 
         for (Item weapon : weapons) {
