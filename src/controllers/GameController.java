@@ -119,7 +119,6 @@ public class GameController implements Initializable {
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
         ticker.start();
-    
     }
 
     private void draggableImage(ImageView item, Image image, String itemString, int yOffset, int xOffset) {
@@ -216,13 +215,13 @@ public class GameController implements Initializable {
         Movement.curY = rat.getCurrentPosY();
 
         if (rat.getDirection() == Rat.Direction.LEFT) {
-            Movement.tryLeft();
+            Movement.tryHorizontal(-1, 1);
         } else if (rat.getDirection() == Rat.Direction.RIGHT) {
-            Movement.tryRight();
+            Movement.tryHorizontal(1, -1);
         } else if (rat.getDirection() == Rat.Direction.UP) {
-            Movement.tryUp();
+            Movement.tryVertical(-1, 1);
         } else if (rat.getDirection() == Rat.Direction.DOWN) {
-            Movement.tryDown();
+            Movement.tryVertical(1, -1);
         }
         draw();
     }
