@@ -3,11 +3,13 @@ package controllers;
 import com.jfoenix.controls.JFXButton;
 import entity.Entity;
 import entity.rats.Rat;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +23,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -44,7 +47,14 @@ public class GameController implements Initializable {
     private static GraphicsContext gc;
     private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
     private final Image bombImage = new Image(dir + "bomb.png");
-    private final Image maleRat = new Image(dir + "male-rat.png");
+    private final Image deathRatImage = new Image(dir + "death-rat.png");
+    private final Image femaleChangeImage = new Image(dir + "female-change.png");
+    private final Image maleChangeImage = new Image(dir + "male-change.png");
+    private final Image gasGrenadeImage = new Image(dir + "gas-grenade.png");
+    private final Image noEntryImage = new Image(dir + "no-entry-sign.png");
+    private final Image poisonImage = new Image(dir + "poison.png");
+    private final Image sterilisationImage = new Image(dir + "sterilisation.png");
+
 
     @FXML
     private AnchorPane window;
@@ -71,7 +81,13 @@ public class GameController implements Initializable {
 
     private final ArrayList<ImageView> items = new ArrayList<>();
     private final ImageView bomb = new ImageView();
-    private final ImageView rat = new ImageView();
+    private final ImageView deathRat = new ImageView();
+    private final ImageView femaleChange = new ImageView();
+    private final ImageView maleChange = new ImageView();
+    private final ImageView gasGrenade = new ImageView();
+    private final ImageView noEntrySign = new ImageView();
+    private final ImageView poison = new ImageView();
+    private final ImageView sterilisation = new ImageView();
 
     private static double seconds;
     private static double currentTick;
@@ -94,21 +110,33 @@ public class GameController implements Initializable {
         }
 
         items.add(bomb);
-        items.add(rat);
-        draggableImage(bomb, bombImage, "bomb", 0);
-        draggableImage(rat, maleRat, "deathRat", 1);
+        items.add(deathRat);
+        items.add(femaleChange);
+        items.add(maleChange);
+        items.add(gasGrenade);
+        items.add(noEntrySign);
+        items.add(poison);
+        items.add(sterilisation);
+        draggableImage(bomb, bombImage, "bomb", 0, 0);
+        draggableImage(deathRat, deathRatImage, "deathRat", 1, 0);
+        draggableImage(femaleChange, femaleChangeImage, "femaleSexChange", 2, 0);
+        draggableImage(maleChange, maleChangeImage, "maleSexChange", 3, 0);
+        draggableImage(gasGrenade, gasGrenadeImage, "gasGrenade", 0, 75);
+        draggableImage(noEntrySign, noEntryImage, "noEntrySign", 1, 75);
+        draggableImage(poison, poisonImage, "poison", 2, 75);
+        draggableImage(sterilisation, sterilisationImage, "sterilisation", 3, 75);
 
         ticker.start();
         setImages();
         onActions();
     }
 
-    private void draggableImage(ImageView item, Image image, String itemString, int xOffset) {
+    private void draggableImage(ImageView item, Image image, String itemString, int yOffset, int xOffset) {
         item.setImage(image);
         item.setFitHeight(50);
         item.setFitWidth(50);
-        AnchorPane.setRightAnchor(item, 150.0);
-        AnchorPane.setTopAnchor(item, 50.0 * xOffset);
+        AnchorPane.setTopAnchor(item, 75.0 * yOffset + 50);
+        AnchorPane.setRightAnchor(item, 50.0 + xOffset);
         abilities.getChildren().add(item);
 
         item.setOnDragDetected(event -> {
@@ -143,8 +171,20 @@ public class GameController implements Initializable {
 
         if (this.bombImage.equals(image)) {
             Inventory.createItem("bomb", x, y);
-        } else if (this.maleRat.equals(image)) {
+        } else if (this.deathRatImage.equals(image)) {
             Inventory.createItem("deathRat", x, y);
+        } else if (this.femaleChangeImage.equals(image)) {
+            Inventory.createItem("femaleSexChange", x, y);
+        } else if (this.maleChangeImage.equals(image)) {
+            Inventory.createItem("maleSexChange", x, y);
+        } else if (this.gasGrenadeImage.equals(image)) {
+            Inventory.createItem("gasGrenade", x, y);
+        } else if (this.noEntryImage.equals(image)) {
+            Inventory.createItem("noEntrySign", x, y);
+        } else if (this.poisonImage.equals(image)) {
+            Inventory.createItem("poison", x, y);
+        } else if (this.sterilisationImage.equals(image)) {
+            Inventory.createItem("sterilisation", x, y);
         }
     }
 
