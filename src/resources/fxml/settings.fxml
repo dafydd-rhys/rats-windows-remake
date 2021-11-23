@@ -20,7 +20,7 @@
                   <Image url="@../images/rats-icon.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="exit" layoutX="765.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="exit" layoutX="765.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -29,7 +29,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="maximise" layoutX="731.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="maximise" layoutX="731.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -38,7 +38,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="minimize" layoutX="697.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="minimize" layoutX="697.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +47,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="settings" layoutX="663.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="settings" layoutX="663.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="minimizeIcon1" fitHeight="14.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -56,7 +56,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="sfx" layoutX="629.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="sfx" layoutX="629.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="effectsImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -65,7 +65,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="music" layoutX="595.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+            <JFXButton fx:id="music" layoutX="595.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="5.0">
                <graphic>
                   <ImageView fx:id="musicImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
