@@ -43,11 +43,18 @@ public class Bomb extends Item { //used to extend Entities.Item
                 if (entitiesOnTile != null) {
                     for (int k = 0; k < entitiesOnTile.size(); k++) {
                         if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
-                            inflictDamage(this.damage, entitiesOnTile.get(k));
+                            Rat targetRat = (Rat) entitiesOnTile.get(k);
+                            inflictDamage(this.damage, targetRat);
+                            // Removes dead rat from list of entities on the tile
+                            if (targetRat.getHp() <= 0) {
+                                tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);
+                                entitiesOnTile.remove(targetRat);
+                            }
                         }
                     }
                 }
             }
         }
+        tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
     }
 }
