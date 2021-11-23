@@ -5,6 +5,7 @@ import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.sound.sampled.LineUnavailableException;
@@ -86,6 +87,12 @@ public class StageFunctions {
         if (reply == JOptionPane.YES_OPTION) {
             System.exit(1);
         }
+    }
+
+    public static void toggleOpacity(ImageView image) {
+        if(image.getOpacity() == 0.2) {
+            image.setOpacity(1);
+        } else { image.setOpacity(0.2); }
     }
 
     public static void exitGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {

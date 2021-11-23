@@ -6,9 +6,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import main.external.Audio;
 import main.stage.StageFunctions;
 
 /**
@@ -46,11 +49,17 @@ public class LevelSelectController implements Initializable {
     private JFXButton maximise;
     @FXML
     private JFXButton exit;
+    @FXML
+    private ImageView musicImage;
+    @FXML
+    private ImageView effectsImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
+        musicImage.setOpacity(Audio.isMuted("music"));
+        effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
     private void onActions() {
@@ -110,8 +119,14 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        music.setOnAction(e -> StageFunctions.muteMusic());
-        sfx.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> {
+            StageFunctions.muteMusic();
+            StageFunctions.toggleOpacity(musicImage);
+        });
+        sfx.setOnAction(e -> {
+            StageFunctions.muteEffects();
+            StageFunctions.toggleOpacity(effectsImage);
+        });
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {

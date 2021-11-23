@@ -13,9 +13,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import main.external.Audio;
 import main.stage.StageFunctions;
 import scoreboard.Scoreboard;
 import scoreboard.ScoreboardPlayer;
@@ -57,6 +60,10 @@ public class ScoreboardController implements Initializable {
     @FXML private JFXButton back;
     /** exit - button that exits program */
     @FXML private JFXButton exit;
+    /** musicImage - Image within JFXButton music */
+    @FXML private ImageView musicImage;
+    /** effectsImage - Image within JFXButton sfx */
+    @FXML private ImageView effectsImage;
     
     /**
      * Main
@@ -87,6 +94,8 @@ public class ScoreboardController implements Initializable {
         scoreboardListener();
         levelSelector.setValue("Level 1");
         onActions();
+        musicImage.setOpacity(Audio.isMuted("music"));
+        effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
     /**
@@ -99,8 +108,14 @@ public class ScoreboardController implements Initializable {
      * settings - open settings window
      */
     private void onActions() {
-        music.setOnAction(e -> StageFunctions.muteMusic());
-        sfx.setOnAction(e -> StageFunctions.muteEffects());
+        music.setOnAction(e -> {
+            StageFunctions.muteMusic();
+            StageFunctions.toggleOpacity(musicImage);
+        });
+        sfx.setOnAction(e -> {
+            StageFunctions.muteEffects();
+            StageFunctions.toggleOpacity(effectsImage);
+        });
         minimize.setOnAction(e -> StageFunctions.minimize());
         maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {
