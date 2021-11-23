@@ -1,15 +1,11 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import entity.Entity;
 import entity.rats.Rat;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -23,7 +19,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -43,23 +38,6 @@ import tile.Tile;
  */
 public class GameController implements Initializable {
 
-    private static Canvas canvas;
-    private static GraphicsContext gc;
-    private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
-    private final Image bombImage = new Image(dir + "bomb.png");
-    private final Image deathRatImage = new Image(dir + "death-rat.png");
-    private final Image femaleChangeImage = new Image(dir + "female-change.png");
-    private final Image maleChangeImage = new Image(dir + "male-change.png");
-    private final Image gasGrenadeImage = new Image(dir + "gas-grenade.png");
-    private final Image noEntryImage = new Image(dir + "no-entry-sign.png");
-    private final Image poisonImage = new Image(dir + "poison.png");
-    private final Image sterilisationImage = new Image(dir + "sterilisation.png");
-
-
-    @FXML
-    private AnchorPane window;
-    @FXML
-    private AnchorPane bar;
     @FXML
     private AnchorPane abilities;
     @FXML
@@ -79,7 +57,19 @@ public class GameController implements Initializable {
     @FXML
     private JFXButton exit;
 
-    private final ArrayList<ImageView> items = new ArrayList<>();
+    private static Canvas canvas;
+    private static GraphicsContext gc;
+
+    private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
+    private final Image bombImage = new Image(dir + "bomb.png");
+    private final Image deathRatImage = new Image(dir + "death-rat.png");
+    private final Image femaleChangeImage = new Image(dir + "female-change.png");
+    private final Image maleChangeImage = new Image(dir + "male-change.png");
+    private final Image gasGrenadeImage = new Image(dir + "gas-grenade.png");
+    private final Image noEntryImage = new Image(dir + "no-entry-sign.png");
+    private final Image poisonImage = new Image(dir + "poison.png");
+    private final Image sterilisationImage = new Image(dir + "sterilisation.png");
+
     private final ImageView bomb = new ImageView();
     private final ImageView deathRat = new ImageView();
     private final ImageView femaleChange = new ImageView();
@@ -88,6 +78,8 @@ public class GameController implements Initializable {
     private final ImageView noEntrySign = new ImageView();
     private final ImageView poison = new ImageView();
     private final ImageView sterilisation = new ImageView();
+    private final ImageView[] items = {bomb, deathRat, femaleChange, maleChange,
+            gasGrenade, noEntrySign, poison, sterilisation};
 
     private static double seconds;
     private static double currentTick;
@@ -101,6 +93,7 @@ public class GameController implements Initializable {
 
         game.setCenter(canvas);
         gameScroll.setPannable(true);
+        onActions();
 
         try {
             LevelFileReader level = new LevelFileReader(1);
@@ -109,32 +102,23 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
 
-        items.add(bomb);
-        items.add(deathRat);
-        items.add(femaleChange);
-        items.add(maleChange);
-        items.add(gasGrenade);
-        items.add(noEntrySign);
-        items.add(poison);
-        items.add(sterilisation);
-        draggableImage(bomb, bombImage, "bomb", 0, 0);
-        draggableImage(deathRat, deathRatImage, "deathRat", 1, 0);
-        draggableImage(femaleChange, femaleChangeImage, "femaleSexChange", 2, 0);
-        draggableImage(maleChange, maleChangeImage, "maleSexChange", 3, 0);
-        draggableImage(gasGrenade, gasGrenadeImage, "gasGrenade", 0, 75);
-        draggableImage(noEntrySign, noEntryImage, "noEntrySign", 1, 75);
-        draggableImage(poison, poisonImage, "poison", 2, 75);
-        draggableImage(sterilisation, sterilisationImage, "sterilisation", 3, 75);
+        draggableImage(items[0], bombImage, "bomb", 0, 0);
+        draggableImage(items[1], deathRatImage, "deathRat", 1, 0);
+        draggableImage(items[2], femaleChangeImage, "femaleSexChange", 2, 0);
+        draggableImage(items[3], maleChangeImage, "maleSexChange", 3, 0);
+        draggableImage(items[4], gasGrenadeImage, "gasGrenade", 0, 75);
+        draggableImage(items[5], noEntryImage, "noEntrySign", 1, 75);
+        draggableImage(items[6], poisonImage, "poison", 2, 75);
+        draggableImage(items[7], sterilisationImage, "sterilisation", 3, 75);
 
         ticker.start();
-        setImages();
-        onActions();
     }
 
     private void draggableImage(ImageView item, Image image, String itemString, int yOffset, int xOffset) {
         item.setImage(image);
-        item.setFitHeight(50);
-        item.setFitWidth(50);
+        item.setFitHeight(30);
+        item.setFitWidth(30);
+
         AnchorPane.setTopAnchor(item, 75.0 * yOffset + 50);
         AnchorPane.setRightAnchor(item, 50.0 + xOffset);
         abilities.getChildren().add(item);
@@ -146,27 +130,23 @@ public class GameController implements Initializable {
             db.setContent(content);
         });
 
-        final ImageView[] thisImage = new ImageView[1];
+        final ImageView[] storedImage = new ImageView[1];
         canvas.setOnDragOver(event -> {
-            for (ImageView i : items) {
-                if (event.getGestureSource() == i) {
-                    thisImage[0] = i;
+            for (ImageView thisImage : items) {
+                if (event.getGestureSource() == thisImage) {
+                    storedImage[0] = thisImage;
                     event.acceptTransferModes(TransferMode.ANY);
                 }
             }
         });
 
-        printEntities();
-
-        canvas.setOnDragDropped(event -> dragAndDrop(event, canvas, thisImage[0].getImage()));
-
+        canvas.setOnDragDropped(event -> dragAndDrop(event, storedImage[0].getImage()));
     }
 
-    public void dragAndDrop(DragEvent event, Canvas canvas, Image image) {
+    public void dragAndDrop(DragEvent event, Image image) {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(image, x * 50 + 12.5, y * 50 + 12.5);
 
         if (this.bombImage.equals(image)) {
@@ -188,23 +168,6 @@ public class GameController implements Initializable {
         }
     }
 
-    private static void printEntities() {
-        Tile[][] tiles = Level.getTiles();
-
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                ArrayList<Entity> entities = tiles[y][x].getEntitiesOnTile();
-                for (Entity entity : entities) {
-                    System.out.println(entity.getEntityName() + " at " + x + ',' + y);
-                }
-            }
-        }
-    }
-
-    private void setImages() {
-
-    }
-
     private void onActions() {
         settings.setOnAction(e -> {
             try {
@@ -215,8 +178,11 @@ public class GameController implements Initializable {
         });
 
         music.setOnAction(e -> StageFunctions.muteMusic());
+
         sfx.setOnAction(e -> StageFunctions.muteEffects());
+
         minimize.setOnAction(e -> StageFunctions.minimize());
+
         maximise.setOnAction(e -> StageFunctions.maximise());
 
         exit.setOnAction(e -> {
@@ -231,6 +197,9 @@ public class GameController implements Initializable {
     private static void move(final Rat rat) {
         Movement.tiles = Level.getTiles();
         Movement.rat = rat;
+        Movement.current = Level.getTiles()[rat.getCurrentPosX()][rat.getCurrentPosY()];
+        Movement.curX = rat.getCurrentPosX();
+        Movement.curY = rat.getCurrentPosY();
 
         if (rat.getDirection() == Rat.Direction.LEFT) {
             Movement.tryLeft();
@@ -245,7 +214,6 @@ public class GameController implements Initializable {
     }
 
     private static final Timer ticker = new Timer(500, e -> {
-        //two ticks a second
         currentTick += 1;
         seconds = currentTick / 2;
         tick();
