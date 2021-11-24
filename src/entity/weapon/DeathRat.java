@@ -1,11 +1,7 @@
 package entity.weapon;
 
-import entity.Entity;
-import entity.rats.Rat;
-import java.util.ArrayList;
+import entity.Item;
 import javafx.scene.image.Image;
-import main.level.Level;
-import tile.Tile;
 
 /**
  * DeathRat

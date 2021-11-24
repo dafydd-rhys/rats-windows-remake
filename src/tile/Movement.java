@@ -1,6 +1,6 @@
-package main;
+package tile;
 
-import entity.rats.Rat;
+import entity.Rat;
 import java.util.Random;
 import tile.Tile;
 
@@ -62,7 +62,7 @@ public class Movement {
     }
 
     private static boolean moveHorizontal(int x) {
-        if (tiles[curY][curX + x].getType() != Tile.TYPE.GRASS) {
+        if (tiles[curY][curX + x].isWalkable()) {
             current.removeEntityFromTile(rat);
             tiles[curY][curX + x].addEntityToTile(rat);
 
@@ -83,7 +83,7 @@ public class Movement {
     }
 
     private static boolean moveVertical(int y) {
-        if (tiles[curY + y][curX].getType() != Tile.TYPE.GRASS) {
+        if (tiles[curY + y][curX].isWalkable()) {
             current.removeEntityFromTile(rat);
             tiles[curY + y][curX].addEntityToTile(rat);
 

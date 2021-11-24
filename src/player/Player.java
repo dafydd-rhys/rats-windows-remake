@@ -2,9 +2,8 @@ package player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -18,32 +17,38 @@ public class Player {
 
     private static final String players = System.getProperty("user.dir") + "\\src\\resources\\config\\players.txt";
     private static String playerName;
-    private static String themeChoice;
     private static int maxLevel;
+    private static THEME theme;
 
-    public Player(String playerName, String themeChoice) throws IOException {
+    public enum THEME {
+        SPRING(),
+        BEACH(),
+        CHRISTMAS()
+    }
+
+    public Player(String playerName, THEME theme) throws IOException {
         Player.playerName = playerName;
-        Player.themeChoice = themeChoice;
+        Player.theme = theme;
         alreadyPlayed();
     }
 
-    public void setPlayerName(String playerName) {
+    public static void setPlayerName(String playerName) {
         Player.playerName = playerName;
     }
 
-    public String getPlayerName() {
+    public static String getPlayerName() {
         return playerName;
     }
 
-    public void setThemeChoice(String themeChoice) {
-        Player.themeChoice = themeChoice;
+    public static void setTheme(THEME theme) {
+        Player.theme = theme;
     }
 
-    public String getThemeChoice() {
-        return themeChoice;
+    public static THEME getTheme() {
+        return theme;
     }
 
-    public void setMaxLevel(int maxLevel) {
+    public static void setMaxLevel(int maxLevel) {
         Player.maxLevel = maxLevel;
     }
 
@@ -65,8 +70,8 @@ public class Player {
         }
 
         if (!found) {
-            PrintWriter writer = new PrintWriter(players, StandardCharsets.UTF_8);
-            writer.println(Player.playerName + ":" + 1);
+            FileWriter writer = new FileWriter(players,true); //the true will append the new data
+            writer.write(Player.playerName + ":" + 1 + "\n");
             writer.close();
         }
     }

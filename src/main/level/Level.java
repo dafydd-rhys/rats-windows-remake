@@ -1,12 +1,9 @@
 package main.level;
 
-import entity.rats.Rat;
-import entity.weapon.Item;
+import entity.Rat;
+import entity.Item;
 import java.util.ArrayList;
-import tile.GrassTile;
-import tile.PathTile;
 import tile.Tile;
-import tile.TunnelTile;
 
 /**
  * LevelFileGenerator

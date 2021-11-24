@@ -1,21 +1,10 @@
 package main.level;
 
-import entity.Entity;
-import entity.rats.Rat;
-import entity.weapon.Bomb;
+import entity.Rat;
 import java.io.IOException;
 import java.util.ArrayList;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javax.crypto.AEADBadTagException;
-import tile.GrassTile;
-import tile.PathTile;
 import tile.Tile;
-import tile.TunnelTile;
 
 /**
  * LevelFileGenerator
@@ -42,45 +31,40 @@ public class LevelFileGenerator {
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] == 'G') {
-                    GrassTile grass = new GrassTile(x, y, new ArrayList<>());
-                    tilesArray[y][x] = grass;
-                    gc.drawImage(grass.getImage(), x * 50, y * 50);
+                    setTile(tilesArray, x, y, Tile.TYPE.THEMED);
                 } else if (tiles[y][x] == 'P') {
-                    PathTile path = new PathTile(x, y, new ArrayList<>());
-                    tilesArray[y][x] = path;
-                    gc.drawImage(path.getImage(), x * 50, y * 50);
+                    setTile(tilesArray, x, y, Tile.TYPE.PATH);
                 } else {
-                    TunnelTile tunnel = new TunnelTile(x, y, new ArrayList<>());
-                    tilesArray[y][x] = tunnel;
-                    gc.drawImage(tunnel.getImage(), x * 50, y * 50);
+                    setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
                 }
                 if (spawns[y][x] == 'M') {
-                    Rat maleRat = new Rat(Rat.Gender.MALE, true);
-                    maleRat.setCurrentPosX(x);
-                    maleRat.setCurrentPosY(y);
-                    
-                    tilesArray[y][x].addEntityToTile(maleRat);
-                    ratsArray.add(maleRat);
-
-                    if (!tilesArray[y][x].isCovering()) {
-                        gc.drawImage(maleRat.getImage(), x * 50, y * 50);
-                    }
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, true);
                 } else if (spawns[y][x] == 'F') {
-                    Rat femaleRat = new Rat(Rat.Gender.FEMALE, true);
-                    femaleRat.setCurrentPosX(x);
-                    femaleRat.setCurrentPosY(y);
-
-                    tilesArray[y][x].addEntityToTile(femaleRat);
-                    ratsArray.add(femaleRat);
-
-                    if (!tilesArray[y][x].isCovering()) {
-                        gc.drawImage(femaleRat.getImage(), x * 50, y * 50);
-                    }
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, true);
                 }
             }
         }
 
         new Level(tilesArray, ratsArray);
+    }
+
+    private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
+        Tile tile = new Tile(x, y, type, new ArrayList<>());
+        tiles[y][x] = tile;
+        gc.drawImage(tile.getImage(), x * 50, y * 50);
+    }
+
+    private void setRat(Tile[][] tiles, ArrayList<Rat> rats, int x, int y, Rat.Gender gender, boolean adult) {
+        Rat rat = new Rat(gender, adult);
+        rat.setCurrentPosX(x);
+        rat.setCurrentPosY(y);
+
+        tiles[y][x].addEntityToTile(rat);
+        rats.add(rat);
+
+        if (tiles[y][x].isCovering()) {
+            gc.drawImage(rat.getImage(), x * 50, y * 50);
+        }
     }
 
 }

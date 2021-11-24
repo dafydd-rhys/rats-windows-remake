@@ -1,7 +1,8 @@
 package entity.weapon;
 
+import entity.Item;
 import javafx.scene.image.Image;
-import entity.rats.Rat;
+import entity.Rat;
 import entity.Entity;
 import main.level.Level;
 import tile.Tile;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @author Harry Boyce, Bryan Kok
  */
 
-public class NoEntrySign extends Item{
+public class NoEntrySign extends Item {
 
     public NoEntrySign(int x, int y) {
         this.entityName = "No Entry Sign";

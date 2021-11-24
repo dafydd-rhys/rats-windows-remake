@@ -1,4 +1,4 @@
-package entity.weapon;
+package entity;
 
 import entity.Entity;
 import javafx.scene.image.Image;

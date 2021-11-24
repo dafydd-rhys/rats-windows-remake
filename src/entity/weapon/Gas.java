@@ -1,5 +1,6 @@
 package entity.weapon;
 
+import entity.Item;
 import javafx.scene.image.Image;
 
 /**
@@ -8,7 +9,7 @@ import javafx.scene.image.Image;
  * @author Harry Boyce, Bryan Kok
  */
 
-public class Gas  extends Item{
+public class Gas  extends Item {
 
     public Gas(int x, int y){
         this.entityName = "Gas";

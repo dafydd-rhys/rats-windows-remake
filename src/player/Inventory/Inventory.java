@@ -1,6 +1,6 @@
-package main.level;
+package player.Inventory;
 
-import entity.weapon.Item;
+import entity.Item;
 import java.util.ArrayList;
 
 /**

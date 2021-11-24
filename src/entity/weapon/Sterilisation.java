@@ -1,7 +1,8 @@
 package entity.weapon;
 
 import entity.Entity;
-import entity.rats.Rat;
+import entity.Item;
+import entity.Rat;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;

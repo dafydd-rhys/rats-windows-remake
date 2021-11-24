@@ -70,8 +70,17 @@ public class MainController implements Initializable {
 
     private void onActions() {
         proceed.setOnAction(e -> {
+            Player.THEME theme;
+            if (selectTheme.getSelectionModel().getSelectedItem().equals("Default")) {
+                theme = Player.THEME.SPRING;
+            } else if (selectTheme.getSelectionModel().getSelectedItem().equals("Beach")) {
+                theme = Player.THEME.BEACH;
+            } else {
+                theme = Player.THEME.CHRISTMAS;
+            }
+
             try {
-                new Player(playerName.getText(), selectTheme.getSelectionModel().getSelectedItem());
+                new Player(playerName.getText(), theme);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

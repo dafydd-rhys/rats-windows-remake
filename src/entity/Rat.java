@@ -1,7 +1,7 @@
-package entity.rats;
+package entity;
 
-import entity.Entity;
 import javafx.scene.image.Image;
+import main.level.Level;
 import tile.Tile;
 
 import java.util.ArrayList;
@@ -16,17 +16,15 @@ import java.util.Random;
 public class Rat extends Entity {
 
     private Direction direction;
-    private Image image;
-    private Image upImage;
-    private Image downImage;
-    private Image leftImage;
-    private Image rightImage;
+
     private Image rotatedImage;
-    private int hp;
+    private final Image image;
+    private final Image upImage;
+    private final Image downImage;
+    private final Image leftImage;
+    private final Image rightImage;
 
-    private final int SPEED = 1;
-    private final int BABY_SPEED = 2;
-
+    private final int hp;
     private boolean isAdult;
     private boolean isSterilised;
     private Gender gender;
@@ -58,12 +56,14 @@ public class Rat extends Entity {
         this.pregnancyStage = 0;
 
         if (isAdult) {
-            this.moveSpeed = SPEED;
+            this.moveSpeed = 1;
         } else {
-            this.moveSpeed = BABY_SPEED;
+            this.moveSpeed = 2;
         }
 
-        if (gender == Gender.FEMALE) {
+        if (!isAdult) {
+            image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png");
+        } else if (gender == Gender.FEMALE) {
             image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-rat.png");
         } else {
             image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png");
@@ -80,22 +80,20 @@ public class Rat extends Entity {
 
     /**
      * Finds a potential mating partner.
+     * Checks if opposite genders,
+     * Checks if both adults,
+     * Checks if both not sterilised
+     *
      * @param currentTile current tile the rat is standing on.
      */
     public void findPartner(Tile currentTile) {
         ArrayList<Entity> entities = currentTile.getEntitiesOnTile();
         for (Entity e : entities) {
-            if (e.getClass().getName().equals("entity.rats.Rat")) {
+            if (e.getEntityName().equals("Rat")) {
                 Rat partner = (Rat) e;
 
-                /*
-                Checks if opposite genders,
-                Checks if both adults,
-                Checks if both not sterilised
-                 */
-                if (this.getGender() != partner.getGender()
-                        && this.isAdult() && partner.isAdult()
-                        && !this.isSterilised() && !partner.isSterilised()) {
+                if (this.getGender() != partner.getGender() && this.isAdult() && partner.isAdult()
+                        && this.isSterilised() && partner.isSterilised()) {
                     this.mate(partner);
                 }
             }
@@ -118,23 +116,23 @@ public class Rat extends Entity {
 
     /**
      * Allows pregnant female rats to give birth to multiple baby rats.
+     * Checks if rat is female
+     * Checks if rat is pregnant
+     * Checks if rat pregnancy stage is at max value
      */
     public void giveBirth() {
-
-        /*
-        Checks if rat is female
-        Checks if rat is pregnant
-        Checks if rat pregnancy stage is at max value
-         */
-        if (this.getGender() == Gender.FEMALE
-                && this.isPregnant()
-                && this.getPregnancyStage() == 10) {
-
+        if (this.getGender() == Gender.FEMALE && this.isPregnant() && this.getPregnancyStage() == 10) {
             Random rand = new Random();
             int randomNum = rand.nextInt((5) + 1);
 
             for (int i = 0; i < randomNum; i++) {
-                // TODO Spawn baby rats
+                if (randomNum % 2 == 0) {
+                    Level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX()]
+                            .addEntityToTile(new Rat(Gender.FEMALE,false));
+                } else {
+                    Level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX()]
+                            .addEntityToTile(new Rat(Gender.MALE,false));
+                }
             }
         }
     }
@@ -145,7 +143,7 @@ public class Rat extends Entity {
     public void growUp() {
         if (!this.isAdult()) {
             this.setAdult(true);
-            this.setMoveSpeed(SPEED);
+            this.setMoveSpeed(moveSpeed - 1);
         }
     }
 
@@ -194,7 +192,7 @@ public class Rat extends Entity {
     }
 
     public boolean isSterilised() {
-        return isSterilised;
+        return !isSterilised;
     }
 
     public void setSterilised(boolean sterilised) {

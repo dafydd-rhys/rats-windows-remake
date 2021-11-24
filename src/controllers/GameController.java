@@ -2,11 +2,11 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import entity.weapon.DeathRat;
-import entity.rats.Rat;
+import entity.Rat;
 import entity.weapon.Bomb;
 import entity.weapon.FemaleSexChange;
 import entity.weapon.Gas;
-import entity.weapon.Item;
+import entity.Item;
 import entity.weapon.MaleSexChange;
 import entity.weapon.NoEntrySign;
 import entity.weapon.Poison;
@@ -31,9 +31,9 @@ import javafx.scene.layout.BorderPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import main.Movement;
+import tile.Movement;
 import main.external.Audio;
-import main.level.Inventory;
+import player.Inventory.Inventory;
 import main.level.Level;
 import main.stage.StageFunctions;
 import main.level.LevelFileGenerator;
@@ -288,7 +288,7 @@ public class GameController implements Initializable {
         }
 
         for (Rat rat : rats) {
-            if (!Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()){
+            if (Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()){
                 gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
             }
         }
