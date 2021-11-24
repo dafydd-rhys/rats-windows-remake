@@ -24,7 +24,7 @@ public class Rat extends Entity {
     private final Image leftImage;
     private final Image rightImage;
 
-    private final int hp;
+    private int hp;
     private boolean isAdult;
     private boolean isSterilised;
     private Gender gender;
@@ -185,7 +185,77 @@ public class Rat extends Entity {
 
     @Override
     public void setImage(Image image) {
-        super.setImage(image);
+        setImage(image);
+    }
+
+    @Override
+    public int getHp() {
+        return this.hp;
+    }
+
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    @Override
+    public int getDamage() {
+        return this.damage;
+    }
+
+    @Override
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    @Override
+    public int getRange() {
+        return this.range;
+    }
+
+    @Override
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    @Override
+    public int getCurrentPosX() {
+        return this.currentPosX;
+    }
+
+    @Override
+    public void setCurrentPosX(int currentPosX) {
+        this.currentPosX = currentPosX;
+    }
+
+    @Override
+    public int getCurrentPosY() {
+        return this.currentPosY;
+    }
+
+    @Override
+    public void setCurrentPosY(int currentPosY) {
+        this.currentPosY = currentPosY;
+    }
+
+    @Override
+    public boolean isActive() {
+        return false;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        setActive(active);
+    }
+
+    @Override
+    public String getEntityName() {
+        return this.entityName;
+    }
+
+    @Override
+    protected void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
     public Image getImage() {

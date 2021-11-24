@@ -52,10 +52,11 @@ public class Bomb extends Item {
                 for (int j = 0; j < this.range; j++) {
                     ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
                     if (entitiesOnTile != null) {
-                        for (int k = 0; k < entitiesOnTile.size(); k++) {
-                            if (entitiesOnTile.get(k).getEntityName().equals("Rat")) {
-                                Rat targetRat = (Rat) entitiesOnTile.get(k);
+                        for (Entity entity : entitiesOnTile) {
+                            if (entity.getEntityName().equals("Rat")) {
+                                Rat targetRat = (Rat) entity;
                                 inflictDamage(this.damage, targetRat);
+
                                 if (targetRat.getHp() <= 0) {
                                     Level.getRats().remove(targetRat);
                                     tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);

@@ -79,15 +79,20 @@ public class LevelFileReader {
             maxRats = scanner.nextInt();
             expectedTime = scanner.nextInt();
 
+            System.out.println(sizeX);
+            System.out.println(sizeY);
+
             for (int i = 0; i < 8; i ++) {
                 split = scanner.next().split(",");
                 StringBuilder amount = new StringBuilder(split[1]);
                 timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
                         Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
             }
+            scanner.nextLine();
         }
 
         for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
+            System.out.println(row);
             char[] chars = scanner.nextLine().toCharArray();
             for (int i = 0; i < sizeX && i < chars.length; i++) {
                 array[row][i] = chars[i];

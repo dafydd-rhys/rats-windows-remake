@@ -70,6 +70,7 @@ public class GameController implements Initializable {
     private static GraphicsContext gc;
     private static double currentTick;
     private int score = 0;
+    private static boolean gameOver = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -154,6 +155,7 @@ public class GameController implements Initializable {
 
     private static final Timer ticker = new Timer(500, e -> {
         currentTick += 1;
+
         tick();
     });
 
