@@ -38,7 +38,8 @@ public class NoEntrySign extends Item {
             for (Entity entity : entitiesOnTile) {
                 if (entity.getEntityName().equals("Rat")) {
                     Rat targetRat = (Rat) entity;
-                    // [needs a method to prevent targetRat from passing here]
+                    // TODO needs a method to prevent targetRat from passing here
+                    // FIXME tile[this.currentPosY][this.currentPosX].isWalkable = false;
                     this.hp -= 1;
                     switch (this.hp) {
                         case 4 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png");

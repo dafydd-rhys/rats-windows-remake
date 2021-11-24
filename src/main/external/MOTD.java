@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * LevelFileGenerator
+ * MOTD
  *
  * @author Maurice Peterson
  */
