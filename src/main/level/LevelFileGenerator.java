@@ -1,8 +1,10 @@
 package main.level;
 
+import entity.Item;
 import entity.Rat;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.canvas.GraphicsContext;
 import tile.Tile;
 
@@ -14,13 +16,21 @@ import tile.Tile;
 public class LevelFileGenerator {
 
     private final GraphicsContext gc;
+    private HashMap<Item.TYPE, Integer> timeToGenerate;
     private final char[][] tiles;
     private final char[][] spawns;
+    private final int expectedTime;
+    private final int maxRats;
 
-    public LevelFileGenerator(GraphicsContext gc, char[][] tiles, char[][] spawns) throws IOException {
+    public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, char[][] tiles,
+                              char[][] spawns, int expectedTime, int maxRats) throws IOException {
+        this.timeToGenerate = timeToGenerate;
         this.gc = gc;
         this.tiles = tiles;
         this.spawns = spawns;
+        this.expectedTime = expectedTime;
+        this.maxRats = maxRats;
+
         generateLevel();
     }
 
@@ -45,7 +55,7 @@ public class LevelFileGenerator {
             }
         }
 
-        new Level(tilesArray, ratsArray);
+        new Level(timeToGenerate, expectedTime, maxRats, tilesArray, ratsArray);
     }
 
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {

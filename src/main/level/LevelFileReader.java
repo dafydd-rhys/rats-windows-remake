@@ -1,8 +1,11 @@
 package main.level;
 
+import entity.Item;
+import entity.weapon.Bomb;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -17,6 +20,9 @@ public class LevelFileReader {
     private final char[][] spawns = new char[size][size];
     private final String lvlDirectory;
     private final String spawnDirectory;
+    private int expectedTime;
+    private int maxRats;
+    private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
 
     public LevelFileReader(int level) throws IOException {
         this.lvlDirectory = "src/resources/config/levels/level" + level + ".txt";
@@ -31,6 +37,18 @@ public class LevelFileReader {
 
     public char[][] getSpawns() {
         return spawns;
+    }
+
+    public int getExpectedTime() {
+        return expectedTime;
+    }
+
+    public int getMaxRats() {
+        return maxRats;
+    }
+
+    public HashMap<Item.TYPE, Integer> getTimeToGenerate() {
+        return timeToGenerate;
     }
 
     private void loadLevel() throws IOException {
@@ -50,6 +68,28 @@ public class LevelFileReader {
                 array[row][i] = chars[i];
             }
         }
+
+        if (dir.equals(lvlDirectory)) {
+            maxRats = scanner.nextInt();
+            expectedTime = scanner.nextInt() * 1000;
+            for (int i = 0; i < 8; i ++) {
+                timeToGenerate.put(getItem(scanner.next()), scanner.nextInt());
+            }
+        }
+    }
+
+    private Item.TYPE getItem(String item) {
+        return switch (item) {
+            case "Bomb" -> Item.TYPE.BOMB;
+            case "Gas" -> Item.TYPE.GAS;
+            case "MaleChange" -> Item.TYPE.MALE_CHANGE;
+            case "FemaleChange" -> Item.TYPE.FEMALE_CHANGE;
+            case "NoEntry" -> Item.TYPE.NO_ENTRY;
+            case "Poison" -> Item.TYPE.POISON;
+            case "DeathRat" -> Item.TYPE.DEATH_RAT;
+            case "Sterilisation" -> Item.TYPE.STERILISATION;
+            default -> null;
+        };
     }
 
 }

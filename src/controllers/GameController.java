@@ -89,7 +89,8 @@ public class GameController implements Initializable {
 
         try {
             LevelFileReader level = new LevelFileReader(1);
-            new LevelFileGenerator(gc, level.getLevel(), level.getSpawns());
+            new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getLevel(),
+                    level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,6 +172,8 @@ public class GameController implements Initializable {
                 }
             }
         }
+
+
     }
 
     private static void draw() {

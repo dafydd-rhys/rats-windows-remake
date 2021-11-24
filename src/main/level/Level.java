@@ -3,6 +3,7 @@ package main.level;
 import entity.Rat;
 import entity.Item;
 import java.util.ArrayList;
+import java.util.HashMap;
 import tile.Tile;
 
 /**
@@ -12,13 +13,20 @@ import tile.Tile;
  */
 public class Level {
 
+    private static HashMap<Item.TYPE, Integer> timeToGenerate;
     private static Tile[][] tiles;
     private static ArrayList<Rat> rats;
     private static ArrayList<Item> items;
+    private static int expectedTime;
+    private static int maxRats;
 
-    public Level(Tile[][] tiles, ArrayList<Rat> rats) {
+    public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats,
+                 Tile[][] tiles, ArrayList<Rat> rats) {
         Level.tiles = tiles;
         Level.rats = rats;
+        Level.timeToGenerate = timeToGenerate;
+        Level.expectedTime = expectedTime;
+        Level.maxRats = maxRats;
         items = new ArrayList<>();
     }
 
@@ -37,7 +45,11 @@ public class Level {
             }
         }
     }
-    
+
+    public static HashMap<Item.TYPE, Integer> getTimeToGenerate() {
+        return timeToGenerate;
+    }
+
     public static Tile[][] getTiles() {
         return tiles;
     }
@@ -48,6 +60,14 @@ public class Level {
 
     public static ArrayList<Item> getItems() {
         return items;
+    }
+
+    public static int getMaxRats() {
+        return maxRats;
+    }
+
+    public static int getExpectedTime() {
+        return expectedTime;
     }
 
 }
