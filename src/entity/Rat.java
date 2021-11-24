@@ -31,6 +31,7 @@ public class Rat extends Entity {
     private int moveSpeed;
     private boolean isPregnant;
     private int pregnancyStage;
+    private int growingStage;
 
     public enum Gender {
         MALE,
@@ -54,6 +55,7 @@ public class Rat extends Entity {
         this.isSterilised = false;
         this.isPregnant = false;
         this.pregnancyStage = 0;
+        this.growingStage = 0;
 
         if (isAdult) {
             this.moveSpeed = 1;
@@ -141,10 +143,12 @@ public class Rat extends Entity {
      * Allows baby rats to grow into adult rats.
      */
     public void growUp() {
-        if (!this.isAdult()) {
-            this.setAdult(true);
-            this.setMoveSpeed(moveSpeed - 1);
-        }
+        if (this.growingStage < 10)
+            if (!this.isAdult()) {
+                // TODO Change sprite.
+                this.setAdult(true);
+                this.setMoveSpeed(moveSpeed - 1);
+            }
     }
 
     public Gender getGender() {

@@ -1,6 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import entity.Rat;
 import entity.Item;
 import java.io.IOException;
@@ -59,9 +60,16 @@ public class GameController implements Initializable {
     private ImageView musicImage;
     @FXML
     private ImageView effectsImage;
+    @FXML
+    private JFXTextArea levelBox;
+    @FXML
+    private JFXTextArea timerBox;
+    @FXML
+    private JFXTextArea scoreBox;
 
     private static GraphicsContext gc;
     private static double currentTick;
+    private int score = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,6 +91,10 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        levelBox.setText("Level: " + Level.currentLevel);
+        timerBox.setText("Time Left: " + Level.getExpectedTime());
+        scoreBox.setText("Score: " + score);
 
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
@@ -163,6 +175,7 @@ public class GameController implements Initializable {
             for (Rat rat : rats) {
                 if (!rat.isAdult()) {
                     move(rat);
+                    rat.growUp();
                 }
             }
         }

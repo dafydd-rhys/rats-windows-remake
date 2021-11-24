@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Bryan Kok
  */
 
-public class Bomb extends Item { //used to extend Entities.Item
+public class Bomb extends Item {
 
     public Bomb() {
         this.entityName = "Bomb";
@@ -32,43 +32,45 @@ public class Bomb extends Item { //used to extend Entities.Item
     }
 
     public void countdown() {
-        // TODO needs for loop using tick timer
-
-        /* FIXME for () {
-            this.hp -= 1;
-            switch (this.hp) {
-                case 6 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png");
-                case 4 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png");
-                case 2 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png");
-                case 0 -> {
-                    this.image = null;
-                    tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
-                }
+        this.hp -= 1;
+        switch (this.hp) {
+            case 6 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png");
+            case 4 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png");
+            case 2 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png");
+            case 0 -> {
+                //this.image = null;
             }
-        } */
+        }
     }
-
+// TODO Need to make bomb destroy everything in its path not 1 tile radius
     public void activate() {
-        countdown();
-        Tile[][] tiles = Level.getTiles();
-        for (int i = 0; i < this.range; i++) {
-            for (int j = 0; j < this.range; j++) {
-                ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
-                if (entitiesOnTile != null) {
-                    for (int k = 0; k < entitiesOnTile.size(); k++) {
-                        if (entitiesOnTile.get(k).getEntityName().equals("Rat")) {
-                            Rat targetRat = (Rat) entitiesOnTile.get(k);
-                            inflictDamage(this.damage, targetRat);
-                            if (targetRat.getHp() <= 0) {
-                                tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);
-                                entitiesOnTile.remove(targetRat);
+        if (this.hp > 0) {
+            countdown();
+        } else {
+            Tile[][] tiles = Level.getTiles();
+            for (int i = 0; i < this.range; i++) {
+                for (int j = 0; j < this.range; j++) {
+                    ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
+                    if (entitiesOnTile != null) {
+                        for (int k = 0; k < entitiesOnTile.size(); k++) {
+                            if (entitiesOnTile.get(k).getEntityName().equals("Rat")) {
+                                Rat targetRat = (Rat) entitiesOnTile.get(k);
+                                inflictDamage(this.damage, targetRat);
+                                if (targetRat.getHp() <= 0) {
+                                    Level.getRats().remove(targetRat);
+                                    tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);
+                                    //entitiesOnTile.remove(targetRat);
+                                }
                             }
                         }
                     }
                 }
             }
+            Level.getItems().remove(this);
+            tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
         }
-        tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+
+
     }
 
 }
