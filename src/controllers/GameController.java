@@ -28,12 +28,21 @@ import main.stage.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
 import tile.Tile;
+import entity.weapon.Bomb;
+import entity.weapon.DeathRat;
+import entity.weapon.FemaleSexChange;
+import entity.weapon.Gas;
+import entity.weapon.MaleSexChange;
+import entity.weapon.NoEntrySign;
+import entity.weapon.Poison;
+import entity.weapon.Sterilisation;
 
 /**
  * Main
  *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
+ * @author Harry Boyce (2011556)
  */
 public class GameController implements Initializable {
 
@@ -171,6 +180,34 @@ public class GameController implements Initializable {
                 }
             }
         }
+        for (int i = 0; i < Level.getItems().size(); i++) {
+            if (Level.getItems().get(i).getEntityName().equals("Bomb")) {
+                Bomb bomb = new Bomb();
+                bomb.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("DeathRat")) {
+                DeathRat deathRat = new DeathRat();
+                deathRat.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("FemaleSexChange")) {
+                FemaleSexChange femaleSexChange = new FemaleSexChange();
+                femaleSexChange.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("Gas")) {
+                Gas gas = new Gas();
+                gas.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("MaleSexChange")) {
+                MaleSexChange maleSexChange = new MaleSexChange();
+                maleSexChange.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("NoEntrySign")) {
+                NoEntrySign noEntrySign = new NoEntrySign();
+                noEntrySign.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("Poison")) {
+                Poison poison = new Poison();
+                poison.activate();
+            } else if (Level.getItems().get(i).getEntityName().equals("Sterilisation")) {
+                Sterilisation sterilisation = new Sterilisation();
+                sterilisation.activate();
+            }
+        }
+
     }
 
     private static void draw() {

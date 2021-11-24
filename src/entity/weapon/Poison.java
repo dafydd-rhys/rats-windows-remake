@@ -40,6 +40,8 @@ public class Poison extends Item {
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(this.damage, targetRat);
                     if (targetRat.getHp() <= 0) {
+                        // FIXME removing targetRat from game
+                        Level.getRats().remove(targetRat);
                         tile[this.currentPosY][this.currentPosX].removeEntityFromTile(targetRat);
                         entitiesOnTile.remove(targetRat);
                     }
