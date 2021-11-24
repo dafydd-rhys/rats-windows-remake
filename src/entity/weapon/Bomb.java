@@ -71,7 +71,6 @@ public class Bomb extends Item {
             //         }
             //     }
             // }
-
             Level.getItems().remove(this);
             tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
         }

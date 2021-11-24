@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Inventory {
 
-    private static ArrayList<Item> items = new ArrayList<>();
+    private static final ArrayList<Item> items = new ArrayList<>();
 
     public static void addItem(Item item) {
         items.add(item);
@@ -58,27 +58,7 @@ public class Inventory {
     }
 
     public static boolean maxAbilities() {
-        boolean max = false;
-
-        if (getBombAmount() == 4) {
-            if (getGasAmount() == 4) {
-                if (getFemaleChangeAmount() == 4) {
-                    if (getMaleChangeAmount() == 4) {
-                        if (getDeathRatAmount() == 4) {
-                            if (getPoisonAmount() == 4) {
-                                if (getNoEntryAmount() == 4) {
-                                    if (getSterilisationAmount() == 4) {
-                                        max = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return max;
+        return getItems().size() == 32;
     }
 
     private static int getAmount(Item.TYPE type) {

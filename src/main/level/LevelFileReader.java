@@ -1,7 +1,6 @@
 package main.level;
 
 import entity.Item;
-import entity.weapon.Bomb;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,14 +14,17 @@ import java.util.Scanner;
  */
 public class LevelFileReader {
 
+    private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
     private final int size = 20;
     private final char[][] level = new char[size][size];
     private final char[][] spawns = new char[size][size];
     private final String lvlDirectory;
     private final String spawnDirectory;
+
     private int expectedTime;
     private int maxRats;
-    private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
+    private int sizeX;
+    private int sizeY;
 
     public LevelFileReader(int level) throws IOException {
         this.lvlDirectory = "src/resources/config/levels/level" + level + ".txt";
@@ -37,6 +39,14 @@ public class LevelFileReader {
 
     public char[][] getSpawns() {
         return spawns;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
     }
 
     public int getExpectedTime() {
@@ -62,18 +72,30 @@ public class LevelFileReader {
     private void readFile(char[][] array, String dir) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(dir));
 
-        for (int row = 0; scanner.hasNextLine() && row < size; row++) {
-            char[] chars = scanner.nextLine().toCharArray();
-            for (int i = 0; i < size && i < chars.length; i++) {
-                array[row][i] = chars[i];
+        if (dir.equals(lvlDirectory)) {
+            String[] split = scanner.next().split(",");
+            sizeX = Integer.parseInt(split[0].substring(0, 0) + split[0].substring(1));
+            sizeY = Integer.parseInt(split[1].substring(0, 2));
+            maxRats = scanner.nextInt();
+            expectedTime = scanner.nextInt();
+
+            System.out.println(sizeX);
+            System.out.println(sizeY);
+
+            for (int i = 0; i < 8; i ++) {
+                split = scanner.next().split(",");
+                StringBuilder amount = new StringBuilder(split[1]);
+                timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
+                        Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
             }
+            scanner.nextLine();
         }
 
-        if (dir.equals(lvlDirectory)) {
-            maxRats = scanner.nextInt();
-            expectedTime = scanner.nextInt() * 1000;
-            for (int i = 0; i < 8; i ++) {
-                timeToGenerate.put(getItem(scanner.next()), scanner.nextInt());
+        for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
+            System.out.println(row);
+            char[] chars = scanner.nextLine().toCharArray();
+            for (int i = 0; i < sizeX && i < chars.length; i++) {
+                array[row][i] = chars[i];
             }
         }
     }

@@ -28,69 +28,37 @@ public abstract class Entity {
         System.out.println(damageTarget.getEntityName() + " is dealt " + damageDealt + " damage!");
     }
 
-    public String getEntityName() {
-        return entityName;
-    }
+    public abstract String getEntityName();
 
-    public void setEntityName(String entityName) {
-        this.entityName = entityName;
-    }
+    protected abstract void setEntityName(String entityName);
 
-    public Image getImage() {
-        return image;
-    }
+    protected abstract Image getImage();
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
+    protected abstract void setImage(Image image);
 
-    public int getHp() {
-        return hp;
-    }
+    protected abstract int getHp();
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
+    protected abstract void setHp(int hp);
 
-    public int getDamage() {
-        return damage;
-    }
+    protected abstract int getDamage();
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
+    protected abstract void setDamage(int damage);
 
-    public int getRange() {
-        return range;
-    }
+    protected abstract int getRange();
 
-    public void setRange(int range) {
-        this.range = range;
-    }
+    protected abstract void setRange(int range);
 
-    public int getCurrentPosX() {
-        return currentPosX;
-    }
+    protected abstract int getCurrentPosX();
 
-    public void setCurrentPosX(int currentPosX) {
-        this.currentPosX = currentPosX;
-    }
+    protected abstract void setCurrentPosX(int currentPosX);
 
-    public int getCurrentPosY() {
-        return currentPosY;
-    }
+    protected abstract int getCurrentPosY();
 
-    public void setCurrentPosY(int currentPosY) {
-        this.currentPosY = currentPosY;
-    }
+    protected abstract void setCurrentPosY(int currentPosY);
 
-    public boolean isActive() {
-        return isActive;
-    }
+    protected abstract boolean isActive();
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
+    protected abstract void setActive(boolean active);
 
     public static Image rotate(Image img, int angle) {
         ImageView iv = new ImageView(img);

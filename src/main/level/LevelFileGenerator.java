@@ -21,21 +21,25 @@ public class LevelFileGenerator {
     private final char[][] spawns;
     private final int expectedTime;
     private final int maxRats;
+    private final int sizeX;
+    private final int sizeY;
 
-    public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, char[][] tiles,
-                              char[][] spawns, int expectedTime, int maxRats) throws IOException {
+    public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
+                              char[][] tiles, char[][] spawns, int expectedTime, int maxRats) {
         this.timeToGenerate = timeToGenerate;
         this.gc = gc;
         this.tiles = tiles;
         this.spawns = spawns;
         this.expectedTime = expectedTime;
         this.maxRats = maxRats;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
 
         generateLevel();
     }
 
     private void generateLevel() {
-        Tile[][] tilesArray = new Tile[20][20];
+        Tile[][] tilesArray = new Tile[sizeY][sizeX];
         ArrayList<Rat> ratsArray = new ArrayList<>();
 
         for (int y = 0; y < tiles.length; y++) {
