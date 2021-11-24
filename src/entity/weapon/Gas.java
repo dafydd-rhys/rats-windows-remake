@@ -26,6 +26,7 @@ public class Gas  extends Item {
     // TODO
 
     public void activate() {
+        System.out.println("oooooooooooooooooooo");
         expand();
         // remove
     }

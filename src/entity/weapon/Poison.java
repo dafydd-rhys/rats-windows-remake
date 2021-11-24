@@ -30,7 +30,6 @@ public class Poison extends Item {
     }
 
     public void activate() {
-
         Tile[][] tile = Level.getTiles();
         ArrayList<Entity> entitiesOnTile = tile[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
@@ -39,6 +38,7 @@ public class Poison extends Item {
                 if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(this.damage, targetRat);
+
                     if (targetRat.getHp() <= 0) {
                         tile[this.currentPosY][this.currentPosX].removeEntityFromTile(targetRat);
                         entitiesOnTile.remove(targetRat);

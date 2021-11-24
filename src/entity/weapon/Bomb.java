@@ -45,10 +45,7 @@ public class Bomb extends Item { //used to extend Entities.Item
                     tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
                 }
             }
-
         } */
-
-
     }
 
     public void activate() {
@@ -73,4 +70,5 @@ public class Bomb extends Item { //used to extend Entities.Item
         }
         tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
     }
+
 }

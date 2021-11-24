@@ -17,6 +17,8 @@ public abstract class Item extends Entity {
     protected TYPE type;
     protected int yOffset;
 
+    public abstract void activate();
+
     public enum TYPE {
         BOMB(),
         GAS(),

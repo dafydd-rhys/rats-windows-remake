@@ -158,6 +158,11 @@ public class GameController implements Initializable {
 
     private static void tick() {
         ArrayList<Rat> rats = Level.getRats();
+        ArrayList<Item> items = Level.getItems();
+
+        for (Item item : items) {
+            item.activate();
+        }
 
         if (currentTick % 2 == 0) {
             for (Rat rat : rats) {
@@ -172,8 +177,6 @@ public class GameController implements Initializable {
                 }
             }
         }
-
-
     }
 
     private static void draw() {
@@ -194,7 +197,6 @@ public class GameController implements Initializable {
             }
         }
 
-        System.out.println(items.size());
         for (Item item : items) {
             gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
         }
