@@ -97,7 +97,7 @@ public class GameController implements Initializable {
         onActions();
 
         try {
-            LevelFileReader level = new LevelFileReader(1);
+            LevelFileReader level = new LevelFileReader(Level.currentLevel);
             new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getLevel(),
                     level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
         } catch (IOException e) {
@@ -169,8 +169,8 @@ public class GameController implements Initializable {
         ArrayList<Rat> rats = Level.getRats();
         ArrayList<Item> items = Level.getItems();
 
-        for (Item item : items) {
-            item.activate();
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i).activate();
         }
 
         if (currentTick % 2 == 0) {
