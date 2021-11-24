@@ -50,6 +50,7 @@ public class Bomb extends Item {
 
     private void explode() {
         Tile[][] tiles = Level.getTiles();
+        Tile original = tiles[getCurrentPosY()][getCurrentPosX()];
 
         // TODO add explosion sprite for visual guide
         for (Rat.Direction direction : Rat.Direction.values()) {
@@ -61,7 +62,8 @@ public class Bomb extends Item {
                 ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
 
                 if (!entitiesOnTile.isEmpty()) {
-                    for (Entity entity : entitiesOnTile) {
+                    for (int i = 0; i < entitiesOnTile.size(); i++) {
+                        Entity entity = entitiesOnTile.get(i);
                         if (entity.getEntityType() == EntityType.RAT) {
                             Rat target = (Rat) entity;
                             inflictDamage(getDamage(), target);
@@ -71,6 +73,8 @@ public class Bomb extends Item {
                                 current.removeEntityFromTile(target);
                                 entitiesOnTile.remove(target);
                             }
+                            Level.getItems().remove(this);
+                            original.removeEntityFromTile(this);
                         }
                     }
                 }
