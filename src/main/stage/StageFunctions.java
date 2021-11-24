@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.sound.sampled.LineUnavailableException;
@@ -21,6 +22,7 @@ import main.external.Audio;
 public class StageFunctions {
 
     private static Stage stage;
+    private static Stage settingsStage;
 
     public static void setStage(Stage stage) {
         StageFunctions.stage = stage;
@@ -42,15 +44,19 @@ public class StageFunctions {
 
     public static void openSettings() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Audio.clickEffect();
+        Stage settingsStage = new Stage();
+        StageFunctions.settingsStage = settingsStage;
         Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\resources\\fxml\\settings.fxml"));
 
-        stage.setMinHeight(530);
-        stage.setMinWidth(800);
-        stage.setAlwaysOnTop(true);
-        stage.setTitle("Settings");
-        stage.setScene(new Scene(scene));
-        StageResizer.addResizeListener(stage);
-        stage.show();
+        settingsStage.setMinHeight(230);
+        settingsStage.setMinWidth(400);
+        settingsStage.setAlwaysOnTop(true);
+        settingsStage.setTitle("Settings");
+        settingsStage.initStyle(StageStyle.UNDECORATED);
+        settingsStage.initModality(Modality.WINDOW_MODAL);
+        settingsStage.setScene(new Scene(scene));
+        StageResizer.addResizeListener(settingsStage);
+        settingsStage.show();
     }
 
     public static void muteMusic() {
@@ -87,6 +93,10 @@ public class StageFunctions {
         if (reply == JOptionPane.YES_OPTION) {
             System.exit(1);
         }
+    }
+
+    public static void exitSettings() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        settingsStage.close();
     }
 
     public static void toggleOpacity(ImageView image) {
