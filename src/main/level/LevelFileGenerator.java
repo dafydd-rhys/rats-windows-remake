@@ -1,8 +1,7 @@
 package main.level;
 
 import entity.Item;
-import entity.Rat;
-import java.io.IOException;
+import entity.rat.Rat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.canvas.GraphicsContext;

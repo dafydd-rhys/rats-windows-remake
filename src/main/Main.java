@@ -1,5 +1,6 @@
 package main;
 
+import entity.rat.RatSprites;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage window) throws Exception {
+        RatSprites.load();
         Platform.setImplicitExit(false);
         StageFunctions.setStage(window);
         StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Player Entry Screen");

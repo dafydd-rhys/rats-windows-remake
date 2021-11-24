@@ -2,7 +2,7 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import entity.Rat;
+import entity.rat.Rat;
 import entity.Item;
 import java.io.IOException;
 import java.net.URL;

@@ -1,7 +1,7 @@
 package entity.weapon;
 
 import entity.Item;
-import entity.Rat;
+import entity.rat.Rat;
 import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
@@ -33,23 +33,25 @@ public class FemaleSexChange extends Item {
     }
 
     public void activate() {
-
         Tile[][] tile = Level.getTiles();
         ArrayList<Entity> entitiesOnTile = tile[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
-        if (entitiesOnTile != null) {
-            for (Entity entity : entitiesOnTile) {
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat targetRat = (Rat) entity;
-                    if (targetRat.getGender() != Rat.Gender.FEMALE) {
-                        targetRat.setGender(Rat.Gender.FEMALE);
-                        targetRat.setImage(new Image(System.getProperty("user.dir") + "\\src\\resources\\images\\game\\entities\\female-rat.png"));
-                        // TODO add sprite change
+        if (!entitiesOnTile.isEmpty()) {
+            for (int i = 0; i < entitiesOnTile.size(); i++) {
+                if (entitiesOnTile.get(i).getEntityType() == EntityType.RAT) {
+                    Rat target = (Rat) entitiesOnTile.get(i);
+
+                    if (target.getGender() == Rat.Gender.MALE) {
+                        target.setGender(Rat.Gender.FEMALE);
+                        target.setImage(new Image(System.getProperty("user.dir") +
+                                "\\src\\resources\\images\\game\\entities\\female-rat.png"));
+                        target.getImages();
+
+                        this.hp -= 1;
+                        Level.getItems().remove(this);
+                        entitiesOnTile.remove(this);
+                        break;
                     }
-                    this.hp -= 1;
-                    Level.getItems().remove(this);
-                    entitiesOnTile.remove(this);
-                    break;
                 }
             }
         }

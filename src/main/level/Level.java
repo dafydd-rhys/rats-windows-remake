@@ -1,6 +1,6 @@
 package main.level;
 
-import entity.Rat;
+import entity.rat.Rat;
 import entity.Item;
 import java.util.ArrayList;
 import java.util.HashMap;

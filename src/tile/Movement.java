@@ -1,6 +1,6 @@
 package tile;
 
-import entity.Rat;
+import entity.rat.Rat;
 import java.util.Random;
 
 /**

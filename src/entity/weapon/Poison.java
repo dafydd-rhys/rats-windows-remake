@@ -1,11 +1,10 @@
 package entity.weapon;
 
 import entity.Item;
-import entity.Rat;
+import entity.rat.Rat;
 import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
-import tile.Tile;
 
 import java.util.ArrayList;
 

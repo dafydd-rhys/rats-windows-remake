@@ -67,13 +67,4 @@ public abstract class Entity {
         return damage;
     }
 
-    public static Image rotate(Image img, int angle) {
-        ImageView iv = new ImageView(img);
-        iv.setRotate(angle);
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-
-        return iv.snapshot(params, null);
-    }
-
 }

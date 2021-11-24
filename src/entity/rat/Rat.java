@@ -1,5 +1,6 @@
-package entity;
+package entity.rat;
 
+import entity.Entity;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
@@ -18,26 +19,25 @@ import java.util.Random;
 public class Rat extends Entity {
 
     private Direction direction;
+    private Gender gender;
 
     private Image rotatedImage;
-    private Image image;
-    private final Image upImage;
-    private final Image downImage;
-    private final Image leftImage;
-    private final Image rightImage;
+    private Image upImage;
+    private Image downImage;
+    private Image leftImage;
+    private Image rightImage;
 
     private int hp;
     private boolean isAdult;
     private boolean isSterilised;
-    private Gender gender;
     private int moveSpeed;
     private boolean isPregnant;
     private int pregnancyStage;
     private int growingStage;
 
     public enum Gender {
-        MALE,
-        FEMALE
+        MALE(),
+        FEMALE()
     }
 
     public enum Direction {
@@ -73,13 +73,44 @@ public class Rat extends Entity {
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png"));
         }
 
-        upImage = image;
-        rightImage = Entity.rotate(image, 90);
-        downImage = Entity.rotate(image, 180);
-        leftImage = Entity.rotate(image, 270);
+        getImages();
 
         List<Direction> values = List.of(Direction.values());
         setDirection(values.get(new Random().nextInt(values.size())));
+    }
+
+    public void getImages() {
+        if (isSterilised() && this.gender == Gender.MALE) {
+            image = RatSprites.upMale;
+            upImage = RatSprites.upMale;
+            rightImage = RatSprites.rightMale;
+            downImage = RatSprites.downMale;
+            leftImage = RatSprites.leftMale;
+        } else if (isSterilised() && this.gender == Gender.FEMALE) {
+            image = RatSprites.upFemale;
+            upImage = RatSprites.upFemale;
+            rightImage = RatSprites.rightFemale;
+            downImage = RatSprites.downFemale;
+            leftImage = RatSprites.leftFemale;
+        } else if (!isSterilised() && this.gender == Gender.FEMALE) {
+            image = RatSprites.upMaleSterilised;
+            upImage = RatSprites.upMaleSterilised;
+            rightImage = RatSprites.rightMaleSterilised;
+            downImage = RatSprites.downMaleSterilised;
+            leftImage = RatSprites.leftMaleSterilised;
+        } else if (!isSterilised() && this.gender == Gender.FEMALE) {
+            image = RatSprites.upMaleSterilised;
+            upImage = RatSprites.upMaleSterilised;
+            rightImage = RatSprites.rightMaleSterilised;
+            downImage = RatSprites.downMaleSterilised;
+            leftImage = RatSprites.leftMaleSterilised;
+        } else {
+            image = RatSprites.upBaby;
+            upImage = RatSprites.upBaby;
+            rightImage = RatSprites.rightBaby;
+            downImage = RatSprites.downBaby;
+            leftImage = RatSprites.leftBaby;
+        }
     }
 
     /**
@@ -93,7 +124,7 @@ public class Rat extends Entity {
     public void findPartner(Tile currentTile) {
         ArrayList<Entity> entities = currentTile.getEntitiesOnTile();
         for (Entity e : entities) {
-            if (e.getEntityName().equals("Rat")) {
+            if (e.getEntityType() == EntityType.RAT) {
                 Rat partner = (Rat) e;
 
                 if (this.getGender() != partner.getGender() && this.isAdult() && partner.isAdult()
@@ -114,7 +145,6 @@ public class Rat extends Entity {
         } else if (this.getGender() == Gender.FEMALE && !this.isPregnant()) {
             this.setPregnant(true);
         }
-
         // TODO Make rats stop on tile while reproducing ??
     }
 
@@ -204,7 +234,7 @@ public class Rat extends Entity {
     }
 
     public Gender getGender() {
-        return gender;
+        return this.gender;
     }
 
     public void setGender(Gender gender) {

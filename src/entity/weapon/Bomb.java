@@ -1,7 +1,7 @@
 package entity.weapon;
 
 import entity.Item;
-import entity.Rat;
+import entity.rat.Rat;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
  * @author Harry Boyce
  * @author Bryan Kok
  */
-
 public class Bomb extends Item {
 
     public Bomb() {
@@ -91,26 +90,5 @@ public class Bomb extends Item {
             case DOWN -> tiles[getCurrentPosY() - distance][getCurrentPosX()];
         };
     }
-
-    /*
-            for (int i = 0; i < this.range; i++) {
-                 for (int j = 0; j < this.range; j++) {
-                     ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
-                     if (entitiesOnTile != null) {
-                         for (int k = 0; k < entitiesOnTile.size(); k++) {
-                             if (entitiesOnTile.get(k).getEntityName().equals("Rat")) {
-                                 Rat targetRat = (Rat) entitiesOnTile.get(k);
-                                 inflictDamage(this.damage, targetRat);
-                                 if (targetRat.getHp() <= 0) {
-                                     Level.getRats().remove(targetRat);
-                                     tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);
-                                     //entitiesOnTile.remove(targetRat);
-                                 }
-                             }
-                         }
-                     }
-                 }
-            }
-            */
 
 }
