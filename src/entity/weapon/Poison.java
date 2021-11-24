@@ -32,19 +32,25 @@ public class Poison extends Item {
     public void activate() {
         Tile[][] tile = Level.getTiles();
         ArrayList<Entity> entitiesOnTile = tile[this.currentPosY][this.currentPosX].getEntitiesOnTile();
-
+        System.out.println(entitiesOnTile);
         if (entitiesOnTile != null) {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
                 if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
+                    ArrayList<Entity> toRemove = new ArrayList<>();
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(this.damage, targetRat);
 
                     if (targetRat.getHp() <= 0) {
-                        tile[this.currentPosY][this.currentPosX].removeEntityFromTile(targetRat);
-                        entitiesOnTile.remove(targetRat);
+                        Level.getRats().remove(targetRat);
+                        //tile[this.currentPosY][this.currentPosX].removeEntityFromTile(targetRat);
+                        //entitiesOnTile.remove(targetRat);
+                        toRemove.add(targetRat);
+                        toRemove.add(this);
                     }
                     this.hp -= 1;
-                    tile[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+                    // FIXME removing weapon from game board
+                    Level.getItems().remove(this);
+                    entitiesOnTile.removeAll(toRemove);
                     break;
                 }
             }
