@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -77,7 +79,14 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="600.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+      <AnchorPane layoutX="600.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <JFXTextArea editable="false" focusColor="GREY" layoutX="10.0" layoutY="10.0" prefHeight="480.0" prefWidth="180.0" text="Rats! is a 1998 2D platform video game developed by Tarantula Studios, published by Take-Two Interactive Software in the France, Germany, and the United Kingdom for Game Boy and Game Boy Color on 30 December 1998 under the title Reservoir Rat.&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;Credits:&#10;Harry Boyce (2011556)&#10;Stefan Daitoiu (2033160)&#10;Bryan Kok (852650)&#10;Dafydd Maund (2003900)&#10;Maurice Petersen (2013396)&#10;Gareth Wade (1901805)&#10;Dawid Wisniewski (857847)&#10;Chunyuan Zhang (2131205)" unFocusColor="GREY" wrapText="true">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </JFXTextArea>
+         </children></AnchorPane>
       <VBox alignment="CENTER" layoutY="30.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">

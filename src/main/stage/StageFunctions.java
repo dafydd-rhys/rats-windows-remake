@@ -97,6 +97,7 @@ public class StageFunctions {
     }
 
     public static void exitSettings() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Audio.clickEffect();
         settingsStage.close();
     }
 
