@@ -183,6 +183,7 @@ public class GameController implements Initializable {
             for (Rat rat : rats) {
                 if (!rat.isAdult()) {
                     move(rat);
+                    rat.growUp();
                 }
             }
         }
