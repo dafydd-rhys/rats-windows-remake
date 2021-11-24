@@ -9,14 +9,11 @@ import entity.weapon.MaleSexChange;
 import entity.weapon.NoEntrySign;
 import entity.weapon.Poison;
 import entity.weapon.Sterilisation;
-import java.nio.file.attribute.PosixFileAttributes;
-import java.util.Arrays;
-import java.util.Random;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.*;
+import main.level.Level;
 
 /**
  * PlayerItemGenerator
@@ -40,15 +37,55 @@ public class ItemGenerator {
         this.abilities = abilities;
 
         Inventory.getItems().clear();
-        generateItem();
+        Timer timer = new Timer(1000, e -> {
+            second += 1;
+
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.BOMB) == 0) {
+                generateItem(new Bomb(), Inventory.getBombAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.GAS) == 0) {
+                generateItem(new Gas(), Inventory.getGasAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.POISON) == 0) {
+                generateItem(new Poison(), Inventory.getPoisonAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.STERILISATION) == 0) {
+                generateItem(new Sterilisation(), Inventory.getSterilisationAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.FEMALE_CHANGE) == 0) {
+                generateItem(new FemaleSexChange(), Inventory.getFemaleChangeAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.MALE_CHANGE) == 0) {
+                generateItem(new MaleSexChange(), Inventory.getMaleChangeAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.NO_ENTRY) == 0) {
+                generateItem(new NoEntrySign(), Inventory.getNoEntryAmount());
+            }
+            if (second % Level.getTimeToGenerate().get(Item.TYPE.DEATH_RAT) == 0) {
+                generateItem(new DeathRat(), Inventory.getDeathRatAmount());
+            }
+        });
         timer.start();
     }
 
-    public void startGiveItem() {
-        generateItem();
+    private void generateItem(Item item, int amount) {
+        if (!Inventory.maxAbilities()) {
+            if (amount < getMaxAmount()) {
+                Inventory.addItem(item);
+                InventoryInteraction.draggableImage(canvas, gc, abilities, item, amount);
+            }
+        }
     }
 
-    private void generateItem() {
+    public int getMaxAmount() {
+        return 4;
+    }
+
+    /**
+     * Additional feature - random item generation
+     */
+    /*
+    private void generateRandomItem() {
         int random = new Random().nextInt(8);
         boolean added = false;
 
@@ -75,6 +112,10 @@ public class ItemGenerator {
             }
     }
 
+    public void startGiveItem() {
+    generateRandomItem();
+    }
+
     private boolean addItem(Item item, int amount) {
         if (amount < getMaxAmount()) {
             Inventory.addItem(item);
@@ -85,20 +126,10 @@ public class ItemGenerator {
         return false;
     }
 
-    private final Timer timer = new Timer(1000, e -> {
-        second += 1;
-
-        if (second % getWaitAmount() == 0) {
-            generateItem();
-        }
-    });
-
-    public int getMaxAmount() {
-        return 4;
-    }
-
     public int getWaitAmount() {
         return 3;
     }
+
+     */
 
 }

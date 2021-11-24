@@ -64,6 +64,7 @@ public class Movement {
     private static boolean moveHorizontal(int x) {
         if (tiles[curY][curX + x].isWalkable()) {
             current.removeEntityFromTile(rat);
+            tiles[curY][curX].getEntitiesOnTile().remove(rat);
             tiles[curY][curX + x].addEntityToTile(rat);
 
             rat.setCurrentPosX(curX + x);
@@ -85,6 +86,7 @@ public class Movement {
     private static boolean moveVertical(int y) {
         if (tiles[curY + y][curX].isWalkable()) {
             current.removeEntityFromTile(rat);
+            tiles[curY][curX].getEntitiesOnTile().remove(rat);
             tiles[curY + y][curX].addEntityToTile(rat);
 
             rat.setCurrentPosX(curX);

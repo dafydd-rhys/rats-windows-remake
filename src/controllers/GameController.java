@@ -1,6 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import entity.Rat;
 import entity.Item;
 import java.io.IOException;
@@ -68,6 +69,12 @@ public class GameController implements Initializable {
     private ImageView musicImage;
     @FXML
     private ImageView effectsImage;
+    @FXML
+    private JFXTextArea levelBox;
+    @FXML
+    private JFXTextArea timerBox;
+    @FXML
+    private JFXTextArea scoreBox;
 
     private static GraphicsContext gc;
 
@@ -82,6 +89,7 @@ public class GameController implements Initializable {
     private final Image sterilisationImage = new Image(dir + "sterilisation.png");
 
     private static double currentTick;
+    private int score = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,12 +105,16 @@ public class GameController implements Initializable {
         onActions();
 
         try {
-            LevelFileReader level = new LevelFileReader(1);
+            LevelFileReader level = new LevelFileReader(Level.currentLevel);
             new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getLevel(),
                     level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        levelBox.setText("Level: " + Level.currentLevel);
+        timerBox.setText("Time Left: " + Level.getExpectedTime());
+        scoreBox.setText("Score: " + score);
 
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
@@ -169,8 +181,8 @@ public class GameController implements Initializable {
         ArrayList<Rat> rats = Level.getRats();
         ArrayList<Item> items = Level.getItems();
 
-        for (Item item : items) {
-            item.activate();
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i).activate();
         }
 
         if (currentTick % 2 == 0) {
@@ -187,7 +199,6 @@ public class GameController implements Initializable {
                 }
             }
         }
-
     }
 
     private static void draw() {
@@ -208,7 +219,6 @@ public class GameController implements Initializable {
             }
         }
 
-        System.out.println(items.size());
         for (Item item : items) {
             gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
         }
