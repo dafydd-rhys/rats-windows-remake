@@ -45,6 +45,9 @@ public class Sterilisation extends Item {
             }
         }
         this.hp -= 1;
+        if (this.hp == 0) {
+            tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+        }
     }
 
 }

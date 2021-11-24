@@ -23,6 +23,8 @@ public class DeathRat extends Item { //used to extend Entities.Item
         this.yOffset = 2;
     }
 
+    // TODO
+
     public void countdown() {
 
     }

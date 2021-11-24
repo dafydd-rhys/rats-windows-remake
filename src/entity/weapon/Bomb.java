@@ -22,7 +22,7 @@ public class Bomb extends Item { //used to extend Entities.Item
     public Bomb() {
         this.entityName = "Bomb";
         this.hp = 8; // 8 ticks = 4 seconds
-        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb.png");
+        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-4.png");
         this.damage = 5;
         this.range = 2;
         this.friendlyFire = true;
@@ -32,11 +32,27 @@ public class Bomb extends Item { //used to extend Entities.Item
     }
 
     public void countdown() {
-        this.hp -= 1;
-        if (this.hp == 0) activate();
+        // TODO needs for loop using tick timer
+
+        /* FIXME for () {
+            this.hp -= 1;
+            switch (this.hp) {
+                case 6 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png");
+                case 4 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png");
+                case 2 -> this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png");
+                case 0 -> {
+                    this.image = null;
+                    tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+                }
+            }
+
+        } */
+
+
     }
 
     public void activate() {
+        countdown();
         Tile[][] tiles = Level.getTiles();
         for (int i = 0; i < this.range; i++) {
             for (int j = 0; j < this.range; j++) {
@@ -46,7 +62,6 @@ public class Bomb extends Item { //used to extend Entities.Item
                         if (entitiesOnTile.get(k).getEntityName().equals("Rat")) {
                             Rat targetRat = (Rat) entitiesOnTile.get(k);
                             inflictDamage(this.damage, targetRat);
-                            // Removes dead rat from list of entities on the tile
                             if (targetRat.getHp() <= 0) {
                                 tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);
                                 entitiesOnTile.remove(targetRat);

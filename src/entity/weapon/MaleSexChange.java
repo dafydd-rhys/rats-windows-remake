@@ -40,7 +40,7 @@ public class MaleSexChange extends Item {
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     if (targetRat.getGender() != Rat.Gender.MALE) {
                         targetRat.setGender(Rat.Gender.MALE);
-                        //add sprite change
+                        // TODO add sprite change
                     }
                     this.hp -= 1;
                     tile[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
