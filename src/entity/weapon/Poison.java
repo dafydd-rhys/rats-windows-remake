@@ -39,7 +39,6 @@ public class Poison extends Item {
 
                     if (targetRat.getHp() <= 0) {
                         this.hp -= 1;
-
                         Level.getItems().remove(this);
                         Level.getRats().remove(targetRat);
                         entitiesOnTile.remove(this);
