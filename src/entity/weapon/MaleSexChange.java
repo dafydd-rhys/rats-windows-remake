@@ -12,21 +12,24 @@ import java.util.ArrayList;
 /**
  * MaleSexChange
  *
- * @author Harry Boyce, Bryan Kok
+ * @author Dafydd-Rhys Maund
+ * @author Harry Boyce
+ * @author Bryan Kok
  */
 
 public class MaleSexChange extends Item {
 
-    public MaleSexChange(){
-        this.entityName = "MaleSexChange";
-        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-change.png");
-        this.hp = 1;
-        this.damage = 0;
-        this.range = 1;
-        this.friendlyFire = false;
-        this.isAttackable = false;
-        this.type = TYPE.MALE_CHANGE;
-        this.yOffset = 4;
+    public MaleSexChange() {
+        setEntityType(EntityType.ITEM);
+        setEntityName("MaleSexChange");
+        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-change.png"));
+        setHp(1);
+        setDamage(0);
+        setRange(1);
+        setFriendlyFire(false);
+        setCanBeAttacked(false);
+        setType(TYPE.MALE_CHANGE);
+        setOffsetY(4);
     }
 
     public void activate() {
@@ -36,7 +39,7 @@ public class MaleSexChange extends Item {
 
         if (entitiesOnTile != null) {
             for (Entity entity : entitiesOnTile) {
-                if (entity.getEntityName().equals("Rat")) {
+                if (entity.getEntityType() == EntityType.RAT) {
                     Rat targetRat = (Rat) entity;
                     if (targetRat.getGender() != Rat.Gender.MALE) {
                         targetRat.setGender(Rat.Gender.MALE);

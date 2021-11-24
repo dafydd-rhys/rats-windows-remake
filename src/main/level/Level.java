@@ -9,6 +9,7 @@ import tile.Tile;
 /**
  * Level
  *
+ * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski
  */
 public class Level {

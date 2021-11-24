@@ -11,14 +11,16 @@ import java.util.Random;
 /**
  * Rat.java
  *
- * @author Dawid Wisniewski, Dafydd Maund, Maurice Petersen
+ * @author Dafydd-Rhys Maund (2003900)
+ * @author Dawid Wisniewski
+ * @author Maurice Petersen
  */
 public class Rat extends Entity {
 
     private Direction direction;
 
     private Image rotatedImage;
-    private final Image image;
+    private Image image;
     private final Image upImage;
     private final Image downImage;
     private final Image leftImage;
@@ -46,38 +48,38 @@ public class Rat extends Entity {
     }
 
     public Rat(Gender gender, boolean isAdult) {
-        this.entityName = "Rat";
-        this.hp = 1;
-        this.damage = 1;
-        this.range = 0;
-        this.gender = gender;
-        this.isAdult = isAdult;
-        this.isSterilised = false;
-        this.isPregnant = false;
-        this.pregnancyStage = 0;
-        this.growingStage = 0;
+        setEntityType(EntityType.RAT);
+        setEntityName("Rat");
+        setHp(1);
+        setDamage(1);
+        setGender(gender);
+        setAdult(isAdult);
+        setSterilised(false);
+        setPregnant(false);
+        setPregnancyStage(0);
+        setGrowingStage(0);
 
         if (isAdult) {
-            this.moveSpeed = 1;
+            setMoveSpeed(1);
         } else {
-            this.moveSpeed = 2;
+            setMoveSpeed(2);
         }
 
         if (!isAdult) {
-            image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png");
+            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
         } else if (gender == Gender.FEMALE) {
-            image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-rat.png");
+            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-rat.png"));
         } else {
-            image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png");
+            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png"));
         }
 
         upImage = image;
-        leftImage = Entity.rotate(image, 270);
         rightImage = Entity.rotate(image, 90);
         downImage = Entity.rotate(image, 180);
+        leftImage = Entity.rotate(image, 270);
 
         List<Direction> values = List.of(Direction.values());
-        direction = values.get(new Random().nextInt(values.size()));
+        setDirection(values.get(new Random().nextInt(values.size())));
     }
 
     /**
@@ -151,6 +153,56 @@ public class Rat extends Entity {
             }
     }
 
+    @Override
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    @Override
+    public int getHp() {
+        return this.hp;
+    }
+
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    @Override
+    public int getCurrentPosX() {
+        return this.currentPosX;
+    }
+
+    @Override
+    public void setCurrentPosX(int currentPosX) {
+        this.currentPosX = currentPosX;
+    }
+
+    @Override
+    public int getCurrentPosY() {
+        return this.currentPosY;
+    }
+
+    @Override
+    public void setCurrentPosY(int currentPosY) {
+        this.currentPosY = currentPosY;
+    }
+
+    @Override
+    public String getEntityName() {
+        return this.entityName;
+    }
+
+    @Override
+    protected void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
+
+    @Override
+    public EntityType getEntityType() {
+        return super.getEntityType();
+    }
+
     public Gender getGender() {
         return gender;
     }
@@ -181,81 +233,6 @@ public class Rat extends Entity {
 
     public Image getRotatedImage() {
         return rotatedImage;
-    }
-
-    @Override
-    public void setImage(Image image) {
-        setImage(image);
-    }
-
-    @Override
-    public int getHp() {
-        return this.hp;
-    }
-
-    @Override
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    @Override
-    public int getDamage() {
-        return this.damage;
-    }
-
-    @Override
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    @Override
-    public int getRange() {
-        return this.range;
-    }
-
-    @Override
-    public void setRange(int range) {
-        this.range = range;
-    }
-
-    @Override
-    public int getCurrentPosX() {
-        return this.currentPosX;
-    }
-
-    @Override
-    public void setCurrentPosX(int currentPosX) {
-        this.currentPosX = currentPosX;
-    }
-
-    @Override
-    public int getCurrentPosY() {
-        return this.currentPosY;
-    }
-
-    @Override
-    public void setCurrentPosY(int currentPosY) {
-        this.currentPosY = currentPosY;
-    }
-
-    @Override
-    public boolean isActive() {
-        return false;
-    }
-
-    @Override
-    public void setActive(boolean active) {
-        setActive(active);
-    }
-
-    @Override
-    public String getEntityName() {
-        return this.entityName;
-    }
-
-    @Override
-    protected void setEntityName(String entityName) {
-        this.entityName = entityName;
     }
 
     public Image getImage() {
@@ -308,6 +285,14 @@ public class Rat extends Entity {
 
     public Image getRightImage() {
         return rightImage;
+    }
+
+    public void setGrowingStage(int value) {
+        this.growingStage = value;
+    }
+
+    public int getGrowingStage() {
+        return growingStage;
     }
 
 }

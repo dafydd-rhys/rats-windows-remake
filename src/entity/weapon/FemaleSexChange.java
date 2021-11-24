@@ -12,21 +12,24 @@ import java.util.ArrayList;
 /**
  * FemaleSexChange
  *
- * @author Harry Boyce, Bryan Kok
+ * @author Dafydd-Rhys Maund
+ * @author Harry Boyce
+ * @author Bryan Kok
  */
 
 public class FemaleSexChange extends Item {
 
-    public FemaleSexChange(){
-        this.entityName = "FemaleSexChange";
-        this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-change.png");
-        this.hp = 1;
-        this.damage = 0;
-        this.range = 1;
-        this.friendlyFire = true;
-        this.isAttackable = false;
-        this.type = TYPE.FEMALE_CHANGE;
-        this.yOffset = 3;
+    public FemaleSexChange() {
+        setEntityType(EntityType.ITEM);
+        setEntityName("FemaleSexChange");
+        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-change.png"));
+        setHp(1);
+        setDamage(0);
+        setRange(1);
+        setFriendlyFire(true);
+        setCanBeAttacked(false);
+        setType(TYPE.FEMALE_CHANGE);
+        setOffsetY(2);
     }
 
     public void activate() {
@@ -35,7 +38,7 @@ public class FemaleSexChange extends Item {
 
         if (entitiesOnTile != null) {
             for (Entity entity : entitiesOnTile) {
-                if (entity.getEntityName().equals("Rat")) {
+                if (entity.getEntityType() == EntityType.RAT) {
                     Rat targetRat = (Rat) entity;
                     if (targetRat.getGender() != Rat.Gender.FEMALE) {
                         targetRat.setGender(Rat.Gender.FEMALE);

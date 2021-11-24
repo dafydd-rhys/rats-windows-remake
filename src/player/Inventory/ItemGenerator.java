@@ -21,7 +21,6 @@ import main.level.Level;
  * call startGiveItem() to start give player item
  *
  * @author Dafydd-Rhys Maund (2003900)
- * @author Chunyuan Zhang (2131205)
  */
 public class ItemGenerator {
 
@@ -81,9 +80,6 @@ public class ItemGenerator {
         return 4;
     }
 
-    /**
-     * Additional feature - random item generation
-     */
     /*
     private void generateRandomItem() {
         int random = new Random().nextInt(8);
@@ -129,7 +125,6 @@ public class ItemGenerator {
     public int getWaitAmount() {
         return 3;
     }
-
      */
 
 }

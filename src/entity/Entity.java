@@ -8,27 +8,38 @@ import javafx.scene.paint.Color;
 /**
  * Entity
  *
- * @author Dawid Wisniewski, Bryan Kok
- * @version 1.1
+ * @author Dafydd-Rhys Maund (2003900)
+ * @author Dawid Wisniewski
  */
 public abstract class Entity {
 
+    protected static EntityType entityType;
     protected String entityName;
     protected Image image;
     protected int hp;
     protected int damage;
-    protected int range;
-
     protected int currentPosX;
     protected int currentPosY;
-    protected boolean isActive;
 
     protected void inflictDamage(int damageDealt, Entity damageTarget){
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
         System.out.println(damageTarget.getEntityName() + " is dealt " + damageDealt + " damage!");
     }
 
-    public abstract String getEntityName();
+    public EntityType getEntityType() {
+        return entityType;
+    }
+
+    public enum EntityType {
+        ITEM(),
+        RAT()
+    }
+
+    public static void setEntityType(EntityType entityType) {
+        Entity.entityType = entityType;
+    }
+
+    protected abstract String getEntityName();
 
     protected abstract void setEntityName(String entityName);
 
@@ -40,14 +51,6 @@ public abstract class Entity {
 
     protected abstract void setHp(int hp);
 
-    protected abstract int getDamage();
-
-    protected abstract void setDamage(int damage);
-
-    protected abstract int getRange();
-
-    protected abstract void setRange(int range);
-
     protected abstract int getCurrentPosX();
 
     protected abstract void setCurrentPosX(int currentPosX);
@@ -56,9 +59,13 @@ public abstract class Entity {
 
     protected abstract void setCurrentPosY(int currentPosY);
 
-    protected abstract boolean isActive();
+    protected void setDamage(int damage) {
+        this.damage = damage;
+    }
 
-    protected abstract void setActive(boolean active);
+    protected int getDamage() {
+        return damage;
+    }
 
     public static Image rotate(Image img, int angle) {
         ImageView iv = new ImageView(img);

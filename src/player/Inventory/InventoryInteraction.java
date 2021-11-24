@@ -12,6 +12,11 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import main.level.Level;
 
+/**
+ * Main
+ *
+ * @author Dafydd-Rhys Maund (2003900)
+ */
 public class InventoryInteraction {
 
     private static final ImageView[] images = new ImageView[32];

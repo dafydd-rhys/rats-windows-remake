@@ -1,23 +1,22 @@
 package entity;
 
-import entity.Entity;
 import javafx.scene.image.Image;
 
 /**
  * Item
  *
+ * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Gareth Wade (1901805)
  */
 public abstract class Item extends Entity {
 
-    protected boolean friendlyFire;
-    protected boolean isAttackable;
-    protected Image image;
-    protected TYPE type;
-    protected int yOffset;
-
-    public abstract void activate();
+    private boolean friendlyFire;
+    private boolean canBeAttacked;
+    private Image image;
+    private TYPE type;
+    private int yOffset;
+    private int range;
 
     public enum TYPE {
         BOMB(),
@@ -30,8 +29,7 @@ public abstract class Item extends Entity {
         STERILISATION()
     }
 
-    public Item() {
-    }
+    public abstract void activate();
 
     @Override
     public void setImage(Image image) {
@@ -39,33 +37,13 @@ public abstract class Item extends Entity {
     }
 
     @Override
-    protected int getHp() {
+    public int getHp() {
         return this.hp;
     }
 
     @Override
-    protected void setHp(int hp) {
+    public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    @Override
-    protected int getDamage() {
-        return this.damage;
-    }
-
-    @Override
-    protected void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    @Override
-    protected int getRange() {
-        return this.range;
-    }
-
-    @Override
-    protected void setRange(int range) {
-        this.range = range;
     }
 
     @Override
@@ -86,16 +64,6 @@ public abstract class Item extends Entity {
     @Override
     public void setCurrentPosY(int currentPosY) {
         this.currentPosY = currentPosY;
-    }
-
-    @Override
-    protected boolean isActive() {
-        return isActive;
-    }
-
-    @Override
-    protected void setActive(boolean active) {
-        this.isActive = active;
     }
 
     @Override
@@ -121,12 +89,16 @@ public abstract class Item extends Entity {
         this.friendlyFire = friendlyFire;
     }
 
-    public boolean isAttackable() {
-        return isAttackable;
+    public boolean canBeAttacked() {
+        return canBeAttacked;
     }
 
-    public void setAttackable(boolean attackable) {
-        isAttackable = attackable;
+    public void setCanBeAttacked(boolean canBeAttacked) {
+        this.canBeAttacked = canBeAttacked;
+    }
+
+    public void setOffsetY(int yOffset) {
+        this.yOffset = yOffset;
     }
 
     public int getYOffset() {
@@ -139,6 +111,14 @@ public abstract class Item extends Entity {
 
     public TYPE getType() {
         return type;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public int getRange() {
+        return range;
     }
 
 }

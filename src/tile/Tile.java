@@ -8,7 +8,8 @@ import player.Player;
 /**
  * LevelFileGenerator
  *
- * @author Dawid Wisniewski, Dafydd-Rhys Maund
+ * @author Dawid Wisniewski
+ * @author Dafydd-Rhys Maund (2003900)
  */
 public class Tile {
 
