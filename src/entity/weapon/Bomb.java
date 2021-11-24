@@ -40,7 +40,7 @@ public class Bomb extends Item {
             case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png"));
             case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png"));
             case 0 -> {
-                setImage(null)
+                setImage(null);
             }
         }
     }
@@ -51,7 +51,6 @@ public class Bomb extends Item {
         if (this.hp > 0) {
             countdown();
         } else {
-            Tile[][] tiles = Level.getTiles();
             for (int i = 0; i < getRange(); i++) {
                 for (int j = 0; j < getRange(); j++) {
                     ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
@@ -70,14 +69,14 @@ public class Bomb extends Item {
                         }
                     }
                 }
-            explode(tiles, "LEFT");
-            explode(tiles, "RIGHT");
-            explode(tiles, "UP");
-            explode(tiles, "DOWN");     
-            Level.getItems().remove(this);
-            tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+                explode(tiles, "LEFT");
+                explode(tiles, "RIGHT");
+                explode(tiles, "UP");
+                explode(tiles, "DOWN");
+                Level.getItems().remove(this);
+                tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+            }
         }
-
     }
 
     private void explode (Tile[][] tiles, String direction){
@@ -90,7 +89,7 @@ public class Bomb extends Item {
             entitiesOnTile = dirTiles.getEntitiesOnTile();
             if (entitiesOnTile != null){
                 for (int i = 0; i < entitiesOnTile.size(); i++) {
-                    if (entitiesOnTile.get(i).getEntityName().equals("Rat")) {
+                    if (entitiesOnTile.get(i).getEntityType().equals(EntityType.RAT)) {
                         Rat targetRat = (Rat) entitiesOnTile.get(i);
                         inflictDamage(this.damage, targetRat);
                         if (targetRat.getHp() <= 0) {
