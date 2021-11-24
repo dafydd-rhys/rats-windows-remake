@@ -11,14 +11,14 @@ import java.util.Random;
 /**
  * Rat.java
  *
- * @author Dawid Wisniewski, Dafydd Maund, Maurice Petersen
+ * @author Dawid Wisniewski, Dafydd Maund, Maurice Petersen, Harry Boyce
  */
 public class Rat extends Entity {
 
     private Direction direction;
 
     private Image rotatedImage;
-    private final Image image;
+    private Image image;
     private final Image upImage;
     private final Image downImage;
     private final Image leftImage;
@@ -185,7 +185,7 @@ public class Rat extends Entity {
 
     @Override
     public void setImage(Image image) {
-        setImage(image);
+        this.image = image;
     }
 
     @Override

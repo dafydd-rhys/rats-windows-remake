@@ -7,6 +7,7 @@ import entity.Entity;
 import main.level.Level;
 import tile.Tile;
 
+import javax.xml.transform.stream.StreamSource;
 import java.util.ArrayList;
 
 /**
@@ -40,10 +41,12 @@ public class MaleSexChange extends Item {
                     Rat targetRat = (Rat) entity;
                     if (targetRat.getGender() != Rat.Gender.MALE) {
                         targetRat.setGender(Rat.Gender.MALE);
+                        targetRat.setImage(new Image(System.getProperty("user.dir") + "\\src\\resources\\images\\game\\entities\\male-rat.png"));
                         // TODO add sprite change
                     }
                     this.hp -= 1;
-                    tile[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
+                    Level.getItems().remove(this);
+                    entitiesOnTile.remove(this);
                     break;
                 }
             }
