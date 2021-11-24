@@ -36,9 +36,8 @@ public class Poison extends Item {
                 if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(this.damage, targetRat);
-
-                    if (targetRat.getHp() <= 0) {
-                        this.hp -= 1;
+                    this.hp -= 1;
+                    if (targetRat.getHp() <= 0 || this.hp <= 0) {
                         Level.getItems().remove(this);
                         Level.getRats().remove(targetRat);
                         entitiesOnTile.remove(this);

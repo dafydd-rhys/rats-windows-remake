@@ -52,7 +52,6 @@ public class Bomb extends Item {
             explode(tiles, "RIGHT");
             explode(tiles, "UP");
             explode(tiles, "DOWN");
-
             /*
             for (int i = 0; i < this.range; i++) {
                  for (int j = 0; j < this.range; j++) {
@@ -80,11 +79,10 @@ public class Bomb extends Item {
     }
 
     private void explode (Tile[][] tiles, String direction){
-
         int dir = 0;
         Tile dirTiles = getDirection(direction, dir, tiles);
         ArrayList<Entity> entitiesOnTile;
-        // TODO add explosion sprite for visual clarity
+        // TODO add explosion sprite for visual guide
         while (dirTiles.isWalkable() && dirTiles != null) {
             dirTiles = getDirection(direction, dir, tiles);
             entitiesOnTile = dirTiles.getEntitiesOnTile();
