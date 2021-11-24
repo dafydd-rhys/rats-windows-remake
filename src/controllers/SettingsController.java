@@ -56,18 +56,9 @@ public class SettingsController implements Initializable {
         sfxSlider.setValue(Audio.getEffects());
         onActions();
         setImages();
-        musicImage.setOpacity(Audio.isMuted("music"));
-        effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
     private void onActions() {
-        mainMenuButton.setOnAction(e -> {
-            try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-                ex.printStackTrace();
-            }
-        });
         musicSlider.valueProperty().addListener((ov, old, value) -> {
             try {
                 Audio.setMusic(value.floatValue());
@@ -82,20 +73,10 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
-
-        music.setOnAction(e -> {
-            StageFunctions.muteMusic();
-            StageFunctions.toggleOpacity(musicImage);
-        });
-        sfx.setOnAction(e -> {
-            StageFunctions.muteEffects();
-            StageFunctions.toggleOpacity(effectsImage);
-        });
         minimize.setOnAction(e -> StageFunctions.minimize());
-        maximise.setOnAction(e -> StageFunctions.maximise());
         exit.setOnAction(e -> {
             try {
-                StageFunctions.exit();
+                StageFunctions.exitSettings();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
                 ex.printStackTrace();
             }
