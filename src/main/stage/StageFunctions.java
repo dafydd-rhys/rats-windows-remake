@@ -54,6 +54,7 @@ public class StageFunctions {
         settingsStage.setTitle("Settings");
         settingsStage.initStyle(StageStyle.UNDECORATED);
         settingsStage.initModality(Modality.WINDOW_MODAL);
+        settingsStage.initOwner(stage);
         settingsStage.setScene(new Scene(scene));
         StageResizer.addResizeListener(settingsStage);
         settingsStage.show();
@@ -96,6 +97,7 @@ public class StageFunctions {
     }
 
     public static void exitSettings() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Audio.clickEffect();
         settingsStage.close();
     }
 

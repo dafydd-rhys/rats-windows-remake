@@ -2,9 +2,11 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXTextArea;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import main.external.Audio;
+import main.external.MOTD;
 import main.stage.StageFunctions;
 import player.Player;
 
@@ -49,6 +52,18 @@ public class MainController implements Initializable {
     private ImageView musicImage;
     @FXML
     private ImageView effectsImage;
+    @FXML
+    private JFXTextArea motdBox;
+
+    MOTD motd;
+
+    {
+        try {
+            motd = new MOTD();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +74,11 @@ public class MainController implements Initializable {
         selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
+        try {
+                motdBox.setText(motd.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void listeners() {

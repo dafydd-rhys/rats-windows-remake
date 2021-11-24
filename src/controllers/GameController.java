@@ -98,7 +98,8 @@ public class GameController implements Initializable {
 
         try {
             LevelFileReader level = new LevelFileReader(1);
-            new LevelFileGenerator(gc, level.getLevel(), level.getSpawns());
+            new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getLevel(),
+                    level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,6 +167,11 @@ public class GameController implements Initializable {
 
     private static void tick() {
         ArrayList<Rat> rats = Level.getRats();
+        ArrayList<Item> items = Level.getItems();
+
+        for (Item item : items) {
+            item.activate();
+        }
 
         if (currentTick % 2 == 0) {
             for (Rat rat : rats) {
@@ -178,33 +184,6 @@ public class GameController implements Initializable {
                 if (!rat.isAdult()) {
                     move(rat);
                 }
-            }
-        }
-        for (int i = 0; i < Level.getItems().size(); i++) {
-            if (Level.getItems().get(i).getEntityName().equals("Bomb")) {
-                Bomb bomb = new Bomb();
-                bomb.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("DeathRat")) {
-                DeathRat deathRat = new DeathRat();
-                deathRat.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("FemaleSexChange")) {
-                FemaleSexChange femaleSexChange = new FemaleSexChange();
-                femaleSexChange.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("Gas")) {
-                Gas gas = new Gas();
-                gas.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("MaleSexChange")) {
-                MaleSexChange maleSexChange = new MaleSexChange();
-                maleSexChange.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("NoEntrySign")) {
-                NoEntrySign noEntrySign = new NoEntrySign();
-                noEntrySign.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("Poison")) {
-                Poison poison = new Poison();
-                poison.activate();
-            } else if (Level.getItems().get(i).getEntityName().equals("Sterilisation")) {
-                Sterilisation sterilisation = new Sterilisation();
-                sterilisation.activate();
             }
         }
 
