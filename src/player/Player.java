@@ -9,8 +9,8 @@ import java.util.Objects;
 /**
  * Player
  *
- * @author Chunyuan Zhang (2131205)
  * @author Gareth Wade (1901805)
+ * @author Dafydd Maund (2003900)
  */
 
 public class Player {
@@ -70,8 +70,9 @@ public class Player {
         }
 
         if (!found) {
-            FileWriter writer = new FileWriter(players,true); //the true will append the new data
-            writer.write(Player.playerName + ":" + 1 + "\n");
+            FileWriter writer = new FileWriter(players,true);
+            Player.maxLevel = 1;
+            writer.write(Player.playerName + ":" + Player.maxLevel + "\n");
             writer.close();
         }
     }

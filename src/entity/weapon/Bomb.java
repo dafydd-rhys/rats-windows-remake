@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class Bomb extends Item { //used to extend Entities.Item
 
-    public Bomb(int x, int y){
+    public Bomb() {
         this.entityName = "Bomb";
         this.hp = 8; // 8 ticks = 4 seconds
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb.png");
@@ -27,8 +27,8 @@ public class Bomb extends Item { //used to extend Entities.Item
         this.range = 2;
         this.friendlyFire = true;
         this.isAttackable = false;
-        this.currentPosX = x;
-        this.currentPosY = y;
+        this.type = TYPE.BOMB;
+        this.yOffset = 1;
     }
 
     public void countdown() {
@@ -36,14 +36,14 @@ public class Bomb extends Item { //used to extend Entities.Item
         if (this.hp == 0) activate();
     }
 
-    public void activate(){
+    public void activate() {
         Tile[][] tiles = Level.getTiles();
         for (int i = 0; i < this.range; i++) {
             for (int j = 0; j < this.range; j++) {
                 ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
                 if (entitiesOnTile != null) {
                     for (int k = 0; k < entitiesOnTile.size(); k++) {
-                        if (entitiesOnTile.get(k).getEntityName().equals("Rat")){
+                        if (entitiesOnTile.get(k).getEntityName().equals("Rat")) {
                             Rat targetRat = (Rat) entitiesOnTile.get(k);
                             inflictDamage(this.damage, targetRat);
                             // Removes dead rat from list of entities on the tile

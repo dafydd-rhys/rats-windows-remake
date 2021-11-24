@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Poison extends Item {
 
-    public Poison(int x, int y) {
+    public Poison() {
         this.entityName = "Poison";
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/poison.png");
         this.hp = 1;
@@ -25,8 +25,8 @@ public class Poison extends Item {
         this.range = 1;
         this.friendlyFire = false;
         this.isAttackable = false;
-        this.currentPosX = x;
-        this.currentPosY = y;
+        this.type = TYPE.POISON;
+        this.yOffset = 7;
     }
 
     public void activate() {

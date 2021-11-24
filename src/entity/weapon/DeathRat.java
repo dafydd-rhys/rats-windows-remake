@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 
 public class DeathRat extends Item { //used to extend Entities.Item
 
-    public DeathRat(int x, int y){
+    public DeathRat(){
         this.entityName = "DeathRat";
         this.hp = 8; // 8 ticks = 4 seconds
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png");
@@ -19,8 +19,8 @@ public class DeathRat extends Item { //used to extend Entities.Item
         this.range = 2;
         this.friendlyFire = true;
         this.isAttackable = false;
-        this.currentPosX = x;
-        this.currentPosY = y;
+        this.type = TYPE.DEATH_RAT;
+        this.yOffset = 2;
     }
 
     public void countdown() {

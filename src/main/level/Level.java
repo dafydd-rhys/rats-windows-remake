@@ -14,10 +14,12 @@ public class Level {
 
     private static Tile[][] tiles;
     private static ArrayList<Rat> rats;
+    private static ArrayList<Item> items;
 
     public Level(Tile[][] tiles, ArrayList<Rat> rats) {
         Level.tiles = tiles;
         Level.rats = rats;
+        items = new ArrayList<>();
     }
 
     protected void placeItem(Item selectedItem, Tile tile) {
@@ -42,6 +44,10 @@ public class Level {
 
     public static ArrayList<Rat> getRats() {
         return rats;
+    }
+
+    public static ArrayList<Item> getItems() {
+        return items;
     }
 
 }

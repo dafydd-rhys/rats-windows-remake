@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Sterilisation extends Item {
 
-    public Sterilisation(int x, int y) {
+    public Sterilisation() {
         this.entityName = "Sterilisation";
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/sterilisation.png");
         this.hp = 8; //8 ticks = 4 seconds
@@ -25,8 +25,8 @@ public class Sterilisation extends Item {
         this.range = 2;
         this.friendlyFire = false;
         this.isAttackable = false;
-        this.currentPosX = x;
-        this.currentPosY = y;
+        this.type = TYPE.STERILISATION;
+        this.yOffset = 0;
     }
 
     public void activate() {

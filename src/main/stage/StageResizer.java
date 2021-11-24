@@ -12,7 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * ResizeHelper - eliminates bug when trying to move/resize undecorated window
+ * ResizeHelper.java
+ * Can resize window and also drag window by the top bar
  *
  * @author Dafydd-Rhys Maund (2003900)
  */
@@ -147,6 +148,7 @@ public class StageResizer {
             } else if (MouseEvent.MOUSE_DRAGGED.equals(mouseEventType)) {
                 if (Cursor.DEFAULT.equals(cursorEvent)) {
                     ObservableList<Node> children = stage.getScene().getRoot().getChildrenUnmodifiable();
+
                     for (Node child : children) {
                         if (child.getId() != null) {
                             if (Objects.equals(child.getId(), "bar")) {

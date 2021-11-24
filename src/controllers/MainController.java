@@ -28,8 +28,6 @@ import player.Player;
 public class MainController implements Initializable {
 
     @FXML
-    private AnchorPane window;
-    @FXML
     private ComboBox<String> selectTheme;
     @FXML
     private JFXButton sfx;

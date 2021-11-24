@@ -54,7 +54,7 @@ public class Tile {
             this.isCovering = false;
         } else {
             this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel.png");
-            this.isWalkable = false;
+            this.isWalkable = true;
             this.isCovering = true;
         }
     }

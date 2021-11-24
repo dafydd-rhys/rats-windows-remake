@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class MaleSexChange extends Item {
 
-    public MaleSexChange(int x, int y){
+    public MaleSexChange(){
         this.entityName = "MaleSexChange";
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-change.png");
         this.hp = 1;
@@ -25,8 +25,8 @@ public class MaleSexChange extends Item {
         this.range = 1;
         this.friendlyFire = false;
         this.isAttackable = false;
-        this.currentPosX = x;
-        this.currentPosY = y;
+        this.type = TYPE.MALE_CHANGE;
+        this.yOffset = 4;
     }
 
     public void activate() {

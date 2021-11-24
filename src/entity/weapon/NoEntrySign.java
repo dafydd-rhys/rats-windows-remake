@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class NoEntrySign extends Item {
 
-    public NoEntrySign(int x, int y) {
+    public NoEntrySign() {
         this.entityName = "No Entry Sign";
         this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-5.png");
         this.hp = 5;
@@ -25,8 +25,8 @@ public class NoEntrySign extends Item {
         this.range = 1;
         this.friendlyFire = true;
         this.isAttackable = false;
-        this.currentPosX = x;
-        this.currentPosY = y;
+        this.type = TYPE.NO_ENTRY;
+        this.yOffset = 6;
     }
 
     public void activate() {

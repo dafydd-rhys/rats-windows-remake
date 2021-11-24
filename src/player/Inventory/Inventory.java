@@ -17,12 +17,79 @@ public class Inventory {
         items.add(item);
     }
 
-    public void removeItem(Item item) {
+    public static void removeItem(Item item) {
         items.remove(item);
     }
 
     public static ArrayList<Item> getItems() {
         return items;
+    }
+
+    public static int getBombAmount() {
+        return getAmount(Item.TYPE.BOMB);
+    }
+
+    public static int getGasAmount() {
+        return getAmount(Item.TYPE.GAS);
+    }
+
+    public static int getDeathRatAmount() {
+        return getAmount(Item.TYPE.DEATH_RAT);
+    }
+
+    public static int getFemaleChangeAmount() {
+        return getAmount(Item.TYPE.FEMALE_CHANGE);
+    }
+
+    public static int getMaleChangeAmount() {
+        return getAmount(Item.TYPE.MALE_CHANGE);
+    }
+
+    public static int getNoEntryAmount() {
+        return getAmount(Item.TYPE.NO_ENTRY);
+    }
+
+    public static int getPoisonAmount() {
+        return getAmount(Item.TYPE.POISON);
+    }
+
+    public static int getSterilisationAmount() {
+        return getAmount(Item.TYPE.STERILISATION);
+    }
+
+    public static boolean maxAbilities() {
+        boolean max = false;
+
+        if (getBombAmount() == 4) {
+            if (getGasAmount() == 4) {
+                if (getFemaleChangeAmount() == 4) {
+                    if (getMaleChangeAmount() == 4) {
+                        if (getDeathRatAmount() == 4) {
+                            if (getPoisonAmount() == 4) {
+                                if (getNoEntryAmount() == 4) {
+                                    if (getSterilisationAmount() == 4) {
+                                        max = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return max;
+    }
+
+    private static int getAmount(Item.TYPE type) {
+        int count = 0;
+        for (Item item : items) {
+            if (item.getType() == type) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
 }

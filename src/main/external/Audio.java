@@ -41,7 +41,6 @@ public class Audio {
         musicClip = AudioSystem.getClip();
         musicClip.open(audio);
 
-        System.out.println(musicVolume);
         if (musicVolume > muted && !musicMuted) {
             ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
             musicClip.start();
@@ -144,7 +143,7 @@ public class Audio {
             if(musicMuted) {
                 return 0.2;
             } else { return 1; }
-        } else if(sound == "effects") {
+        } else if(Objects.equals(sound, "effects")) {
             if(effectsMuted) {
                 return 0.2;
             } else { return 1; }

@@ -1,67 +1,104 @@
 package player.Inventory;
 
+import entity.Item;
+import entity.weapon.Bomb;
+import entity.weapon.DeathRat;
+import entity.weapon.FemaleSexChange;
+import entity.weapon.Gas;
+import entity.weapon.MaleSexChange;
+import entity.weapon.NoEntrySign;
+import entity.weapon.Poison;
+import entity.weapon.Sterilisation;
+import java.nio.file.attribute.PosixFileAttributes;
+import java.util.Arrays;
+import java.util.Random;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javax.swing.*;
+
 /**
  * PlayerItemGenerator
  * generator items for player
  * call startGiveItem() to start give player item
  *
+ * @author Dafydd-Rhys Maund (2003900)
  * @author Chunyuan Zhang (2131205)
  */
-
 public class ItemGenerator {
 
-    private int maxItem = 4; //player most can have 4 items each
-    //{bomb, deathRat, femaleChange, maleChange,gasGrenade, noEntrySign, poison, sterilisation}
-    private int[] playerCurrentItem = {0, 0, 0, 0, 0, 0, 0, 0};
-    private int[] timeOfGenerate = {3, 3, 3, 3, 3, 3, 3, 3};
-    //time of generator each item (default is all 3 sec)
-    //you can modify number in this array to control the time of item generator
-    private boolean flag = true;//flag true-keep generator false - stop generator
+    private static Canvas canvas;
+    private final GraphicsContext gc;
+    private final AnchorPane abilities;
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
-    }
+    private int second = 0;
 
-    public boolean getFlag() {
-        return flag;
-    }
+    public ItemGenerator(Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
+        ItemGenerator.canvas = canvas;
+        this.gc = gc;
+        this.abilities = abilities;
 
-    public void setPlayerCurrentItem(int i) {
-        playerCurrentItem[i] += 1;
-    }
-
-    public int getPlayerCurrentItem(int i) {
-        return playerCurrentItem[i];
-    }
-
-    public int getMaxItem() {
-        return maxItem;
+        Inventory.getItems().clear();
+        generateItem();
+        timer.start();
     }
 
     public void startGiveItem() {
-        Threading t = new Threading();
-        for (int i = 0; i < 8; i++) {
-            Thread thread = new Thread(t);
-            thread.start();
-        }
+        generateItem();
     }
-}
 
-class Threading extends ItemGenerator implements Runnable {
+    private void generateItem() {
+        int random = new Random().nextInt(8);
+        boolean added = false;
 
-    @Override
-    public void run() {
-        int i = Thread.currentThread().getName().toString().charAt(7);
-
-        while (getFlag()) {
-            try {
-                Thread.sleep(1000 * i);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (!Inventory.maxAbilities())
+            while (!added) {
+                if (random == 0) {
+                    added = addItem(new Bomb(), Inventory.getBombAmount());
+                } else if (random == 1) {
+                    added = addItem(new Gas(), Inventory.getGasAmount());
+                } else if (random == 2) {
+                    added = addItem(new FemaleSexChange(), Inventory.getFemaleChangeAmount());
+                } else if (random == 3) {
+                    added = addItem(new MaleSexChange(), Inventory.getMaleChangeAmount());
+                } else if (random == 4) {
+                    added = addItem(new NoEntrySign(), Inventory.getNoEntryAmount());
+                } else if (random == 5) {
+                    added = addItem(new Poison(), Inventory.getPoisonAmount());
+                } else if (random == 6) {
+                    added = addItem(new Sterilisation(), Inventory.getSterilisationAmount());
+                } else {
+                    added = addItem(new DeathRat(), Inventory.getDeathRatAmount());
+                }
+                random = new Random().nextInt(8);
             }
-            if (getPlayerCurrentItem(i) <= getMaxItem()) {
-                setPlayerCurrentItem(i);
-            }
-        }
     }
+
+    private boolean addItem(Item item, int amount) {
+        if (amount < getMaxAmount()) {
+            Inventory.addItem(item);
+            InventoryInteraction.draggableImage(canvas, gc, abilities, item, amount);
+
+            return true;
+        }
+        return false;
+    }
+
+    private final Timer timer = new Timer(1000, e -> {
+        second += 1;
+
+        if (second % getWaitAmount() == 0) {
+            generateItem();
+        }
+    });
+
+    public int getMaxAmount() {
+        return 4;
+    }
+
+    public int getWaitAmount() {
+        return 3;
+    }
+
 }
