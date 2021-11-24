@@ -26,7 +26,7 @@ public class Bomb extends Item {
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-4.png"));
         setHp(8);
         setDamage(5);
-        setRange(2);
+        setRange(0);
         setFriendlyFire(true);
         setCanBeAttacked(false);
         setType(TYPE.BOMB);
@@ -34,84 +34,57 @@ public class Bomb extends Item {
     }
 
     private void countdown() {
-        this.hp -= 1;
-        switch (this.hp) {
+        setHp(getHp() - 1);
+        switch (getHp()) {
             case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png"));
             case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png"));
             case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png"));
-            case 0 -> {
-                setImage(null)
-            }
+            case 0 -> explode();
         }
     }
 
     // TODO Need to make bomb destroy everything in its path not 1 tile radius
     public void activate() {
-        Tile[][] tiles = Level.getTiles();
-        if (this.hp > 0) {
-            countdown();
-        } else {
-            Tile[][] tiles = Level.getTiles();
-            for (int i = 0; i < getRange(); i++) {
-                for (int j = 0; j < getRange(); j++) {
-                    ArrayList<Entity> entitiesOnTile = tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].getEntitiesOnTile();
-                    if (entitiesOnTile != null) {
-                        for (Entity entity : entitiesOnTile) {
-                            if (entity.getEntityType() == EntityType.RAT) {
-                                Rat targetRat = (Rat) entity;
-                                inflictDamage(this.damage, targetRat);
+        countdown();
+    }
 
-                                if (targetRat.getHp() <= 0) {
-                                    Level.getRats().remove(targetRat);
-                                    tiles[this.currentPosY + j - 1][this.currentPosX + i - 1].removeEntityFromTile(targetRat);
-                                    //entitiesOnTile.remove(targetRat);
-                                }
+    private void explode() {
+        Tile[][] tiles = Level.getTiles();
+
+        // TODO add explosion sprite for visual guide
+        for (Rat.Direction direction : Rat.Direction.values()) {
+            Tile current = tiles[getCurrentPosY()][getCurrentPosX()];
+
+            int distance = 0;
+            while (current.isWalkable()) {
+                current = getDirection(direction, distance, tiles);
+                ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
+
+                if (!entitiesOnTile.isEmpty()) {
+                    for (Entity entity : entitiesOnTile) {
+                        if (entity.getEntityType() == EntityType.RAT) {
+                            Rat target = (Rat) entity;
+                            inflictDamage(getDamage(), target);
+
+                            if (target.getHp() <= 0) {
+                                Level.getRats().remove(target);
+                                current.removeEntityFromTile(target);
+                                entitiesOnTile.remove(target);
                             }
                         }
                     }
                 }
-            explode(tiles, "LEFT");
-            explode(tiles, "RIGHT");
-            explode(tiles, "UP");
-            explode(tiles, "DOWN");     
-            Level.getItems().remove(this);
-            tiles[this.currentPosY][this.currentPosX].removeEntityFromTile(this);
-        }
-
-    }
-
-    private void explode (Tile[][] tiles, String direction){
-        int dir = 0;
-        Tile dirTiles = getDirection(direction, dir, tiles);
-        ArrayList<Entity> entitiesOnTile;
-        // TODO add explosion sprite for visual guide
-        while (dirTiles.isWalkable() && dirTiles != null) {
-            dirTiles = getDirection(direction, dir, tiles);
-            entitiesOnTile = dirTiles.getEntitiesOnTile();
-            if (entitiesOnTile != null){
-                for (int i = 0; i < entitiesOnTile.size(); i++) {
-                    if (entitiesOnTile.get(i).getEntityName().equals("Rat")) {
-                        Rat targetRat = (Rat) entitiesOnTile.get(i);
-                        inflictDamage(this.damage, targetRat);
-                        if (targetRat.getHp() <= 0) {
-                            Level.getRats().remove(targetRat);
-                            dirTiles.removeEntityFromTile(targetRat);
-                            entitiesOnTile.remove(targetRat);
-                        }
-                    }
-                }
+                distance++;
             }
-            dir ++;
         }
     }
 
-    private Tile getDirection(String direction, int dir, Tile[][] tiles) {
+    private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
         return switch (direction) {
-            case "LEFT" -> tiles[this.currentPosY][this.currentPosX - dir];
-            case "RIGHT" -> tiles[this.currentPosY][this.currentPosX + dir];
-            case "UP" -> tiles[this.currentPosY + dir][this.currentPosX];
-            case "DOWN" -> tiles[this.currentPosY - dir][this.currentPosX];
-            default -> null;
+            case LEFT -> tiles[getCurrentPosY()][getCurrentPosX() - distance];
+            case RIGHT -> tiles[getCurrentPosY()][getCurrentPosX() + distance];
+            case UP -> tiles[getCurrentPosY() + distance][getCurrentPosX()];
+            case DOWN -> tiles[getCurrentPosY() - distance][getCurrentPosX()];
         };
     }
 
@@ -135,5 +108,5 @@ public class Bomb extends Item {
                  }
             }
             */
-            
+
 }

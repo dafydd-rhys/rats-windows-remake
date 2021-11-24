@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
  */
 public abstract class Entity {
 
-    protected static EntityType entityType;
+    protected EntityType entityType;
     protected String entityName;
     protected Image image;
     protected int hp;
@@ -35,8 +35,8 @@ public abstract class Entity {
         RAT()
     }
 
-    public static void setEntityType(EntityType entityType) {
-        Entity.entityType = entityType;
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
     }
 
     protected abstract String getEntityName();
