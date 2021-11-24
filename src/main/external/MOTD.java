@@ -8,7 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * MOTD
+ * MOTD.java
+ * Message Of The Day
  *
  * @author Maurice Peterson
  */
@@ -22,6 +23,12 @@ public class MOTD {
         messageURL = new URL ("http://cswebcat.swansea.ac.uk/message");
     }
 
+    /**
+     * Send a GET request to given URL.
+     * @param url url to send request to.
+     * @return response
+     * @throws IOException
+     */
     private String getRequest(URL url) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -43,6 +50,11 @@ public class MOTD {
         return response.toString();
     }
 
+    /**
+     * Resolves the API puzzle.
+     * @return puzzle solution.
+     * @throws IOException
+     */
     private String getPuzzle() throws IOException {
         String puzzleString = getRequest(puzzleURL).toLowerCase();
         char[] puzzleArray = puzzleString.toCharArray();
@@ -70,11 +82,17 @@ public class MOTD {
         return solution;
     }
 
+    /**
+     * Sends a request to the API using the puzzle solution as parameter.
+     * @return message of the day.
+     * @throws IOException
+     */
     public String getMessage() throws IOException {
         String secret = getPuzzle();
         URL newURL = new URL(messageURL + "?solution=" + secret);
-
-        return getRequest(newURL);
+        String response = getRequest(newURL);
+        String message = response.split("\\(")[0];
+        return message;
     }
 
 }
