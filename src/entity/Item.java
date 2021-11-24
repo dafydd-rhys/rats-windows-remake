@@ -4,7 +4,7 @@ import entity.Entity;
 import javafx.scene.image.Image;
 
 /**
- * LevelFileGenerator
+ * Item
  *
  * @author Dawid Wisniewski
  * @author Gareth Wade (1901805)

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import tile.Tile;
 
 /**
- * LevelFileGenerator
+ * Level
  *
  * @author Dawid Wisniewski
  */
