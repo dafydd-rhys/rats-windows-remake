@@ -185,7 +185,7 @@ public class Rat extends Entity {
 
     @Override
     public void setImage(Image image) {
-        super.setImage(image);
+        setImage(image);
     }
 
     public Image getImage() {
