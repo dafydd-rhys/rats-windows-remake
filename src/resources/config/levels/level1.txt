@@ -1,3 +1,7 @@
+[20,20]
+10
+12
+{Bomb,1} {Gas,2} {MaleChange,3} {FemaleChange,4} {NoEntry,5} {Poison,6} {DeathRat,7} {Sterilisation,8}
 GGGGGGGGGGGGGGGGGGGG
 GPPPPPGGGGGGGGGGGGGG
 GPGGGPGGGGGGGPPPPGGG
@@ -18,6 +22,3 @@ GPPPPTTTTTTPPPPPPPPG
 GGGGGGGGGGGGGGPGGGPG
 GGGGGGGGGGGGGGPPPPPG
 GGGGGGGGGGGGGGGGGGGG
-10
-12
-Bomb 1 Gas 2 MaleChange 3 FemaleChange 4 NoEntry 5 Poison 6 DeathRat 7 Sterilisation 8

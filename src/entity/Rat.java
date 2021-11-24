@@ -179,6 +179,11 @@ public class Rat extends Entity {
         return rotatedImage;
     }
 
+    @Override
+    public void setImage(Image image) {
+        super.setImage(image);
+    }
+
     public Image getImage() {
         return image;
     }

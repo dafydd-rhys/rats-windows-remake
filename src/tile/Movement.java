@@ -2,8 +2,12 @@ package tile;
 
 import entity.Rat;
 import java.util.Random;
-import tile.Tile;
 
+/**
+ * Main
+ *
+ * @author Dafydd Maund (2003900)
+ */
 public class Movement {
 
     private static int random;

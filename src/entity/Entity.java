@@ -40,9 +40,7 @@ public abstract class Entity {
         return image;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
+    public abstract void setImage(Image image);
 
     public int getHp() {
         return hp;

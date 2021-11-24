@@ -10,11 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import main.external.Audio;
 import main.stage.StageFunctions;
-import player.Player;
-
 /**
  * Main
  *
@@ -52,7 +49,6 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
         setImages();
-        System.out.println(Player.getMaxLevel());
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
@@ -65,6 +61,7 @@ public class MainMenuController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         scoreboard.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
@@ -72,6 +69,7 @@ public class MainMenuController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         settings.setOnAction(e -> {
             try {
                 StageFunctions.openSettings();
@@ -79,16 +77,21 @@ public class MainMenuController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         music.setOnAction(e -> {
             StageFunctions.muteMusic();
             StageFunctions.toggleOpacity(musicImage);
         });
+
         sfx.setOnAction(e -> {
             StageFunctions.muteEffects();
             StageFunctions.toggleOpacity(effectsImage);
         });
+
         minimize.setOnAction(e -> StageFunctions.minimize());
+
         maximise.setOnAction(e -> StageFunctions.maximise());
+
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exit();
@@ -96,6 +99,7 @@ public class MainMenuController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         btnExit.setOnAction(e -> {
             try {
                 StageFunctions.exit();

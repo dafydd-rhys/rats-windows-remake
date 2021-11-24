@@ -22,20 +22,11 @@ import javax.swing.*;
 import player.Inventory.ItemGenerator;
 import tile.Movement;
 import main.external.Audio;
-import player.Inventory.Inventory;
 import main.level.Level;
 import main.stage.StageFunctions;
 import main.level.LevelFileGenerator;
 import main.level.LevelFileReader;
 import tile.Tile;
-import entity.weapon.Bomb;
-import entity.weapon.DeathRat;
-import entity.weapon.FemaleSexChange;
-import entity.weapon.Gas;
-import entity.weapon.MaleSexChange;
-import entity.weapon.NoEntrySign;
-import entity.weapon.Poison;
-import entity.weapon.Sterilisation;
 
 /**
  * Main
@@ -70,17 +61,6 @@ public class GameController implements Initializable {
     private ImageView effectsImage;
 
     private static GraphicsContext gc;
-
-    private final String dir = System.getProperty("user.dir") + "/src/resources/images/game/entities/";
-    private final Image bombImage = new Image(dir + "bomb.png");
-    private final Image deathRatImage = new Image(dir + "death-rat.png");
-    private final Image femaleChangeImage = new Image(dir + "female-change.png");
-    private final Image maleChangeImage = new Image(dir + "male-change.png");
-    private final Image gasGrenadeImage = new Image(dir + "gas-grenade.png");
-    private final Image noEntryImage = new Image(dir + "no-entry-sign.png");
-    private final Image poisonImage = new Image(dir + "poison.png");
-    private final Image sterilisationImage = new Image(dir + "sterilisation.png");
-
     private static double currentTick;
 
     @Override
@@ -98,8 +78,8 @@ public class GameController implements Initializable {
 
         try {
             LevelFileReader level = new LevelFileReader(Level.currentLevel);
-            new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getLevel(),
-                    level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
+            new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getSizeX(), level.getSizeY(),
+                    level.getLevel(), level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
         } catch (IOException e) {
             e.printStackTrace();
         }
