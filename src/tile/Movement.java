@@ -1,6 +1,9 @@
 package tile;
 
+import entity.Entity;
+import entity.Item;
 import entity.rat.Rat;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -66,6 +69,15 @@ public class Movement {
     }
 
     private static boolean moveHorizontal(int x) {
+        for (Entity entity : tiles[curY][curX + x].getEntitiesOnTile()) {
+            if (entity.getEntityType() == Entity.EntityType.ITEM) {
+                Item item = (Item) entity;
+                if (item.getType() == Item.TYPE.NO_ENTRY) {
+                    return true;
+                }
+            }
+        }
+
         if (tiles[curY][curX + x].isWalkable()) {
             current.removeEntityFromTile(rat);
             tiles[curY][curX].getEntitiesOnTile().remove(rat);
@@ -88,6 +100,15 @@ public class Movement {
     }
 
     private static boolean moveVertical(int y) {
+        for (Entity entity : tiles[curY + y][curX].getEntitiesOnTile()) {
+            if (entity.getEntityType() == Entity.EntityType.ITEM) {
+                Item item = (Item) entity;
+                if (item.getType() == Item.TYPE.NO_ENTRY) {
+                    return true;
+                }
+            }
+        }
+
         if (tiles[curY + y][curX].isWalkable()) {
             current.removeEntityFromTile(rat);
             tiles[curY][curX].getEntitiesOnTile().remove(rat);
