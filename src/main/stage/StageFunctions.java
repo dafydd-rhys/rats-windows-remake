@@ -84,6 +84,10 @@ public class StageFunctions {
         stage.setIconified(true);
     }
 
+    public static void minimizeSettings() {
+        settingsStage.setIconified(true);
+    }
+
     public static void exit() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Audio.clickEffect();
         JFrame frame = new JFrame();
