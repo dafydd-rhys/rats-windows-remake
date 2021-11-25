@@ -15,6 +15,8 @@ import tile.Tile;
 public class Level {
 
     public static int currentLevel;
+    public static int cols;
+    public static int rows;
     private static HashMap<Item.TYPE, Integer> timeToGenerate;
     private static Tile[][] tiles;
     private static ArrayList<Rat> rats;

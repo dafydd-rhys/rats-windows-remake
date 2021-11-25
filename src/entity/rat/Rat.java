@@ -244,6 +244,11 @@ public class Rat extends Entity {
         return super.getEntityType();
     }
 
+    public void kill() {
+        Level.getTiles()[getCurrentPosY()][getCurrentPosY()].removeEntityFromTile(this);
+        Level.getRats().remove(this);
+    }
+
     public Gender getGender() {
         return this.gender;
     }

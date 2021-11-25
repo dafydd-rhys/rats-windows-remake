@@ -79,8 +79,8 @@ public class LevelFileReader {
             maxRats = scanner.nextInt();
             expectedTime = scanner.nextInt();
 
-            System.out.println(sizeX);
-            System.out.println(sizeY);
+            Level.rows = sizeY;
+            Level.cols = sizeX;
 
             for (int i = 0; i < 8; i ++) {
                 split = scanner.next().split(",");
