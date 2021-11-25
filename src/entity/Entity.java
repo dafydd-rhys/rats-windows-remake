@@ -24,7 +24,6 @@ public abstract class Entity {
 
     protected void inflictDamage(int damageDealt, Entity damageTarget){
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
-        System.out.println(damageTarget.getEntityName() + " is dealt " + damageDealt + " damage!");
     }
 
     public EntityType getEntityType() {

@@ -1,6 +1,7 @@
 package player.Inventory;
 
 import entity.Item;
+import entity.rat.Rat;
 import entity.weapon.Bomb;
 import entity.weapon.DeathRat;
 import entity.weapon.FemaleSexChange;

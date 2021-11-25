@@ -60,15 +60,17 @@ public class Sterilisation extends Item {
             }
         }
 
-        if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
-            ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
+        if (getCurrentPosY() + i < Level.rows - 1 && getCurrentPosY() + i > 0) {
+            if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
+                ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 
-            for (Entity entity : entities) {
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat target = (Rat) entity;
+                for (Entity entity : entities) {
+                    if (entity.getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entity;
 
-                    target.setSterilised(true);
-                    target.getImages();
+                        target.setSterilised(true);
+                        target.getImages();
+                    }
                 }
             }
         }

@@ -37,8 +37,6 @@ public class InventoryInteraction {
         items[index] = item;
         index++;
 
-        System.out.println("added " + item.getEntityName() + " to inventory");
-
         imageView.setOnDragDetected(event -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
@@ -67,10 +65,8 @@ public class InventoryInteraction {
     private static void dragAndDrop(DragEvent event, GraphicsContext gc, Item item, ImageView image, int pos) {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
-
         item.setCurrentPosX(x);
         item.setCurrentPosY(y);
-        System.out.println("Dropped " + item.getEntityName() + " at " + x + ", " + y);
 
         Level.getItems().add(item);
         Level.getTiles()[y][x].addEntityToTile(item);

@@ -92,7 +92,6 @@ public class LevelFileReader {
         }
 
         for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
-            System.out.println(row);
             char[] chars = scanner.nextLine().toCharArray();
             for (int i = 0; i < sizeX && i < chars.length; i++) {
                 array[row][i] = chars[i];

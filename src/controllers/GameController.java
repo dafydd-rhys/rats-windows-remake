@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import entity.rat.Rat;
 import entity.Item;
+import entity.weapon.DeathRat;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -202,7 +203,12 @@ public class GameController implements Initializable {
         }
 
         for (Item item : items) {
-            gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+            if (item.getType() == Item.TYPE.DEATH_RAT) {
+                DeathRat deathRat = (DeathRat) item;
+                gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+            } else {
+                gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+            }
         }
     }
 

@@ -3,7 +3,6 @@ package tile;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**

@@ -37,6 +37,12 @@ public class RatSprites {
     public static Image leftBaby;
     public static Image rightBaby;
 
+    public static final Image upDeath = new Image(System.getProperty("user.dir") +
+            "/src/resources/images/game/entities/death-rat.png");
+    public static Image downDeath;
+    public static Image leftDeath;
+    public static Image rightDeath;
+
     public static void load() {
         rightMale = rotate(upMale, 90);
         downMale = rotate(upMale, 180);
@@ -57,6 +63,10 @@ public class RatSprites {
         rightBaby = rotate(upBaby, 90);
         downBaby = rotate(upBaby, 180);
         leftBaby = rotate(upBaby, 270);
+
+        rightDeath = rotate(upDeath, 90);
+        downDeath = rotate(upDeath, 180);
+        leftDeath = rotate(upDeath, 270);
     }
 
     public static Image rotate(Image img, int angle) {
