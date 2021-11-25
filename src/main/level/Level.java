@@ -11,6 +11,7 @@ import tile.Tile;
  *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski
+ * @author Maurice Petersen (2013396)
  */
 public class Level {
 
@@ -40,6 +41,18 @@ public class Level {
         } else {
             System.out.println("Invalid placement");
         }
+    }
+
+    public static void placeRat(Rat rat, Tile tile) {
+        rat.setCurrentPosX(tile.getX());
+        rat.setCurrentPosY(tile.getY());
+        tile.addEntityToTile(rat);
+        rats.add(rat);
+
+        // TODO add ?
+//        if (tile.isCovering()) {
+//
+//        }
     }
 
     public static void getEntitiesOnTile() {

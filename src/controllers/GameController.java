@@ -36,6 +36,7 @@ import tile.Tile;
  * @author Dafydd-Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  * @author Harry Boyce (2011556)
+ * @author Maurice Petersen (2013396)
  */
 public class GameController implements Initializable {
 
@@ -151,7 +152,6 @@ public class GameController implements Initializable {
         } else if (rat.getDirection() == Rat.Direction.DOWN) {
             Movement.tryVertical(1, -1);
         }
-        rat.growUp();
     }
 
     private static final Timer ticker = new Timer(500, e -> {
@@ -169,15 +169,19 @@ public class GameController implements Initializable {
         }
 
         if (currentTick % 2 == 0) {
-            for (Rat rat : rats) {
+            for (Rat rat : new ArrayList<>(rats)) {
                 if (rat.isAdult()) {
                     move(rat);
+                    // TODO Fix baby rats not spawning on right tile.
+                    rat.findPartner(Level.getTiles()[rat.getCurrentPosX()][rat.getCurrentPosY()]);
+                    rat.giveBirth();
                 }
             }
         } else {
             for (Rat rat : rats) {
                 if (!rat.isAdult()) {
                     move(rat);
+                    rat.growUp();
                 }
             }
         }

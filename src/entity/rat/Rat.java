@@ -5,9 +5,7 @@ import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Rat.java
@@ -34,6 +32,8 @@ public class Rat extends Entity {
     private boolean isPregnant;
     private int pregnancyStage;
     private int growingStage;
+    private Queue<Rat> babyQueue;
+
 
     public enum Gender {
         MALE(),
@@ -58,6 +58,7 @@ public class Rat extends Entity {
         setPregnant(false);
         setPregnancyStage(0);
         setGrowingStage(0);
+        this.babyQueue = new LinkedList<>();
 
         if (isAdult) {
             setMoveSpeed(1);
@@ -142,8 +143,10 @@ public class Rat extends Entity {
     public void mate(Rat rat) {
         if (this.getGender() == Gender.MALE && !rat.isPregnant()) {
             rat.setPregnant(true);
+            System.out.println("OYOYOOYOY");
         } else if (this.getGender() == Gender.FEMALE && !this.isPregnant()) {
             this.setPregnant(true);
+            System.out.println("OYOYOOYOY");
         }
         // TODO Make rats stop on tile while reproducing ??
     }
@@ -155,19 +158,29 @@ public class Rat extends Entity {
      * Checks if rat pregnancy stage is at max value
      */
     public void giveBirth() {
-        if (this.getGender() == Gender.FEMALE && this.isPregnant() && this.getPregnancyStage() == 10) {
-            Random rand = new Random();
-            int randomNum = rand.nextInt((5) + 1);
+        if (this.getGender() == Gender.FEMALE && this.isPregnant()) {
+            System.out.println("Stage - " + this.pregnancyStage + "Babies left" + this.babyQueue.size());
+            if (this.pregnancyStage == 10) {
+                Random rand = new Random();
+                int randomNum = rand.nextInt((5) + 1);
 
-            for (int i = 0; i < randomNum; i++) {
-                if (randomNum % 2 == 0) {
-                    Level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX()]
-                            .addEntityToTile(new Rat(Gender.FEMALE,false));
+                for (int i = 0; i < randomNum; i++) {
+                    if (randomNum % 2 == 0) {
+                        babyQueue.add(new Rat(Gender.FEMALE, false));
+                    } else {
+                        babyQueue.add(new Rat(Gender.MALE, false));
+                    }
+                }
+            } else if (this.getPregnancyStage() > 10) {
+
+                if (babyQueue.size() > 0) {
+                    Level.placeRat(babyQueue.poll(),
+                            Level.getTiles()[this.getCurrentPosX()][this.getCurrentPosY()]);
                 } else {
-                    Level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX()]
-                            .addEntityToTile(new Rat(Gender.MALE,false));
+                    this.setPregnancyStage(0);
                 }
             }
+            this.pregnancyStage += 1;
         }
     }
 
