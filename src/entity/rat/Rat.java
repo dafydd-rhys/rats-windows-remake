@@ -28,7 +28,6 @@ public class Rat extends Entity {
     private int hp;
     private boolean isAdult;
     private boolean isSterilised;
-    private int moveSpeed;
     private boolean isPregnant;
     private int pregnancyStage;
     private int growingStage;
@@ -59,12 +58,6 @@ public class Rat extends Entity {
         setPregnancyStage(0);
         setGrowingStage(0);
         this.babyQueue = new LinkedList<>();
-
-        if (isAdult) {
-            setMoveSpeed(1);
-        } else {
-            setMoveSpeed(2);
-        }
 
         if (!isAdult) {
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
@@ -143,10 +136,8 @@ public class Rat extends Entity {
     public void mate(Rat rat) {
         if (this.getGender() == Gender.MALE && !rat.isPregnant()) {
             rat.setPregnant(true);
-            System.out.println("OYOYOOYOY");
         } else if (this.getGender() == Gender.FEMALE && !this.isPregnant()) {
             this.setPregnant(true);
-            System.out.println("OYOYOOYOY");
         }
         // TODO Make rats stop on tile while reproducing ??
     }
@@ -159,7 +150,6 @@ public class Rat extends Entity {
      */
     public void giveBirth() {
         if (this.getGender() == Gender.FEMALE && this.isPregnant()) {
-            System.out.println("Stage - " + this.pregnancyStage + "Babies left" + this.babyQueue.size());
             if (this.pregnancyStage == 10) {
                 Random rand = new Random();
                 int randomNum = rand.nextInt((5) + 1);
@@ -188,10 +178,9 @@ public class Rat extends Entity {
      * Allows baby rats to grow into adult rats.
      */
     public void growUp() {
-        if (this.growingStage >= 10) {
+        if (this.getGrowingStage() >= 10) {
             if (!this.isAdult()) {
                 this.setAdult(true);
-                this.setMoveSpeed(moveSpeed - 1);
                 if (this.getGender() == Gender.FEMALE) {
                     this.setImage((new Image(System.getProperty("user.dir") +
                             "\\src\\resources\\images\\game\\entities\\female-rat.png")));
@@ -312,14 +301,6 @@ public class Rat extends Entity {
 
     public void setSterilised(boolean sterilised) {
         isSterilised = sterilised;
-    }
-
-    public int getMoveSpeed() {
-        return moveSpeed;
-    }
-
-    public void setMoveSpeed(int moveSpeed) {
-        this.moveSpeed = moveSpeed;
     }
 
     public Direction getDirection() {
