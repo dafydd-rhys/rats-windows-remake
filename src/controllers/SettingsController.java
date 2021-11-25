@@ -73,7 +73,7 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
-        minimize.setOnAction(e -> StageFunctions.minimize());
+        minimize.setOnAction(e -> StageFunctions.minimizeSettings());
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exitSettings();
