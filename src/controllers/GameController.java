@@ -150,6 +150,7 @@ public class GameController implements Initializable {
         } else if (rat.getDirection() == Rat.Direction.DOWN) {
             Movement.tryVertical(1, -1);
         }
+        rat.growUp();
         draw();
     }
 
@@ -177,7 +178,6 @@ public class GameController implements Initializable {
             for (Rat rat : rats) {
                 if (!rat.isAdult()) {
                     move(rat);
-                    rat.growUp();
                 }
             }
         }

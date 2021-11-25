@@ -68,8 +68,8 @@ public class Rat extends Entity {
         if (!isAdult) {
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
         } else if (gender == Gender.FEMALE) {
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-rat.png"));
-        } else {
+            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
+        } else if (gender == Gender.MALE){
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png"));
         }
 
@@ -80,7 +80,13 @@ public class Rat extends Entity {
     }
 
     public void getImages() {
-        if (isSterilised() && this.gender == Gender.MALE) {
+        if (!this.isAdult()) {
+            image = RatSprites.upBaby;
+            upImage = RatSprites.upBaby;
+            rightImage = RatSprites.rightBaby;
+            downImage = RatSprites.downBaby;
+            leftImage = RatSprites.leftBaby;
+        } else if (isSterilised() && this.gender == Gender.MALE) {
             image = RatSprites.upMale;
             upImage = RatSprites.upMale;
             rightImage = RatSprites.rightMale;
@@ -104,12 +110,6 @@ public class Rat extends Entity {
             rightImage = RatSprites.rightMaleSterilised;
             downImage = RatSprites.downMaleSterilised;
             leftImage = RatSprites.leftMaleSterilised;
-        } else {
-            image = RatSprites.upBaby;
-            upImage = RatSprites.upBaby;
-            rightImage = RatSprites.rightBaby;
-            downImage = RatSprites.downBaby;
-            leftImage = RatSprites.leftBaby;
         }
     }
 
@@ -175,12 +175,23 @@ public class Rat extends Entity {
      * Allows baby rats to grow into adult rats.
      */
     public void growUp() {
-        if (this.growingStage < 10)
+        if (this.growingStage >= 10) {
             if (!this.isAdult()) {
-                // TODO Change sprite.
                 this.setAdult(true);
                 this.setMoveSpeed(moveSpeed - 1);
+                if (this.getGender() == Gender.FEMALE) {
+                    this.setImage((new Image(System.getProperty("user.dir") +
+                            "\\src\\resources\\images\\game\\entities\\female-rat.png")));
+                } else {
+                    this.setImage((new Image(System.getProperty("user.dir") +
+                            "\\src\\resources\\images\\game\\entities\\male-rat.png")));
+                }
+
+                this.getImages();
             }
+        } else {
+            this.growingStage += 1;
+        }
     }
 
     @Override

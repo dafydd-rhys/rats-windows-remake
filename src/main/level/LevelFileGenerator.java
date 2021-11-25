@@ -4,6 +4,8 @@ import entity.Item;
 import entity.rat.Rat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+
 import javafx.scene.canvas.GraphicsContext;
 import tile.Tile;
 
@@ -54,6 +56,9 @@ public class LevelFileGenerator {
                     setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, true);
                 } else if (spawns[y][x] == 'F') {
                     setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, true);
+                } else if (spawns[y][x] == 'B') {
+                    Rat.Gender randGender = Rat.Gender.values()[new Random().nextInt(Rat.Gender.values().length)];
+                    setRat(tilesArray, ratsArray, x, y, randGender, false);
                 }
             }
         }
