@@ -151,7 +151,6 @@ public class GameController implements Initializable {
             Movement.tryVertical(1, -1);
         }
         rat.growUp();
-        draw();
     }
 
     private static final Timer ticker = new Timer(500, e -> {
@@ -181,6 +180,7 @@ public class GameController implements Initializable {
                 }
             }
         }
+        draw();
     }
 
     private static void draw() {

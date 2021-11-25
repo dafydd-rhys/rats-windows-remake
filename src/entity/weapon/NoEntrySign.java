@@ -23,7 +23,7 @@ public class NoEntrySign extends Item {
         setEntityType(EntityType.ITEM);
         setEntityName("NoEntry");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-5.png"));
-        setHp(5);
+        setHp(10);
         setDamage(0);
         setRange(1);
         setFriendlyFire(true);
@@ -37,10 +37,10 @@ public class NoEntrySign extends Item {
         checkNext(-1, Rat.Direction.RIGHT, Rat.Direction.DOWN);
 
         switch (getHp()) {
-            case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png"));
-            case 3 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-3.png"));
-            case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png"));
-            case 1 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png"));
+            case 8 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png"));
+            case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-3.png"));
+            case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png"));
+            case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png"));
             case 0 -> {
                 Level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
                 Level.getItems().remove(this);

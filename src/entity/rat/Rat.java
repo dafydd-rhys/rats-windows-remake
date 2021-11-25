@@ -80,36 +80,36 @@ public class Rat extends Entity {
     }
 
     public void getImages() {
-        if (!this.isAdult()) {
+        if (!isAdult()) {
             image = RatSprites.upBaby;
             upImage = RatSprites.upBaby;
             rightImage = RatSprites.rightBaby;
             downImage = RatSprites.downBaby;
             leftImage = RatSprites.leftBaby;
-        } else if (isSterilised() && this.gender == Gender.MALE) {
+        } else if (isSterilised() && getGender() == Gender.MALE) {
             image = RatSprites.upMale;
             upImage = RatSprites.upMale;
             rightImage = RatSprites.rightMale;
             downImage = RatSprites.downMale;
             leftImage = RatSprites.leftMale;
-        } else if (isSterilised() && this.gender == Gender.FEMALE) {
+        } else if (isSterilised() && getGender()== Gender.FEMALE) {
             image = RatSprites.upFemale;
             upImage = RatSprites.upFemale;
             rightImage = RatSprites.rightFemale;
             downImage = RatSprites.downFemale;
             leftImage = RatSprites.leftFemale;
-        } else if (!isSterilised() && this.gender == Gender.FEMALE) {
+        } else if (!isSterilised() && getGender() == Gender.MALE) {
             image = RatSprites.upMaleSterilised;
             upImage = RatSprites.upMaleSterilised;
             rightImage = RatSprites.rightMaleSterilised;
             downImage = RatSprites.downMaleSterilised;
             leftImage = RatSprites.leftMaleSterilised;
-        } else if (!isSterilised() && this.gender == Gender.FEMALE) {
-            image = RatSprites.upMaleSterilised;
-            upImage = RatSprites.upMaleSterilised;
-            rightImage = RatSprites.rightMaleSterilised;
-            downImage = RatSprites.downMaleSterilised;
-            leftImage = RatSprites.leftMaleSterilised;
+        } else if (!isSterilised() && getGender() == Gender.FEMALE) {
+            image = RatSprites.upFemaleSterilised;
+            upImage = RatSprites.upFemaleSterilised;
+            rightImage = RatSprites.rightFemaleSterilised;
+            downImage = RatSprites.downFemaleSterilised;
+            leftImage = RatSprites.leftFemaleSterilised;
         }
     }
 
