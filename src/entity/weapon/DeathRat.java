@@ -40,8 +40,8 @@ public class DeathRat extends Item {//used to extend Entities.Item
         setEntityType(EntityType.ITEM);
         setEntityName("DeathRat");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
-        setHp(8);
-        setDamage(5);
+        setHp(5);
+        setDamage(1);
         setRange(2);
         setFriendlyFire(true);
         setCanBeAttacked(false);
