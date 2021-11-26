@@ -307,6 +307,7 @@ public class GameController implements Initializable {
         MaleSexChangeBox.setOnMouseEntered(e ->
         {
             showSquare("MaleSexChange");
+            NoEntryBox.setBorder(null);
         });
         MaleSexChangeBox.setOnMouseExited(e ->
         {
@@ -325,6 +326,7 @@ public class GameController implements Initializable {
         PoisonBox.setOnMouseEntered(e ->
         {
             showSquare("Poison");
+            NoEntryBox.setBorder(null);
         });
         PoisonBox.setOnMouseExited(e ->
         {
@@ -360,6 +362,7 @@ public class GameController implements Initializable {
         else if(item.equals("MaleSexChange"))
         {
             MaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+            NoEntryBox.setBorder(null);
         }
         else if(item.equals("NoEntry"))
         {
@@ -368,6 +371,7 @@ public class GameController implements Initializable {
         else if(item.equals("Poison"))
         {
             PoisonBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+            NoEntryBox.setBorder(null);
         }
         else if(item.equals("Sterilisation"))
         {
