@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -16,11 +18,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+
+import javafx.scene.paint.Paint;
 import player.Inventory.ItemGenerator;
 import tile.Movement;
 import main.external.Audio;
@@ -85,6 +89,7 @@ public class GameController implements Initializable {
         new ItemGenerator(canvas, gc, abilities);
 
         onActions();
+        checkMouseEnter();
 
         try {
             LevelFileReader level = new LevelFileReader(Level.currentLevel);
@@ -209,6 +214,196 @@ public class GameController implements Initializable {
             } else {
                 gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
             }
+        }
+    }
+
+    private static HBox BombBox = new HBox();
+    private static HBox DeathRatBox = new HBox();
+    private static HBox FemaleSexChangeBox = new HBox();
+    private static HBox GasBox = new HBox();
+    private static HBox MaleSexChangeBox = new HBox();
+    private static HBox NoEntryBox = new HBox();
+    private static HBox PoisonBox = new HBox();
+    private static HBox SterilisationBox = new HBox();
+    //private static HBox BombBox = new HBox();
+    public void checkMouseEnter()
+    {
+        //HBox hbox = new HBox();
+        //hbox.setStyle("-fx-background-color:#ffff55");
+        BombBox.setPrefWidth(143);
+        BombBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(BombBox, 0.0);
+        AnchorPane.setTopAnchor(BombBox, 5.0);
+        DeathRatBox.setPrefWidth(143);
+        DeathRatBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(DeathRatBox, 0.0);
+        AnchorPane.setTopAnchor(DeathRatBox, 45.0);
+        FemaleSexChangeBox.setPrefWidth(143);
+        FemaleSexChangeBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(FemaleSexChangeBox, 0.0);
+        AnchorPane.setTopAnchor(FemaleSexChangeBox, 85.0);
+        GasBox.setPrefWidth(143);
+        GasBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(GasBox, 0.0);
+        AnchorPane.setTopAnchor(GasBox, 125.0);
+        MaleSexChangeBox.setPrefWidth(143);
+        MaleSexChangeBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(MaleSexChangeBox, 0.0);
+        AnchorPane.setTopAnchor(MaleSexChangeBox, 165.0);
+        NoEntryBox.setPrefWidth(143);
+        NoEntryBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(NoEntryBox, 0.0);
+        AnchorPane.setTopAnchor(NoEntryBox, 205.0);
+        PoisonBox.setPrefWidth(143);
+        PoisonBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(PoisonBox, 0.0);
+        AnchorPane.setTopAnchor(PoisonBox, 245.0);
+        SterilisationBox.setPrefWidth(143);
+        SterilisationBox.setPrefHeight(40);
+        AnchorPane.setRightAnchor(SterilisationBox, 0.0);
+        AnchorPane.setTopAnchor(SterilisationBox, 285.0);
+        abilities.getChildren().addAll(BombBox,DeathRatBox,FemaleSexChangeBox,GasBox,MaleSexChangeBox,NoEntryBox,PoisonBox,SterilisationBox);
+
+        BombBox.setOnMouseEntered(e ->
+        {
+            showSquare("Bomb");
+        });
+        BombBox.setOnMouseExited(e ->
+        {
+            BombBox.setBorder(null);
+        });
+
+        DeathRatBox.setOnMouseEntered(e ->
+        {
+            showSquare("DeathRat");
+        });
+        DeathRatBox.setOnMouseExited(e ->
+        {
+            DeathRatBox.setBorder(null);
+        });
+
+        FemaleSexChangeBox.setOnMouseEntered(e ->
+        {
+            showSquare("FemaleSexChange");
+        });
+        FemaleSexChangeBox.setOnMouseExited(e ->
+        {
+            FemaleSexChangeBox.setBorder(null);
+        });
+
+        GasBox.setOnMouseEntered(e ->
+        {
+            showSquare("Gas");
+        });
+        GasBox.setOnMouseExited(e ->
+        {
+            GasBox.setBorder(null);
+        });
+
+        MaleSexChangeBox.setOnMouseEntered(e ->
+        {
+            showSquare("MaleSexChange");
+        });
+        MaleSexChangeBox.setOnMouseExited(e ->
+        {
+            MaleSexChangeBox.setBorder(null);
+        });
+
+        NoEntryBox.setOnMouseEntered(e ->
+        {
+            showSquare("NoEntry");
+        });
+        NoEntryBox.setOnMouseExited(e ->
+        {
+            NoEntryBox.setBorder(null);
+        });
+
+        PoisonBox.setOnMouseEntered(e ->
+        {
+            showSquare("Poison");
+        });
+        PoisonBox.setOnMouseExited(e ->
+        {
+            PoisonBox.setBorder(null);
+        });
+        SterilisationBox.setOnMouseEntered(e ->
+        {
+            showSquare("Sterilisation");
+        });
+        SterilisationBox.setOnMouseExited(e ->
+        {
+            SterilisationBox.setBorder(null);
+        });
+    }
+    public static void showSquare(String item)
+    {
+        if(item.equals("Bomb"))
+        {
+            BombBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("DeathRat"))
+        {
+            DeathRatBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("FemaleSexChange"))
+        {
+            FemaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("Gas"))
+        {
+            GasBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("MaleSexChange"))
+        {
+            MaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("NoEntry"))
+        {
+            NoEntryBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("Poison"))
+        {
+            PoisonBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+        else if(item.equals("Sterilisation"))
+        {
+            SterilisationBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+        }
+    }
+
+    public static void hideSquare(String item)
+    {
+        if(item.equals("Bomb"))
+        {
+            BombBox.setBorder(null);
+        }
+        else if(item.equals("DeathRat"))
+        {
+            DeathRatBox.setBorder(null);
+        }
+        else if(item.equals("FemaleSexChange"))
+        {
+            FemaleSexChangeBox.setBorder(null);
+        }
+        else if(item.equals("Gas"))
+        {
+            GasBox.setBorder(null);
+        }
+        else if(item.equals("MaleSexChange"))
+        {
+            MaleSexChangeBox.setBorder(null);
+        }
+        else if(item.equals("NoEntryBox"))
+        {
+            MaleSexChangeBox.setBorder(null);
+        }
+        else if(item.equals("Poison"))
+        {
+            PoisonBox.setBorder(null);
+        }
+        else if(item.equals("Sterilisation"))
+        {
+            SterilisationBox.setBorder(null);
         }
     }
 
