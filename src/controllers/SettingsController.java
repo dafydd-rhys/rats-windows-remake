@@ -24,6 +24,7 @@ import javafx.scene.media.Media;
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd Maund (2003900)
+ * @author Dawid Wisniewski (857847)
  */
 public class SettingsController implements Initializable {
 
