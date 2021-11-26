@@ -18,6 +18,7 @@ import main.external.Audio;
  * Main
  *
  * @author Dafydd-Rhys Maund (2003900)
+ * @author Dawid Wisniewski (857847)
  */
 public class StageFunctions {
 
@@ -82,6 +83,10 @@ public class StageFunctions {
 
     public static void minimize() {
         stage.setIconified(true);
+    }
+
+    public static void minimizeSettings() {
+        settingsStage.setIconified(true);
     }
 
     public static void exit() throws UnsupportedAudioFileException, LineUnavailableException, IOException {

@@ -11,6 +11,7 @@ import java.util.Scanner;
  * LevelFileReader
  *
  * @author Dafydd-Rhys Maund (2003900)
+ * @author Dawid Wisniewski (857847)
  */
 public class LevelFileReader {
 

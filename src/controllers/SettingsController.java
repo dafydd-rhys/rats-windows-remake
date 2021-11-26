@@ -24,6 +24,7 @@ import javafx.scene.media.Media;
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd Maund (2003900)
+ * @author Dawid Wisniewski (857847)
  */
 public class SettingsController implements Initializable {
 
@@ -73,7 +74,7 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
-        minimize.setOnAction(e -> StageFunctions.minimize());
+        minimize.setOnAction(e -> StageFunctions.minimizeSettings());
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exitSettings();
