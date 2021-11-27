@@ -42,14 +42,13 @@ public class Bomb extends Item {
         }
     }
 
-    // TODO Need to make bomb destroy everything in its path not 1 tile radius
     public void activate() {
         countdown();
     }
 
     private void explode() {
         Tile[][] tiles = Level.getTiles();
-        Tile original = tiles[getCurrentPosY()][getCurrentPosX()];
+        Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
 
         // TODO add explosion sprite for visual guide
         for (Rat.Direction direction : Rat.Direction.values()) {
@@ -63,6 +62,7 @@ public class Bomb extends Item {
                 if (!entitiesOnTile.isEmpty()) {
                     for (int i = 0; i < entitiesOnTile.size(); i++) {
                         Entity entity = entitiesOnTile.get(i);
+
                         if (entity.getEntityType() == EntityType.RAT) {
                             Rat target = (Rat) entity;
                             inflictDamage(getDamage(), target);
@@ -79,7 +79,7 @@ public class Bomb extends Item {
             }
         }
         Level.getItems().remove(this);
-        original.removeEntityFromTile(this);
+        startingTile.removeEntityFromTile(this);
     }
 
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {

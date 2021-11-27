@@ -47,7 +47,7 @@ public class Sterilisation extends Item {
     private void checkAdjacent(int i) {
         Tile[][] tiles = Level.getTiles();
 
-        if (getCurrentPosX() + i < 19 && getCurrentPosX() + i > 0) {
+        if (getCurrentPosX() + i < Level.rows - 1 && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
 
@@ -61,8 +61,8 @@ public class Sterilisation extends Item {
                 }
             }
         }
-        
-        if (getCurrentPosY() + i < Level.rows - 1 && getCurrentPosY() + i > 0) {
+
+        if (getCurrentPosY() + i < Level.rows - 1 && getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 

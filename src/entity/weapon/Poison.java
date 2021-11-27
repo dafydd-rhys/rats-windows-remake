@@ -33,7 +33,7 @@ public class Poison extends Item {
     public void activate() {
         ArrayList<Entity> entitiesOnTile = Level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
-        if (entitiesOnTile != null) {
+        if (!entitiesOnTile.isEmpty()) {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
                 if (entitiesOnTile.get(k).getEntityType() == EntityType.RAT){
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
@@ -41,11 +41,11 @@ public class Poison extends Item {
                     setHp(getHp() - 1);
 
                     if (targetRat.getHp() <= 0) {
-                        Level.getItems().remove(this);
                         Level.getRats().remove(targetRat);
-                        entitiesOnTile.remove(this);
                         entitiesOnTile.remove(targetRat);
                     }
+                    Level.getItems().remove(this);
+                    entitiesOnTile.remove(this);
                     break;
                 }
             }

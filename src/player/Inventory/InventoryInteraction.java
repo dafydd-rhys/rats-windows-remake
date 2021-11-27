@@ -10,7 +10,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
 import main.level.Level;
 import controllers.GameController;
 import tile.Tile;
