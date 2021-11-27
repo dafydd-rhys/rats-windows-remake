@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import main.level.Level;
 import controllers.GameController;
+import tile.Tile;
 
 /**
  * Main
@@ -61,33 +62,33 @@ public class InventoryInteraction {
         });
 
         canvas.setOnDragDropped(event -> dragAndDrop(event, gc, storedItem[0], storedImage[0], storedPosition[0]));
-
         imageView.setOnMouseEntered(e ->
-        {
-            GameController.showSquare(item.getEntityName());
-        });
+                GameController.showSquare(item.getEntityName()));
         imageView.setOnMouseExited(e ->
-        {
-            GameController.hideSquare(item.getEntityName());
-        });
-
-
+                GameController.hideSquare(item.getEntityName()));
     }
 
     private static void dragAndDrop(DragEvent event, GraphicsContext gc, Item item, ImageView image, int pos) {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
-        item.setCurrentPosX(x);
-        item.setCurrentPosY(y);
 
-        Level.getItems().add(item);
-        Level.getTiles()[y][x].addEntityToTile(item);
-        Inventory.removeItem(item);
+        Tile tile = Level.getTiles()[y][x];
+        if (tile.isWalkable()) {
+            item.setCurrentPosX(x);
+            item.setCurrentPosY(y);
 
-        index -= 1;
-        System.arraycopy(items, pos + 1, items, pos, items.length - pos - 1);
-        System.arraycopy(images, pos + 1, images, pos, items.length - pos - 1);
-        gc.drawImage(image.getImage(), x * 50 + 10, y * 50 + 10);
+            Level.getItems().add(item);
+            tile.addEntityToTile(item);
+            Inventory.removeItem(item);
+
+            index -= 1;
+            System.arraycopy(items, pos + 1, items, pos, items.length - pos - 1);
+            System.arraycopy(images, pos + 1, images, pos, items.length - pos - 1);
+
+            if (tile.isCovering()) {
+                gc.drawImage(image.getImage(), x * 50 + 10, y * 50 + 10);
+            }
+        }
     }
 
 }

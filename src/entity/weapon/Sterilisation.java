@@ -47,19 +47,21 @@ public class Sterilisation extends Item {
     private void checkAdjacent(int i) {
         Tile[][] tiles = Level.getTiles();
 
-        if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
-            ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
+        if (getCurrentPosX() + i < 19 && getCurrentPosX() + i > 0) {
+            if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
+                ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
 
-            for (Entity entity : entities) {
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat target = (Rat) entity;
+                for (Entity entity : entities) {
+                    if (entity.getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entity;
 
-                    target.setSterilised(true);
-                    target.getImages();
+                        target.setSterilised(true);
+                        target.getImages();
+                    }
                 }
             }
         }
-
+        
         if (getCurrentPosY() + i < Level.rows - 1 && getCurrentPosY() + i > 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());

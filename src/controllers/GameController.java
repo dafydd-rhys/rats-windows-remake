@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -206,34 +205,34 @@ public class GameController implements Initializable {
         }
 
         for (Rat rat : rats) {
-            if (Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()){
+            if (Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()) {
                 gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
             }
         }
 
         for (Item item : items) {
-            if (item.getType() == Item.TYPE.DEATH_RAT) {
-                DeathRat deathRat = (DeathRat) item;
-                gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
-            } else {
-                gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+            if (Level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].isCovering()) {
+                if (item.getType() == Item.TYPE.DEATH_RAT) {
+                    DeathRat deathRat = (DeathRat) item;
+                    gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                } else {
+                    gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                }
             }
         }
     }
 
-    private static HBox BombBox = new HBox();
-    private static HBox DeathRatBox = new HBox();
-    private static HBox FemaleSexChangeBox = new HBox();
-    private static HBox GasBox = new HBox();
-    private static HBox MaleSexChangeBox = new HBox();
-    private static HBox NoEntryBox = new HBox();
-    private static HBox PoisonBox = new HBox();
-    private static HBox SterilisationBox = new HBox();
+    private static final HBox BombBox = new HBox();
+    private static final HBox DeathRatBox = new HBox();
+    private static final HBox FemaleSexChangeBox = new HBox();
+    private static final HBox GasBox = new HBox();
+    private static final HBox MaleSexChangeBox = new HBox();
+    private static final HBox NoEntryBox = new HBox();
+    private static final HBox PoisonBox = new HBox();
+    private static final HBox SterilisationBox = new HBox();
+
     //private static HBox BombBox = new HBox();
-    public void checkMouseEnter()
-    {
-        //HBox hbox = new HBox();
-        //hbox.setStyle("-fx-background-color:#ffff55");
+    public void checkMouseEnter() {
         BombBox.setPrefWidth(143);
         BombBox.setPrefHeight(40);
         AnchorPane.setRightAnchor(BombBox, 0.0);
@@ -266,152 +265,77 @@ public class GameController implements Initializable {
         SterilisationBox.setPrefHeight(40);
         AnchorPane.setRightAnchor(SterilisationBox, 0.0);
         AnchorPane.setTopAnchor(SterilisationBox, 285.0);
-        abilities.getChildren().addAll(BombBox,DeathRatBox,FemaleSexChangeBox,GasBox,MaleSexChangeBox,NoEntryBox,PoisonBox,SterilisationBox);
+        abilities.getChildren().addAll(BombBox, DeathRatBox, FemaleSexChangeBox, GasBox, MaleSexChangeBox, NoEntryBox, PoisonBox, SterilisationBox);
 
         BombBox.setOnMouseEntered(e ->
-        {
-            showSquare("Bomb");
-        });
+                showSquare("Bomb"));
         BombBox.setOnMouseExited(e ->
-        {
-            BombBox.setBorder(null);
-        });
-
+                BombBox.setBorder(null));
         DeathRatBox.setOnMouseEntered(e ->
-        {
-            showSquare("DeathRat");
-        });
+                showSquare("DeathRat"));
         DeathRatBox.setOnMouseExited(e ->
-        {
-            DeathRatBox.setBorder(null);
-        });
-
+                DeathRatBox.setBorder(null));
         FemaleSexChangeBox.setOnMouseEntered(e ->
-        {
-            showSquare("FemaleSexChange");
-        });
+                showSquare("FemaleSexChange"));
         FemaleSexChangeBox.setOnMouseExited(e ->
-        {
-            FemaleSexChangeBox.setBorder(null);
-        });
-
+                FemaleSexChangeBox.setBorder(null));
         GasBox.setOnMouseEntered(e ->
-        {
-            showSquare("Gas");
-        });
+                showSquare("Gas"));
         GasBox.setOnMouseExited(e ->
-        {
-            GasBox.setBorder(null);
-        });
-
-        MaleSexChangeBox.setOnMouseEntered(e ->
-        {
+                GasBox.setBorder(null));
+        MaleSexChangeBox.setOnMouseEntered(e -> {
             showSquare("MaleSexChange");
             NoEntryBox.setBorder(null);
         });
         MaleSexChangeBox.setOnMouseExited(e ->
-        {
-            MaleSexChangeBox.setBorder(null);
-        });
+                MaleSexChangeBox.setBorder(null));
 
         NoEntryBox.setOnMouseEntered(e ->
-        {
-            showSquare("NoEntry");
-        });
+                showSquare("NoEntry"));
         NoEntryBox.setOnMouseExited(e ->
-        {
-            NoEntryBox.setBorder(null);
-        });
+                NoEntryBox.setBorder(null));
 
-        PoisonBox.setOnMouseEntered(e ->
-        {
+        PoisonBox.setOnMouseEntered(e -> {
             showSquare("Poison");
             NoEntryBox.setBorder(null);
         });
         PoisonBox.setOnMouseExited(e ->
-        {
-            PoisonBox.setBorder(null);
-        });
+                PoisonBox.setBorder(null));
         SterilisationBox.setOnMouseEntered(e ->
-        {
-            showSquare("Sterilisation");
-        });
+                showSquare("Sterilisation"));
         SterilisationBox.setOnMouseExited(e ->
-        {
-            SterilisationBox.setBorder(null);
-        });
+                SterilisationBox.setBorder(null));
     }
-    public static void showSquare(String item)
-    {
-        if(item.equals("Bomb"))
-        {
-            BombBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-        }
-        else if(item.equals("DeathRat"))
-        {
-            DeathRatBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-        }
-        else if(item.equals("FemaleSexChange"))
-        {
-            FemaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-        }
-        else if(item.equals("Gas"))
-        {
-            GasBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-        }
-        else if(item.equals("MaleSexChange"))
-        {
-            MaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-            NoEntryBox.setBorder(null);
-        }
-        else if(item.equals("NoEntry"))
-        {
-            NoEntryBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-        }
-        else if(item.equals("Poison"))
-        {
-            PoisonBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
-            NoEntryBox.setBorder(null);
-        }
-        else if(item.equals("Sterilisation"))
-        {
-            SterilisationBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID,new CornerRadii(0),new BorderWidths(2))));
+
+    public static void showSquare(String item) {
+        switch (item) {
+            case "Bomb" -> BombBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+            case "DeathRat" -> DeathRatBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+            case "FemaleSexChange" -> FemaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+            case "Gas" -> GasBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+            case "MaleSexChange" -> {
+                MaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+                NoEntryBox.setBorder(null);
+            }
+            case "NoEntry" -> NoEntryBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+            case "Poison" -> {
+                PoisonBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
+                NoEntryBox.setBorder(null);
+            }
+            case "Sterilisation" -> SterilisationBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
         }
     }
 
-    public static void hideSquare(String item)
-    {
-        if(item.equals("Bomb"))
-        {
-            BombBox.setBorder(null);
-        }
-        else if(item.equals("DeathRat"))
-        {
-            DeathRatBox.setBorder(null);
-        }
-        else if(item.equals("FemaleSexChange"))
-        {
-            FemaleSexChangeBox.setBorder(null);
-        }
-        else if(item.equals("Gas"))
-        {
-            GasBox.setBorder(null);
-        }
-        else if(item.equals("MaleSexChange"))
-        {
-            MaleSexChangeBox.setBorder(null);
-        }
-        else if(item.equals("NoEntryBox"))
-        {
-            MaleSexChangeBox.setBorder(null);
-        }
-        else if(item.equals("Poison"))
-        {
-            PoisonBox.setBorder(null);
-        }
-        else if(item.equals("Sterilisation"))
-        {
-            SterilisationBox.setBorder(null);
+    public static void hideSquare(String item) {
+        switch (item) {
+            case "Bomb" -> BombBox.setBorder(null);
+            case "DeathRat" -> DeathRatBox.setBorder(null);
+            case "FemaleSexChange" -> FemaleSexChangeBox.setBorder(null);
+            case "Gas" -> GasBox.setBorder(null);
+            case "MaleSexChange" -> MaleSexChangeBox.setBorder(null);
+            case "NoEntryBox" -> NoEntryBox.setBorder(null);
+            case "Poison" -> PoisonBox.setBorder(null);
+            case "Sterilisation" -> SterilisationBox.setBorder(null);
         }
     }
 
