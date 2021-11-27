@@ -72,14 +72,14 @@ public class Bomb extends Item {
                                 current.removeEntityFromTile(target);
                                 entitiesOnTile.remove(target);
                             }
-                            Level.getItems().remove(this);
-                            original.removeEntityFromTile(this);
                         }
                     }
                 }
                 distance++;
             }
         }
+        Level.getItems().remove(this);
+        original.removeEntityFromTile(this);
     }
 
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
