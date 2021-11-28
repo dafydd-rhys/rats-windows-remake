@@ -21,8 +21,8 @@ import tile.Tile;
  */
 public class InventoryInteraction {
 
-    private static final ImageView[] images = new ImageView[32];
-    private static final Item[] items = new Item[32];
+    private static ImageView[] images = new ImageView[32];
+    private static Item[] items = new Item[32];
     private static int index = 0;
 
     public static void draggableImage(Canvas canvas, GraphicsContext gc, AnchorPane abilities, Item item, int amount) {
@@ -88,6 +88,12 @@ public class InventoryInteraction {
                 gc.drawImage(image.getImage(), x * 50 + 10, y * 50 + 10);
             }
         }
+    }
+
+    public static void clear() {
+        index = 0;
+        items = new Item[32];
+        images = new ImageView[32];
     }
 
 }

@@ -47,12 +47,9 @@ public record LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, Gra
                     setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
                 }
                 if (spawns[y][x] == 'M') {
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, true);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
                 } else if (spawns[y][x] == 'F') {
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, true);
-                } else if (spawns[y][x] == 'B') {
-                    Rat.Gender randGender = Rat.Gender.values()[new Random().nextInt(Rat.Gender.values().length)];
-                    setRat(tilesArray, ratsArray, x, y, randGender, false);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
                 }
             }
         }

@@ -36,6 +36,7 @@ public class ItemGenerator {
         this.gc = gc;
         this.abilities = abilities;
 
+        InventoryInteraction.clear();
         Inventory.getItems().clear();
         Timer timer = new Timer(1000, e -> {
             second += 1;
@@ -76,6 +77,7 @@ public class ItemGenerator {
             }
         }
     }
+
 
     public int getMaxAmount() {
         return 4;
