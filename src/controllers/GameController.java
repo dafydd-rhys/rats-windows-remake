@@ -80,6 +80,7 @@ public class GameController implements Initializable {
     private static double currentTick;
     private int score = 0;
     private static boolean gameOver = false;
+    private Timer ticker;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -114,7 +115,7 @@ public class GameController implements Initializable {
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
 
-        Timer ticker = new Timer();
+        ticker = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -159,8 +160,8 @@ public class GameController implements Initializable {
 
         restartBtn.setOnAction(e -> {
             try {
+                ticker.cancel();
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.currentLevel);
-                
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -188,8 +189,6 @@ public class GameController implements Initializable {
     private static void tick() {
         ArrayList<Rat> rats = Level.getRats();
         ArrayList<Item> items = Level.getItems();
-
-
 
         //adult rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
         if (currentTick % 2 == 0) {
