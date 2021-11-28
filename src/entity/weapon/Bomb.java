@@ -68,9 +68,7 @@ public class Bomb extends Item {
                             inflictDamage(getDamage(), target);
 
                             if (target.getHp() <= 0) {
-                                Level.getRats().remove(target);
-                                current.removeEntityFromTile(target);
-                                entitiesOnTile.remove(target);
+                                target.kill();
                             }
                         }
                     }

@@ -153,11 +153,14 @@ public class Rat extends Entity {
                 int randomNum = rand.nextInt((5) + 1);
 
                 for (int i = 0; i < randomNum; i++) {
+                    Rat rat;
                     if (randomNum % 2 == 0) {
-                        babyQueue.add(new Rat(Gender.FEMALE, false));
+                        rat = new Rat(Gender.FEMALE, false);
                     } else {
-                        babyQueue.add(new Rat(Gender.MALE, false));
+                        rat = new Rat(Gender.MALE, false);
                     }
+                    rat.setEntityType(EntityType.RAT);
+                    babyQueue.add(rat);
                 }
             } else if (this.getPregnancyStage() > 10) {
 

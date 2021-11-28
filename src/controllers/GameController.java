@@ -176,9 +176,7 @@ public class GameController implements Initializable {
         ArrayList<Rat> rats = Level.getRats();
         ArrayList<Item> items = Level.getItems();
 
-        for (int i = 0; i < items.size(); i++) {
-            items.get(i).activate();
-        }
+
 
         //adult rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
         if (currentTick % 2 == 0) {
@@ -203,7 +201,9 @@ public class GameController implements Initializable {
                 }
             }
         }
-
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i).activate();
+        }
         draw();
     }
 
