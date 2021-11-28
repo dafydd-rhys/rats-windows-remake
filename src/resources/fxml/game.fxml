@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
    <children>
@@ -83,6 +84,11 @@
             <JFXTextArea fx:id="levelBox" editable="false" focusColor="GREY" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="180.0" unFocusColor="GREY" />
             <JFXTextArea fx:id="timerBox" editable="false" focusColor="GREY" layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="85.0" unFocusColor="GREY" />
             <JFXTextArea fx:id="scoreBox" editable="false" focusColor="GREY" layoutX="105.0" layoutY="70.0" prefHeight="30.0" prefWidth="85.0" unFocusColor="GREY" />
+            <JFXButton fx:id="restartBtn" alignment="CENTER" layoutX="110.0" layoutY="133.0" prefHeight="20.0" prefWidth="78.0" style="-fx-background-color: darkgrey;" text="Restart">
+               <font>
+                  <Font name="Calibri Light" size="12.0" />
+               </font>
+            </JFXButton>
          </children></AnchorPane>
       <VBox alignment="CENTER" layoutY="30.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
          <children>
