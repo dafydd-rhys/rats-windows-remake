@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -21,8 +23,6 @@ import javafx.scene.layout.*;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.*;
-
 import javafx.scene.paint.Paint;
 import player.Inventory.ItemGenerator;
 import tile.Movement;
@@ -109,7 +109,17 @@ public class GameController implements Initializable {
 
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
-        ticker.start();
+
+        Timer ticker = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                currentTick += 1;
+                tick();
+            }
+        };
+        //run tick method every 500ms until stopped
+        ticker.schedule(task, 500, 500);
     }
 
     private void onActions() {
@@ -162,12 +172,6 @@ public class GameController implements Initializable {
         }
     }
 
-    private static final Timer ticker = new Timer(500, e -> {
-        currentTick += 1;
-
-        tick();
-    });
-
     private static void tick() {
         ArrayList<Rat> rats = Level.getRats();
         ArrayList<Item> items = Level.getItems();
@@ -176,23 +180,30 @@ public class GameController implements Initializable {
             items.get(i).activate();
         }
 
+        //adult rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
         if (currentTick % 2 == 0) {
-            for (Rat rat : new ArrayList<>(rats)) {
-                if (rat.isAdult()) {
+            for (int i = 0; i < rats.size(); i++) {
+                if (rats.get(i).isAdult()) {
+                    Rat rat = rats.get(i);
+
                     move(rat);
-                    // TODO Fix baby rats not spawning on right tile.
-                    rat.findPartner(Level.getTiles()[rat.getCurrentPosX()][rat.getCurrentPosY()]);
+                    rat.findPartner(Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()]);
                     rat.giveBirth();
                 }
             }
-        } else {
-            for (Rat rat : rats) {
-                if (!rat.isAdult()) {
+        }
+
+        //baby rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
+        if (currentTick % 1 == 0) {
+            for (int i = 0; i < rats.size(); i++) {
+                if (!rats.get(i).isAdult()) {
+                    Rat rat = rats.get(i);
                     move(rat);
                     rat.growUp();
                 }
             }
         }
+
         draw();
     }
 
@@ -269,7 +280,8 @@ public class GameController implements Initializable {
         SterilisationBox.setPrefHeight(40);
         AnchorPane.setRightAnchor(SterilisationBox, 0.0);
         AnchorPane.setTopAnchor(SterilisationBox, 285.0);
-        abilities.getChildren().addAll(BombBox, DeathRatBox, FemaleSexChangeBox, GasBox, MaleSexChangeBox, NoEntryBox, PoisonBox, SterilisationBox);
+        abilities.getChildren().addAll(BombBox, DeathRatBox, FemaleSexChangeBox, GasBox,
+                MaleSexChangeBox, NoEntryBox, PoisonBox, SterilisationBox);
 
         BombBox.setOnMouseEntered(e ->
                 showSquare("Bomb"));

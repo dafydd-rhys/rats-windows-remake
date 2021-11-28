@@ -13,15 +13,15 @@ import tile.Tile;
  * @author Dawid Wisniewski
  * @author Maurice Petersen (2013396)
  */
-public class Level {
+public final class Level {
 
     public static int currentLevel;
     public static int cols;
     public static int rows;
     private static HashMap<Item.TYPE, Integer> timeToGenerate;
     private static Tile[][] tiles;
-    private static ArrayList<Rat> rats;
-    private static ArrayList<Item> items;
+    private static ArrayList<Rat> rats = new ArrayList<>();
+    private static ArrayList<Item> items = new ArrayList<>();
     private static int expectedTime;
     private static int maxRats;
 
@@ -35,12 +35,11 @@ public class Level {
         items = new ArrayList<>();
     }
 
-    protected void placeItem(Item selectedItem, Tile tile) {
-        if (tile.getClass().getName().equals("PathTile")) {
-            tile.getEntitiesOnTile().add(selectedItem);
-        } else {
-            System.out.println("Invalid placement");
-        }
+    public static void placeItem(Item item, Tile tile) {
+        item.setCurrentPosX(tile.getX());
+        item.setCurrentPosY(tile.getY());
+        tile.addEntityToTile(item);
+        items.add(item);
     }
 
     public static void placeRat(Rat rat, Tile tile) {
@@ -48,11 +47,6 @@ public class Level {
         rat.setCurrentPosY(tile.getY());
         tile.addEntityToTile(rat);
         rats.add(rat);
-
-        // TODO add ?
-//        if (tile.isCovering()) {
-//
-//        }
     }
 
     public static void getEntitiesOnTile() {
@@ -63,12 +57,24 @@ public class Level {
         }
     }
 
+    public static int getCurrentLevel() {
+        return currentLevel;
+    }
+
     public static HashMap<Item.TYPE, Integer> getTimeToGenerate() {
         return timeToGenerate;
     }
 
     public static Tile[][] getTiles() {
         return tiles;
+    }
+
+    public static int getCols() {
+        return cols;
+    }
+
+    public static int getRows() {
+        return rows;
     }
 
     public static ArrayList<Rat> getRats() {

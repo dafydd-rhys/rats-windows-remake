@@ -15,16 +15,8 @@ import tile.Tile;
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski (857847)
  */
-public class LevelFileGenerator {
-
-    private final GraphicsContext gc;
-    private HashMap<Item.TYPE, Integer> timeToGenerate;
-    private final char[][] tiles;
-    private final char[][] spawns;
-    private final int expectedTime;
-    private final int maxRats;
-    private final int sizeX;
-    private final int sizeY;
+public record LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX,
+                                 int sizeY, char[][] tiles, char[][] spawns, int expectedTime, int maxRats) {
 
     public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
                               char[][] tiles, char[][] spawns, int expectedTime, int maxRats) {
@@ -69,7 +61,6 @@ public class LevelFileGenerator {
     }
 
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
-        System.out.println(x + ", " + y);
         Tile tile = new Tile(x, y, type, new ArrayList<>());
         tiles[y][x] = tile;
         gc.drawImage(tile.getImage(), x * 50, y * 50);

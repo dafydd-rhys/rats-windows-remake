@@ -31,8 +31,7 @@ public class Rat extends Entity {
     private boolean isPregnant;
     private int pregnancyStage;
     private int growingStage;
-    private Queue<Rat> babyQueue;
-
+    private final Queue<Rat> babyQueue;
 
     public enum Gender {
         MALE(),
@@ -121,9 +120,9 @@ public class Rat extends Entity {
             if (e.getEntityType() == EntityType.RAT) {
                 Rat partner = (Rat) e;
 
-                if (this.getGender() != partner.getGender() && this.isAdult() && partner.isAdult()
-                        && this.isSterilised() && partner.isSterilised()) {
-                    this.mate(partner);
+                if (getGender() != partner.getGender() && isAdult() && partner.isAdult()
+                        && isSterilised() && partner.isSterilised()) {
+                    mate(partner);
                 }
             }
         }
@@ -134,12 +133,11 @@ public class Rat extends Entity {
      * @param rat other rat.
      */
     public void mate(Rat rat) {
-        if (this.getGender() == Gender.MALE && !rat.isPregnant()) {
+        if (getGender() == Gender.MALE && !rat.isPregnant()) {
             rat.setPregnant(true);
-        } else if (this.getGender() == Gender.FEMALE && !this.isPregnant()) {
-            this.setPregnant(true);
+        } else if (getGender() == Gender.FEMALE && !isPregnant()) {
+            setPregnant(true);
         }
-        // TODO Make rats stop on tile while reproducing ??
     }
 
     /**
@@ -149,8 +147,8 @@ public class Rat extends Entity {
      * Checks if rat pregnancy stage is at max value
      */
     public void giveBirth() {
-        if (this.getGender() == Gender.FEMALE && this.isPregnant()) {
-            if (this.pregnancyStage == 10) {
+        if (this.getGender() == Gender.FEMALE && isPregnant()) {
+            if (getPregnancyStage() == 10) {
                 Random rand = new Random();
                 int randomNum = rand.nextInt((5) + 1);
 
@@ -164,13 +162,12 @@ public class Rat extends Entity {
             } else if (this.getPregnancyStage() > 10) {
 
                 if (babyQueue.size() > 0) {
-                    Level.placeRat(babyQueue.poll(),
-                            Level.getTiles()[this.getCurrentPosX()][this.getCurrentPosY()]);
+                    Level.placeRat(babyQueue.poll(), Level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
                 } else {
                     this.setPregnancyStage(0);
                 }
             }
-            this.pregnancyStage += 1;
+            setPregnancyStage(getPregnancyStage() + 1);
         }
     }
 
@@ -178,21 +175,13 @@ public class Rat extends Entity {
      * Allows baby rats to grow into adult rats.
      */
     public void growUp() {
-        if (this.getGrowingStage() >= 10) {
-            if (!this.isAdult()) {
-                this.setAdult(true);
-                if (this.getGender() == Gender.FEMALE) {
-                    this.setImage((new Image(System.getProperty("user.dir") +
-                            "\\src\\resources\\images\\game\\entities\\female-rat.png")));
-                } else {
-                    this.setImage((new Image(System.getProperty("user.dir") +
-                            "\\src\\resources\\images\\game\\entities\\male-rat.png")));
-                }
-
-                this.getImages();
+        if (getGrowingStage() >= 10) {
+            if (!isAdult()) {
+                setAdult(true);
+                getImages();
             }
         } else {
-            this.growingStage += 1;
+            setGrowingStage(getGrowingStage() + 1);
         }
     }
 
@@ -260,15 +249,15 @@ public class Rat extends Entity {
     }
 
     public boolean isPregnant() {
-        return isPregnant;
+        return this.isPregnant;
     }
 
     public void setPregnant(boolean pregnant) {
-        isPregnant = pregnant;
+        this.isPregnant = pregnant;
     }
 
     public int getPregnancyStage() {
-        return pregnancyStage;
+        return this.pregnancyStage;
     }
 
     public void setPregnancyStage(int pregnancyStage) {
@@ -276,35 +265,35 @@ public class Rat extends Entity {
     }
 
     public void setRotatedImage(Image image) {
-        rotatedImage = image;
+        this.rotatedImage = image;
     }
 
     public Image getRotatedImage() {
-        return rotatedImage;
+        return this.rotatedImage;
     }
 
     public Image getImage() {
-        return image;
+        return this.image;
     }
 
     public boolean isAdult() {
-        return isAdult;
+        return this.isAdult;
     }
 
     public void setAdult(boolean adult) {
-        isAdult = adult;
+        this.isAdult = adult;
     }
 
     public boolean isSterilised() {
-        return !isSterilised;
+        return !this.isSterilised;
     }
 
     public void setSterilised(boolean sterilised) {
-        isSterilised = sterilised;
+        this.isSterilised = sterilised;
     }
 
     public Direction getDirection() {
-        return direction;
+        return this.direction;
     }
 
     public void setDirection(Direction direction) {
@@ -312,19 +301,19 @@ public class Rat extends Entity {
     }
 
     public Image getUpImage() {
-        return upImage;
+        return this.upImage;
     }
 
     public Image getDownImage() {
-        return downImage;
+        return this.downImage;
     }
 
     public Image getLeftImage() {
-        return leftImage;
+        return this.leftImage;
     }
 
     public Image getRightImage() {
-        return rightImage;
+        return this.rightImage;
     }
 
     public void setGrowingStage(int value) {
@@ -332,7 +321,7 @@ public class Rat extends Entity {
     }
 
     public int getGrowingStage() {
-        return growingStage;
+        return this.growingStage;
     }
 
 }
