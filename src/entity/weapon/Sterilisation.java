@@ -30,24 +30,29 @@ public class Sterilisation extends Item {
         setOffsetY(7);
     }
 
-    public void activate() {
+    @Override
+    public Item createNewInstance() {
+        return new Sterilisation();
+    }
+
+    public void activate(Level level) {
         setHp(getHp() - 1);
 
         if (getHp() > 0) {
             for (int i = 0; i < getRange() + 1; i++) {
-                checkAdjacent(i);
-                checkAdjacent(-(i));
+                checkAdjacent(level, i);
+                checkAdjacent(level, -(i));
             }
         } else {
-            Level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
-            Level.getItems().remove(this);
+            level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+            level.getItems().remove(this);
         }
     }
 
-    private void checkAdjacent(int i) {
-        Tile[][] tiles = Level.getTiles();
+    private void checkAdjacent(Level level, int i) {
+        Tile[][] tiles = level.getTiles();
 
-        if (getCurrentPosX() + i < Level.rows - 1 && getCurrentPosX() + i >= 0) {
+        if (getCurrentPosX() + i < level.getCols() - 1 && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
 
@@ -62,7 +67,7 @@ public class Sterilisation extends Item {
             }
         }
 
-        if (getCurrentPosY() + i < Level.rows - 1 && getCurrentPosY() + i >= 0) {
+        if (getCurrentPosY() + i < level.getRows() - 1 && getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 

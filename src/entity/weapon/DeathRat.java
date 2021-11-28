@@ -57,19 +57,24 @@ public class DeathRat extends Item {//used to extend Entities.Item
         setDirection(values.get(new Random().nextInt(values.size())));
     }
 
-    public void activate() {
+    @Override
+    public Item createNewInstance() {
+        return new DeathRat();
+    }
+
+    public void activate(Level level) {
         currentTick++;
 
         int moveTick = 2;
         if (currentTick % moveTick == 0) {
-            move();
+            move(level);
         }
     }
 
-    private void move() {
-        DeathRatMovement.tiles = Level.getTiles();
+    private void move(Level level) {
+        DeathRatMovement.tiles = level.getTiles();
         DeathRatMovement.rat = this;
-        DeathRatMovement.current = Level.getTiles()[getCurrentPosY()][getCurrentPosX()];
+        DeathRatMovement.current = level.getTiles()[getCurrentPosY()][getCurrentPosX()];
         DeathRatMovement.curX = getCurrentPosX();
         DeathRatMovement.curY = getCurrentPosY();
 
@@ -82,11 +87,11 @@ public class DeathRat extends Item {//used to extend Entities.Item
         } else if (this.getDirection() == Direction.DOWN) {
             DeathRatMovement.tryVertical(1, -1);
         }
-        checkForOpps();
+        checkForOpposition(level);
     }
 
-    private void checkForOpps() {
-        ArrayList<Entity> entities = Level.getTiles()[this.getCurrentPosX()][this.getCurrentPosY()].getEntitiesOnTile();
+    private void checkForOpposition(Level level) {
+        ArrayList<Entity> entities = level.getTiles()[this.getCurrentPosX()][this.getCurrentPosY()].getEntitiesOnTile();
 
         if (!entities.isEmpty()) {
             for (Entity entity : entities) {
@@ -102,8 +107,8 @@ public class DeathRat extends Item {//used to extend Entities.Item
                     }
 
                     if (getHp() <= 0) {
-                        Level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
-                        Level.getItems().remove(this);
+                        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+                        level.getItems().remove(this);
                     }
                 }
             }

@@ -1,19 +1,12 @@
 package player.Inventory;
 
 import entity.Item;
-import entity.rat.Rat;
 import entity.weapon.Bomb;
-import entity.weapon.DeathRat;
-import entity.weapon.FemaleSexChange;
-import entity.weapon.Gas;
-import entity.weapon.MaleSexChange;
-import entity.weapon.NoEntrySign;
-import entity.weapon.Poison;
-import entity.weapon.Sterilisation;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
-import javax.swing.*;
 import main.level.Level;
 
 /**
@@ -25,107 +18,72 @@ import main.level.Level;
  */
 public class ItemGenerator {
 
-    private static Canvas canvas;
-    private final GraphicsContext gc;
     private final AnchorPane abilities;
-
     private int second = 0;
 
-    public ItemGenerator(Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
-        ItemGenerator.canvas = canvas;
-        this.gc = gc;
+    public ItemGenerator(Level level, Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
         this.abilities = abilities;
-
+        InventoryInteraction.load(level, canvas, gc);
         Inventory.getItems().clear();
-        Timer timer = new Timer(1000, e -> {
-            second += 1;
 
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.BOMB) == 0) {
-                generateItem(new Bomb(), Inventory.getBombAmount());
+        Timer ticker = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                second++;
+
+                runPeriodic(level);
+                //runRandom
             }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.GAS) == 0) {
-                generateItem(new Gas(), Inventory.getGasAmount());
-            }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.POISON) == 0) {
-                generateItem(new Poison(), Inventory.getPoisonAmount());
-            }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.STERILISATION) == 0) {
-                generateItem(new Sterilisation(), Inventory.getSterilisationAmount());
-            }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.FEMALE_CHANGE) == 0) {
-                generateItem(new FemaleSexChange(), Inventory.getFemaleChangeAmount());
-            }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.MALE_CHANGE) == 0) {
-                generateItem(new MaleSexChange(), Inventory.getMaleChangeAmount());
-            }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.NO_ENTRY) == 0) {
-                generateItem(new NoEntrySign(), Inventory.getNoEntryAmount());
-            }
-            if (second % Level.getTimeToGenerate().get(Item.TYPE.DEATH_RAT) == 0) {
-                generateItem(new DeathRat(), Inventory.getDeathRatAmount());
-            }
-        });
-        timer.start();
+        };
+
+        //run tick method every 500ms until stopped
+        ticker.schedule(task, 1000, 1000);
     }
 
-    private void generateItem(Item item, int amount) {
-        if (!Inventory.maxAbilities()) {
-            if (amount < getMaxAmount()) {
-                Inventory.addItem(item);
-                InventoryInteraction.draggableImage(canvas, gc, abilities, item, amount);
-            }
+    private void runPeriodic(Level level) {
+        if (second % level.getTimeToGenerate().get(Item.TYPE.BOMB) == 0) {
+            enableItem(Item.TYPE.BOMB);
         }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.GAS) == 0) {
+            enableItem(Item.TYPE.GAS);
+        }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.POISON) == 0) {
+            enableItem(Item.TYPE.POISON);
+        }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.STERILISATION) == 0) {
+            enableItem(Item.TYPE.STERILISATION);
+        }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.FEMALE_CHANGE) == 0) {
+            enableItem(Item.TYPE.FEMALE_CHANGE);
+        }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.MALE_CHANGE) == 0) {
+            enableItem(Item.TYPE.MALE_CHANGE);
+        }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.NO_ENTRY) == 0) {
+            enableItem(Item.TYPE.NO_ENTRY);
+        }
+        if (second % level.getTimeToGenerate().get(Item.TYPE.DEATH_RAT) == 0) {
+            enableItem(Item.TYPE.DEATH_RAT);
+        }
+    }
+
+    private void enableItem(Item.TYPE type) {
+        if (Inventory.getAmount(type) < getMaxAmount()) {
+            Inventory.addItem(getItem(type));
+            InventoryInteraction.enableItem(type, abilities);
+        }
+    }
+
+    private Item getItem(Item.TYPE type) {
+        if (type == Item.TYPE.BOMB) {
+            return new Bomb();
+        }
+        return null;
     }
 
     public int getMaxAmount() {
         return 4;
     }
-
-    /*
-    private void generateRandomItem() {
-        int random = new Random().nextInt(8);
-        boolean added = false;
-
-        if (!Inventory.maxAbilities())
-            while (!added) {
-                if (random == 0) {
-                    added = addItem(new Bomb(), Inventory.getBombAmount());
-                } else if (random == 1) {
-                    added = addItem(new Gas(), Inventory.getGasAmount());
-                } else if (random == 2) {
-                    added = addItem(new FemaleSexChange(), Inventory.getFemaleChangeAmount());
-                } else if (random == 3) {
-                    added = addItem(new MaleSexChange(), Inventory.getMaleChangeAmount());
-                } else if (random == 4) {
-                    added = addItem(new NoEntrySign(), Inventory.getNoEntryAmount());
-                } else if (random == 5) {
-                    added = addItem(new Poison(), Inventory.getPoisonAmount());
-                } else if (random == 6) {
-                    added = addItem(new Sterilisation(), Inventory.getSterilisationAmount());
-                } else {
-                    added = addItem(new DeathRat(), Inventory.getDeathRatAmount());
-                }
-                random = new Random().nextInt(8);
-            }
-    }
-
-    public void startGiveItem() {
-    generateRandomItem();
-    }
-
-    private boolean addItem(Item item, int amount) {
-        if (amount < getMaxAmount()) {
-            Inventory.addItem(item);
-            InventoryInteraction.draggableImage(canvas, gc, abilities, item, amount);
-
-            return true;
-        }
-        return false;
-    }
-
-    public int getWaitAmount() {
-        return 3;
-    }
-     */
 
 }

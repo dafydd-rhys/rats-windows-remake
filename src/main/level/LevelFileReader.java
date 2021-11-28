@@ -62,15 +62,16 @@ public class LevelFileReader {
     }
 
     private void loadLevel() throws IOException {
-        level = readFile(level, lvlDirectory);
+        level = readFile(lvlDirectory);
     }
 
     private void loadSpawns() throws FileNotFoundException {
-        spawns = readFile(spawns, spawnDirectory);
+        spawns = readFile(spawnDirectory);
     }
 
-    private char[][] readFile(char[][] array, String dir) throws FileNotFoundException {
+    private char[][] readFile(String dir) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(dir));
+        char[][] array;
 
         if (dir.equals(lvlDirectory)) {
             String[] split = scanner.next().split(",");
@@ -78,9 +79,6 @@ public class LevelFileReader {
             sizeY = Integer.parseInt(split[1].substring(0, 2));
             maxRats = scanner.nextInt();
             expectedTime = scanner.nextInt();
-
-            Level.rows = sizeY;
-            Level.cols = sizeX;
 
             for (int i = 0; i < 8; i ++) {
                 split = scanner.next().split(",");

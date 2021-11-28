@@ -32,22 +32,27 @@ public class Bomb extends Item {
         setOffsetY(0);
     }
 
-    private void countdown() {
+    @Override
+    public Item createNewInstance() {
+        return new Bomb();
+    }
+
+    private void countdown(Level level) {
         setHp(getHp() - 1);
         switch (getHp()) {
             case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png"));
             case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png"));
             case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png"));
-            case 0 -> explode();
+            case 0 -> explode(level);
         }
     }
 
-    public void activate() {
-        countdown();
+    public void activate(Level level) {
+        countdown(level);
     }
 
-    private void explode() {
-        Tile[][] tiles = Level.getTiles();
+    private void explode(Level level) {
+        Tile[][] tiles = level.getTiles();
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
 
         // TODO add explosion sprite for visual guide
@@ -76,7 +81,7 @@ public class Bomb extends Item {
                 distance++;
             }
         }
-        Level.getItems().remove(this);
+        level.getItems().remove(this);
         startingTile.removeEntityFromTile(this);
     }
 

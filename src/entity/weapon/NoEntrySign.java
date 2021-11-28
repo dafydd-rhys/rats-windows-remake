@@ -32,9 +32,14 @@ public class NoEntrySign extends Item {
         setOffsetY(5);
     }
 
-    public void activate() {
-        checkNext(1, Rat.Direction.LEFT, Rat.Direction.UP);
-        checkNext(-1, Rat.Direction.RIGHT, Rat.Direction.DOWN);
+    @Override
+    public Item createNewInstance() {
+        return new NoEntrySign();
+    }
+
+    public void activate(Level level) {
+        checkNext(level,1, Rat.Direction.LEFT, Rat.Direction.UP);
+        checkNext(level, -1, Rat.Direction.RIGHT, Rat.Direction.DOWN);
 
         switch (getHp()) {
             case 8 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png"));
@@ -42,14 +47,14 @@ public class NoEntrySign extends Item {
             case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png"));
             case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png"));
             case 0 -> {
-                Level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
-                Level.getItems().remove(this);
+                level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+                level.getItems().remove(this);
             }
         }
     }
 
-    private void checkNext(int next, Rat.Direction horizontal, Rat.Direction vertical) {
-        Tile[][] tiles = Level.getTiles();
+    private void checkNext(Level level, int next, Rat.Direction horizontal, Rat.Direction vertical) {
+        Tile[][] tiles = level.getTiles();
 
         if (tiles[getCurrentPosY()][getCurrentPosX() + next].isWalkable()) {
             if (!tiles[getCurrentPosY()][getCurrentPosX() + next].getEntitiesOnTile().isEmpty()) {

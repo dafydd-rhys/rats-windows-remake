@@ -33,77 +33,9 @@ public abstract class Item extends Entity {
         STERILISATION()
     }
 
-    public abstract void activate();
+    public abstract void activate(Level level);
 
-    public class Death extends Rat {
-
-        int moveTick = 2;
-        int currentTick = 0;
-
-        public Death(Gender gender, boolean isAdult) {
-            super(gender, isAdult);
-            setEntityType(EntityType.ITEM);
-            setEntityName("DeathRat");
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
-            setHp(8);
-            setDamage(5);
-            setRange(2);
-            setFriendlyFire(true);
-            setCanBeAttacked(false);
-            setType(TYPE.DEATH_RAT);
-            setOffsetY(1);
-        }
-
-        public void activate() {
-            currentTick++;
-
-            if (currentTick % moveTick == 0) {
-                move();
-            }
-        }
-
-        private void move() {
-            Movement.tiles = Level.getTiles();
-            Movement.rat = this;
-            Movement.current = Level.getTiles()[getCurrentPosY()][getCurrentPosX()];
-            Movement.curX = getCurrentPosX();
-            Movement.curY = getCurrentPosY();
-
-            if (this.getDirection() == Rat.Direction.LEFT) {
-                Movement.tryHorizontal(-1, 1);
-            } else if (this.getDirection() == Rat.Direction.RIGHT) {
-                Movement.tryHorizontal(1, -1);
-            } else if (this.getDirection() == Rat.Direction.UP) {
-                Movement.tryVertical(-1, 1);
-            } else if (this.getDirection() == Rat.Direction.DOWN) {
-                Movement.tryVertical(1, -1);
-            }
-            checkForOpps();
-        }
-
-        private void checkForOpps() {
-            ArrayList<Entity> entities = Level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX()].getEntitiesOnTile();
-
-            if (!entities.isEmpty()) {
-                for (int k = 0; k < entities.size(); k++) {
-                    if (entities.get(k).getEntityType() == EntityType.RAT){
-                        Rat targetRat = (Rat) entities.get(k);
-                        inflictDamage(getDamage(), targetRat);
-                        setHp(getHp() - 1);
-
-                        if (targetRat.getHp() <= 0) {
-                            targetRat.kill();
-                        }
-
-                        if (getHp() <= 0) {
-                            kill();
-                        }
-                    }
-                }
-            }
-        }
-
-    }
+    public abstract Item createNewInstance();
 
     @Override
     public void setImage(Image image) {

@@ -30,8 +30,13 @@ public class Poison extends Item {
         setOffsetY(6);
     }
 
-    public void activate() {
-        ArrayList<Entity> entitiesOnTile = Level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
+    @Override
+    public Item createNewInstance() {
+        return new Poison();
+    }
+
+    public void activate(Level level) {
+        ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
@@ -41,11 +46,12 @@ public class Poison extends Item {
                     setHp(getHp() - 1);
 
                     if (targetRat.getHp() <= 0) {
-                        Level.getRats().remove(targetRat);
+                        level.getRats().remove(targetRat);
                         entitiesOnTile.remove(targetRat);
                     }
-                    Level.getItems().remove(this);
+                    level.getItems().remove(this);
                     entitiesOnTile.remove(this);
+
                     break;
                 }
             }

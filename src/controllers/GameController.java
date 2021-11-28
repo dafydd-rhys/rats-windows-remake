@@ -9,22 +9,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javafx.scene.paint.Paint;
 import player.Inventory.ItemGenerator;
 import tile.Movement;
 import main.external.Audio;
@@ -75,7 +71,7 @@ public class GameController implements Initializable {
     @FXML
     private JFXButton restartBtn;
 
-
+    private static Level level;
     private static GraphicsContext gc;
     private static double currentTick;
     private int score = 0;
@@ -84,15 +80,15 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LevelFileReader level = null;
+        LevelFileReader levelReader = null;
         try {
-            level = new LevelFileReader(Level.currentLevel);
+            levelReader = new LevelFileReader(Level.currentLevel);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        assert level != null;
-        Canvas canvas = new Canvas(level.getSizeX() * 50, level.getSizeY() * 50);
+        assert levelReader != null;
+        Canvas canvas = new Canvas(levelReader.getSizeX() * 50, levelReader.getSizeY() * 50);
         gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -101,15 +97,17 @@ public class GameController implements Initializable {
         gameScroll.setPannable(true);
 
         //generates map and starts items generating
-        new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getSizeX(), level.getSizeY(),
-                level.getLevel(), level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
-        new ItemGenerator(canvas, gc, abilities);
+        LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
+                levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
+                levelReader.getExpectedTime(), levelReader.getMaxRats());
+        level = generator.getLevel();
+
+        new ItemGenerator(level, canvas, gc, abilities);
 
         onActions();
-        checkMouseEnter();
 
-        levelBox.setText("Level: " + Level.currentLevel);
-        timerBox.setText("Time Left: " + Level.getExpectedTime());
+        levelBox.setText("Level: " + level.getCurrentLevel());
+        timerBox.setText("Time Left: " + level.getExpectedTime());
         scoreBox.setText("Score: " + score);
 
         musicImage.setOpacity(Audio.isMuted("music"));
@@ -161,7 +159,7 @@ public class GameController implements Initializable {
         restartBtn.setOnAction(e -> {
             try {
                 ticker.cancel();
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.currentLevel);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -169,9 +167,9 @@ public class GameController implements Initializable {
     }
 
     private static void move(final Rat rat) {
-        Movement.tiles = Level.getTiles();
+        Movement.tiles = level.getTiles();
         Movement.rat = rat;
-        Movement.current = Level.getTiles()[rat.getCurrentPosX()][rat.getCurrentPosY()];
+        Movement.current = level.getTiles()[rat.getCurrentPosX()][rat.getCurrentPosY()];
         Movement.curX = rat.getCurrentPosX();
         Movement.curY = rat.getCurrentPosY();
 
@@ -187,17 +185,18 @@ public class GameController implements Initializable {
     }
 
     private static void tick() {
-        ArrayList<Rat> rats = Level.getRats();
-        ArrayList<Item> items = Level.getItems();
+        ArrayList<Rat> rats = level.getRats();
+        ArrayList<Item> items = level.getItems();
 
         //adult rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
         if (currentTick % 2 == 0) {
             for (int i = 0; i < rats.size(); i++) {
                 if (rats.get(i).isAdult()) {
                     Rat rat = rats.get(i);
+                    rat.setLevel(level);
 
                     move(rat);
-                    rat.findPartner(Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()]);
+                    rat.findPartner(level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()]);
                     rat.giveBirth();
                 }
             }
@@ -208,21 +207,23 @@ public class GameController implements Initializable {
             for (int i = 0; i < rats.size(); i++) {
                 if (!rats.get(i).isAdult()) {
                     Rat rat = rats.get(i);
+                    rat.setLevel(level);
+
                     move(rat);
                     rat.growUp();
                 }
             }
         }
         for (int i = 0; i < items.size(); i++) {
-            items.get(i).activate();
+            items.get(i).activate(level);
         }
         draw();
     }
 
     private static void draw() {
-        Tile[][] tiles = Level.getTiles();
-        ArrayList<Rat> rats = Level.getRats();
-        ArrayList<Item> items = Level.getItems();
+        Tile[][] tiles = level.getTiles();
+        ArrayList<Rat> rats = level.getRats();
+        ArrayList<Item> items = level.getItems();
 
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
@@ -232,13 +233,13 @@ public class GameController implements Initializable {
         }
 
         for (Rat rat : rats) {
-            if (Level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()) {
+            if (level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()) {
                 gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
             }
         }
 
         for (Item item : items) {
-            if (Level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].isCovering()) {
+            if (level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].isCovering()) {
                 if (item.getType() == Item.TYPE.DEATH_RAT) {
                     DeathRat deathRat = (DeathRat) item;
                     gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
@@ -246,124 +247,6 @@ public class GameController implements Initializable {
                     gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
                 }
             }
-        }
-    }
-
-    private static final HBox BombBox = new HBox();
-    private static final HBox DeathRatBox = new HBox();
-    private static final HBox FemaleSexChangeBox = new HBox();
-    private static final HBox GasBox = new HBox();
-    private static final HBox MaleSexChangeBox = new HBox();
-    private static final HBox NoEntryBox = new HBox();
-    private static final HBox PoisonBox = new HBox();
-    private static final HBox SterilisationBox = new HBox();
-
-    //private static HBox BombBox = new HBox();
-    public void checkMouseEnter() {
-        BombBox.setPrefWidth(143);
-        BombBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(BombBox, 0.0);
-        AnchorPane.setTopAnchor(BombBox, 5.0);
-        DeathRatBox.setPrefWidth(143);
-        DeathRatBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(DeathRatBox, 0.0);
-        AnchorPane.setTopAnchor(DeathRatBox, 45.0);
-        FemaleSexChangeBox.setPrefWidth(143);
-        FemaleSexChangeBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(FemaleSexChangeBox, 0.0);
-        AnchorPane.setTopAnchor(FemaleSexChangeBox, 85.0);
-        GasBox.setPrefWidth(143);
-        GasBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(GasBox, 0.0);
-        AnchorPane.setTopAnchor(GasBox, 125.0);
-        MaleSexChangeBox.setPrefWidth(143);
-        MaleSexChangeBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(MaleSexChangeBox, 0.0);
-        AnchorPane.setTopAnchor(MaleSexChangeBox, 165.0);
-        NoEntryBox.setPrefWidth(143);
-        NoEntryBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(NoEntryBox, 0.0);
-        AnchorPane.setTopAnchor(NoEntryBox, 205.0);
-        PoisonBox.setPrefWidth(143);
-        PoisonBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(PoisonBox, 0.0);
-        AnchorPane.setTopAnchor(PoisonBox, 245.0);
-        SterilisationBox.setPrefWidth(143);
-        SterilisationBox.setPrefHeight(40);
-        AnchorPane.setRightAnchor(SterilisationBox, 0.0);
-        AnchorPane.setTopAnchor(SterilisationBox, 285.0);
-        abilities.getChildren().addAll(BombBox, DeathRatBox, FemaleSexChangeBox, GasBox,
-                MaleSexChangeBox, NoEntryBox, PoisonBox, SterilisationBox);
-
-        BombBox.setOnMouseEntered(e ->
-                showSquare("Bomb"));
-        BombBox.setOnMouseExited(e ->
-                BombBox.setBorder(null));
-        DeathRatBox.setOnMouseEntered(e ->
-                showSquare("DeathRat"));
-        DeathRatBox.setOnMouseExited(e ->
-                DeathRatBox.setBorder(null));
-        FemaleSexChangeBox.setOnMouseEntered(e ->
-                showSquare("FemaleSexChange"));
-        FemaleSexChangeBox.setOnMouseExited(e ->
-                FemaleSexChangeBox.setBorder(null));
-        GasBox.setOnMouseEntered(e ->
-                showSquare("Gas"));
-        GasBox.setOnMouseExited(e ->
-                GasBox.setBorder(null));
-        MaleSexChangeBox.setOnMouseEntered(e -> {
-            showSquare("MaleSexChange");
-            NoEntryBox.setBorder(null);
-        });
-        MaleSexChangeBox.setOnMouseExited(e ->
-                MaleSexChangeBox.setBorder(null));
-
-        NoEntryBox.setOnMouseEntered(e ->
-                showSquare("NoEntry"));
-        NoEntryBox.setOnMouseExited(e ->
-                NoEntryBox.setBorder(null));
-
-        PoisonBox.setOnMouseEntered(e -> {
-            showSquare("Poison");
-            NoEntryBox.setBorder(null);
-        });
-        PoisonBox.setOnMouseExited(e ->
-                PoisonBox.setBorder(null));
-        SterilisationBox.setOnMouseEntered(e ->
-                showSquare("Sterilisation"));
-        SterilisationBox.setOnMouseExited(e ->
-                SterilisationBox.setBorder(null));
-    }
-
-    public static void showSquare(String item) {
-        switch (item) {
-            case "Bomb" -> BombBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-            case "DeathRat" -> DeathRatBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-            case "FemaleSexChange" -> FemaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-            case "Gas" -> GasBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-            case "MaleSexChange" -> {
-                MaleSexChangeBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-                NoEntryBox.setBorder(null);
-            }
-            case "NoEntry" -> NoEntryBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-            case "Poison" -> {
-                PoisonBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-                NoEntryBox.setBorder(null);
-            }
-            case "Sterilisation" -> SterilisationBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#ff0000"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(2))));
-        }
-    }
-
-    public static void hideSquare(String item) {
-        switch (item) {
-            case "Bomb" -> BombBox.setBorder(null);
-            case "DeathRat" -> DeathRatBox.setBorder(null);
-            case "FemaleSexChange" -> FemaleSexChangeBox.setBorder(null);
-            case "Gas" -> GasBox.setBorder(null);
-            case "MaleSexChange" -> MaleSexChangeBox.setBorder(null);
-            case "NoEntryBox" -> NoEntryBox.setBorder(null);
-            case "Poison" -> PoisonBox.setBorder(null);
-            case "Sterilisation" -> SterilisationBox.setBorder(null);
         }
     }
 

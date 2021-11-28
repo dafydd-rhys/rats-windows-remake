@@ -32,6 +32,7 @@ public class Rat extends Entity {
     private int pregnancyStage;
     private int growingStage;
     private final Queue<Rat> babyQueue;
+    private static Level level;
 
     public enum Gender {
         MALE(),
@@ -70,6 +71,10 @@ public class Rat extends Entity {
 
         List<Direction> values = List.of(Direction.values());
         setDirection(values.get(new Random().nextInt(values.size())));
+    }
+
+    public void setLevel(Level level) {
+        Rat.level = level;
     }
 
     public void getImages() {
@@ -165,7 +170,7 @@ public class Rat extends Entity {
             } else if (this.getPregnancyStage() > 10) {
 
                 if (babyQueue.size() > 0) {
-                    Level.placeRat(babyQueue.poll(), Level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
+                    level.placeRat(babyQueue.poll(), level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
                 } else {
                     this.setPregnancyStage(0);
                 }
@@ -239,8 +244,8 @@ public class Rat extends Entity {
     }
 
     public void kill() {
-        Level.getTiles()[getCurrentPosY()][getCurrentPosY()].removeEntityFromTile(this);
-        Level.getRats().remove(this);
+        level.getTiles()[getCurrentPosY()][getCurrentPosY()].removeEntityFromTile(this);
+        level.getRats().remove(this);
     }
 
     public Gender getGender() {

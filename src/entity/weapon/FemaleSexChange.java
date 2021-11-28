@@ -31,9 +31,14 @@ public class FemaleSexChange extends Item {
         setOffsetY(2);
     }
 
-    public void activate() {
-        Tile[][] tile = Level.getTiles();
-        ArrayList<Entity> entitiesOnTile = tile[this.currentPosY][this.currentPosX].getEntitiesOnTile();
+    @Override
+    public Item createNewInstance() {
+        return new FemaleSexChange();
+    }
+
+    public void activate(Level level) {
+        Tile[][] tile = level.getTiles();
+        ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int i = 0; i < entitiesOnTile.size(); i++) {
@@ -47,7 +52,7 @@ public class FemaleSexChange extends Item {
                         target.getImages();
 
                         this.hp -= 1;
-                        Level.getItems().remove(this);
+                        level.getItems().remove(this);
                         entitiesOnTile.remove(this);
                         break;
                     }

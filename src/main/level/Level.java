@@ -16,82 +16,112 @@ import tile.Tile;
 public final class Level {
 
     public static int currentLevel;
-    public static int cols;
-    public static int rows;
-    private static HashMap<Item.TYPE, Integer> timeToGenerate;
-    private static Tile[][] tiles;
-    private static ArrayList<Rat> rats = new ArrayList<>();
-    private static ArrayList<Item> items = new ArrayList<>();
-    private static int expectedTime;
-    private static int maxRats;
-    public static Level level;
+
+    private Level level;
+    private final HashMap<Item.TYPE, Integer> timeToGenerate;
+    private final ArrayList<Rat> rats;
+    private final ArrayList<Item> items;
+    private final Tile[][] tiles;
+
+    private int cols;
+    private int rows;
+    private int expectedTime;
+    private int maxRats;
 
     public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats,
                  Tile[][] tiles, ArrayList<Rat> rats) {
-        Level.tiles = tiles;
-        Level.rats = rats;
-        Level.timeToGenerate = timeToGenerate;
-        Level.expectedTime = expectedTime;
-        Level.maxRats = maxRats;
-        items = new ArrayList<>();
-        level = this;
+        this.tiles = tiles;
+        this.rats = rats;
+        this.timeToGenerate = timeToGenerate;
+        this.expectedTime = expectedTime;
+        this.maxRats = maxRats;
+        this.items = new ArrayList<>();
+        this.level = this;
     }
 
-    public static void placeItem(Item item, Tile tile) {
+    public void placeItem(Item item, Tile tile) {
         item.setCurrentPosX(tile.getX());
         item.setCurrentPosY(tile.getY());
         tile.addEntityToTile(item);
         items.add(item);
     }
 
-    public static void placeRat(Rat rat, Tile tile) {
+    public void placeRat(Rat rat, Tile tile) {
         rat.setCurrentPosX(tile.getX());
         rat.setCurrentPosY(tile.getY());
         tile.addEntityToTile(rat);
         rats.add(rat);
     }
 
-    public static void getEntitiesOnTile() {
-        for (Tile[] tileY : tiles) {
+    public void getEntitiesOnTile() {
+        for (Tile[] tileY : this.tiles) {
             for (Tile tileX : tileY) {
                 System.out.println(tileX.getEntitiesOnTile());
             }
         }
     }
 
-    public static int getCurrentLevel() {
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public int getCurrentLevel() {
         return currentLevel;
     }
 
-    public static HashMap<Item.TYPE, Integer> getTimeToGenerate() {
+    public HashMap<Item.TYPE, Integer> getTimeToGenerate() {
         return timeToGenerate;
     }
 
-    public static Tile[][] getTiles() {
+    public Tile[][] getTiles() {
         return tiles;
     }
 
-    public static int getCols() {
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
+
+    public int getCols() {
         return cols;
     }
 
-    public static int getRows() {
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getRows() {
         return rows;
     }
 
-    public static ArrayList<Rat> getRats() {
+    public ArrayList<Rat> getRats() {
         return rats;
     }
 
-    public static ArrayList<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public static int getMaxRats() {
+    public void setMaxRats(int maxRats) {
+        this.maxRats = maxRats;
+    }
+
+    public int getMaxRats() {
         return maxRats;
     }
 
-    public static int getExpectedTime() {
+    public void setExpectedTime(int expectedTime) {
+        this.expectedTime = expectedTime;
+    }
+
+    public int getExpectedTime() {
         return expectedTime;
     }
 
