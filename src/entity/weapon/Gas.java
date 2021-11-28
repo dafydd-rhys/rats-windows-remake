@@ -21,8 +21,8 @@ public class Gas extends Item {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-grenade.png"));
-        setHp(12);
-        setDamage(2);
+        setHp(10);
+        setDamage(1);
         setRange(3);
         setFriendlyFire(true);
         setCanBeAttacked(false);
@@ -32,12 +32,12 @@ public class Gas extends Item {
 
     // TODO
     public void activate() {
-        setHp(getHp() - 1);
 
+        setHp(getHp() - 1);
         if (getHp() > 0) {
             for (int i = 0; i < getRange() + 1; i++) {
-                checkAdjacent(i);
-                checkAdjacent(-(i));
+                //checkAdjacent(i);
+                //checkAdjacent(-(i));
             }
         } else {
             Level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
