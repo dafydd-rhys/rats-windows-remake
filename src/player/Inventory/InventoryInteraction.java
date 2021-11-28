@@ -180,4 +180,10 @@ public class InventoryInteraction {
         }
     }
 
+    public static void clear() {
+        index = 0;
+        items = new Item[32];
+        images = new ImageView[32];
+    }
+
 }

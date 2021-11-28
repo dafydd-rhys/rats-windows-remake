@@ -21,8 +21,8 @@ public class Gas extends Item {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-grenade.png"));
-        setHp(12);
-        setDamage(2);
+        setHp(10);
+        setDamage(1);
         setRange(3);
         setFriendlyFire(true);
         setCanBeAttacked(false);

@@ -57,9 +57,9 @@ public class LevelFileGenerator {
                     setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
                 }
                 if (spawns[y][x] == 'M') {
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, true);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
                 } else if (spawns[y][x] == 'F') {
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, true);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
                 }
             }
         }

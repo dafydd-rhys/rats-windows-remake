@@ -22,9 +22,9 @@ public class Poison extends Item {
         setEntityName("Poison");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/poison.png"));
         setHp(1);
-        setDamage(2);
+        setDamage(5);
         setRange(1);
-        setFriendlyFire(false);
+        setFriendlyFire(true);
         setCanBeAttacked(false);
         setType(TYPE.POISON);
         setOffsetY(6);
@@ -46,8 +46,7 @@ public class Poison extends Item {
                     setHp(getHp() - 1);
 
                     if (targetRat.getHp() <= 0) {
-                        level.getRats().remove(targetRat);
-                        entitiesOnTile.remove(targetRat);
+                        targetRat.kill();
                     }
                     level.getItems().remove(this);
                     entitiesOnTile.remove(this);

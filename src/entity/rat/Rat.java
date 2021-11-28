@@ -49,8 +49,8 @@ public class Rat extends Entity {
     public Rat(Gender gender, boolean isAdult) {
         setEntityType(EntityType.RAT);
         setEntityName("Rat");
-        setHp(1);
-        setDamage(1);
+        setHp(5);
+        setDamage(0);
         setGender(gender);
         setAdult(isAdult);
         setSterilised(false);
