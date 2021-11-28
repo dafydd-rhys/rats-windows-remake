@@ -16,16 +16,15 @@ import java.util.Scanner;
 public class LevelFileReader {
 
     private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
-    private final int size = 20;
-    private final char[][] level = new char[size][size];
-    private final char[][] spawns = new char[size][size];
+    private char[][] level;
+    private char[][] spawns;
     private final String lvlDirectory;
     private final String spawnDirectory;
 
     private int expectedTime;
     private int maxRats;
-    private int sizeX;
-    private int sizeY;
+    private int sizeX = 0;
+    private int sizeY = 0;
 
     public LevelFileReader(int level) throws IOException {
         this.lvlDirectory = "src/resources/config/levels/level" + level + ".txt";
@@ -63,14 +62,14 @@ public class LevelFileReader {
     }
 
     private void loadLevel() throws IOException {
-        readFile(level, lvlDirectory);
+        level = readFile(level, lvlDirectory);
     }
 
     private void loadSpawns() throws FileNotFoundException {
-        readFile(spawns, spawnDirectory);
+        spawns = readFile(spawns, spawnDirectory);
     }
 
-    private void readFile(char[][] array, String dir) throws FileNotFoundException {
+    private char[][] readFile(char[][] array, String dir) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(dir));
 
         if (dir.equals(lvlDirectory)) {
@@ -92,12 +91,14 @@ public class LevelFileReader {
             scanner.nextLine();
         }
 
+        array = new char[sizeY][sizeX];
         for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
             char[] chars = scanner.nextLine().toCharArray();
             for (int i = 0; i < sizeX && i < chars.length; i++) {
                 array[row][i] = chars[i];
             }
         }
+        return array;
     }
 
     private Item.TYPE getItem(String item) {

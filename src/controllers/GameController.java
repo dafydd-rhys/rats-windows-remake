@@ -79,25 +79,29 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Canvas canvas = new Canvas(1000, 1000);
+        LevelFileReader level = null;
+        try {
+            level = new LevelFileReader(Level.currentLevel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assert level != null;
+        Canvas canvas = new Canvas(level.getSizeX() * 50, level.getSizeY() * 50);
         gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         game.setCenter(canvas);
         gameScroll.setPannable(true);
+
+        //generates map and starts items generating
+        new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getSizeX(), level.getSizeY(),
+                level.getLevel(), level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
         new ItemGenerator(canvas, gc, abilities);
 
         onActions();
         checkMouseEnter();
-
-        try {
-            LevelFileReader level = new LevelFileReader(Level.currentLevel);
-            new LevelFileGenerator(level.getTimeToGenerate(), gc, level.getSizeX(), level.getSizeY(),
-                    level.getLevel(), level.getSpawns(), level.getExpectedTime(), level.getMaxRats());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         levelBox.setText("Level: " + Level.currentLevel);
         timerBox.setText("Time Left: " + Level.getExpectedTime());

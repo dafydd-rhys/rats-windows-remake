@@ -44,6 +44,7 @@ public class LevelFileGenerator {
         Tile[][] tilesArray = new Tile[sizeY][sizeX];
         ArrayList<Rat> ratsArray = new ArrayList<>();
 
+        System.out.println(tiles.length);
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] == 'G') {
@@ -68,6 +69,7 @@ public class LevelFileGenerator {
     }
 
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
+        System.out.println(x + ", " + y);
         Tile tile = new Tile(x, y, type, new ArrayList<>());
         tiles[y][x] = tile;
         gc.drawImage(tile.getImage(), x * 50, y * 50);
