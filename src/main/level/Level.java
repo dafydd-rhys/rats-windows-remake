@@ -24,6 +24,7 @@ public final class Level {
     private static ArrayList<Item> items = new ArrayList<>();
     private static int expectedTime;
     private static int maxRats;
+    public static Level level;
 
     public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats,
                  Tile[][] tiles, ArrayList<Rat> rats) {
@@ -33,6 +34,7 @@ public final class Level {
         Level.expectedTime = expectedTime;
         Level.maxRats = maxRats;
         items = new ArrayList<>();
+        level = this;
     }
 
     public static void placeItem(Item item, Tile tile) {

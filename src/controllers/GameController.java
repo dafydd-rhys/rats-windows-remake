@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -71,6 +72,9 @@ public class GameController implements Initializable {
     private JFXTextArea timerBox;
     @FXML
     private JFXTextArea scoreBox;
+    @FXML
+    private JFXButton restartBtn;
+
 
     private static GraphicsContext gc;
     private static double currentTick;
@@ -149,6 +153,15 @@ public class GameController implements Initializable {
             try {
                 StageFunctions.exit();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        restartBtn.setOnAction(e -> {
+            try {
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.currentLevel);
+                
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
