@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
 import tile.Movement;
 import main.external.Audio;
@@ -86,8 +87,8 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         assert levelReader != null;
+
         Canvas canvas = new Canvas(levelReader.getSizeX() * 50, levelReader.getSizeY() * 50);
         gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -102,6 +103,7 @@ public class GameController implements Initializable {
                 levelReader.getExpectedTime(), levelReader.getMaxRats());
         level = generator.getLevel();
 
+        Inventory.clear();
         new ItemGenerator(level, canvas, gc, abilities);
 
         onActions();

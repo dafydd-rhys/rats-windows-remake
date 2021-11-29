@@ -1,7 +1,6 @@
 package player.Inventory;
 
 import entity.Item;
-import entity.weapon.Bomb;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.canvas.Canvas;
@@ -20,13 +19,15 @@ public class ItemGenerator {
 
     private final AnchorPane abilities;
     private int second = 0;
+    private static Timer ticker;
 
     public ItemGenerator(Level level, Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
         this.abilities = abilities;
-        InventoryInteraction.load(level, canvas, gc);
-        Inventory.getItems().clear();
+        Inventory.clear();
+        Inventory.load(level, canvas, gc);
+        cancelTicker();
 
-        Timer ticker = new Timer();
+        ticker = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -38,7 +39,7 @@ public class ItemGenerator {
         };
 
         //run tick method every 500ms until stopped
-        ticker.schedule(task, 1000, 1000);
+        ticker.schedule(task, 0, 1000);
     }
 
     private void runPeriodic(Level level) {
@@ -69,21 +70,13 @@ public class ItemGenerator {
     }
 
     private void enableItem(Item.TYPE type) {
-        if (Inventory.getAmount(type) < getMaxAmount()) {
-            Inventory.addItem(getItem(type));
-            InventoryInteraction.enableItem(type, abilities);
-        }
+        Inventory.enableItem(type, abilities);
     }
 
-    private Item getItem(Item.TYPE type) {
-        if (type == Item.TYPE.BOMB) {
-            return new Bomb();
+    public static void cancelTicker() {
+        if (ticker != null) {
+            ticker.cancel();
         }
-        return null;
-    }
-
-    public int getMaxAmount() {
-        return 4;
     }
 
 }
