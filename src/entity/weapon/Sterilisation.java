@@ -59,11 +59,26 @@ public class Sterilisation extends Item {
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
-
                         target.setSterilised(true);
+
+                        // TODO make sterilised-baby-rat.png (maybe change this to switch case too?)
+                        if (target.isAdult()) {
+                            if (target.getGender() == Rat.Gender.FEMALE) {
+                                target.setImage(new Image(System.getProperty("user.dir") +
+                                        "\\src\\resources\\images\\game\\entities\\sterilised-female-rat.png"));
+                            } else if (target.getGender() == Rat.Gender.MALE) {
+                                target.setImage(new Image(System.getProperty("user.dir") +
+                                        "\\src\\resources\\images\\game\\entities\\sterilised-male-rat.png"));
+                            }
+                        } else {
+                            target.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\baby-rat.png"));
+                        }
+
                         target.getImages();
                     }
                 }
+
             }
         }
 
@@ -74,8 +89,22 @@ public class Sterilisation extends Item {
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
-
                         target.setSterilised(true);
+
+                        // TODO make sterilised-baby-rat.png (maybe change this to switch case too?)
+                        if (target.isAdult()) {
+                            if (target.getGender() == Rat.Gender.FEMALE) {
+                                target.setImage(new Image(System.getProperty("user.dir") +
+                                        "\\src\\resources\\images\\game\\entities\\sterilised-female-rat.png"));
+                            } else if (target.getGender() == Rat.Gender.MALE) {
+                                target.setImage(new Image(System.getProperty("user.dir") +
+                                        "\\src\\resources\\images\\game\\entities\\sterilised-male-rat.png"));
+                            }
+                        } else {
+                            target.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\baby-rat.png"));
+                        }
+
                         target.getImages();
                     }
                 }

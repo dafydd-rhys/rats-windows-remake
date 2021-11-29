@@ -41,18 +41,20 @@ public class FemaleSexChange extends Item {
         ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
-            for (int i = 0; i < entitiesOnTile.size(); i++) {
-                if (entitiesOnTile.get(i).getEntityType() == EntityType.RAT) {
-                    Rat target = (Rat) entitiesOnTile.get(i);
+            for (Entity entity : entitiesOnTile) {
+                if (entity.getEntityType() == EntityType.RAT) {
+                    Rat target = (Rat) entity;
 
                     if (target.getGender() == Rat.Gender.MALE) {
                         target.setGender(Rat.Gender.FEMALE);
-                        if (target.isSterilised()) {
-                            target.setImage(new Image(System.getProperty("user.dir") +
-                                    "\\src\\resources\\images\\game\\entities\\sterilised-female-rat.png"));
-                        } else {
-                            target.setImage(new Image(System.getProperty("user.dir") +
-                                    "\\src\\resources\\images\\game\\entities\\female-rat.png"));
+                        if (target.isAdult()) {
+                            if (target.isSterilised()) {
+                                target.setImage(new Image(System.getProperty("user.dir") +
+                                        "\\src\\resources\\images\\game\\entities\\sterilised-female-rat.png"));
+                            } else {
+                                target.setImage(new Image(System.getProperty("user.dir") +
+                                        "\\src\\resources\\images\\game\\entities\\female-rat.png"));
+                            }
                         }
                         target.getImages();
                     }
