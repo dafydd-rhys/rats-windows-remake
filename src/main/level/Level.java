@@ -15,7 +15,6 @@ import tile.Tile;
  */
 public final class Level {
 
-    private static ItemGeneration generation;
     public static int currentLevel;
 
     private Level level;
@@ -29,11 +28,6 @@ public final class Level {
     private int rows;
     private int expectedTime;
     private int maxRats;
-
-    public enum ItemGeneration {
-        PERIODIC(),
-        RANDOM()
-    }
 
     public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats,
                  Tile[][] tiles, ArrayList<Rat> rats) {
@@ -82,14 +76,6 @@ public final class Level {
 
     public Level getLevel() {
         return level;
-    }
-
-    public static void setGeneration(ItemGeneration generation) {
-        Level.generation = generation;
-    }
-
-    public static ItemGeneration getGeneration() {
-        return generation;
     }
 
     public void setCurrentLevel(int currentLevel) {

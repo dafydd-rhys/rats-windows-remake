@@ -19,6 +19,7 @@ public class Player {
     private static String playerName;
     private static int maxLevel;
     private static THEME theme;
+    private static ItemGeneration generation;
 
     public enum THEME {
         SPRING(),
@@ -26,9 +27,15 @@ public class Player {
         CHRISTMAS()
     }
 
-    public Player(String playerName, THEME theme) throws IOException {
+    public enum ItemGeneration {
+        PERIODIC(),
+        RANDOM()
+    }
+
+    public Player(String playerName, THEME theme, ItemGeneration generation) throws IOException {
         Player.playerName = playerName;
         Player.theme = theme;
+        Player.generation = generation;
         alreadyPlayed();
     }
 
@@ -46,6 +53,14 @@ public class Player {
 
     public static THEME getTheme() {
         return theme;
+    }
+
+    public static void setGeneration(ItemGeneration generation) {
+        Player.generation = generation;
+    }
+
+    public static ItemGeneration getGeneration() {
+        return generation;
     }
 
     public static void setMaxLevel(int maxLevel) {

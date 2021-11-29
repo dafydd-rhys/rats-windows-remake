@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import main.level.Level;
+import player.Player;
 
 /**
  * PlayerItemGenerator
@@ -34,7 +35,7 @@ public class ItemGenerator {
             public void run() {
                 second++;
 
-                if (Level.getGeneration() == Level.ItemGeneration.RANDOM) {
+                if (Player.getGeneration() == Player.ItemGeneration.RANDOM) {
                     if (second % 3 == 0) {
                         runRandom();
                     }

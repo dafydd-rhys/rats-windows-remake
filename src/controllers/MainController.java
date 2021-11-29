@@ -2,24 +2,19 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.jfoenix.controls.JFXTextArea;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import main.external.Audio;
 import main.external.MOTD;
-import main.level.Level;
 import main.stage.StageFunctions;
 import player.Player;
 
@@ -33,6 +28,8 @@ public class MainController implements Initializable {
 
     @FXML
     private ComboBox<String> selectTheme;
+    @FXML
+    private ComboBox<String> selectGeneration;
     @FXML
     private JFXButton sfx;
     @FXML
@@ -54,21 +51,24 @@ public class MainController implements Initializable {
     @FXML
     private ImageView effectsImage;
     @FXML
-    private JFXTextArea motdBox;
+    private Text motd;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listeners();
         onActions();
 
+        selectTheme.setEditable(false);
+        selectGeneration.setEditable(false);
+
         settings.setDisable(true);
+        selectGeneration.getItems().addAll("Periodic Generation", "Random Generation");
         selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
-        Level.setGeneration(Level.ItemGeneration.RANDOM);
 
         try {
-            motdBox.setText(new MOTD().getMessage());
+            motd.setText(new MOTD().getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +76,7 @@ public class MainController implements Initializable {
 
     private void listeners() {
         proceed.disableProperty().bind(Bindings.isEmpty(playerName.textProperty())
-                .or(selectTheme.valueProperty().isNull()));
+                .or(selectTheme.valueProperty().isNull()).or(selectGeneration.valueProperty().isNull()));
     }
 
     private void onActions() {
@@ -90,8 +90,15 @@ public class MainController implements Initializable {
                 theme = Player.THEME.CHRISTMAS;
             }
 
+            Player.ItemGeneration generation;
+            if (selectGeneration.getSelectionModel().getSelectedItem().equals("Periodic Generation")) {
+                generation = Player.ItemGeneration.PERIODIC;
+            } else {
+                generation = Player.ItemGeneration.RANDOM;
+            }
+
             try {
-                new Player(playerName.getText(), theme);
+                new Player(playerName.getText(), theme, generation);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

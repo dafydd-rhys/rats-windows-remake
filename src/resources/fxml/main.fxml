@@ -91,21 +91,24 @@
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
                <children>
-                  <ImageView fx:id="logo1" fitHeight="300.0" fitWidth="150.0" layoutX="226.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logo1" fitHeight="300.0" fitWidth="150.0" layoutX="227.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/rats-icon.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="playerName" layoutX="151.0" layoutY="273.0" prefHeight="41.0" prefWidth="300.0" promptText="Player Name" />
-                  <ComboBox fx:id="selectTheme" editable="true" layoutX="152.0" layoutY="343.0" prefHeight="41.0" prefWidth="300.0" promptText="Theme" />
-                  <Text fill="#514d4d" layoutX="154.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Theme" AnchorPane.bottomAnchor="158.94921875" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="377.84375" AnchorPane.topAnchor="324.05078125" />
-                  <Text fill="#514d4d" layoutX="153.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Name" />
-                  <JFXButton fx:id="proceed" alignment="CENTER" layoutX="200.0" layoutY="414.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Continue" textFill="WHITE">
+                  <TextField fx:id="playerName" layoutX="152.0" layoutY="248.0" prefHeight="41.0" prefWidth="300.0" promptText="Player Name" />
+                  <ComboBox fx:id="selectTheme" editable="true" layoutX="153.0" layoutY="318.0" prefHeight="41.0" prefWidth="300.0" promptText="Theme" />
+                  <Text fill="#514d4d" layoutX="155.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Theme" AnchorPane.bottomAnchor="184.98828125" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="374.306640625" AnchorPane.topAnchor="299.05078125" />
+                  <Text fill="#514d4d" layoutX="154.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Name" />
+                  <JFXButton fx:id="proceed" alignment="CENTER" layoutX="200.0" layoutY="438.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Continue" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextArea fx:id="motdBox" editable="false" focusColor="#f5f0f0" layoutX="15.0" layoutY="190.0" prefHeight="50.0" prefWidth="570.0" unFocusColor="#f5f0f0" wrapText="true" />
+                  <Text fx:id="motd" layoutX="14.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="577.0" />
+                  <Text fx:id="motd1" layoutX="239.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Message of the day:" textAlignment="CENTER" wrappingWidth="127.0" />
+                  <ComboBox fx:id="selectGeneration" editable="true" layoutX="153.0" layoutY="387.0" prefHeight="41.0" prefWidth="300.0" promptText="Generation Type" />
+                  <Text fill="#514d4d" layoutX="155.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Generation Type" />
                </children>
             </AnchorPane>
          </children>

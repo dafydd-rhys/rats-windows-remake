@@ -1,8 +1,6 @@
 package scoreboard;
 
 import java.io.IOException;
-import scoreboard.Scoreboard;
-import scoreboard.ScoreboardPlayer;
 
 public class Score {
 
