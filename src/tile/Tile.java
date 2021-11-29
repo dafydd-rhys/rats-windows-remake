@@ -50,11 +50,23 @@ public class Tile {
             this.isWalkable = false;
             this.isCovering = false;
         } else if (type == TYPE.PATH) {
-            this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path.png");
+            if (Player.getTheme() == Player.THEME.SPRING) {
+                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path.png");
+            } else if (Player.getTheme() == Player.THEME.BEACH) {
+                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path_sand.png");
+            } else {
+                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path_snow.png");
+            }
             this.isWalkable = true;
             this.isCovering = false;
         } else {
-            this.image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel.png");
+            if (Player.getTheme() == Player.THEME.SPRING) {
+                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel.png");
+            } else if (Player.getTheme() == Player.THEME.BEACH) {
+                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel_sand.png");
+            } else {
+                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel_snow.png");
+            }
             this.isWalkable = true;
             this.isCovering = true;
         }
