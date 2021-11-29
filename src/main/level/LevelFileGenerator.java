@@ -64,7 +64,7 @@ public class LevelFileGenerator {
             }
         }
 
-        this.level = new Level(timeToGenerate, expectedTime, maxRats, tilesArray, ratsArray);
+        this.level = new Level(timeToGenerate, expectedTime, maxRats, tilesArray, ratsArray, sizeY, sizeX);
     }
 
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {

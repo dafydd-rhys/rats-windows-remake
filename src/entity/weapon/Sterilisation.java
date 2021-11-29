@@ -55,7 +55,6 @@ public class Sterilisation extends Item {
         if (getCurrentPosX() + i < level.getCols() - 1 && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
-
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;

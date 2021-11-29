@@ -29,14 +29,16 @@ public final class Level {
     private int expectedTime;
     private int maxRats;
 
-    public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats,
-                 Tile[][] tiles, ArrayList<Rat> rats) {
+    public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats, Tile[][] tiles,
+                 ArrayList<Rat> rats, int sizeY, int sizeX) {
         this.tiles = tiles;
         this.rats = rats;
         this.timeToGenerate = timeToGenerate;
         this.expectedTime = expectedTime;
         this.maxRats = maxRats;
         this.items = new ArrayList<>();
+        this.cols = sizeX;
+        this.rows = sizeY;
         this.level = this;
     }
 

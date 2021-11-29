@@ -35,7 +35,6 @@ public class Gas extends Item {
         return new Gas();
     }
 
-    // TODO
     public void activate(Level level) {
         setHp(getHp() - 1);
 
@@ -57,7 +56,9 @@ public class Gas extends Item {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
 
-                for (Entity entity : entities) {
+                for (int j = 0; j < entities.size(); j++) {
+                    Entity entity = entities.get(j);
+
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
                         inflictDamage(level, getDamage(), target);
@@ -70,7 +71,9 @@ public class Gas extends Item {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 
-                for (Entity entity : entities) {
+                for (int j = 0; j < entities.size(); j++) {
+                    Entity entity = entities.get(j);
+
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
                         inflictDamage(level, getDamage(), target);

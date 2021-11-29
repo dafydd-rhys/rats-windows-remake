@@ -65,7 +65,9 @@ public class Bomb extends Item {
                 ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
 
                 if (!entitiesOnTile.isEmpty()) {
-                    for (Entity entity : entitiesOnTile) {
+                    for (int i = 0; i < entitiesOnTile.size(); i++) {
+                        Entity entity = entitiesOnTile.get(i);
+                        
                         if (entity.getEntityType() == EntityType.RAT) {
                             Rat target = (Rat) entity;
                             inflictDamage(level, getDamage(), target);

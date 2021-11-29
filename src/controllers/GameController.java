@@ -136,6 +136,9 @@ public class GameController implements Initializable {
                 }
 
                 if (gameOver) {
+                    System.out.println("Game Over");
+                    ticker.cancel();
+
                     if ((int) currentTick / 2 < level.getExpectedTime()) {
                         try {
                             Score score = new Score(level.getCurrentLevel(), Player.getPlayerName(), level.getScore());
@@ -150,6 +153,7 @@ public class GameController implements Initializable {
                 }
             }
         };
+
         //run tick method every 500ms until stopped
         ticker.schedule(task, 500, 500);
     }
