@@ -48,15 +48,18 @@ public class MaleSexChange extends Item {
 
                     if (target.getGender() == Rat.Gender.FEMALE) {
                         target.setGender(Rat.Gender.MALE);
-                        target.setImage(new Image(System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\male-rat.png"));
+                        if (target.isSterilised()) {
+                            target.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\sterilised-male-rat.png"));
+                        } else {
+                            target.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\male-rat.png"));
+                        }
                         target.getImages();
-
-                        this.hp -= 1;
-                        level.getItems().remove(this);
-                        entitiesOnTile.remove(this);
-                        break;
                     }
+                    this.hp -= 1;
+                    level.getItems().remove(this);
+                    entitiesOnTile.remove(this);
                 }
             }
         }
