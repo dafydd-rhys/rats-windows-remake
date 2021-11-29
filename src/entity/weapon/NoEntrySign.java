@@ -60,9 +60,9 @@ public class NoEntrySign extends Item {
             if (!tiles[getCurrentPosY()][getCurrentPosX() + next].getEntitiesOnTile().isEmpty()) {
                 ArrayList<Entity> entities = tiles[getCurrentPosY()][getCurrentPosX() + next].getEntitiesOnTile();
 
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
+                for (int i = 0; i <entities.size(); i++) {
+                    if (entities.get(i).getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entities.get(i);
                         if (target.getDirection() == horizontal) {
                             if (horizontal == Rat.Direction.LEFT) {
                                 target.setDirection(Rat.Direction.RIGHT);
@@ -80,9 +80,9 @@ public class NoEntrySign extends Item {
             if (!tiles[getCurrentPosY() + next][getCurrentPosX()].getEntitiesOnTile().isEmpty()) {
                 ArrayList<Entity> entities = tiles[getCurrentPosY() + next][getCurrentPosX()].getEntitiesOnTile();
 
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
+                for (int i = 0; i < entities.size(); i++) {
+                    if (entities.get(i).getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entities.get(i);
 
                         if (target.getDirection() == vertical) {
                             if (vertical == Rat.Direction.UP) {

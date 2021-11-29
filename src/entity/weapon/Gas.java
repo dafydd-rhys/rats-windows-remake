@@ -57,9 +57,9 @@ public class Gas extends Item {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
 
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
+                for (int j = 0; j < entities.size(); j++) {
+                    if (entities.get(j).getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entities.get(j);
                         inflictDamage(level, getDamage(), target);
                     }
                 }
@@ -70,9 +70,9 @@ public class Gas extends Item {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
+                for (int j = 0; j < entities.size(); j++) {
+                    if (entities.get(j).getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entities.get(j);
                         inflictDamage(level, getDamage(), target);
                     }
                 }

@@ -56,9 +56,9 @@ public class Sterilisation extends Item {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
 
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
+                for (int j = 0; j < entities.size(); j++) {
+                    if (entities.get(j).getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entities.get(j);
                         target.setSterilised(true);
 
                         // TODO make sterilised-baby-rat.png (maybe change this to switch case too?)
@@ -86,9 +86,9 @@ public class Sterilisation extends Item {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
+                for (int j = 0; i < entities.size(); j++) {
+                    if (entities.get(j).getEntityType() == EntityType.RAT) {
+                        Rat target = (Rat) entities.get(j);
                         target.setSterilised(true);
 
                         // TODO make sterilised-baby-rat.png (maybe change this to switch case too?)

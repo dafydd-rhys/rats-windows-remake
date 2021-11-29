@@ -39,9 +39,9 @@ public class Poison extends Item {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
-            for (int k = 0; k < entitiesOnTile.size(); k++) {
-                if (entitiesOnTile.get(k).getEntityType() == EntityType.RAT){
-                    Rat targetRat = (Rat) entitiesOnTile.get(k);
+            for (int i = 0; i < entitiesOnTile.size(); i++) {
+                if (entitiesOnTile.get(i).getEntityType() == EntityType.RAT){
+                    Rat targetRat = (Rat) entitiesOnTile.get(i);
                     inflictDamage(level, getDamage(), targetRat);
                     setHp(getHp() - 1);
 

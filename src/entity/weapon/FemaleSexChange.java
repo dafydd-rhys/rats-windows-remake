@@ -41,9 +41,9 @@ public class FemaleSexChange extends Item {
         ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
-            for (Entity entity : entitiesOnTile) {
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat target = (Rat) entity;
+            for (int i = 0; i < entitiesOnTile.size(); i++) {
+                if (entitiesOnTile.get(i).getEntityType() == EntityType.RAT) {
+                    Rat target = (Rat) entitiesOnTile.get(i);
 
                     if (target.getGender() == Rat.Gender.MALE) {
                         target.setGender(Rat.Gender.FEMALE);
