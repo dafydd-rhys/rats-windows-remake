@@ -42,15 +42,13 @@ public class Poison extends Item {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
                 if (entitiesOnTile.get(k).getEntityType() == EntityType.RAT){
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
-                    inflictDamage(this.damage, targetRat);
+                    inflictDamage(level, getDamage(), targetRat);
                     setHp(getHp() - 1);
 
-                    if (targetRat.getHp() <= 0) {
-                        targetRat.kill();
+                    if (getHp() <= 0) {
+                        level.getItems().remove(this);
+                        entitiesOnTile.remove(this);
                     }
-                    level.getItems().remove(this);
-                    entitiesOnTile.remove(this);
-
                     break;
                 }
             }

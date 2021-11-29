@@ -98,14 +98,9 @@ public class DeathRat extends Item {//used to extend Entities.Item
 
                 if (entity.getEntityType() == EntityType.RAT) {
                     Rat targetRat = (Rat) entity;
+                    inflictDamage(level, getDamage(), targetRat);
 
-                    inflictDamage(getDamage(), targetRat);
                     setHp(getHp() - 1);
-
-                    if (targetRat.getHp() <= 0) {
-                        targetRat.kill();
-                    }
-
                     if (getHp() <= 0) {
                         level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
                         level.getItems().remove(this);

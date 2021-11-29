@@ -1,5 +1,6 @@
 package entity;
 
+import entity.rat.Rat;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,8 +23,16 @@ public abstract class Entity {
     protected int currentPosX;
     protected int currentPosY;
 
-    protected void inflictDamage(int damageDealt, Entity damageTarget){
+    protected void inflictDamage(Level level, int damageDealt, Entity damageTarget){
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
+
+        if (damageTarget.getEntityType() == EntityType.RAT) {
+            if (damageTarget.getHp() <= 0) {
+                Rat rat = (Rat) damageTarget;
+                rat.kill();
+                level.setScore(level.getScore() + 3);
+            }
+        }
     }
 
     public EntityType getEntityType() {

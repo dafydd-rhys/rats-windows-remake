@@ -60,11 +60,7 @@ public class Gas extends Item {
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
-                        inflictDamage(getDamage(), target);
-
-                        if (target.getHp() < 1) {
-                            target.kill();
-                        }
+                        inflictDamage(level, getDamage(), target);
                     }
                 }
             }
@@ -76,13 +72,8 @@ public class Gas extends Item {
 
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
-                        inflictDamage(getDamage(), entity);
                         Rat target = (Rat) entity;
-                        inflictDamage(getDamage(), target);
-
-                        if (target.getHp() < 1) {
-                            target.kill();
-                        }
+                        inflictDamage(level, getDamage(), target);
                     }
                 }
             }

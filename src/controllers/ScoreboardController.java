@@ -32,8 +32,6 @@ import scoreboard.ScoreboardPlayer;
  */
 public class ScoreboardController implements Initializable {
 
-    /** window - represents the parent of all elements */
-    @FXML private AnchorPane window;
     /** levelSelector - combo box holding all scoreboard options */
     @FXML private ComboBox<String> levelSelector;
     /** scoreboard - table that holds the top 10 players */
@@ -83,7 +81,7 @@ public class ScoreboardController implements Initializable {
 
         ArrayList<ScoreboardPlayer> players = new ArrayList<>();
         try {
-            players = Scoreboard.getAll();
+            players = new Scoreboard(0).getAll();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,7 +97,7 @@ public class ScoreboardController implements Initializable {
     }
 
     /**
-     * OnActions() - adds listeners to buttons (i.e when button is clicked -> do this)
+     * OnActions() - adds listeners to buttons (when button is clicked -> do this)
      *
      * minimize - minimize window
      * maximise - maximise window
@@ -142,7 +140,7 @@ public class ScoreboardController implements Initializable {
     }
 
     /**
-     * scoreboardListener() - adds listener to comboBox (i.e when combo box is edited -> do this)
+     * scoreboardListener() - adds listener to comboBox (when combo box is edited -> do this)
      *
      * levelSelector - combo box
      * when combo box is changed check in row 1 (level row) for all rows that contain new value and show them

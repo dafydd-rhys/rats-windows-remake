@@ -21,20 +21,31 @@ public class Scoreboard {
     - this class shows the top 10 players
     - all public & static, will be accessed and used from scoreboard UI controller
      */
-    public static int level;
+    private final int level;
     private final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
     private final String directory;
 
-    public Scoreboard() throws IOException {
+    public Scoreboard(int level) throws IOException {
+        this.level = level;
         this.directory = "src/resources/config/scoreboard/scoreboard-level" + level + ".txt";
-        load();
     }
 
-    public List<ScoreboardPlayer> getScoreboard() {
+    public List<ScoreboardPlayer> getScoreboard() throws IOException {
+        scoreboardPlayers.clear();
+        BufferedReader reader = new BufferedReader(new FileReader(directory));
+
+        int count = 1;
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] split = line.split(":");
+            scoreboardPlayers.add(new ScoreboardPlayer("Level " + level, count, split[0], Integer.parseInt(split[1])));
+            count++;
+        }
+
         return scoreboardPlayers;
     }
 
-    public static ArrayList<ScoreboardPlayer> getAll() throws IOException {
+    public ArrayList<ScoreboardPlayer> getAll() throws IOException {
         ArrayList<ScoreboardPlayer> allScoreboardPlayers = new ArrayList<>();
 
         for (int i = 1; i < 7; i++) {
@@ -50,20 +61,6 @@ public class Scoreboard {
             }
         }
         return allScoreboardPlayers;
-    }
-
-    //loads scoreboard
-    public void load() throws IOException {
-        scoreboardPlayers.clear();
-        BufferedReader reader = new BufferedReader(new FileReader(directory));
-
-        int count = 1;
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] split = line.split(":");
-            scoreboardPlayers.add(new ScoreboardPlayer("Level " + level, count, split[0], Integer.parseInt(split[1])));
-            count++;
-        }
     }
 
     //add player to scoreboard

@@ -65,16 +65,10 @@ public class Bomb extends Item {
                 ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
 
                 if (!entitiesOnTile.isEmpty()) {
-                    for (int i = 0; i < entitiesOnTile.size(); i++) {
-                        Entity entity = entitiesOnTile.get(i);
-
+                    for (Entity entity : entitiesOnTile) {
                         if (entity.getEntityType() == EntityType.RAT) {
                             Rat target = (Rat) entity;
-                            inflictDamage(getDamage(), target);
-
-                            if (target.getHp() <= 0) {
-                                target.kill();
-                            }
+                            inflictDamage(level, getDamage(), target);
                         }
                     }
                 }

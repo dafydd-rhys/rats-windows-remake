@@ -19,6 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import main.external.Audio;
 import main.external.MOTD;
+import main.level.Level;
 import main.stage.StageFunctions;
 import player.Player;
 
@@ -55,16 +56,6 @@ public class MainController implements Initializable {
     @FXML
     private JFXTextArea motdBox;
 
-    MOTD motd;
-
-    {
-        try {
-            motd = new MOTD();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listeners();
@@ -74,8 +65,10 @@ public class MainController implements Initializable {
         selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
+        Level.setGeneration(Level.ItemGeneration.RANDOM);
+
         try {
-                motdBox.setText(motd.getMessage());
+            motdBox.setText(new MOTD().getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

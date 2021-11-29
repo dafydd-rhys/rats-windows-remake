@@ -23,6 +23,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
+import player.Player;
+import scoreboard.Score;
 import tile.Movement;
 import main.external.Audio;
 import main.level.Level;
@@ -64,20 +66,23 @@ public class GameController implements Initializable {
     @FXML
     private ImageView effectsImage;
     @FXML
-    private JFXTextArea levelBox;
+    private JFXTextArea lblLevel;
     @FXML
-    private JFXTextArea timerBox;
+    private JFXTextArea lblTime;
     @FXML
-    private JFXTextArea scoreBox;
+    private JFXTextArea lblScore;
+    @FXML
+    private JFXTextArea lblExpected;
     @FXML
     private JFXButton restartBtn;
+    @FXML
+    private JFXButton mainMenu;
 
     private static Level level;
     private static GraphicsContext gc;
     private static double currentTick;
-    private int score = 0;
-    private static boolean gameOver = false;
     private Timer ticker;
+    private boolean gameOver = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -103,14 +108,13 @@ public class GameController implements Initializable {
                 levelReader.getExpectedTime(), levelReader.getMaxRats());
         level = generator.getLevel();
 
+        lblLevel.setText("Level: " + level.getCurrentLevel());
+        lblExpected.setText("Expected: " + level.getExpectedTime() + " seconds");
+
         Inventory.clear();
         new ItemGenerator(level, canvas, gc, abilities);
 
         onActions();
-
-        levelBox.setText("Level: " + level.getCurrentLevel());
-        timerBox.setText("Time Left: " + level.getExpectedTime());
-        scoreBox.setText("Score: " + score);
 
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
@@ -120,7 +124,30 @@ public class GameController implements Initializable {
             @Override
             public void run() {
                 currentTick += 1;
+
+                if (currentTick % 2 == 0) {
+                    lblTime.setText("Current: " + (int) currentTick / 2  + " seconds");
+                }
+                lblScore.setText("Score: " + level.getScore());
                 tick();
+
+                if (level.getRats().size() > level.getMaxRats()) {
+                    gameOver = true;
+                }
+
+                if (gameOver) {
+                    if ((int) currentTick / 2 < level.getExpectedTime()) {
+                        try {
+                            Score score = new Score(level.getCurrentLevel(), Player.getPlayerName(), level.getScore());
+                            score.addToScoreBoard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        level.setScore(0);
+                        lblScore.setText("Score: " + level.getScore());
+                    }
+                }
             }
         };
         //run tick method every 500ms until stopped

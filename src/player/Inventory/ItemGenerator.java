@@ -1,6 +1,7 @@
 package player.Inventory;
 
 import entity.Item;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.canvas.Canvas;
@@ -33,13 +34,40 @@ public class ItemGenerator {
             public void run() {
                 second++;
 
-                runPeriodic(level);
-                //runRandom
+                if (Level.getGeneration() == Level.ItemGeneration.RANDOM) {
+                    if (second % 3 == 0) {
+                        runRandom();
+                    }
+                } else {
+                    runPeriodic(level);
+                }
             }
         };
 
         //run tick method every 500ms until stopped
         ticker.schedule(task, 0, 1000);
+    }
+
+    private void runRandom() {
+        int random = new Random().nextInt(8);
+
+        if (random == 0) {
+            enableItem(Item.TYPE.BOMB);
+        } else if (random == 1) {
+            enableItem(Item.TYPE.GAS);
+        } else if (random == 2) {
+            enableItem(Item.TYPE.POISON);
+        } else if (random == 3) {
+            enableItem(Item.TYPE.STERILISATION);
+        } else if (random == 4) {
+            enableItem(Item.TYPE.FEMALE_CHANGE);
+        } else if (random == 5) {
+            enableItem(Item.TYPE.MALE_CHANGE);
+        } else if (random == 6) {
+            enableItem(Item.TYPE.NO_ENTRY);
+        } else {
+            enableItem(Item.TYPE.DEATH_RAT);
+        }
     }
 
     private void runPeriodic(Level level) {

@@ -62,7 +62,6 @@ public class Inventory {
             }
             items.add(stack);
         }
-        System.out.println(items);
     }
 
     public static void enableItem(Item.TYPE type, AnchorPane abilities) {
@@ -77,8 +76,6 @@ public class Inventory {
 
                     //enables next disabled image
                     if (item.getType() == type && image.isDisable()) {
-                        System.out.println(i);
-
                         found = true;
                         image.setDisable(false);
                         AnchorPane.setTopAnchor(image, item.getYOffset() * 40.0 + 10);
