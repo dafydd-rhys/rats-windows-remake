@@ -78,7 +78,7 @@ public class DeathRat extends Item {//used to extend Entities.Item
 
     public void activate(Level level, GraphicsContext gc) {
         currentTick++;
-
+        checkForOpposition(level);
         int moveTick = 2;
         if (currentTick % moveTick == 0) {
             move(level);
