@@ -49,9 +49,6 @@ public class NoEntrySign extends Item {
     }
 
     public void activate(Level level, GraphicsContext gc) {
-        checkNext(level,1, Rat.Direction.LEFT, Rat.Direction.UP);
-        checkNext(level, -1, Rat.Direction.RIGHT, Rat.Direction.DOWN);
-
         switch (getHp()) {
             case 8 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png"));
             case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-3.png"));
@@ -60,57 +57,6 @@ public class NoEntrySign extends Item {
             case 0 -> {
                 level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
                 level.getItems().remove(this);
-            }
-        }
-    }
-
-    private void checkNext(Level level, int next, Rat.Direction horizontal, Rat.Direction vertical) {
-        Tile[][] tiles = level.getTiles();
-
-        if (tiles[getCurrentPosY()][getCurrentPosX() + next].isWalkable()) {
-            if (!tiles[getCurrentPosY()][getCurrentPosX() + next].getEntitiesOnTile().isEmpty()) {
-                ArrayList<Entity> entities = tiles[getCurrentPosY()][getCurrentPosX() + next].getEntitiesOnTile();
-
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
-                        if (target.getDirection() == horizontal) {
-                            if (horizontal == Rat.Direction.LEFT) {
-                                target.setDirection(Rat.Direction.RIGHT);
-                            } else {
-                                target.setDirection(Rat.Direction.LEFT);
-                            }
-                            // TODO audio here
-                            try {
-                                playSound();
-                            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-                                e.printStackTrace();
-                            }
-                            setHp(getHp() - 1);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (tiles[getCurrentPosY() + next][getCurrentPosX()].isWalkable()) {
-            if (!tiles[getCurrentPosY() + next][getCurrentPosX()].getEntitiesOnTile().isEmpty()) {
-                ArrayList<Entity> entities = tiles[getCurrentPosY() + next][getCurrentPosX()].getEntitiesOnTile();
-
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
-
-                        if (target.getDirection() == vertical) {
-                            if (vertical == Rat.Direction.UP) {
-                                target.setDirection(Rat.Direction.DOWN);
-                            } else {
-                                target.setDirection(Rat.Direction.UP);
-                            }
-                            setHp(getHp() - 1);
-                        }
-                    }
-                }
             }
         }
     }

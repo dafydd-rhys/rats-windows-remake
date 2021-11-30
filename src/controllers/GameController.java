@@ -89,6 +89,8 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Level.setGameOver(false);
         Level.setGameWon(false);
+        lblTime.setEditable(false);
+        lblExpected.setEditable(false);
 
         LevelFileReader levelReader = null;
         try {
@@ -234,13 +236,13 @@ public class GameController implements Initializable {
         Movement.curY = rat.getCurrentPosY();
 
         if (rat.getDirection() == Rat.Direction.LEFT) {
-            Movement.tryHorizontal(-1, 1);
+            Movement.tryHorizontal(level,-1, 1);
         } else if (rat.getDirection() == Rat.Direction.RIGHT) {
-            Movement.tryHorizontal(1, -1);
+            Movement.tryHorizontal(level,1, -1);
         } else if (rat.getDirection() == Rat.Direction.UP) {
-            Movement.tryVertical(-1, 1);
+            Movement.tryVertical(level,-1, 1);
         } else if (rat.getDirection() == Rat.Direction.DOWN) {
-            Movement.tryVertical(1, -1);
+            Movement.tryVertical(level,1, -1);
         }
     }
 
