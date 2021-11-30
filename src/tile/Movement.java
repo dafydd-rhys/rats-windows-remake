@@ -12,35 +12,58 @@ import java.util.Random;
  */
 public class Movement {
 
-    private static int random;
-    public static Rat rat;
     public static Tile[][] tiles;
     public static Tile current;
+    public static Rat rat;
+
+    private static int random;
     public static int curX;
     public static int curY;
 
-    private static int generateRandom() {
+    private static int generateRandom3() {
+        return new Random().nextInt((2) + 1);
+    }
+
+    private static int generateRandom2() {
         return new Random().nextInt((1) + 1);
     }
 
     public static void tryHorizontal(int x, int x2) {
-        random = generateRandom();
+        random = generateRandom3();
 
-        if (moveHorizontal(x)) {
-            if (random == 1) {
+        if (NoEntry(0, x)) {
+            if (random == 0) {
                 if (moveVertical(-1)) {
                     if (moveVertical(1)) {
-                        if (moveHorizontal(x2)) {
-                            System.out.println("couldn't move");
+                        if (moveHorizontal(x)) {
+                            moveHorizontal(x2);
+                        }
+                    }
+                }
+            } else if (random == 1) {
+                if (moveVertical(1)) {
+                    if (moveVertical(-1)) {
+                        if (moveHorizontal(x)) {
+                            moveHorizontal(x2);
                         }
                     }
                 }
             } else {
+                moveHorizontal(x);
+            }
+        } else {
+            random = generateRandom2();
+
+            if (random == 0) {
                 if (moveVertical(1)) {
                     if (moveVertical(-1)) {
-                        if (moveHorizontal(x2)) {
-                            System.out.println("couldn't move");
-                        }
+                        moveHorizontal(x2);
+                    }
+                }
+            } else {
+                if (moveVertical(-1)) {
+                    if (moveVertical(1)) {
+                        moveHorizontal(x2);
                     }
                 }
             }
@@ -48,23 +71,41 @@ public class Movement {
     }
 
     public static void tryVertical(int y, int y2) {
-        random = generateRandom();
+        random = generateRandom3();
 
-        if (moveVertical(y)) {
-            if (random == 1) {
+        if (NoEntry(y, 0)) {
+            if (random == 0) {
                 if (moveHorizontal(-1)) {
                     if (moveHorizontal(1)) {
-                        if (moveVertical(y2)) {
-                            System.out.println("couldn't move");
+                        if (moveVertical(y)) {
+                            moveVertical(y2);
                         }
+                    }
+                }
+            } else if (random == 1) {
+                if (moveHorizontal(1)) {
+                    if (moveHorizontal(-1)) {
+                        if (moveVertical(y)) {
+                            moveVertical(y2);
+                        }
+                    }
+                }
+            } else {
+                moveHorizontal(1);
+            }
+        } else {
+            random = generateRandom2();
+
+            if (random == 0) {
+                if (moveHorizontal(-1)) {
+                    if (moveHorizontal(1)) {
+                        moveVertical(y2);
                     }
                 }
             } else {
                 if (moveHorizontal(1)) {
                     if (moveHorizontal(-1)) {
-                        if (moveVertical(y2)) {
-                            System.out.println("couldn't move");
-                        }
+                        moveVertical(y2);
                     }
                 }
             }
@@ -73,23 +114,21 @@ public class Movement {
 
     private static boolean moveHorizontal(int x) {
         if (NoEntry(0, x)) {
-            if (tiles[curY][curX + x].isWalkable()) {
-                current.removeEntityFromTile(rat);
-                tiles[curY][curX].getEntitiesOnTile().remove(rat);
-                tiles[curY][curX + x].addEntityToTile(rat);
+            current.removeEntityFromTile(rat);
+            tiles[curY][curX].getEntitiesOnTile().remove(rat);
+            tiles[curY][curX + x].addEntityToTile(rat);
 
-                rat.setCurrentPosX(curX + x);
-                rat.setCurrentPosY(curY);
+            rat.setCurrentPosX(curX + x);
+            rat.setCurrentPosY(curY);
 
-                if (x == -1) {
-                    rat.setRotatedImage(rat.getLeftImage());
-                    rat.setDirection(Rat.Direction.LEFT);
-                } else {
-                    rat.setRotatedImage(rat.getRightImage());
-                    rat.setDirection(Rat.Direction.RIGHT);
-                }
-                return false;
+            if (x == -1) {
+                rat.setRotatedImage(rat.getLeftImage());
+                rat.setDirection(Rat.Direction.LEFT);
+            } else {
+                rat.setRotatedImage(rat.getRightImage());
+                rat.setDirection(Rat.Direction.RIGHT);
             }
+            return false;
         }
 
         return true;
@@ -97,37 +136,39 @@ public class Movement {
 
     private static boolean moveVertical(int y) {
         if (NoEntry(y, 0)) {
-            if (tiles[curY + y][curX].isWalkable()) {
-                current.removeEntityFromTile(rat);
-                tiles[curY][curX].getEntitiesOnTile().remove(rat);
-                tiles[curY + y][curX].addEntityToTile(rat);
+            current.removeEntityFromTile(rat);
+            tiles[curY][curX].getEntitiesOnTile().remove(rat);
+            tiles[curY + y][curX].addEntityToTile(rat);
 
-                rat.setCurrentPosX(curX);
-                rat.setCurrentPosY(curY + y);
+            rat.setCurrentPosX(curX);
+            rat.setCurrentPosY(curY + y);
 
-                if (y == -1) {
-                    rat.setRotatedImage(rat.getUpImage());
-                    rat.setDirection(Rat.Direction.UP);
-                } else {
-                    rat.setRotatedImage(rat.getDownImage());
-                    rat.setDirection(Rat.Direction.DOWN);
-                }
-                return false;
+            if (y == -1) {
+                rat.setRotatedImage(rat.getUpImage());
+                rat.setDirection(Rat.Direction.UP);
+            } else {
+                rat.setRotatedImage(rat.getDownImage());
+                rat.setDirection(Rat.Direction.DOWN);
             }
+            return false;
+
         }
         return true;
     }
 
     private static boolean NoEntry(int y, int x) {
-        for (Entity entity : tiles[curY + y][curX + x].getEntitiesOnTile()) {
-            if (entity.getEntityType() == Entity.EntityType.ITEM) {
-                Item item = (Item) entity;
-                if (item.getType() == Item.TYPE.NO_ENTRY) {
-                    return false;
+        if (tiles[curY + y][curX + x].isWalkable()) {
+            for (Entity entity : tiles[curY + y][curX + x].getEntitiesOnTile()) {
+                if (entity.getEntityType() == Entity.EntityType.ITEM) {
+                    Item item = (Item) entity;
+                    if (item.getType() == Item.TYPE.NO_ENTRY) {
+                        return false;
+                    }
                 }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
 }
