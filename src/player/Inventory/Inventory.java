@@ -178,6 +178,10 @@ public class Inventory {
         }
     }
 
+    public static ArrayList<Stack<HashMap<Item, ImageView>>> getItems() {
+        return items;
+    }
+
     public static void clear() {
         Inventory.storedStack = null;
         Inventory.storedMap = null;

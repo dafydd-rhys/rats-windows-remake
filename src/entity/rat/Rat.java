@@ -194,6 +194,33 @@ public class Rat extends Entity {
     }
 
     @Override
+    public String toString() {
+        String result = "";
+
+        result += this.getGender() == Gender.FEMALE
+                ? "F"
+                : "M";
+
+        result += this.isAdult()
+                ? "A"
+                : "B";
+
+        result += this.isPregnant()
+                ? "P"
+                : "N";
+
+        result += this.isSterilised()
+                ? "S"
+                : "N";
+
+        result += String.format("%02d", this.getCurrentPosX());
+        result += ":";
+        result += String.format("%02d", this.getCurrentPosY());
+
+        return result;
+    }
+
+    @Override
     public void setImage(Image image) {
         this.image = image;
     }

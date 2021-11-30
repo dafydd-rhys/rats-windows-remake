@@ -127,4 +127,21 @@ public abstract class Item extends Entity {
         return range;
     }
 
+    @Override
+    public String toString() {
+        String result = "";
+
+        result += this.getEntityName().charAt(0);
+
+        if (this.getCurrentPosX() != 0 && this.getCurrentPosY() != 0) {
+            result += this.getHp();
+
+            result += String.format("%02d", this.getCurrentPosX());
+            result += ":";
+            result += String.format("%02d", this.getCurrentPosY());
+        }
+
+        return result;
+    }
+
 }
