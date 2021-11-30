@@ -144,6 +144,7 @@ public class GameController implements Initializable {
 
                 if (Level.getGameOver()) {
                     ticker.cancel();
+                    currentTick = 0;
 
                     if (Level.getGameWon()) {
                         try {
@@ -206,11 +207,22 @@ public class GameController implements Initializable {
         restartBtn.setOnAction(e -> {
             try {
                 ticker.cancel();
+                currentTick = 0;
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
         });
+        mainMenu.setOnAction(e -> {
+            try {
+                ticker.cancel();
+                currentTick = 0;
+                StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Main " + Level.getCurrentLevel());
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                ex.printStackTrace();
+            }
+        });
+
     }
 
     private static void move(final Rat rat) {
