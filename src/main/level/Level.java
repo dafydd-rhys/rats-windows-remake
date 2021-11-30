@@ -23,11 +23,13 @@ public final class Level {
     private final ArrayList<Item> items;
     private final Tile[][] tiles;
 
-    private int score;
+    private static int score;
     private int cols;
     private int rows;
     private int expectedTime;
     private int maxRats;
+    private static boolean gameOver = false;
+    private static boolean gameWon = false;
 
     public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats, Tile[][] tiles,
                  ArrayList<Rat> rats, int sizeY, int sizeX) {
@@ -64,11 +66,27 @@ public final class Level {
         }
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public static void setGameOver(boolean gameOver) {
+        Level.gameOver = gameOver;
     }
 
-    public int getScore() {
+    public static void setGameWon(boolean gameWon) {
+        Level.gameWon = gameWon;
+    }
+
+    public static boolean getGameWon() {
+        return gameWon;
+    }
+
+    public static boolean getGameOver() {
+        return gameOver;
+    }
+
+    public void setScore(int score) {
+        Level.score = score;
+    }
+
+    public static int getScore() {
         return score;
     }
 
@@ -80,11 +98,11 @@ public final class Level {
         return level;
     }
 
-    public void setCurrentLevel(int currentLevel) {
+    public static void setCurrentLevel(int currentLevel) {
         Level.currentLevel = currentLevel;
     }
 
-    public int getCurrentLevel() {
+    public static int getCurrentLevel() {
         return currentLevel;
     }
 

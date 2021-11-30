@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -82,11 +83,12 @@ public class GameController implements Initializable {
     private static GraphicsContext gc;
     private static double currentTick;
     private Timer ticker;
-    private boolean gameOver = false;
-    private boolean gameWin = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Level.setGameOver(false);
+        Level.setGameWon(false);
+
         LevelFileReader levelReader = null;
         try {
             levelReader = new LevelFileReader(Level.currentLevel);
@@ -109,7 +111,7 @@ public class GameController implements Initializable {
                 levelReader.getExpectedTime(), levelReader.getMaxRats());
         level = generator.getLevel();
 
-        lblLevel.setText("Level: " + level.getCurrentLevel());
+        lblLevel.setText("Level: " + Level.getCurrentLevel());
         lblExpected.setText("Expected: " + level.getExpectedTime() + " seconds");
 
         Inventory.clear();
@@ -127,52 +129,41 @@ public class GameController implements Initializable {
                 currentTick += 1;
 
                 if (currentTick % 2 == 0) {
-                    lblTime.setText("Current: " + (int) currentTick / 2  + " seconds");
+                    lblTime.setText("Current: " + (int) currentTick / 2 + " seconds");
                 }
-                lblScore.setText("Score: " + level.getScore());
+                lblScore.setText("Score: " + Level.getScore());
                 tick();
 
-                if (level.getRats().size() > level.getMaxRats()) {
-                    gameOver = true;
+                if (level.getRats().size() >= level.getMaxRats() || (int) currentTick / 2 > level.getExpectedTime()) {
+                    Level.setGameOver(true);
+                    Level.setGameWon(false);
+                } else if (level.getRats().size() == 0 && (int) currentTick / 2 < level.getExpectedTime()) {
+                    Level.setGameOver(true);
+                    Level.setGameWon(true);
                 }
 
-                if (level.getRats().size() == 0) {
-                    gameWin = true;
-                }
-
-                if (gameOver) {
-                    System.out.println("Game Over");
+                if (Level.getGameOver()) {
                     ticker.cancel();
 
-                    if ((int) currentTick / 2 < level.getExpectedTime()) {
+                    if (Level.getGameWon()) {
                         try {
-                            Score score = new Score(level.getCurrentLevel(), Player.getPlayerName(), level.getScore());
+                            Score score = new Score(Level.getCurrentLevel(), Player.getPlayerName(), Level.getScore());
                             score.addToScoreBoard();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        System.out.println(Level.getScore());
                     } else {
                         level.setScore(0);
-                        lblScore.setText("Score: " + level.getScore());
+                        lblScore.setText("Score: " + Level.getScore());
                     }
-                }
-
-                if (gameWin) {
-                    System.out.println("Level Complete");
-                    ticker.cancel();
-
-                    if ((int) currentTick / 2 < level.getExpectedTime()) {
+                    Platform.runLater(() -> {
                         try {
-                            Score score = new Score(level.getCurrentLevel(), Player.getPlayerName(), level.getScore());
-                            score.addToScoreBoard();
-                        } catch (IOException e) {
+                            StageFunctions.changeScene("\\src\\resources\\fxml\\game_over.fxml", "Game Over");
+                        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        level.setScore(0);
-                        lblScore.setText("Score: " + level.getScore());
-                    }
-                    System.out.println(level.getScore());
+                    });
                 }
             }
         };
@@ -180,20 +171,6 @@ public class GameController implements Initializable {
         //run tick method every 500ms until stopped
         ticker.schedule(task, 500, 500);
     }
-
-    /*
-    public void gameOver()
-    {
-        if(gameOver)
-        {
-            try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game_over.fxml", "Game Over");
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-    */
 
     private void onActions() {
         settings.setOnAction(e -> {
@@ -229,7 +206,7 @@ public class GameController implements Initializable {
         restartBtn.setOnAction(e -> {
             try {
                 ticker.cancel();
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + level.getCurrentLevel());
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
