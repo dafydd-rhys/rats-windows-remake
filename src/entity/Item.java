@@ -1,10 +1,16 @@
 package entity;
 
 import entity.rat.Rat;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Movement;
+import main.external.Audio;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Item
@@ -36,6 +42,8 @@ public abstract class Item extends Entity {
     public abstract void activate(Level level);
 
     public abstract Item createNewInstance();
+
+    public abstract void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
 
     @Override
     public void setImage(Image image) {

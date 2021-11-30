@@ -3,10 +3,17 @@ package entity.weapon;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * Gas
@@ -35,13 +42,24 @@ public class Gas extends Item {
         return new Gas();
     }
 
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/harry_gas.wav");
+    }
+
     public void activate(Level level) {
         setHp(getHp() - 1);
-
+        // TODO audio here
+        try {
+            playSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
         if (getHp() > 0) {
             for (int i = 0; i < getRange() + 1; i++) {
                 checkAdjacent(level, i);
                 checkAdjacent(level, -(i));
+
             }
         } else {
             level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);

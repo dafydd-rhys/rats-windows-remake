@@ -6,7 +6,12 @@ import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * Poison
@@ -35,6 +40,11 @@ public class Poison extends Item {
         return new Poison();
     }
 
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/poison.wav");
+    }
+
     public void activate(Level level) {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
@@ -44,7 +54,12 @@ public class Poison extends Item {
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(level, getDamage(), targetRat);
                     setHp(getHp() - 1);
-
+                    // TODO audio here
+                    try {
+                        playSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                        e.printStackTrace();
+                    }
                     if (getHp() <= 0) {
                         level.getItems().remove(this);
                         entitiesOnTile.remove(this);

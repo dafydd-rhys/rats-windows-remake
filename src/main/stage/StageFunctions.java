@@ -24,7 +24,6 @@ public class StageFunctions {
 
     private static Stage stage;
     private static Stage settingsStage;
-    private static Stage gameOverStage;
 
     public static void setStage(Stage stage) {
         StageFunctions.stage = stage;
@@ -60,23 +59,6 @@ public class StageFunctions {
         settingsStage.setScene(new Scene(scene));
         StageResizer.addResizeListener(settingsStage);
         settingsStage.show();
-    }
-
-    public static void openGameOver() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        Stage gameOverStage = new Stage();
-        StageFunctions.gameOverStage = gameOverStage;
-        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\resources\\fxml\\game_over.fxml"));
-
-        gameOverStage.setMinHeight(345);
-        gameOverStage.setMinWidth(500);
-        gameOverStage.setAlwaysOnTop(true);
-        gameOverStage.setTitle("Game Over");
-        gameOverStage.initStyle(StageStyle.UNDECORATED);
-        gameOverStage.initModality(Modality.WINDOW_MODAL);
-        gameOverStage.initOwner(stage);
-        gameOverStage.setScene(new Scene(scene));
-        StageResizer.addResizeListener(gameOverStage);
-        gameOverStage.show();
     }
 
     public static void muteMusic() {
@@ -122,11 +104,6 @@ public class StageFunctions {
     public static void exitSettings() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Audio.clickEffect();
         settingsStage.close();
-    }
-
-    public static void exitGameOver() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        Audio.clickEffect();
-        gameOverStage.close();
     }
 
     public static void toggleOpacity(ImageView image) {
