@@ -64,6 +64,7 @@ public class Bomb extends Item {
     }
 
     private void explode(Level level, GraphicsContext gc) {
+
         Tile[][] tiles = level.getTiles();
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
         // TODO audio here
@@ -94,9 +95,12 @@ public class Bomb extends Item {
                         }
                     }
                 }
+
                 distance++;
 
-                gc.drawImage(explosion, current.getX() * 50, current.getY() * 50);
+                if (current.isWalkable() && current.isCovering()) {
+                    gc.drawImage(explosion, current.getX() * 50, current.getY() * 50);
+                }
 
             }
         }
