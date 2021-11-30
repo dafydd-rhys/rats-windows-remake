@@ -275,7 +275,7 @@ public class GameController implements Initializable {
             }
         }
         for (int i = 0; i < items.size(); i++) {
-            items.get(i).activate(level);
+            items.get(i).activate(level, gc);
         }
         draw();
     }

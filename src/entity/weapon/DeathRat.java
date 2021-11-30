@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
@@ -74,7 +76,7 @@ public class DeathRat extends Item {//used to extend Entities.Item
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
     }
 
-    public void activate(Level level) {
+    public void activate(Level level, GraphicsContext gc) {
         currentTick++;
 
         int moveTick = 2;

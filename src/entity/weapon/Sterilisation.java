@@ -6,6 +6,8 @@ import entity.rat.Rat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
@@ -47,7 +49,7 @@ public class Sterilisation extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sterilisation.wav");
     }
 
-    public void activate(Level level) {
+    public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         // TODO audio here
         try {

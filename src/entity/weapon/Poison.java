@@ -2,6 +2,7 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
@@ -45,7 +46,7 @@ public class Poison extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/poison.wav");
     }
 
-    public void activate(Level level) {
+    public void activate(Level level, GraphicsContext gc) {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {

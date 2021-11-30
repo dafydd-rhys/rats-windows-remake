@@ -2,6 +2,7 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
@@ -47,7 +48,7 @@ public class NoEntrySign extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/oof.wav");
     }
 
-    public void activate(Level level) {
+    public void activate(Level level, GraphicsContext gc) {
         checkNext(level,1, Rat.Direction.LEFT, Rat.Direction.UP);
         checkNext(level, -1, Rat.Direction.RIGHT, Rat.Direction.DOWN);
 

@@ -2,6 +2,7 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
@@ -46,7 +47,7 @@ public class FemaleSexChange extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sex_change.wav");
     }
 
-    public void activate(Level level) {
+    public void activate(Level level, GraphicsContext gc) {
         Tile[][] tile = level.getTiles();
         ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 

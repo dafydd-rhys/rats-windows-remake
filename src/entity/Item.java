@@ -4,6 +4,8 @@ import entity.rat.Rat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Movement;
@@ -39,7 +41,7 @@ public abstract class Item extends Entity {
         STERILISATION()
     }
 
-    public abstract void activate(Level level);
+    public abstract void activate(Level level, GraphicsContext gc);
 
     public abstract Item createNewInstance();
 
