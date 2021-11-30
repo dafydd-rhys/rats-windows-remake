@@ -7,7 +7,12 @@ import entity.Entity;
 import main.level.Level;
 import tile.Tile;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * NoEntrySign
@@ -35,6 +40,11 @@ public class NoEntrySign extends Item {
     @Override
     public Item createNewInstance() {
         return new NoEntrySign();
+    }
+
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/oof.wav");
     }
 
     public void activate(Level level) {
@@ -68,6 +78,12 @@ public class NoEntrySign extends Item {
                                 target.setDirection(Rat.Direction.RIGHT);
                             } else {
                                 target.setDirection(Rat.Direction.LEFT);
+                            }
+                            // TODO audio here
+                            try {
+                                playSound();
+                            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                                e.printStackTrace();
                             }
                             setHp(getHp() - 1);
                         }

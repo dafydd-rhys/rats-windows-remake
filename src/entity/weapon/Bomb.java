@@ -7,7 +7,12 @@ import main.level.Level;
 import tile.Tile;
 import entity.Entity;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * Bomb
@@ -37,6 +42,11 @@ public class Bomb extends Item {
         return new Bomb();
     }
 
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/bomb.wav");
+    }
+
     private void countdown(Level level) {
         setHp(getHp() - 1);
         switch (getHp()) {
@@ -54,7 +64,12 @@ public class Bomb extends Item {
     private void explode(Level level) {
         Tile[][] tiles = level.getTiles();
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
-
+        // TODO audio here
+        try {
+            playSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
         // TODO add explosion sprite for visual guide
         for (Rat.Direction direction : Rat.Direction.values()) {
             Tile current = tiles[getCurrentPosY()][getCurrentPosX()];

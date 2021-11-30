@@ -9,6 +9,8 @@ import entity.weapon.MaleSexChange;
 import entity.weapon.NoEntrySign;
 import entity.weapon.Poison;
 import entity.weapon.Sterilisation;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +24,12 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import main.external.Audio;
 import main.level.Level;
 import tile.Tile;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Main
@@ -118,11 +124,17 @@ public class Inventory {
         });
 
         //releases object
-        canvas.setOnDragDropped(event -> dragAndDrop(event, gc, abilities));
+        canvas.setOnDragDropped(event -> {
+            try {
+                dragAndDrop(event, gc, abilities);
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 
-    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities) {
+    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
 
@@ -135,6 +147,7 @@ public class Inventory {
             //removes item from inventory and draws in-game
             level.placeItem(item, tile);
 
+            Audio.clickEffect();
             if (tile.isCovering()) {
                 gc.drawImage(image.getImage(), x * 50 + 10, y * 50 + 10);
             }

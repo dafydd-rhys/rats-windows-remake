@@ -4,12 +4,19 @@ import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import entity.rat.RatSprites;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * DeathRat
@@ -60,6 +67,11 @@ public class DeathRat extends Item {//used to extend Entities.Item
     @Override
     public Item createNewInstance() {
         return new DeathRat();
+    }
+
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
     }
 
     public void activate(Level level) {
