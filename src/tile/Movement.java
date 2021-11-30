@@ -19,6 +19,10 @@ public class Movement {
     public static int curX;
     public static int curY;
 
+    private static int generateRandom() {
+        return new Random().nextInt((1) + 1);
+    }
+
     public static void tryHorizontal(int x, int x2) {
         random = generateRandom();
 
@@ -68,69 +72,62 @@ public class Movement {
     }
 
     private static boolean moveHorizontal(int x) {
-        for (Entity entity : tiles[curY][curX + x].getEntitiesOnTile()) {
-            if (entity.getEntityType() == Entity.EntityType.ITEM) {
-                Item item = (Item) entity;
-                if (item.getType() == Item.TYPE.NO_ENTRY) {
-                    return true;
+        if (NoEntry(0, x)) {
+            if (tiles[curY][curX + x].isWalkable()) {
+                current.removeEntityFromTile(rat);
+                tiles[curY][curX].getEntitiesOnTile().remove(rat);
+                tiles[curY][curX + x].addEntityToTile(rat);
+
+                rat.setCurrentPosX(curX + x);
+                rat.setCurrentPosY(curY);
+
+                if (x == -1) {
+                    rat.setRotatedImage(rat.getLeftImage());
+                    rat.setDirection(Rat.Direction.LEFT);
+                } else {
+                    rat.setRotatedImage(rat.getRightImage());
+                    rat.setDirection(Rat.Direction.RIGHT);
                 }
+                return false;
             }
-        }
-
-        if (tiles[curY][curX + x].isWalkable()) {
-            current.removeEntityFromTile(rat);
-            tiles[curY][curX].getEntitiesOnTile().remove(rat);
-            tiles[curY][curX + x].addEntityToTile(rat);
-
-            rat.setCurrentPosX(curX + x);
-            rat.setCurrentPosY(curY);
-
-            if (x == -1) {
-                rat.setRotatedImage(rat.getLeftImage());
-                rat.setDirection(Rat.Direction.LEFT);
-            } else {
-                rat.setRotatedImage(rat.getRightImage());
-                rat.setDirection(Rat.Direction.RIGHT);
-            }
-            return false;
         }
 
         return true;
     }
 
     private static boolean moveVertical(int y) {
-        for (Entity entity : tiles[curY + y][curX].getEntitiesOnTile()) {
-            if (entity.getEntityType() == Entity.EntityType.ITEM) {
-                Item item = (Item) entity;
-                if (item.getType() == Item.TYPE.NO_ENTRY) {
-                    return true;
+        if (NoEntry(y, 0)) {
+            if (tiles[curY + y][curX].isWalkable()) {
+                current.removeEntityFromTile(rat);
+                tiles[curY][curX].getEntitiesOnTile().remove(rat);
+                tiles[curY + y][curX].addEntityToTile(rat);
+
+                rat.setCurrentPosX(curX);
+                rat.setCurrentPosY(curY + y);
+
+                if (y == -1) {
+                    rat.setRotatedImage(rat.getUpImage());
+                    rat.setDirection(Rat.Direction.UP);
+                } else {
+                    rat.setRotatedImage(rat.getDownImage());
+                    rat.setDirection(Rat.Direction.DOWN);
                 }
+                return false;
             }
         }
-
-        if (tiles[curY + y][curX].isWalkable()) {
-            current.removeEntityFromTile(rat);
-            tiles[curY][curX].getEntitiesOnTile().remove(rat);
-            tiles[curY + y][curX].addEntityToTile(rat);
-
-            rat.setCurrentPosX(curX);
-            rat.setCurrentPosY(curY + y);
-
-            if (y == -1) {
-                rat.setRotatedImage(rat.getUpImage());
-                rat.setDirection(Rat.Direction.UP);
-            } else {
-                rat.setRotatedImage(rat.getDownImage());
-                rat.setDirection(Rat.Direction.DOWN);
-            }
-            return false;
-        }
-
         return true;
     }
 
-    private static int generateRandom() {
-        return new Random().nextInt((1) + 1);
+    private static boolean NoEntry(int y, int x) {
+        for (Entity entity : tiles[curY + y][curX + x].getEntitiesOnTile()) {
+            if (entity.getEntityType() == Entity.EntityType.ITEM) {
+                Item item = (Item) entity;
+                if (item.getType() == Item.TYPE.NO_ENTRY) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
