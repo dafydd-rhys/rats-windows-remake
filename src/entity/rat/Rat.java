@@ -244,7 +244,7 @@ public class Rat extends Entity {
     }
 
     public void kill() {
-        level.getTiles()[getCurrentPosY()][getCurrentPosY()].removeEntityFromTile(this);
+        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
         level.getRats().remove(this);
     }
 

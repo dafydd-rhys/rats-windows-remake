@@ -104,7 +104,15 @@ public class DeathRat extends Item {//used to extend Entities.Item
 
     private void checkForOpposition(Level level) {
         ArrayList<Entity> entities = level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX()].getEntitiesOnTile();
-
+        ArrayList<Entity> a = level.getTiles()[this.getCurrentPosY() + 1][this.getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> b = level.getTiles()[this.getCurrentPosY() - 1][this.getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> c = level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX() + 1].getEntitiesOnTile();
+        ArrayList<Entity> d = level.getTiles()[this.getCurrentPosY()][this.getCurrentPosX() - 1].getEntitiesOnTile();
+        entities.addAll(a);
+        entities.addAll(b);
+        entities.addAll(c);
+        entities.addAll(d);
+        System.out.println(entities);
         if (!entities.isEmpty()) {
             for (int i = 0; i < entities.size(); i++) {
             // TODO figure out why it dies so easily
