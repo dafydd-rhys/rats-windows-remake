@@ -3,10 +3,19 @@ package entity.weapon;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * Sterilisation
@@ -35,9 +44,19 @@ public class Sterilisation extends Item {
         return new Sterilisation();
     }
 
-    public void activate(Level level) {
-        setHp(getHp() - 1);
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sterilisation.wav");
+    }
 
+    public void activate(Level level, GraphicsContext gc) {
+        setHp(getHp() - 1);
+        // TODO audio here
+        try {
+            playSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
         if (getHp() > 0) {
             for (int i = 0; i < getRange() + 1; i++) {
                 checkAdjacent(level, i);

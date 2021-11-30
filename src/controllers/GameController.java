@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
 import player.Player;
@@ -160,7 +161,7 @@ public class GameController implements Initializable {
                     }
                     Platform.runLater(() -> {
                         try {
-                            StageFunctions.changeScene("\\src\\resources\\fxml\\game_over.fxml", "Game Over");
+                            StageFunctions.openGameOver();
                         } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
                             e.printStackTrace();
                         }
@@ -274,7 +275,7 @@ public class GameController implements Initializable {
             }
         }
         for (int i = 0; i < items.size(); i++) {
-            items.get(i).activate(level);
+            items.get(i).activate(level, gc);
         }
         draw();
     }

@@ -4,12 +4,21 @@ import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import entity.rat.RatSprites;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * DeathRat
@@ -62,7 +71,12 @@ public class DeathRat extends Item {//used to extend Entities.Item
         return new DeathRat();
     }
 
-    public void activate(Level level) {
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+    }
+
+    public void activate(Level level, GraphicsContext gc) {
         currentTick++;
 
         int moveTick = 2;
@@ -94,10 +108,9 @@ public class DeathRat extends Item {//used to extend Entities.Item
         ArrayList<Entity> entities = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entities.isEmpty()) {
-            for (Entity entity : entities) {
-
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat targetRat = (Rat) entity;
+            for (int i = 0; i < entities.size(); i++) {
+                if (entities.get(i).getEntityType() == EntityType.RAT) {
+                    Rat targetRat = (Rat) entities.get(i);
                     inflictDamage(level, getDamage(), targetRat);
 
                     setHp(getHp() - 1);

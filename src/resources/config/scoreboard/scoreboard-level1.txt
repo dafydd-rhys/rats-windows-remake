@@ -1,10 +1,10 @@
+Harry:75
 Daftydd:63
+Stefan:45
 Dafydd:42
 Dafydd:33
 Daftydd:27
 Dafydd:21
 Dafydd:21
-Dafydd:18
-oii:10
-oii:10
-oii:10
+Harry:18
+Harry:18
