@@ -86,7 +86,7 @@
                <font>
                   <Font size="29.0" />
                </font></JFXTextArea>
-            <JFXTextArea fx:id="lblTime" editable="false" focusColor="GREY" layoutX="6.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="97.0" text="Current Time: 100" unFocusColor="#80808000">
+            <JFXTextArea fx:id="lblTime" editable="false" focusColor="GREY" layoutX="6.0" layoutY="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="97.0" text="Current Time: 100" unFocusColor="#80808000">
                <font>
                   <Font size="11.0" />
                </font></JFXTextArea>
@@ -100,7 +100,7 @@
                   <Font name="Calibri Light" size="12.0" />
                </font>
             </JFXButton>
-            <JFXTextArea fx:id="lblExpected" editable="false" focusColor="RED" layoutX="6.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="89.0" text="Complete By: 100" unFocusColor="#ff000000">
+            <JFXTextArea fx:id="lblExpected" editable="false" focusColor="RED" layoutX="6.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="97.0" text="Complete By: 100" unFocusColor="#ff000000">
                <font>
                   <Font size="11.0" />
                </font>
