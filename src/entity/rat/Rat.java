@@ -5,6 +5,12 @@ import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
 
+import static main.external.Audio.playGameEffect;
+
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -193,6 +199,20 @@ public class Rat extends Entity {
         }
     }
 
+    /**
+     *
+     * @param
+     */
+
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        try {
+            playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void setImage(Image image) {
         this.image = image;
@@ -246,6 +266,11 @@ public class Rat extends Entity {
     public void kill() {
         level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
         level.getRats().remove(this);
+        try {
+            playSound();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Gender getGender() {

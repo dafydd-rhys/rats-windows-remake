@@ -58,9 +58,14 @@ public class Gas extends Item {
             e.printStackTrace();
         }
         if (getHp() > 0) {
+            Image gasCloud = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-cloud.png");
+
             for (int i = 0; i < getRange() + 1; i++) {
-                checkAdjacent(level, i);
-                checkAdjacent(level, -(i));
+                checkAdjacent(level, i, gc);
+                checkAdjacent(level, -(i), gc);
+                gc.drawImage(gasCloud, i + 1, getRange());
+
+
 
             }
         } else {
@@ -69,7 +74,7 @@ public class Gas extends Item {
         }
     }
 
-    private void checkAdjacent(Level level, int i) {
+    private void checkAdjacent(Level level, int i, GraphicsContext gc) {
         Tile[][] tiles = level.getTiles();
 
         if (getCurrentPosX() + i < level.getCols() - 1 && getCurrentPosX() + i >= 0) {

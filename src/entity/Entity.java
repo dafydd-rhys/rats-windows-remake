@@ -7,11 +7,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import main.level.Level;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 /**
  * Entity
  *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski
+ * @author Stefan-Cristian Daitoiu
  */
 public abstract class Entity {
 
@@ -75,5 +80,15 @@ public abstract class Entity {
     protected int getDamage() {
         return damage;
     }
+
+    /**
+     * Abstract method to be implemented into subclass that plays audio file when called
+     * @throws UnsupportedAudioFileException
+     * @throws LineUnavailableException
+     * @throws IOException
+     */
+
+    public abstract void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
+
 
 }
