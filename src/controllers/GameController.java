@@ -83,6 +83,7 @@ public class GameController implements Initializable {
     private static double currentTick;
     private Timer ticker;
     private boolean gameOver = false;
+    private boolean gameWin = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -135,6 +136,10 @@ public class GameController implements Initializable {
                     gameOver = true;
                 }
 
+                if (level.getRats().size() == 0) {
+                    gameWin = true;
+                }
+
                 if (gameOver) {
                     System.out.println("Game Over");
                     ticker.cancel();
@@ -151,12 +156,32 @@ public class GameController implements Initializable {
                         lblScore.setText("Score: " + level.getScore());
                     }
                 }
+
+                if (gameWin) {
+                    System.out.println("Level Complete");
+                    ticker.cancel();
+
+                    if ((int) currentTick / 2 < level.getExpectedTime()) {
+                        try {
+                            Score score = new Score(level.getCurrentLevel(), Player.getPlayerName(), level.getScore());
+                            score.addToScoreBoard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        level.setScore(0);
+                        lblScore.setText("Score: " + level.getScore());
+                    }
+                    System.out.println(level.getScore());
+                }
             }
         };
 
         //run tick method every 500ms until stopped
         ticker.schedule(task, 500, 500);
     }
+
+    /*
     public void gameOver()
     {
         if(gameOver)
@@ -168,6 +193,7 @@ public class GameController implements Initializable {
             }
         }
     }
+    */
 
     private void onActions() {
         settings.setOnAction(e -> {
