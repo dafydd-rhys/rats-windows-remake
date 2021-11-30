@@ -236,13 +236,13 @@ public class GameController implements Initializable {
         Movement.curY = rat.getCurrentPosY();
 
         if (rat.getDirection() == Rat.Direction.LEFT) {
-            Movement.tryHorizontal(level,-1, 1);
+            Movement.tryHorizontal(-1, 1);
         } else if (rat.getDirection() == Rat.Direction.RIGHT) {
-            Movement.tryHorizontal(level,1, -1);
+            Movement.tryHorizontal(1, -1);
         } else if (rat.getDirection() == Rat.Direction.UP) {
-            Movement.tryVertical(level,-1, 1);
+            Movement.tryVertical(-1, 1);
         } else if (rat.getDirection() == Rat.Direction.DOWN) {
-            Movement.tryVertical(level,1, -1);
+            Movement.tryVertical(1, -1);
         }
     }
 

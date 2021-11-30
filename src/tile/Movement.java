@@ -25,7 +25,7 @@ public class Movement {
         return new Random().nextInt((count) + 1);
     }
 
-    public static void tryHorizontal(Level level, int x, int x2) {
+    public static void tryHorizontal(int x, int x2) {
         int count = 0;
 
         if (tiles[curY][curX + x].isWalkable()) {
@@ -77,7 +77,7 @@ public class Movement {
         }
     }
 
-    public static void tryVertical(Level level, int y, int y2) {
+    public static void tryVertical(int y, int y2) {
         int count = 0;
 
         if (tiles[curY + y][curX].isWalkable()) {
