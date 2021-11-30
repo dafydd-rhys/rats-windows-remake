@@ -16,17 +16,13 @@ import java.io.IOException;
 public class GameOverController implements Initializable {
 
     @FXML
-    private JFXButton settings;
-    @FXML
     private JFXButton sfx;
     @FXML
     private JFXButton music;
     @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
     private JFXButton exit;
+    @FXML
+    private JFXButton exitbtn;
     @FXML
     private ImageView musicImage;
     @FXML
@@ -63,6 +59,7 @@ public class GameOverController implements Initializable {
             try {
                 Level.setCurrentLevel(Level.getCurrentLevel() + 1);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -71,6 +68,7 @@ public class GameOverController implements Initializable {
         restart.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -78,15 +76,8 @@ public class GameOverController implements Initializable {
 
         menu.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Main");
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        settings.setOnAction(e -> {
-            try {
-                StageFunctions.openSettings();
+                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
+                StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -102,13 +93,17 @@ public class GameOverController implements Initializable {
             StageFunctions.toggleOpacity(effectsImage);
         });
 
-        minimize.setOnAction(e -> StageFunctions.minimize());
-
-        maximise.setOnAction(e -> StageFunctions.maximise());
-
         exit.setOnAction(e -> {
             try {
-                StageFunctions.exit();
+                StageFunctions.exitGameOver();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        exitbtn.setOnAction(e -> {
+            try {
+                StageFunctions.exitGameOver();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
                 ex.printStackTrace();
             }
