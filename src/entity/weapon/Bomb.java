@@ -23,6 +23,7 @@ import static main.external.Audio.playGameEffect;
  * @author Dafydd-Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
+ * @author Stefan-Cristian Daitoiu(2033160)
  */
 public class Bomb extends Item {
 
