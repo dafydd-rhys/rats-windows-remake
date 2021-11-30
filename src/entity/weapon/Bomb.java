@@ -98,7 +98,7 @@ public class Bomb extends Item {
 
                 distance++;
 
-                if (current.isWalkable()) {
+                if (current.isWalkable() && current.isCovering()) {
                     gc.drawImage(explosion, current.getX() * 50, current.getY() * 50);
                 }
 
