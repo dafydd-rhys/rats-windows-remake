@@ -157,6 +157,17 @@ public class GameController implements Initializable {
         //run tick method every 500ms until stopped
         ticker.schedule(task, 500, 500);
     }
+    public void gameOver()
+    {
+        if(gameOver)
+        {
+            try {
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game_over.fxml", "Game Over");
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     private void onActions() {
         settings.setOnAction(e -> {
