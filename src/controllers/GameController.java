@@ -285,44 +285,46 @@ public class GameController implements Initializable {
     }
 
     private static void draw() {
-        Tile[][] tiles = level.getTiles();
-        ArrayList<Rat> rats = level.getRats();
-        ArrayList<Item> items = level.getItems();
+        Platform.runLater(() -> {
+            Tile[][] tiles = level.getTiles();
+            ArrayList<Rat> rats = level.getRats();
+            ArrayList<Item> items = level.getItems();
 
-        for (int y = 0; y < tiles.length; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                Image image = tiles[y][x].getImage();
-                gc.drawImage(image, x * 50, y * 50);
-            }
-        }
-
-        for (Rat rat : rats) {
-            if (level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()) {
-                gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
-            }
-        }
-
-        for (Item item : items) {
-            if (level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].isCovering()) {
-                if (item.getType() == Item.TYPE.DEATH_RAT) {
-                    DeathRat deathRat = (DeathRat) item;
-                    gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
-                } else if(item.getType() == Item.TYPE.GAS) {
-                    Gas gas = (Gas) item;
-                    Image smoke = new Image(System.getProperty("user.dir") +
-                            "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
-
-                    gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
-                    for (Tile tile : gas.getTiles()) {
-                        if (tile.isCovering()) {
-                            gc.drawImage(smoke, tile.getX() * 50, tile.getY()* 50);
-                        }
-                    }
-                } else {
-                    gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+            for (int y = 0; y < tiles.length; y++) {
+                for (int x = 0; x < tiles[y].length; x++) {
+                    Image image = tiles[y][x].getImage();
+                    gc.drawImage(image, x * 50, y * 50);
                 }
             }
-        }
+
+            for (Rat rat : rats) {
+                if (level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()].isCovering()) {
+                    gc.drawImage(rat.getRotatedImage(), rat.getCurrentPosX() * 50, rat.getCurrentPosY() * 50);
+                }
+            }
+
+            for (Item item : items) {
+                if (level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].isCovering()) {
+                    if (item.getType() == Item.TYPE.DEATH_RAT) {
+                        DeathRat deathRat = (DeathRat) item;
+                        gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                    } else if (item.getType() == Item.TYPE.GAS) {
+                        Gas gas = (Gas) item;
+                        Image smoke = new Image(System.getProperty("user.dir") +
+                                "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
+
+                        gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                        for (Tile tile : gas.getTiles()) {
+                            if (tile.isCovering()) {
+                                gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                            }
+                        }
+                    } else {
+                        gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                    }
+                }
+            }
+        });
     }
 
 }

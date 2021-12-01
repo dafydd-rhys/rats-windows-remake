@@ -87,10 +87,9 @@ public class Inventory {
                         image.setDisable(false);
                         AnchorPane.setTopAnchor(image, item.getYOffset() * 40.0 + 10);
                         AnchorPane.setLeftAnchor(image, i * 35.0 + 5);
-                        if(type == Item.TYPE.MALE_CHANGE)
-                        {
+                        if (type == Item.TYPE.MALE_CHANGE) {
                             image.setImage(new Image(System.getProperty("user.dir") +
-                            "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
+                                    "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
                         }
                         Platform.runLater(() -> abilities.getChildren().add(image));
                         listener(item, image, abilities);
