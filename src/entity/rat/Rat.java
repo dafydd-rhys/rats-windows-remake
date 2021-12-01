@@ -158,7 +158,7 @@ public class Rat extends Entity {
      * Checks if rat pregnancy stage is at max value
      */
     public void giveBirth() {
-        if (this.getGender() == Gender.FEMALE && isPregnant()) {
+        if (getGender() == Gender.FEMALE && isPregnant()) {
             if (getPregnancyStage() == 10) {
                 Random rand = new Random();
                 int randomNum = rand.nextInt((5) + 1);
@@ -203,7 +203,6 @@ public class Rat extends Entity {
      *
      * @param
      */
-
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         try {

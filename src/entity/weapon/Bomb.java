@@ -102,7 +102,6 @@ public class Bomb extends Item {
                 if (current.isWalkable() && current.isCovering()) {
                     gc.drawImage(explosion, current.getX() * 50, current.getY() * 50);
                 }
-
             }
         }
         level.getItems().remove(this);

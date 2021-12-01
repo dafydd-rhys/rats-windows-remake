@@ -26,12 +26,15 @@ import static main.external.Audio.playGameEffect;
  */
 public class Gas extends Item {
 
+    private int count = -1;
+    private ArrayList<Tile> tiles = new ArrayList<>();
+
     public Gas() {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-grenade.png"));
         setHp(10);
-        setDamage(1);
+        setDamage(2);
         setRange(3);
         setFriendlyFire(true);
         setCanBeAttacked(false);
@@ -51,22 +54,36 @@ public class Gas extends Item {
 
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
-        // TODO audio here
+        if (getHp() % 2 == 0 && getHp() < 10) {
+            //runs at 0, 1, 2, 3 - range = 3
+            count++;
+        }
+
         try {
             playSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+
         if (getHp() > 0) {
-            Image gasCloud = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-cloud.png");
+            if (count >= 0) {
+                ArrayList<Tile> fTiles = checkAdjacent(level, count);
+                ArrayList<Tile> sTiles = checkAdjacent(level, -(count));
 
-            for (int i = 0; i < getRange() + 1; i++) {
-                checkAdjacent(level, i, gc);
-                checkAdjacent(level, -(i), gc);
-                gc.drawImage(gasCloud, i + 1, getRange());
+                for (Tile fTile : fTiles) {
+                    if (!tiles.contains(fTile)) {
+                        tiles.add(fTile);
+                    }
+                }
+                for (Tile sTile : sTiles) {
+                    if (!tiles.contains(sTile)) {
+                        tiles.add(sTile);
+                    }
+                }
 
-
-
+                for (Tile tile : tiles) {
+                    checkTile(tile, level);
+                }
             }
         } else {
             level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
@@ -74,38 +91,41 @@ public class Gas extends Item {
         }
     }
 
-    private void checkAdjacent(Level level, int i, GraphicsContext gc) {
+    private ArrayList<Tile> checkAdjacent(Level level, int i) {
+        ArrayList<Tile> seenTiles = new ArrayList<>();
         Tile[][] tiles = level.getTiles();
 
-        if (getCurrentPosX() + i < level.getCols() - 1 && getCurrentPosX() + i >= 0) {
+        if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
-                ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
-
-                for (int j = 0; j < entities.size(); j++) {
-                    Entity entity = entities.get(j);
-
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
-                        inflictDamage(level, getDamage(), target);
-                    }
-                }
+                checkTile(tiles[getCurrentPosY()][getCurrentPosX() + i], level);
+                seenTiles.add(tiles[getCurrentPosY()][getCurrentPosX() + i]);
             }
         }
 
-        if (getCurrentPosY() + i < level.getRows() - 1 && getCurrentPosY() + i >= 0)  {
+        if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
-                ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
-
-                for (int j = 0; j < entities.size(); j++) {
-                    Entity entity = entities.get(j);
-
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
-                        inflictDamage(level, getDamage(), target);
-                    }
-                }
+                checkTile(tiles[getCurrentPosY() + i][getCurrentPosX()], level);
+                seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX()]);
             }
         }
+        return seenTiles;
+    }
+
+    private void checkTile(Tile tile, Level level) {
+        ArrayList<Entity> entities = new ArrayList<>(tile.getEntitiesOnTile());
+
+        for (int j = 0; j < entities.size(); j++) {
+            Entity entity = entities.get(j);
+
+            if (entity.getEntityType() == EntityType.RAT) {
+                Rat target = (Rat) entity;
+                inflictDamage(level, getDamage(), target);
+            }
+        }
+    }
+
+    public ArrayList<Tile> getTiles() {
+        return tiles;
     }
 
 }
