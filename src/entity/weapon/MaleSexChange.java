@@ -58,22 +58,19 @@ public class MaleSexChange extends Item {
             for (Entity entity : entitiesOnTile) {
                 if (entity.getEntityType() == EntityType.RAT) {
                     Rat target = (Rat) entity;
-                    if (target.getGender() == Rat.Gender.FEMALE) {
-                        target.setGender(Rat.Gender.MALE);
-                        target.setImage(new Image(System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\male-rat.png"));
-                        target.getImages();
-                        // TODO audio here
-                        try {
-                            playSound();
-                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                            e.printStackTrace();
-                        }
-                        this.hp -= 1;
-                        level.getItems().remove(this);
-                        entitiesOnTile.remove(this);
-                        break;
+                    target.setGender(Rat.Gender.MALE);
+                    target.setImage(new Image(System.getProperty("user.dir") +
+                            "\\src\\resources\\images\\game\\entities\\male-rat.png"));
+                    target.getImages();
+                    try {
+                        playSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                        e.printStackTrace();
                     }
+                    this.hp -= 1;
+                    level.getItems().remove(this);
+                    entitiesOnTile.remove(this);
+                    break;
                 }
             }
         }
