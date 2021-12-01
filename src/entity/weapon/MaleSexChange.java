@@ -82,11 +82,11 @@ public class MaleSexChange extends Item {
                         this.hp -= 1;
                         level.getItems().remove(this);
                         entitiesOnTile.remove(this);
+
                     }
                 }
             }
+
         }
-
     }
-
 }
