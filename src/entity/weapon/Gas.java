@@ -97,14 +97,12 @@ public class Gas extends Item {
 
         if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
-                checkTile(tiles[getCurrentPosY()][getCurrentPosX() + i], level);
                 seenTiles.add(tiles[getCurrentPosY()][getCurrentPosX() + i]);
             }
         }
 
         if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
-                checkTile(tiles[getCurrentPosY() + i][getCurrentPosX()], level);
                 seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX()]);
             }
         }
