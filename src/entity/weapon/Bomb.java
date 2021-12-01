@@ -32,7 +32,7 @@ public class Bomb extends Item {
         setEntityName("Bomb");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-4.png"));
         setHp(8);
-        setDamage(5);
+        setDamage(99);
         setRange(0);
         setFriendlyFire(true);
         setCanBeAttacked(false);
@@ -89,11 +89,7 @@ public class Bomb extends Item {
                 if (!entitiesOnTile.isEmpty()) {
                     for (int i = 0; i < entitiesOnTile.size(); i++) {
                         Entity entity = entitiesOnTile.get(i);
-                        
-                        if (entity.getEntityType() == EntityType.RAT) {
-                            Rat target = (Rat) entity;
-                            inflictDamage(level, getDamage(), target);
-                        }
+                        inflictDamage(level, getDamage(), entity);
                     }
                 }
 

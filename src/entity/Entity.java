@@ -1,6 +1,7 @@
 package entity;
 
 import entity.rat.Rat;
+import tile.Tile;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ import java.io.IOException;
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Stefan-Cristian Daitoiu
+ * @author Harry Boyce
  */
 public abstract class Entity {
 
@@ -36,6 +38,13 @@ public abstract class Entity {
                 Rat rat = (Rat) damageTarget;
                 rat.kill();
                 level.setScore(Level.getScore() + 3);
+            }
+        }
+        if (damageTarget.getEntityType() == EntityType.ITEM) {
+            if (damageTarget.getHp() <= 0) {
+                Item item = (Item) damageTarget;
+                level.getItems().remove(item);
+                level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].removeEntityFromTile(item);
             }
         }
     }
