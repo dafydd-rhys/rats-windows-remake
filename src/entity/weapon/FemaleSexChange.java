@@ -74,7 +74,11 @@ public class FemaleSexChange extends Item {
                         this.hp -= 1;
                         level.getItems().remove(this);
                         entitiesOnTile.remove(this);
-                        break;
+                        return;
+                    } else {
+                        this.hp -= 1;
+                        level.getItems().remove(this);
+                        entitiesOnTile.remove(this);
                     }
                 }
             }

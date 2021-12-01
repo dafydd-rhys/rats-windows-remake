@@ -54,10 +54,11 @@ public class MaleSexChange extends Item {
         Tile[][] tile = level.getTiles();
         ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
-        if (entitiesOnTile != null) {
-            for (Entity entity : entitiesOnTile) {
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat target = (Rat) entity;
+        if (!entitiesOnTile.isEmpty()) {
+            for (int i = 0; i < entitiesOnTile.size(); i++) {
+                if (entitiesOnTile.get(i).getEntityType() == EntityType.RAT) {
+                    Rat target = (Rat) entitiesOnTile.get(i);
+
                     if (target.getGender() == Rat.Gender.FEMALE) {
                         target.setGender(Rat.Gender.MALE);
                         target.setImage(new Image(System.getProperty("user.dir") +
@@ -66,13 +67,21 @@ public class MaleSexChange extends Item {
                         // TODO audio here
                         try {
                             playSound();
-                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                        } catch (UnsupportedAudioFileException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (LineUnavailableException e) {
                             e.printStackTrace();
                         }
                         this.hp -= 1;
                         level.getItems().remove(this);
                         entitiesOnTile.remove(this);
-                        break;
+                        return;
+                    } else {
+                        this.hp -= 1;
+                        level.getItems().remove(this);
+                        entitiesOnTile.remove(this);
                     }
                 }
             }
