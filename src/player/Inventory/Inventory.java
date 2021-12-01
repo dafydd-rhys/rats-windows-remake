@@ -91,6 +91,10 @@ public class Inventory {
                             image.setImage(new Image(System.getProperty("user.dir") +
                                     "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
                         }
+                        else if (type == Item.TYPE.FEMALE_CHANGE){
+                            image.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\female-change-show.png"));
+                        }
                         Platform.runLater(() -> abilities.getChildren().add(image));
                         listener(item, image, abilities);
                     }
