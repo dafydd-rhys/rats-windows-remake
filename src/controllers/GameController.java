@@ -124,6 +124,7 @@ public class GameController implements Initializable {
                 levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
                 levelReader.getExpectedTime(), levelReader.getMaxRats());
         level = generator.getLevel();
+        level.setScore(0);
         pr.setProgress(0);
         progressIncrease = (double) (100 / level.getMaxRats()) / 100;
 
@@ -151,9 +152,12 @@ public class GameController implements Initializable {
                     tick();
                     pr.setProgress(level.getRats().size() * progressIncrease);
 
-                    if (level.getRats().size() >= level.getMaxRats() || (int) currentTick / 2 > level.getExpectedTime()) {
+                    if (level.getRats().size() >= level.getMaxRats()) {
                         Level.setGameOver(true);
                         Level.setGameWon(false);
+                        if ((int) currentTick / 2 > level.getExpectedTime()) {
+                            level.setScore(0);
+                        }
                     } else if (level.getRats().size() == 0 && (int) currentTick / 2 < level.getExpectedTime()) {
                         Level.setGameOver(true);
                         Level.setGameWon(true);
@@ -170,7 +174,6 @@ public class GameController implements Initializable {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println(Level.getScore());
                         } else {
                             level.setScore(0);
                             lblScore.setText("Score: " + Level.getScore());
