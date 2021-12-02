@@ -193,14 +193,19 @@ public class Player {
     }
 
     public static boolean hasSaveFile() {
-        return listFilesForFolder(new File("src/resources/config/saves/"));
+        return checkforSaveFile(new File("src/resources/config/saves/"));
     }
 
-    public static boolean listFilesForFolder(File folder) {
+    /**
+     * Read through saves folder and check if player has a save file
+     * @param folder saves folder
+     * @return boolean
+     */
+    public static boolean checkforSaveFile(File folder) {
         boolean found = false;
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
+                checkforSaveFile(fileEntry);
             } else {
                 String[] playerSplit = fileEntry.getName().split("-");
                 String playerName = playerSplit[1].split("\\.")[0];

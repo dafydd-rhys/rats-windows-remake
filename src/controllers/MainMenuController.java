@@ -30,8 +30,7 @@ public class MainMenuController implements Initializable {
     /**  */
     @FXML private JFXButton levels;
     /**  */
-    @FXML
-    private JFXButton loadGame;
+    @FXML private JFXButton loadGame;
     /**  */
     @FXML private JFXButton scoreboard;
     /**  */
