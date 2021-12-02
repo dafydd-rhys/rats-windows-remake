@@ -1,7 +1,7 @@
 [28,26]
 24
-90
-{Bomb,4} {Gas,10} {MaleChange,5} {FemaleChange,5} {NoEntry,10} {Poison,9} {DeathRat,20} {Sterilisation,16}
+60
+{Bomb,6} {Gas,10} {MaleChange,5} {FemaleChange,5} {NoEntry,10} {Poison,6} {DeathRat,14} {Sterilisation,12}
 GGGGGGGGGGGGGGGGGGGGGGGGGGGG
 GGGGGGGGGGGGGGGGGGGGGGGGGGGG
 GGPPPPPPPPGGGGGGGGPPPPPPPPGG
