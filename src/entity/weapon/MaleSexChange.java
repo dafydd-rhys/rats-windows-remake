@@ -26,7 +26,7 @@ import static main.external.Audio.playGameEffect;
 public class MaleSexChange extends Item {
 
     /**
-     * Instantiates a new Male sex change.
+     * sets item attributes
      */
     public MaleSexChange() {
         setEntityType(EntityType.ITEM);
@@ -42,19 +42,29 @@ public class MaleSexChange extends Item {
         //setSound(new Sound(System.getProperty("user.dir") + "/src/resources/audio/game"));
     }
 
+    /**
+     * instantiates item
+     *
+     * @return new male sex change item
+     */
     @Override
     public Item createNewInstance() {
         return new MaleSexChange();
     }
 
+    /**
+     * plays sound effect
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sex_change.wav");
     }
 
     /**
-     * @param level the level
-     * @param gc    the gc
+     * changes affected rats' gender to male
+     *
+     * @param level gets tiles
+     * @param gc unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         Tile[][] tile = level.getTiles();

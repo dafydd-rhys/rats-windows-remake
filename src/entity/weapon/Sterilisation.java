@@ -27,7 +27,7 @@ import static main.external.Audio.playGameEffect;
 public class Sterilisation extends Item {
 
     /**
-     * Instantiates a new Sterilisation.
+     * sets item attributes
      */
     public Sterilisation() {
         setEntityType(EntityType.ITEM);
@@ -42,25 +42,33 @@ public class Sterilisation extends Item {
         setOffsetY(7);
     }
 
+    /**
+     * instantiates item
+     *
+     * @return new sterilisation item
+     */
     @Override
     public Item createNewInstance() {
         return new Sterilisation();
     }
 
+
+    /**
+     * plays sound effect
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sterilisation.wav");
     }
-
+    // chotto a minute
     /**
+     * 
      *
-     *
-     * @param level the level
-     * @param gc    the gc
+     * @param level gets tiles
+     * @param gc unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
-        // TODO audio here
         try {
             playSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -78,10 +86,10 @@ public class Sterilisation extends Item {
     }
 
     /**
+     * permanently disables all rats from mating in its area of effect
      *
-     *
-     * @param level
-     * @param i
+     * @param level gets tiles
+     * @param i used to check directions
      */
     private void checkAdjacent(Level level, int i) {
         Tile[][] tiles = level.getTiles();
@@ -89,10 +97,10 @@ public class Sterilisation extends Item {
         if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
+
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
-
                         target.setSterilised(true);
                         target.getImages();
                     }
@@ -107,7 +115,6 @@ public class Sterilisation extends Item {
                 for (Entity entity : entities) {
                     if (entity.getEntityType() == EntityType.RAT) {
                         Rat target = (Rat) entity;
-
                         target.setSterilised(true);
                         target.getImages();
                     }

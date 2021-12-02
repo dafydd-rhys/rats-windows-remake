@@ -24,7 +24,7 @@ import static main.external.Audio.playGameEffect;
 public class Poison extends Item {
 
     /**
-     * Instantiates a new Poison.
+     * sets item attributes
      */
     public Poison() {
         setEntityType(EntityType.ITEM);
@@ -39,21 +39,29 @@ public class Poison extends Item {
         setOffsetY(6);
     }
 
+    /**
+     * instantiates item
+     *
+     * @return new poison item
+     */
     @Override
     public Item createNewInstance() {
         return new Poison();
     }
 
+    /**
+     * plays sound effect
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/poison.wav");
     }
 
     /**
+     * inflicts damage to rat on tile
      *
-     *
-     * @param level the level
-     * @param gc    the gc
+     * @param level gets tiles
+     * @param gc unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();

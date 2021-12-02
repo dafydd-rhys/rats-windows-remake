@@ -21,7 +21,7 @@ import static main.external.Audio.playGameEffect;
 public class NoEntrySign extends Item {
 
     /**
-     * Instantiates a new No entry sign.
+     * sets item attributes
      */
     public NoEntrySign() {
         setEntityType(EntityType.ITEM);
@@ -36,21 +36,29 @@ public class NoEntrySign extends Item {
         setOffsetY(5);
     }
 
+    /**
+     * instantiates item
+     *
+     * @return new no entry sign item
+     */
     @Override
     public Item createNewInstance() {
         return new NoEntrySign();
     }
 
+    /**
+     * plays sound effect
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/oof.wav");
     }
 
     /**
+     * prevents rats from going through its tile until broken
      *
-     *
-     * @param level the level
-     * @param gc    the gc
+     * @param level gets tiles
+     * @param gc unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         switch (getHp()) {
