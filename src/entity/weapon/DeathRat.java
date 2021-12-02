@@ -4,38 +4,71 @@ import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import entity.rat.RatSprites;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import static main.external.Audio.playGameEffect;
+
 /**
  * DeathRat
  *
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
-
 public class DeathRat extends Item {//used to extend Entities.Item
 
+    /** */
     private Direction direction;
+    /** */
     private int currentTick = 0;
+    /** */
     private Image rotatedImage;
+    /** */
     private final Image upImage;
+    /** */
     private final Image downImage;
+    /** */
     private final Image leftImage;
+    /** */
     private final Image rightImage;
 
+    /**
+     * The enum Direction.
+     */
     public enum Direction {
+        /**
+         * Up direction.
+         */
         UP(),
+        /**
+         * Right direction.
+         */
         RIGHT(),
+        /**
+         * Down direction.
+         */
         DOWN(),
+        /**
+         * Left direction.
+         */
         LEFT()
     }
 
+    /**
+     * Instantiates a new Death rat.
+     */
     public DeathRat() {
         setEntityType(EntityType.ITEM);
         setEntityName("DeathRat");
@@ -62,15 +95,31 @@ public class DeathRat extends Item {//used to extend Entities.Item
         return new DeathRat();
     }
 
-    public void activate(Level level) {
-        currentTick++;
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+    }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
+    public void activate(Level level, GraphicsContext gc) {
+        currentTick++;
+        checkForOpposition(level);
         int moveTick = 2;
         if (currentTick % moveTick == 0) {
             move(level);
         }
     }
 
+    /**
+     *
+     *
+     * @param level
+     */
     private void move(Level level) {
         DeathRatMovement.tiles = level.getTiles();
         DeathRatMovement.rat = this;
@@ -90,14 +139,18 @@ public class DeathRat extends Item {//used to extend Entities.Item
         checkForOpposition(level);
     }
 
+    /**
+     *
+     *
+     * @param level
+     */
     private void checkForOpposition(Level level) {
-        ArrayList<Entity> entities = level.getTiles()[this.getCurrentPosX()][this.getCurrentPosY()].getEntitiesOnTile();
+        ArrayList<Entity> entities = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entities.isEmpty()) {
-            for (Entity entity : entities) {
-
-                if (entity.getEntityType() == EntityType.RAT) {
-                    Rat targetRat = (Rat) entity;
+            for (int i = 0; i < entities.size(); i++) {
+                if (entities.get(i).getEntityType() == EntityType.RAT) {
+                    Rat targetRat = (Rat) entities.get(i);
                     inflictDamage(level, getDamage(), targetRat);
 
                     setHp(getHp() - 1);
@@ -110,34 +163,74 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
     }
 
+    /**
+     * Sets direction.
+     *
+     * @param direction the direction
+     */
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * Gets direction.
+     *
+     * @return the direction
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * Sets rotated image.
+     *
+     * @param rotatedImage the rotated image
+     */
     public void setRotatedImage(Image rotatedImage) {
         this.rotatedImage = rotatedImage;
     }
 
+    /**
+     * Gets rotated image.
+     *
+     * @return the rotated image
+     */
     public Image getRotatedImage() {
         return rotatedImage;
     }
 
+    /**
+     * Gets up image.
+     *
+     * @return the up image
+     */
     public Image getUpImage() {
         return upImage;
     }
 
+    /**
+     * Gets right image.
+     *
+     * @return the right image
+     */
     public Image getRightImage() {
         return rightImage;
     }
 
+    /**
+     * Gets down image.
+     *
+     * @return the down image
+     */
     public Image getDownImage() {
         return downImage;
     }
 
+    /**
+     * Gets left image.
+     *
+     * @return the left image
+     */
     public Image getLeftImage() {
         return leftImage;
     }
@@ -145,12 +238,33 @@ public class DeathRat extends Item {//used to extend Entities.Item
     private static class DeathRatMovement {
 
         private static int random;
+        /**
+         * The constant rat.
+         */
         public static DeathRat rat;
+        /**
+         * The Tiles.
+         */
         public static Tile[][] tiles;
+        /**
+         * The constant current.
+         */
         public static Tile current;
+        /**
+         * The constant curX.
+         */
         public static int curX;
+        /**
+         * The constant curY.
+         */
         public static int curY;
 
+        /**
+         * Try horizontal.
+         *
+         * @param x  the x
+         * @param x2 the x 2
+         */
         public static void tryHorizontal(int x, int x2) {
             random = generateRandom();
 
@@ -175,6 +289,12 @@ public class DeathRat extends Item {//used to extend Entities.Item
             }
         }
 
+        /**
+         * Try vertical.
+         *
+         * @param y  the y
+         * @param y2 the y 2
+         */
         public static void tryVertical(int y, int y2) {
             random = generateRandom();
 
@@ -199,6 +319,12 @@ public class DeathRat extends Item {//used to extend Entities.Item
             }
         }
 
+        /**
+         *
+         *
+         * @param x
+         * @return
+         */
         private static boolean moveHorizontal(int x) {
             for (Entity entity : tiles[curY][curX + x].getEntitiesOnTile()) {
                 if (entity.getEntityType() == Entity.EntityType.ITEM) {
@@ -230,6 +356,12 @@ public class DeathRat extends Item {//used to extend Entities.Item
             return true;
         }
 
+        /**
+         *
+         *
+         * @param y
+         * @return
+         */
         private static boolean moveVertical(int y) {
             for (Entity entity : tiles[curY + y][curX].getEntitiesOnTile()) {
                 if (entity.getEntityType() == Entity.EntityType.ITEM) {
@@ -261,6 +393,11 @@ public class DeathRat extends Item {//used to extend Entities.Item
             return true;
         }
 
+        /**
+         *
+         *
+         * @return
+         */
         private static int generateRandom() {
             return new Random().nextInt((1) + 1);
         }

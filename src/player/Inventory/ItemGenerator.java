@@ -23,6 +23,14 @@ public class ItemGenerator {
     private int second = 0;
     private static Timer ticker;
 
+    /**
+     * Instantiates a new Item generator.
+     *
+     * @param level     the level
+     * @param canvas    the canvas
+     * @param gc        the gc
+     * @param abilities the abilities
+     */
     public ItemGenerator(Level level, Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
         this.abilities = abilities;
         Inventory.clear();
@@ -33,14 +41,16 @@ public class ItemGenerator {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                second++;
+                if (Level.getPaused()) {
+                    second++;
 
-                if (Player.getGeneration() == Player.ItemGeneration.RANDOM) {
-                    if (second % 3 == 0) {
-                        runRandom();
+                    if (Player.getGeneration() == Player.ItemGeneration.RANDOM) {
+                        if (second % 3 == 0) {
+                            runRandom();
+                        }
+                    } else {
+                        runPeriodic(level);
                     }
-                } else {
-                    runPeriodic(level);
                 }
             }
         };
@@ -49,6 +59,9 @@ public class ItemGenerator {
         ticker.schedule(task, 0, 1000);
     }
 
+    /**
+     *
+     */
     private void runRandom() {
         int random = new Random().nextInt(8);
 
@@ -71,6 +84,9 @@ public class ItemGenerator {
         }
     }
 
+    /**
+     * @param level
+     */
     private void runPeriodic(Level level) {
         if (second % level.getTimeToGenerate().get(Item.TYPE.BOMB) == 0) {
             enableItem(Item.TYPE.BOMB);
@@ -102,10 +118,25 @@ public class ItemGenerator {
         Inventory.enableItem(type, abilities);
     }
 
+    /**
+     * Cancel ticker.
+     */
     public static void cancelTicker() {
         if (ticker != null) {
             ticker.cancel();
         }
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public static Timer getTicker() {
+        return ticker;
+    }
+
+    public AnchorPane getAbilities() {
+        return abilities;
     }
 
 }

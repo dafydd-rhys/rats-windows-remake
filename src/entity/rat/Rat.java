@@ -5,47 +5,96 @@ import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
 
+import static main.external.Audio.playGameEffect;
+
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.*;
 
 /**
  * Rat.java
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Maurice Petersen
  */
 public class Rat extends Entity {
 
+    /** */
     private Direction direction;
+    /** */
     private Gender gender;
-
+    /** */
     private Image rotatedImage;
+    /** */
     private Image upImage;
+    /** */
     private Image downImage;
+    /** */
     private Image leftImage;
+    /** */
     private Image rightImage;
-
+    /** */
     private int hp;
+    /** */
     private boolean isAdult;
+    /** */
     private boolean isSterilised;
+    /** */
     private boolean isPregnant;
+    /** */
     private int pregnancyStage;
+    /** */
     private int growingStage;
+    /** */
     private final Queue<Rat> babyQueue;
+    /** */
     private static Level level;
 
+    /**
+     * The enum Gender.
+     */
     public enum Gender {
+        /**
+         * Male gender.
+         */
         MALE(),
+        /**
+         * Female gender.
+         */
         FEMALE()
     }
 
+    /**
+     * The enum Direction.
+     */
     public enum Direction {
+        /**
+         * Up direction.
+         */
         UP(),
+        /**
+         * Left direction.
+         */
         LEFT(),
+        /**
+         * Right direction.
+         */
         RIGHT(),
+        /**
+         * Down direction.
+         */
         DOWN()
     }
 
+    /**
+     * Instantiates a new Rat.
+     *
+     * @param gender  the gender
+     * @param isAdult the is adult
+     */
     public Rat(Gender gender, boolean isAdult) {
         setEntityType(EntityType.RAT);
         setEntityName("Rat");
@@ -65,10 +114,6 @@ public class Rat extends Entity {
         setDirection(values.get(new Random().nextInt(values.size())));
     }
 
-    public void setLevel(Level level) {
-        Rat.level = level;
-    }
-
     private void setSprites() {
         if (!isAdult) {
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
@@ -79,8 +124,23 @@ public class Rat extends Entity {
         }
 
         getImages();
+
+        List<Direction> values = List.of(Direction.values());
+        setDirection(values.get(new Random().nextInt(values.size())));
     }
 
+    /**
+     * Sets level.
+     *
+     * @param level the level
+     */
+    public void setLevel(Level level) {
+        Rat.level = level;
+    }
+
+    /**
+     * Gets images.
+     */
     public void getImages() {
         if (!isAdult()) {
             image = RatSprites.upBaby;
@@ -139,6 +199,7 @@ public class Rat extends Entity {
 
     /**
      * Mate with another rat.
+     *
      * @param rat other rat.
      */
     public void mate(Rat rat) {
@@ -156,7 +217,7 @@ public class Rat extends Entity {
      * Checks if rat pregnancy stage is at max value
      */
     public void giveBirth() {
-        if (this.getGender() == Gender.FEMALE && isPregnant()) {
+        if (getGender() == Gender.FEMALE && isPregnant()) {
             if (getPregnancyStage() == 10) {
                 Random rand = new Random();
                 int randomNum = rand.nextInt((5) + 1);
@@ -194,6 +255,19 @@ public class Rat extends Entity {
             }
         } else {
             setGrowingStage(getGrowingStage() + 1);
+        }
+    }
+
+    /**
+     *
+     * @param
+     */
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        try {
+            playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -286,39 +360,87 @@ public class Rat extends Entity {
         return super.getEntityType();
     }
 
+    /**
+     * Kill.
+     */
     public void kill() {
-        level.getTiles()[getCurrentPosY()][getCurrentPosY()].removeEntityFromTile(this);
+        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
         level.getRats().remove(this);
+        try {
+            playSound();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Gets gender.
+     *
+     * @return the gender
+     */
     public Gender getGender() {
         return this.gender;
     }
 
+    /**
+     * Sets gender.
+     *
+     * @param gender the gender
+     */
     public void setGender(Gender gender) {
         this.gender = gender;
     }
 
+    /**
+     * Is pregnant boolean.
+     *
+     * @return the boolean
+     */
     public boolean isPregnant() {
         return this.isPregnant;
     }
 
+    /**
+     * Sets pregnant.
+     *
+     * @param pregnant the pregnant
+     */
     public void setPregnant(boolean pregnant) {
         this.isPregnant = pregnant;
     }
 
+    /**
+     * Gets pregnancy stage.
+     *
+     * @return the pregnancy stage
+     */
     public int getPregnancyStage() {
         return this.pregnancyStage;
     }
 
+    /**
+     * Sets pregnancy stage.
+     *
+     * @param pregnancyStage the pregnancy stage
+     */
     public void setPregnancyStage(int pregnancyStage) {
         this.pregnancyStage = pregnancyStage;
     }
 
+    /**
+     * Sets rotated image.
+     *
+     * @param image the image
+     */
     public void setRotatedImage(Image image) {
         this.rotatedImage = image;
     }
 
+    /**
+     * Gets rotated image.
+     *
+     * @return the rotated image
+     */
     public Image getRotatedImage() {
         return this.rotatedImage;
     }
@@ -327,50 +449,110 @@ public class Rat extends Entity {
         return this.image;
     }
 
+    /**
+     * Is adult boolean.
+     *
+     * @return the boolean
+     */
     public boolean isAdult() {
         return this.isAdult;
     }
 
+    /**
+     * Sets adult.
+     *
+     * @param adult the adult
+     */
     public void setAdult(boolean adult) {
         this.isAdult = adult;
     }
 
+    /**
+     * Is sterilised boolean.
+     *
+     * @return the boolean
+     */
     public boolean isSterilised() {
         return !this.isSterilised;
     }
 
+    /**
+     * Sets sterilised.
+     *
+     * @param sterilised the sterilised
+     */
     public void setSterilised(boolean sterilised) {
         this.isSterilised = sterilised;
     }
 
+    /**
+     * Gets direction.
+     *
+     * @return the direction
+     */
     public Direction getDirection() {
         return this.direction;
     }
 
+    /**
+     * Sets direction.
+     *
+     * @param direction the direction
+     */
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * Gets up image.
+     *
+     * @return the up image
+     */
     public Image getUpImage() {
         return this.upImage;
     }
 
+    /**
+     * Gets down image.
+     *
+     * @return the down image
+     */
     public Image getDownImage() {
         return this.downImage;
     }
 
+    /**
+     * Gets left image.
+     *
+     * @return the left image
+     */
     public Image getLeftImage() {
         return this.leftImage;
     }
 
+    /**
+     * Gets right image.
+     *
+     * @return the right image
+     */
     public Image getRightImage() {
         return this.rightImage;
     }
 
+    /**
+     * Sets growing stage.
+     *
+     * @param value the value
+     */
     public void setGrowingStage(int value) {
         this.growingStage = value;
     }
 
+    /**
+     * Gets growing stage.
+     *
+     * @return the growing stage
+     */
     public int getGrowingStage() {
         return this.growingStage;
     }

@@ -11,24 +11,42 @@ import tile.Tile;
 /**
  * LevelFileGenerator
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski (857847)
  */
-
-
 public class LevelFileGenerator {
 
+    /** */
     private Level level;
+    /** */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
+    /** */
     private final GraphicsContext gc;
-
+    /** */
     private final char[][] tiles;
+    /** */
     private final char[][] spawns;
+    /** */
     private final int expectedTime;
+    /** */
     private final int maxRats;
+    /** */
     private final int sizeY;
+    /** */
     private final int sizeX;
 
+    /**
+     * Instantiates a new Level file generator.
+     *
+     * @param timeToGenerate the time to generate
+     * @param gc             the gc
+     * @param sizeX          the size x
+     * @param sizeY          the size y
+     * @param level          the level
+     * @param spawns         the spawns
+     * @param expectedTime   the expected time
+     * @param maxRats        the max rats
+     */
     public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
                               char[][] level, char[][] spawns, int expectedTime, int maxRats) {
         this.timeToGenerate = timeToGenerate;
@@ -43,6 +61,9 @@ public class LevelFileGenerator {
         generateLevel();
     }
 
+    /**
+     *
+     */
     private void generateLevel() {
         Tile[][] tilesArray = new Tile[sizeY][sizeX];
         ArrayList<Rat> ratsArray = new ArrayList<>();
@@ -67,12 +88,30 @@ public class LevelFileGenerator {
         this.level = new Level(timeToGenerate, expectedTime, maxRats, tilesArray, ratsArray, sizeY, sizeX);
     }
 
+    /**
+     *
+     *
+     * @param tiles
+     * @param x
+     * @param y
+     * @param type
+     */
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
         Tile tile = new Tile(x, y, type, new ArrayList<>());
         tiles[y][x] = tile;
         gc.drawImage(tile.getImage(), x * 50, y * 50);
     }
 
+    /**
+     *
+     *
+     * @param tiles
+     * @param rats
+     * @param x
+     * @param y
+     * @param gender
+     * @param adult
+     */
     private void setRat(Tile[][] tiles, ArrayList<Rat> rats, int x, int y, Rat.Gender gender, boolean adult) {
         Rat rat = new Rat(gender, adult);
         rat.setCurrentPosX(x);
@@ -86,6 +125,11 @@ public class LevelFileGenerator {
         }
     }
 
+    /**
+     * Gets level.
+     *
+     * @return the level
+     */
     public Level getLevel() {
         return this.level;
     }

@@ -9,6 +9,7 @@ import entity.weapon.MaleSexChange;
 import entity.weapon.NoEntrySign;
 import entity.weapon.Poison;
 import entity.weapon.Sterilisation;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,34 +17,51 @@ import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import main.external.Audio;
 import main.level.Level;
 import tile.Tile;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Main
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  */
 public class Inventory {
 
+    /** */
     private static final ArrayList<Stack<HashMap<Item, ImageView>>> items = new ArrayList<>();
+    /** */
     private static final Item[] types = {new Bomb(), new DeathRat(), new FemaleSexChange(), new MaleSexChange(),
             new Gas(), new NoEntrySign(), new Poison(), new Sterilisation()};
-
+    /** */
     private static Level level;
+    /** */
     private static Canvas canvas;
+    /** */
     private static GraphicsContext gc;
-
+    /** */
     private static Stack<HashMap<Item, ImageView>> storedStack;
+    /** */
     private static HashMap<Item, ImageView> storedMap;
+    /** */
     private static Map.Entry<Item, ImageView> storedEntry;
 
+    /**
+     * Load.
+     *
+     * @param level  the level
+     * @param canvas the canvas
+     * @param gc     the gc
+     */
     public static void load(Level level, Canvas canvas, GraphicsContext gc) {
         Inventory.level = level;
         Inventory.canvas = canvas;
@@ -64,6 +82,12 @@ public class Inventory {
         }
     }
 
+    /**
+     * Enable item.
+     *
+     * @param type      the type
+     * @param abilities the abilities
+     */
     public static void enableItem(Item.TYPE type, AnchorPane abilities) {
         for (Stack<HashMap<Item, ImageView>> stack : items) {
             for (int i = 0; i < stack.size(); i++) {
@@ -80,6 +104,16 @@ public class Inventory {
                         image.setDisable(false);
                         AnchorPane.setTopAnchor(image, item.getYOffset() * 40.0 + 10);
                         AnchorPane.setLeftAnchor(image, i * 35.0 + 5);
+
+                        //prevent not being able to drag (image too thin - hard to grab)
+                        if (type == Item.TYPE.MALE_CHANGE) {
+                            image.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
+                        } else if (type == Item.TYPE.FEMALE_CHANGE){
+                            image.setImage(new Image(System.getProperty("user.dir") +
+                                    "\\src\\resources\\images\\game\\entities\\female-change-show.png"));
+                        }
+
                         Platform.runLater(() -> abilities.getChildren().add(image));
                         listener(item, image, abilities);
                     }
@@ -91,6 +125,13 @@ public class Inventory {
         }
     }
 
+    /**
+     *
+     *
+     * @param item
+     * @param image
+     * @param abilities
+     */
     private static void listener(Item item, ImageView image, AnchorPane abilities) {
         //drags image onto board
         image.setOnDragDetected(event -> {
@@ -118,11 +159,27 @@ public class Inventory {
         });
 
         //releases object
-        canvas.setOnDragDropped(event -> dragAndDrop(event, gc, abilities));
+        canvas.setOnDragDropped(event -> {
+            try {
+                dragAndDrop(event, gc, abilities);
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 
-    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities) {
+    /**
+     *
+     *
+     * @param event
+     * @param gc
+     * @param abilities
+     * @throws UnsupportedAudioFileException
+     * @throws LineUnavailableException
+     * @throws IOException
+     */
+    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
 
@@ -131,10 +188,11 @@ public class Inventory {
 
         //if the tile attempting to drag on is walkable (not themed tile)
         Tile tile = level.getTiles()[y][x];
-        if (tile.isWalkable()) {
+        if (tile.isWalkable() && tile.isCovering()) {
             //removes item from inventory and draws in-game
             level.placeItem(item, tile);
 
+            Audio.clickEffect();
             if (tile.isCovering()) {
                 gc.drawImage(image.getImage(), x * 50 + 10, y * 50 + 10);
             }
@@ -154,6 +212,11 @@ public class Inventory {
         }
     }
 
+    /**
+     *
+     *
+     * @param abilities
+     */
     private static void reshuffle(AnchorPane abilities) {
         abilities.getChildren().clear();
 
@@ -182,6 +245,9 @@ public class Inventory {
         return items;
     }
 
+    /**
+     * Clear.
+     */
     public static void clear() {
         Inventory.storedStack = null;
         Inventory.storedMap = null;

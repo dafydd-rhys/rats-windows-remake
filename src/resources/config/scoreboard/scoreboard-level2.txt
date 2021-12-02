@@ -1,3 +1,5 @@
+Dafydd:57
+Dafydd:33
 deez:11
 deez:10
 deez:9
@@ -6,5 +8,3 @@ deez:7
 deez:6
 deez:5
 deez:4
-deez:3
-deez:2

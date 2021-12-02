@@ -2,21 +2,30 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import entity.Entity;
 import main.level.Level;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * Poison
  *
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
 public class Poison extends Item {
 
+    /**
+     * Instantiates a new Poison.
+     */
     public Poison() {
         setEntityType(EntityType.ITEM);
         setEntityName("Poison");
@@ -35,7 +44,18 @@ public class Poison extends Item {
         return new Poison();
     }
 
-    public void activate(Level level) {
+    @Override
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/poison.wav");
+    }
+
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
+    public void activate(Level level, GraphicsContext gc) {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
@@ -44,7 +64,12 @@ public class Poison extends Item {
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(level, getDamage(), targetRat);
                     setHp(getHp() - 1);
-
+                    // TODO audio here
+                    try {
+                        playSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                        e.printStackTrace();
+                    }
                     if (getHp() <= 0) {
                         level.getItems().remove(this);
                         entitiesOnTile.remove(this);

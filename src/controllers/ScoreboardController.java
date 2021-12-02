@@ -27,8 +27,8 @@ import scoreboard.ScoreboardPlayer;
 /**
  * Main
  *
- * @author Dafydd-Rhys Maund (2003900)
- * @author Stefan-Cristian Daitoiu (2033160)
+ * @author Dafydd -Rhys Maund (2003900)
+ * @author Stefan -Cristian Daitoiu (2033160)
  */
 public class ScoreboardController implements Initializable {
 

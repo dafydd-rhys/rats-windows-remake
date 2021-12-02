@@ -81,32 +81,32 @@
       </AnchorPane>
       <AnchorPane fx:id="side" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <AnchorPane fx:id="abilities" layoutX="5.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="144.0" style="-fx-background-color: #696969;" />
-            <JFXTextArea fx:id="lblLevel" editable="false" focusColor="GREY" layoutX="47.0" layoutY="-7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="97.0" text="Level: 1" unFocusColor="GREY">
+            <AnchorPane fx:id="abilities" layoutX="5.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="144.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+            <JFXTextArea fx:id="lblLevel" editable="false" focusColor="GREY" layoutX="50.0" layoutY="-9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="97.0" text="Level: 1" unFocusColor="GREY" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-9.0">
                <font>
                   <Font size="29.0" />
                </font></JFXTextArea>
-            <JFXTextArea fx:id="lblTime" editable="false" focusColor="GREY" layoutX="6.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="97.0" text="Current Time: 100" unFocusColor="#80808000">
+            <JFXTextArea fx:id="lblTime" editable="false" focusColor="GREY" layoutX="6.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="190.0" text="Current Time: 100" unFocusColor="#80808000" AnchorPane.bottomAnchor="364.0" AnchorPane.leftAnchor="6.0">
                <font>
                   <Font size="11.0" />
                </font></JFXTextArea>
-            <JFXButton fx:id="mainMenu" alignment="CENTER" layoutX="82.0" layoutY="140.0" prefHeight="22.0" prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Menu">
+            <JFXButton fx:id="mainMenu" alignment="CENTER" layoutX="81.0" layoutY="140.0" prefHeight="22.0" prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Menu" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="81.0">
                <font>
                   <Font name="Calibri Light" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="restartBtn" alignment="CENTER" layoutX="6.0" layoutY="140.0" prefHeight="22.0" prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Restart">
+            <JFXButton fx:id="restartBtn" alignment="CENTER" layoutX="6.0" layoutY="140.0" prefHeight="22.0" prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Restart" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="6.0">
                <font>
                   <Font name="Calibri Light" size="12.0" />
                </font>
             </JFXButton>
-            <JFXTextArea fx:id="lblExpected" editable="false" focusColor="RED" layoutX="6.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="89.0" text="Complete By: 100" unFocusColor="#ff000000">
+            <JFXTextArea fx:id="lblExpected" editable="false" focusColor="RED" layoutX="6.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="190.0" text="Complete By: 100" unFocusColor="#ff000000" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="6.0">
                <font>
                   <Font size="11.0" />
                </font>
             </JFXTextArea>
-            <ProgressBar layoutX="153.0" layoutY="140.0" prefHeight="355.0" prefWidth="42.0" progress="0.0" />
-            <JFXTextArea fx:id="lblScore" editable="false" focusColor="RED" layoutX="65.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="59.0" text="Score: 100" unFocusColor="#ff000000">
+            <ProgressBar fx:id="pr" layoutX="-3.0" layoutY="296.0" prefHeight="42.0" prefWidth="355.0" progress="0.0" rotate="270.0" AnchorPane.bottomAnchor="162.0" AnchorPane.leftAnchor="-3.0" />
+            <JFXTextArea fx:id="lblScore" editable="false" focusColor="RED" layoutX="65.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="59.0" text="Score: 100" unFocusColor="#ff000000" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="36.0">
                <font>
                   <Font size="11.0" />
                </font>

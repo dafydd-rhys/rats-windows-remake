@@ -13,23 +13,34 @@ import java.util.List;
 /**
  * Scoreboard
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  */
 public class Scoreboard {
 
-    /*
-    - this class shows the top 10 players
-    - all public & static, will be accessed and used from scoreboard UI controller
-     */
+    /** */
     private final int level;
+    /** */
     private final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
+    /** */
     private final String directory;
 
+    /**
+     * Instantiates a new Scoreboard.
+     *
+     * @param level the level
+     * @throws IOException the io exception
+     */
     public Scoreboard(int level) throws IOException {
         this.level = level;
         this.directory = "src/resources/config/scoreboard/scoreboard-level" + level + ".txt";
     }
 
+    /**
+     * Gets scoreboard.
+     *
+     * @return the scoreboard
+     * @throws IOException the io exception
+     */
     public List<ScoreboardPlayer> getScoreboard() throws IOException {
         scoreboardPlayers.clear();
         BufferedReader reader = new BufferedReader(new FileReader(directory));
@@ -45,6 +56,12 @@ public class Scoreboard {
         return scoreboardPlayers;
     }
 
+    /**
+     * Gets all.
+     *
+     * @return the all
+     * @throws IOException the io exception
+     */
     public ArrayList<ScoreboardPlayer> getAll() throws IOException {
         ArrayList<ScoreboardPlayer> allScoreboardPlayers = new ArrayList<>();
 
@@ -63,7 +80,12 @@ public class Scoreboard {
         return allScoreboardPlayers;
     }
 
-    //add player to scoreboard
+    /**
+     * Add.
+     *
+     * @param player the player
+     * @throws IOException the io exception
+     */
     public void add(ScoreboardPlayer player) throws IOException {
         if (player.getScore() > scoreboardPlayers.get(scoreboardPlayers.size() - 1).getScore()) {
             if (scoreboardPlayers.size() > 9) {
@@ -74,12 +96,20 @@ public class Scoreboard {
         }
     }
 
-    //remove player from scoreboard
+    /**
+     * Remove.
+     *
+     * @param player the player
+     */
     public void remove(ScoreboardPlayer player) {
         scoreboardPlayers.remove(player);
     }
 
-    //sorts leaderboard (highest-to-lowest score)
+    /**
+     * Sort.
+     *
+     * @throws IOException the io exception
+     */
     public void sort() throws IOException {
         for (int i = 0; i < scoreboardPlayers.size(); i++) {
             int pos = i;
@@ -100,7 +130,12 @@ public class Scoreboard {
         writeToFile();
     }
 
-    //updates scoreboard in file
+
+    /**
+     *
+     *
+     * @throws IOException
+     */
     private void writeToFile() throws IOException {
         PrintWriter writer = new PrintWriter(directory, StandardCharsets.UTF_8);
 
