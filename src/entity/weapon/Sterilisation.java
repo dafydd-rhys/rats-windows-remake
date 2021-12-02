@@ -26,6 +26,8 @@ import static main.external.Audio.playGameEffect;
  */
 public class Sterilisation extends Item {
 
+    private final ArrayList<Tile> drawableTiles = new ArrayList<>();
+
     /**
      * sets item attributes
      */
@@ -65,37 +67,51 @@ public class Sterilisation extends Item {
      * permanently prevents all rats in effective area from mating. lasts temporarily
      *
      * @param level gets tiles
-     * @param gc unused attribute
+     * @param gc    unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
-        Tile[][] tiles = level.getTiles();
         try {
             playSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
-        for (int i = -getRange(); i < getRange() + 1; i++) {
-            for (int j = -getRange(); j < getRange() + 1; j++) {
-                if (getCurrentPosY() + j >= 0 && getCurrentPosY() + j < level.getRows()
-                && getCurrentPosX() + i >= 0 && getCurrentPosX() + i < level.getCols()) {
-                    ArrayList<Entity> entities = tiles[getCurrentPosY() + j][getCurrentPosX() + i].getEntitiesOnTile();
-                    if (!entities.isEmpty()) {
-                        for (int k = 0; k < entities.size(); k++) {
-                            if (entities.get(k).getEntityType() == EntityType.RAT) {
-                                Rat target = (Rat) entities.get(k);
-                                target.setSterilised(true);
-                                target.getImages();
+
+        Tile[][] tiles = level.getTiles();
+        Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
+        if (getHp() > 0) {
+            for (int i = -getRange(); i < getRange() + 1; i++) {
+                for (int j = -getRange(); j < getRange() + 1; j++) {
+                    if (getCurrentPosY() + j >= 0 && getCurrentPosY() + j < level.getRows()
+                            && getCurrentPosX() + i >= 0 && getCurrentPosX() + i < level.getCols()) {
+
+                        Tile tile = tiles[getCurrentPosY() + j][getCurrentPosX() + i];
+                        ArrayList<Entity> entities = tile.getEntitiesOnTile();
+                        if (!entities.isEmpty()) {
+                            for (int k = 0; k < entities.size(); k++) {
+                                if (entities.get(k).getEntityType() == EntityType.RAT) {
+                                    Rat target = (Rat) entities.get(k);
+                                    target.setSterilised(true);
+                                    target.getImages();
+                                }
                             }
                         }
+                        if (tile.isWalkable() && tile.isCovering() && !drawableTiles.contains(tile)) {
+                            drawableTiles.add(tile);
+                        }
+                        drawableTiles.remove(startingTile);
                     }
                 }
             }
-        }
-        setHp(getHp() - 1);
-        if (getHp() <= 0) {
-            level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+        } else {
+            startingTile.removeEntityFromTile(this);
             level.getItems().remove(this);
         }
+        setHp(getHp() - 1);
     }
+
+    public ArrayList<Tile> getDrawableTiles() {
+        return drawableTiles;
+    }
+
 }
 

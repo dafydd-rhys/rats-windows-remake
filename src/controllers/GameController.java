@@ -6,6 +6,7 @@ import entity.rat.Rat;
 import entity.Item;
 import entity.weapon.DeathRat;
 import entity.weapon.Gas;
+import entity.weapon.Sterilisation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -375,10 +376,17 @@ public class GameController implements Initializable {
                                 "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
 
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
-                        for (Tile tile : gas.getTiles()) {
-                            if (tile.isCovering()) {
-                                gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
-                            }
+                        for (Tile tile : gas.getDrawableTiles()) {
+                            gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                        }
+                    } else if (item.getType() == Item.TYPE.STERILISATION) {
+                        Sterilisation sterilisation = (Sterilisation) item;
+                        Image smoke = new Image(System.getProperty("user.dir") +
+                                "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
+
+                        gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                        for (Tile tile : sterilisation.getDrawableTiles()) {
+                            gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
                         }
                     } else {
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
