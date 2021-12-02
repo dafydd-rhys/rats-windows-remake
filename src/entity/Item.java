@@ -20,6 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Gareth Wade (1901805)
+ * @author Maurice Petersen (2013396)
  */
 public abstract class Item extends Entity {
 
@@ -232,6 +233,24 @@ public abstract class Item extends Entity {
      */
     public int getRange() {
         return range;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+
+        result += this.getEntityName().charAt(0);
+
+        if (this.getCurrentPosX() != 0 && this.getCurrentPosY() != 0) {
+            result += this.getHp();
+
+            result += ":";
+            result += String.format("%02d", this.getCurrentPosX());
+            result += ":";
+            result += String.format("%02d", this.getCurrentPosY());
+        }
+
+        return result;
     }
 
 }

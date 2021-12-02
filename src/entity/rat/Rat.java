@@ -108,6 +108,13 @@ public class Rat extends Entity {
         setGrowingStage(0);
         this.babyQueue = new LinkedList<>();
 
+        setSprites();
+
+        List<Direction> values = List.of(Direction.values());
+        setDirection(values.get(new Random().nextInt(values.size())));
+    }
+
+    private void setSprites() {
         if (!isAdult) {
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
         } else if (gender == Gender.FEMALE) {
@@ -262,6 +269,45 @@ public class Rat extends Entity {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+
+        result += this.getGender() == Gender.FEMALE
+                ? "F"
+                : "M";
+
+        result += this.isAdult()
+                ? "A"
+                : "B";
+
+        result += this.isPregnant()
+                ? "P"
+                : "N";
+
+        result += this.isSterilised()
+                ? "S"
+                : "G";
+
+        // TODO add direction
+        if (this.direction == Direction.LEFT) {
+            result += "L";
+        } else if (this.direction == Direction.RIGHT) {
+            result += "R";
+        } else if (this.direction == Direction.UP) {
+            result += "U";
+        } else if (this.direction == Direction.DOWN) {
+            result += "D";
+        }
+
+        result += ":";
+        result += String.format("%02d", this.getCurrentPosX());
+        result += ":";
+        result += String.format("%02d", this.getCurrentPosY());
+
+        return result;
     }
 
     @Override

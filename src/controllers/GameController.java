@@ -24,16 +24,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import main.level.*;
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
+import player.Inventory.ItemLoader;
 import player.Player;
 import scoreboard.Score;
 import tile.Movement;
 import main.external.Audio;
-import main.level.Level;
 import main.stage.StageFunctions;
-import main.level.LevelFileGenerator;
-import main.level.LevelFileReader;
 import tile.Tile;
 
 /**
@@ -104,8 +104,12 @@ public class GameController implements Initializable {
         pr.setStyle("-fx-accent: #00ff00;");
 
         LevelFileReader levelReader = null;
+        LevelLoader levelLoader = null;
         try {
-            levelReader = new LevelFileReader(Level.currentLevel);
+            levelReader = new LevelFileReader(Level.currentLevel, Level.isSave());
+            if (Level.isSave()) {
+                levelLoader = new LevelLoader();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,13 +122,23 @@ public class GameController implements Initializable {
 
         game.setCenter(canvas);
         gameScroll.setPannable(true);
-
-        //generates map and starts items generating
-        LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
-                levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
-                levelReader.getExpectedTime(), levelReader.getMaxRats());
-        level = generator.getLevel();
-        level.setScore(0);
+        
+        if (!Level.isSave()) {
+            //generates map and starts items generating
+            LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
+                    levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
+                    levelReader.getExpectedTime(), levelReader.getMaxRats());
+            level = generator.getLevel();
+            level.setScore(0);
+        } else {
+            assert levelLoader != null;
+            LevelLoadGenerator loadGenerator = new LevelLoadGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
+                    levelReader.getSizeY(), levelReader.getLevel(), levelLoader.getRatSpawns(), levelLoader.getItemSpawns(),
+                    levelReader.getExpectedTime(), levelReader.getMaxRats());
+            level = loadGenerator.getLevel();
+            currentTick = levelLoader.getCurrentTick();
+            level.setScore(0);
+        }
         pr.setProgress(0);
         progressIncrease = (double) (100 / level.getMaxRats()) / 100;
 
@@ -133,6 +147,10 @@ public class GameController implements Initializable {
 
         Inventory.clear();
         new ItemGenerator(level, canvas, gc, abilities);
+        if (Level.isSave()) {
+            assert levelLoader != null;
+            new ItemLoader(levelLoader.getInventory(), abilities);
+        }
 
         onActions();
 
@@ -224,6 +242,9 @@ public class GameController implements Initializable {
 
         exit.setOnAction(e -> {
             try {
+                level.setCurrentTick((int) currentTick);
+                LevelSave ls = new LevelSave(level);
+                ls.save();
                 StageFunctions.exit();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
                 ex.printStackTrace();
@@ -242,6 +263,9 @@ public class GameController implements Initializable {
 
         mainMenu.setOnAction(e -> {
             try {
+                level.setCurrentTick((int) currentTick);
+                LevelSave ls = new LevelSave(level);
+                ls.save();
                 ticker.cancel();
                 currentTick = 0;
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
