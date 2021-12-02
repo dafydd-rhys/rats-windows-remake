@@ -16,11 +16,12 @@ import tile.Tile;
 public final class Level {
 
     public static int currentLevel;
+    public static boolean isSave = false;
 
     private Level level;
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     private final ArrayList<Rat> rats;
-    private final ArrayList<Item> items;
+    private ArrayList<Item> items;
     private final Tile[][] tiles;
 
     private static int score;
@@ -106,6 +107,14 @@ public final class Level {
         return currentLevel;
     }
 
+    public static void setIsSave(boolean isSave) {
+        Level.isSave = isSave;
+    }
+
+    public static boolean isSave() {
+        return Level.isSave;
+    }
+
     public HashMap<Item.TYPE, Integer> getTimeToGenerate() {
         return timeToGenerate;
     }
@@ -132,6 +141,10 @@ public final class Level {
 
     public ArrayList<Rat> getRats() {
         return rats;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
 
     public ArrayList<Item> getItems() {

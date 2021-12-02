@@ -12,6 +12,7 @@ import java.util.Scanner;
  *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski (857847)
+ * @author Maurice Petersen (2013396)
  */
 public class LevelFileReader {
 
@@ -26,11 +27,14 @@ public class LevelFileReader {
     private int sizeX = 0;
     private int sizeY = 0;
 
-    public LevelFileReader(int level) throws IOException {
+    public LevelFileReader(int level, boolean isSave) throws IOException {
         this.lvlDirectory = "src/resources/config/levels/level" + level + ".txt";
         this.spawnDirectory= "src/resources/config/spawns/level" + level + "-spawns.txt";
         loadLevel();
-        loadSpawns();
+
+        if(!isSave) {
+            loadSpawns();
+        }
     }
 
     public char[][] getLevel() {

@@ -85,6 +85,7 @@ public class LevelSelectController implements Initializable {
         level1.setOnAction(e -> {
             try {
                 Level.currentLevel = 1;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 1");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -94,6 +95,7 @@ public class LevelSelectController implements Initializable {
         level2.setOnAction(e -> {
             try {
                 Level.currentLevel = 2;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 2");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -103,6 +105,7 @@ public class LevelSelectController implements Initializable {
         level3.setOnAction(e -> {
             try {
                 Level.currentLevel = 3;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 3");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -112,6 +115,7 @@ public class LevelSelectController implements Initializable {
         level4.setOnAction(e -> {
             try {
                 Level.currentLevel = 4;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 4");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -121,6 +125,7 @@ public class LevelSelectController implements Initializable {
         level5.setOnAction(e -> {
             try {
                 Level.currentLevel = 5;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 5");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -130,6 +135,7 @@ public class LevelSelectController implements Initializable {
         level6.setOnAction(e -> {
             try {
                 Level.currentLevel = 6;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level 6");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();

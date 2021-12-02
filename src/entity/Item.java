@@ -136,6 +136,7 @@ public abstract class Item extends Entity {
         if (this.getCurrentPosX() != 0 && this.getCurrentPosY() != 0) {
             result += this.getHp();
 
+            result += ":";
             result += String.format("%02d", this.getCurrentPosX());
             result += ":";
             result += String.format("%02d", this.getCurrentPosY());

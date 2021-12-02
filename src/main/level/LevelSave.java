@@ -14,16 +14,12 @@ import java.util.*;
 
 public class LevelSave {
 
-    private String outputDirectory;
+    private String saveDir;
     private Level level;
 
     public LevelSave(Level currentLevel) {
-        this.outputDirectory = "src/resources/config/save.txt";
+        this.saveDir = "src/resources/config/save.txt";
         this.level = currentLevel;
-    }
-
-    public LevelSave() {
-        this.outputDirectory = "src/resources/config/save.txt";
     }
 
     private void writeFile() throws IOException {
@@ -31,6 +27,9 @@ public class LevelSave {
 
         // Level number
         lines.add(String.valueOf(Level.getCurrentLevel()));
+
+        // TODO Get Time left
+//        lines.add(String.valueOf(level.getExpectedTime()));
 
         // Rats in current level
         StringJoiner joiner = new StringJoiner(",");
@@ -59,7 +58,7 @@ public class LevelSave {
         }
         lines.add(joiner.toString());
 
-        Path file = Paths.get(outputDirectory);
+        Path file = Paths.get(saveDir);
         Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
     }
 

@@ -62,6 +62,7 @@ public class GameOverController implements Initializable {
         play.setOnAction(e -> {
             try {
                 Level.setCurrentLevel(Level.getCurrentLevel() + 1);
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -70,6 +71,7 @@ public class GameOverController implements Initializable {
 
         restart.setOnAction(e -> {
             try {
+                Level.setIsSave(false);;
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();

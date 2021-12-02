@@ -22,16 +22,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import main.level.*;
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
+import player.Inventory.ItemLoader;
 import player.Player;
 import scoreboard.Score;
 import tile.Movement;
 import main.external.Audio;
-import main.level.Level;
 import main.stage.StageFunctions;
-import main.level.LevelFileGenerator;
-import main.level.LevelFileReader;
 import tile.Tile;
 
 /**
@@ -90,8 +90,12 @@ public class GameController implements Initializable {
         Level.setGameWon(false);
 
         LevelFileReader levelReader = null;
+        LevelLoader levelLoader = null;
         try {
-            levelReader = new LevelFileReader(Level.currentLevel);
+            levelReader = new LevelFileReader(Level.currentLevel, Level.isSave());
+            if (Level.isSave()) {
+                levelLoader = new LevelLoader();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,17 +109,30 @@ public class GameController implements Initializable {
         game.setCenter(canvas);
         gameScroll.setPannable(true);
 
-        //generates map and starts items generating
-        LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
-                levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
-                levelReader.getExpectedTime(), levelReader.getMaxRats());
-        level = generator.getLevel();
+        if (!Level.isSave()) {
+            //generates map and starts items generating
+            LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
+                    levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
+                    levelReader.getExpectedTime(), levelReader.getMaxRats());
+            level = generator.getLevel();
+        } else {
+            assert levelLoader != null;
+            LevelLoadGenerator loadGenerator = new LevelLoadGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
+                    levelReader.getSizeY(), levelReader.getLevel(), levelLoader.getRatSpawns(), levelLoader.getItemSpawns(),
+                    levelReader.getExpectedTime(), levelReader.getMaxRats(), levelLoader.getTimeRemaining());
+            level = loadGenerator.getLevel();
+        }
+
 
         lblLevel.setText("Level: " + Level.getCurrentLevel());
         lblExpected.setText("Expected: " + level.getExpectedTime() + " seconds");
 
         Inventory.clear();
         new ItemGenerator(level, canvas, gc, abilities);
+        if (Level.isSave()) {
+            assert levelLoader != null;
+            new ItemLoader(levelLoader.getInventory(), abilities);
+        }
 
         onActions();
 
@@ -246,6 +263,9 @@ public class GameController implements Initializable {
     private static void tick() {
         ArrayList<Rat> rats = level.getRats();
         ArrayList<Item> items = level.getItems();
+
+        LevelSave ls = new LevelSave(level);
+        ls.save();
 
         //adult rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
         if (currentTick % 2 == 0) {

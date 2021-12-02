@@ -59,6 +59,17 @@ public class Rat extends Entity {
         setGrowingStage(0);
         this.babyQueue = new LinkedList<>();
 
+        setSprites();
+
+        List<Direction> values = List.of(Direction.values());
+        setDirection(values.get(new Random().nextInt(values.size())));
+    }
+
+    public void setLevel(Level level) {
+        Rat.level = level;
+    }
+
+    private void setSprites() {
         if (!isAdult) {
             setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
         } else if (gender == Gender.FEMALE) {
@@ -68,13 +79,6 @@ public class Rat extends Entity {
         }
 
         getImages();
-
-        List<Direction> values = List.of(Direction.values());
-        setDirection(values.get(new Random().nextInt(values.size())));
-    }
-
-    public void setLevel(Level level) {
-        Rat.level = level;
     }
 
     public void getImages() {
@@ -211,8 +215,20 @@ public class Rat extends Entity {
 
         result += this.isSterilised()
                 ? "S"
-                : "N";
+                : "G";
 
+        // TODO add direction
+        if (this.direction == Direction.LEFT) {
+            result += "L";
+        } else if (this.direction == Direction.RIGHT) {
+            result += "R";
+        } else if (this.direction == Direction.UP) {
+            result += "U";
+        } else if (this.direction == Direction.DOWN) {
+            result += "D";
+        }
+
+        result += ":";
         result += String.format("%02d", this.getCurrentPosX());
         result += ":";
         result += String.format("%02d", this.getCurrentPosY());
