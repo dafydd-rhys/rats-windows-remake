@@ -12,6 +12,7 @@ import tile.Movement;
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Gareth Wade (1901805)
+ * @author Maurice Petersen (2013396)
  */
 public abstract class Item extends Entity {
 

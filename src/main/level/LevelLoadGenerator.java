@@ -4,16 +4,21 @@ import entity.Item;
 import entity.rat.Rat;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javafx.scene.canvas.GraphicsContext;
 import tile.Tile;
 
+/**
+ * LevelLoadGenerator.java
+ *
+ * Generates a level from a loaded save file.
+ *
+ * @author Maurice Petersen (2013396)
+ */
 public class LevelLoadGenerator {
 
     private Level level;
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     private final GraphicsContext gc;
-
     private final char[][] tiles;
     private final ArrayList<Rat> ratSpawns;
     private final ArrayList<Item> itemSpawns;
@@ -38,6 +43,9 @@ public class LevelLoadGenerator {
         generateLevel();
     }
 
+    /**
+     * Generates the level
+     */
     private void generateLevel() {
         Tile[][] tilesArray = new Tile[sizeY][sizeX];
 
@@ -65,12 +73,24 @@ public class LevelLoadGenerator {
         this.level.setItems(itemSpawns);
     }
 
+    /**
+     * Add tile from level file to tile array.
+     * @param tiles tile array
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param type tile type
+     */
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
         Tile tile = new Tile(x, y, type, new ArrayList<>());
         tiles[y][x] = tile;
         gc.drawImage(tile.getImage(), x * 50, y * 50);
     }
 
+    /**
+     * Add rats to tile.
+     * @param tiles tile array.
+     * @param rat rat to be added.
+     */
     private void setRat(Tile[][] tiles, Rat rat) {
         int x = rat.getCurrentPosX();
         int y = rat.getCurrentPosY();
@@ -81,6 +101,11 @@ public class LevelLoadGenerator {
         }
     }
 
+    /**
+     * Add item to tile.
+     * @param tiles tile array
+     * @param item item to be added
+     */
     private void setItem(Tile[][] tiles, Item item) {
         int x = item.getCurrentPosX();
         int y = item.getCurrentPosY();

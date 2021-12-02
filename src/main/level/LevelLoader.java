@@ -9,6 +9,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * LevelLoader.java
+ *
+ * Reads data from a save file.
+ * @author Maurice Petersen (2013396)
+ */
 public class LevelLoader {
 
     private final String saveDir;
@@ -45,6 +51,10 @@ public class LevelLoader {
         scanner.close();
     }
 
+    /**
+     * Reads the line in the save file regarding rat attributes.
+     * @throws IOException
+     */
     private void readRatSpawns() throws IOException {
         String line = Files.readAllLines(Paths.get(saveDir)).get(2);
         Scanner scanner = new Scanner(line);
@@ -108,6 +118,10 @@ public class LevelLoader {
         scanner.close();
     }
 
+    /**
+     * Reads the line in the save file regarding item attributes.
+     * @throws IOException
+     */
     private void readItemSpawns() throws IOException {
         String line = Files.readAllLines(Paths.get(saveDir)).get(3);
         Scanner scanner = new Scanner(line);
@@ -148,6 +162,10 @@ public class LevelLoader {
         scanner.close();
     }
 
+    /**
+     * Reads the line in the save file regarding inventory items.
+     * @throws IOException
+     */
     private void readInventoryItems() throws IOException {
         String line = Files.readAllLines(Paths.get(saveDir)).get(4);
         Scanner scanner = new Scanner(line);

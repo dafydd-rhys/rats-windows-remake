@@ -12,23 +12,34 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
+/**
+ * LevelSave.java
+ *
+ * Saves the current game state to a text file.
+ *
+ * @author Maurice Petersen (2013396)
+ */
 public class LevelSave {
 
-    private String saveDir;
-    private Level level;
+    private final String saveDir;
+    private final Level level;
 
     public LevelSave(Level currentLevel) {
         this.saveDir = "src/resources/config/save.txt";
         this.level = currentLevel;
     }
 
+    /**
+     * Write level data to file.
+     * @throws IOException
+     */
     private void writeFile() throws IOException {
         ArrayList<String> lines = new ArrayList<>();
 
         // Level number
         lines.add(String.valueOf(Level.getCurrentLevel()));
 
-        // Current time
+        // Current tick
         lines.add(String.valueOf(level.getCurrentTick()));
 
         // Rats in current level

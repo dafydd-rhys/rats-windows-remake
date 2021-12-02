@@ -2,13 +2,19 @@ package player.Inventory;
 
 import entity.Item;
 import javafx.scene.layout.AnchorPane;
-
 import java.util.ArrayList;
 
+/**
+ * ItemLoader.java
+ *
+ * Loads the inventory items from save file.
+ *
+ * @author Maurice Petersen (2013396).
+ */
 public class ItemLoader {
 
     private final AnchorPane abilities;
-    private ArrayList<Item.TYPE> items;
+    private final ArrayList<Item.TYPE> items;
 
     public ItemLoader(ArrayList<Item.TYPE> items, AnchorPane abilities) {
         this.items = items;
