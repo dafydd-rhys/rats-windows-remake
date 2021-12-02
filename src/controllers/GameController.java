@@ -177,8 +177,9 @@ public class GameController implements Initializable {
                     } else if (level.getRats().size() == 0) {
                         Level.setGameOver(true);
                         Level.setGameWon(true);
-                        if ((int) currentTick / 2 > level.getExpectedTime()) {
-                            level.setScore(0);
+                        if ((int) currentTick / 2 < level.getExpectedTime()) {
+                            int timeLeft = (int) (level.getExpectedTime() - (currentTick / 2));
+                            level.setScore(Level.getScore() + timeLeft);
                         }
                     }
 
@@ -333,6 +334,7 @@ public class GameController implements Initializable {
                 }
             }
         }
+
         for (int i = 0; i < items.size(); i++) {
             items.get(i).activate(level, gc);
         }

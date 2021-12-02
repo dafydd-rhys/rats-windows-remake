@@ -366,6 +366,7 @@ public class Rat extends Entity {
     public void kill() {
         level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
         level.getRats().remove(this);
+        level.setScore(Level.getScore() + 10);
         try {
             playSound();
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
