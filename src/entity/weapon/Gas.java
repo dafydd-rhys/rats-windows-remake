@@ -26,8 +26,8 @@ import static main.external.Audio.playGameEffect;
  */
 public class Gas extends Item {
 
-    private int count = -1;
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private int count = 0;
+    private ArrayList<Tile> drawableTiles = new ArrayList<>();
 
     /**
      * Instantiates a new Gas.
@@ -36,7 +36,7 @@ public class Gas extends Item {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
         setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-grenade.png"));
-        setHp(10);
+        setHp(12);
         setDamage(2);
         setRange(3);
         setFriendlyFire(true);
@@ -56,15 +56,13 @@ public class Gas extends Item {
     }
 
     /**
-     *
-     *
      * @param level the level
      * @param gc    the gc
      */
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
-        if (getHp() % 2 == 0 && getHp() < 10) {
-            //runs at 0, 1, 2, 3 - range = 3
+        if (getHp() % 3 == 0 && getHp() <= 12) {
+            //runs at 0, 1, 2 - range = 3
             count++;
         }
 
@@ -76,23 +74,26 @@ public class Gas extends Item {
 
         if (getHp() > 0) {
             if (count >= 0) {
+                Tile startingTile = level.getTiles()[getCurrentPosY()][getCurrentPosX()];
+                checkTile(startingTile, level);
+
                 ArrayList<Tile> fTiles = checkAdjacent(level, count);
                 ArrayList<Tile> sTiles = checkAdjacent(level, -(count));
-
                 for (Tile fTile : fTiles) {
-                    if (!tiles.contains(fTile)) {
-                        tiles.add(fTile);
+                    if (!drawableTiles.contains(fTile)) {
+                        drawableTiles.add(fTile);
                     }
                 }
                 for (Tile sTile : sTiles) {
-                    if (!tiles.contains(sTile)) {
-                        tiles.add(sTile);
+                    if (!drawableTiles.contains(sTile)) {
+                        drawableTiles.add(sTile);
                     }
                 }
 
-                for (Tile tile : tiles) {
+                for (Tile tile : drawableTiles) {
                     checkTile(tile, level);
                 }
+                drawableTiles.remove(startingTile);
             }
         } else {
             level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
@@ -101,8 +102,6 @@ public class Gas extends Item {
     }
 
     /**
-     *
-     *
      * @param level
      * @param i
      * @return
@@ -114,20 +113,34 @@ public class Gas extends Item {
         if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 seenTiles.add(tiles[getCurrentPosY()][getCurrentPosX() + i]);
+                for (int j = -count; j < count; j++) {
+                    if (getCurrentPosY() + j < level.getRows() && getCurrentPosY() + j >= 0) {
+                        if (tiles[getCurrentPosY() + j][getCurrentPosX() + i].isWalkable()
+                                && tiles[getCurrentPosY() + j][getCurrentPosX() + i].isCovering()) {
+                            seenTiles.add(tiles[getCurrentPosY() + j][getCurrentPosX() + i]);
+                        }
+                    }
+                }
             }
         }
 
         if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX()]);
+                for (int j = -count; j < count; j++) {
+                    if (getCurrentPosX() + j < level.getCols() && getCurrentPosX() + j >= 0) {
+                        if (tiles[getCurrentPosY() + i][getCurrentPosX() + j].isWalkable()
+                                && tiles[getCurrentPosY() + i][getCurrentPosX() + j].isCovering()) {
+                            seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX() + j]);
+                        }
+                    }
+                }
             }
         }
         return seenTiles;
     }
 
     /**
-     *
-     *
      * @param tile
      * @param level
      */
@@ -150,7 +163,7 @@ public class Gas extends Item {
      * @return the tiles
      */
     public ArrayList<Tile> getTiles() {
-        return tiles;
+        return drawableTiles;
     }
 
 }

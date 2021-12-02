@@ -374,19 +374,25 @@ public class GameController implements Initializable {
                         Gas gas = (Gas) item;
                         Image smoke = new Image(System.getProperty("user.dir") +
                                 "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
+                        String opacity = System.getProperty("user.dir") +
+                                "\\src\\resources\\images\\game\\entities\\gas-cloud-opacity";
 
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
-                        for (Tile tile : gas.getDrawableTiles()) {
-                            gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                        for (Tile tile : gas.getTiles()) {
+                            if (gas.getHp() <= 3) {
+                                gc.drawImage(new Image(opacity + gas.getHp() + ".png"), tile.getX() * 50, tile.getY() * 50);
+                            } else {
+                                gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                            }
                         }
                     } else if (item.getType() == Item.TYPE.STERILISATION) {
                         Sterilisation sterilisation = (Sterilisation) item;
-                        Image smoke = new Image(System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
+                        Image splash = new Image(System.getProperty("user.dir") +
+                                "\\src\\resources\\images\\game\\entities\\splash.png");
 
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
                         for (Tile tile : sterilisation.getDrawableTiles()) {
-                            gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                            gc.drawImage(splash, tile.getX() * 50, tile.getY() * 50);
                         }
                     } else {
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
