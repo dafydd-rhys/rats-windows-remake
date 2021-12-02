@@ -1,25 +1,19 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.MediaPlayer;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
 import main.level.Level;
 import main.stage.StageFunctions;
 
-import javafx.scene.media.Media;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Settings Controller
@@ -30,20 +24,33 @@ import javafx.scene.media.Media;
  */
 public class SettingsController implements Initializable {
 
-    /**  */
-    @FXML private AnchorPane window;
-    /**  */
-    @FXML private Slider musicSlider;
-    /**  */
-    @FXML private Slider sfxSlider;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton exit;
-
     /**
      *
+     */
+    @FXML
+    private AnchorPane window;
+    /**
      *
+     */
+    @FXML
+    private Slider musicSlider;
+    /**
+     *
+     */
+    @FXML
+    private Slider sfxSlider;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+
+    /**
      * @param url
      * @param resourceBundle
      */

@@ -3,10 +3,6 @@ package entity.weapon;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
@@ -14,6 +10,8 @@ import tile.Tile;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static main.external.Audio.playGameEffect;
 
@@ -27,7 +25,7 @@ import static main.external.Audio.playGameEffect;
 public class Gas extends Item {
 
     private int count = -1;
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private final ArrayList<Tile> tiles = new ArrayList<>();
 
     /**
      * Instantiates a new Gas.
@@ -35,7 +33,8 @@ public class Gas extends Item {
     public Gas() {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-grenade.png"));
+        setImage(new Image(System.getProperty("user.dir") +
+                "/src/resources/images/game/entities/gas-grenade.png"));
         setHp(10);
         setDamage(2);
         setRange(3);
@@ -51,13 +50,14 @@ public class Gas extends Item {
     }
 
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/harry_gas.wav");
+    public void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
+        playGameEffect(System.getProperty("user.dir") +
+                "/src/resources/audio/game/harry_gas.wav");
     }
 
     /**
-     *
-     *
      * @param level the level
      * @param gc    the gc
      */
@@ -95,14 +95,13 @@ public class Gas extends Item {
                 }
             }
         } else {
-            level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+            level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(
+                    this);
             level.getItems().remove(this);
         }
     }
 
     /**
-     *
-     *
      * @param level
      * @param i
      * @return
@@ -111,13 +110,15 @@ public class Gas extends Item {
         ArrayList<Tile> seenTiles = new ArrayList<>();
         Tile[][] tiles = level.getTiles();
 
-        if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
+        if (getCurrentPosX() + i < level.getCols() &&
+                getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 seenTiles.add(tiles[getCurrentPosY()][getCurrentPosX() + i]);
             }
         }
 
-        if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
+        if (getCurrentPosY() + i < level.getRows() &&
+                getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX()]);
             }
@@ -126,8 +127,6 @@ public class Gas extends Item {
     }
 
     /**
-     *
-     *
      * @param tile
      * @param level
      */

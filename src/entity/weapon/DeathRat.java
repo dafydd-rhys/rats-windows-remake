@@ -4,12 +4,6 @@ import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import entity.rat.RatSprites;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
@@ -17,6 +11,10 @@ import tile.Tile;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static main.external.Audio.playGameEffect;
 
@@ -29,42 +27,34 @@ import static main.external.Audio.playGameEffect;
  */
 public class DeathRat extends Item {//used to extend Entities.Item
 
-    /** */
-    private Direction direction;
-    /** */
-    private int currentTick = 0;
-    /** */
-    private Image rotatedImage;
-    /** */
-    private final Image upImage;
-    /** */
-    private final Image downImage;
-    /** */
-    private final Image leftImage;
-    /** */
-    private final Image rightImage;
-
     /**
-     * The enum Direction.
+     *
      */
-    public enum Direction {
-        /**
-         * Up direction.
-         */
-        UP(),
-        /**
-         * Right direction.
-         */
-        RIGHT(),
-        /**
-         * Down direction.
-         */
-        DOWN(),
-        /**
-         * Left direction.
-         */
-        LEFT()
-    }
+    private final Image upImage;
+    /**
+     *
+     */
+    private final Image downImage;
+    /**
+     *
+     */
+    private final Image leftImage;
+    /**
+     *
+     */
+    private final Image rightImage;
+    /**
+     *
+     */
+    private Direction direction;
+    /**
+     *
+     */
+    private int currentTick = 0;
+    /**
+     *
+     */
+    private Image rotatedImage;
 
     /**
      * Instantiates a new Death rat.
@@ -72,7 +62,8 @@ public class DeathRat extends Item {//used to extend Entities.Item
     public DeathRat() {
         setEntityType(EntityType.ITEM);
         setEntityName("DeathRat");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
+        setImage(new Image(System.getProperty("user.dir") +
+                "/src/resources/images/game/entities/death-rat.png"));
         setHp(5);
         setDamage(5);
         setRange(2);
@@ -96,13 +87,14 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+    public void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
+        playGameEffect(System.getProperty("user.dir") +
+                "/src/resources/audio/game/rat_dying.wav");
     }
 
     /**
-     *
-     *
      * @param level the level
      * @param gc    the gc
      */
@@ -116,14 +108,13 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     *
-     *
      * @param level
      */
     private void move(Level level) {
         DeathRatMovement.tiles = level.getTiles();
         DeathRatMovement.rat = this;
-        DeathRatMovement.current = level.getTiles()[getCurrentPosY()][getCurrentPosX()];
+        DeathRatMovement.current =
+                level.getTiles()[getCurrentPosY()][getCurrentPosX()];
         DeathRatMovement.curX = getCurrentPosX();
         DeathRatMovement.curY = getCurrentPosY();
 
@@ -140,12 +131,11 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     *
-     *
      * @param level
      */
     private void checkForOpposition(Level level) {
-        ArrayList<Entity> entities = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> entities =
+                level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entities.isEmpty()) {
             for (int i = 0; i < entities.size(); i++) {
@@ -155,21 +145,13 @@ public class DeathRat extends Item {//used to extend Entities.Item
 
                     setHp(getHp() - 1);
                     if (getHp() <= 0) {
-                        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+                        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(
+                                this);
                         level.getItems().remove(this);
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Sets direction.
-     *
-     * @param direction the direction
-     */
-    public void setDirection(Direction direction) {
-        this.direction = direction;
     }
 
     /**
@@ -182,12 +164,12 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     * Sets rotated image.
+     * Sets direction.
      *
-     * @param rotatedImage the rotated image
+     * @param direction the direction
      */
-    public void setRotatedImage(Image rotatedImage) {
-        this.rotatedImage = rotatedImage;
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     /**
@@ -197,6 +179,15 @@ public class DeathRat extends Item {//used to extend Entities.Item
      */
     public Image getRotatedImage() {
         return rotatedImage;
+    }
+
+    /**
+     * Sets rotated image.
+     *
+     * @param rotatedImage the rotated image
+     */
+    public void setRotatedImage(Image rotatedImage) {
+        this.rotatedImage = rotatedImage;
     }
 
     /**
@@ -235,9 +226,30 @@ public class DeathRat extends Item {//used to extend Entities.Item
         return leftImage;
     }
 
+    /**
+     * The enum Direction.
+     */
+    public enum Direction {
+        /**
+         * Up direction.
+         */
+        UP(),
+        /**
+         * Right direction.
+         */
+        RIGHT(),
+        /**
+         * Down direction.
+         */
+        DOWN(),
+        /**
+         * Left direction.
+         */
+        LEFT()
+    }
+
     private static class DeathRatMovement {
 
-        private static int random;
         /**
          * The constant rat.
          */
@@ -258,6 +270,7 @@ public class DeathRat extends Item {//used to extend Entities.Item
          * The constant curY.
          */
         public static int curY;
+        private static int random;
 
         /**
          * Try horizontal.
@@ -320,8 +333,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         *
-         *
          * @param x
          * @return
          */
@@ -357,8 +368,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         *
-         *
          * @param y
          * @return
          */
@@ -394,8 +403,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         *
-         *
          * @return
          */
         private static int generateRandom() {

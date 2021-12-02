@@ -1,10 +1,10 @@
 package entity.weapon;
 
+import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import entity.Entity;
 import main.level.Level;
 import tile.Tile;
 
@@ -30,7 +30,8 @@ public class FemaleSexChange extends Item {
     public FemaleSexChange() {
         setEntityType(EntityType.ITEM);
         setEntityName("FemaleSexChange");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/female-change.png"));
+        setImage(new Image(System.getProperty("user.dir") +
+                "/src/resources/images/game/entities/female-change.png"));
         setHp(1);
         setDamage(0);
         setRange(1);
@@ -46,8 +47,11 @@ public class FemaleSexChange extends Item {
     }
 
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sex_change.wav");
+    public void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
+        playGameEffect(System.getProperty("user.dir") +
+                "/src/resources/audio/game/sex_change.wav");
     }
 
     /**
@@ -56,7 +60,8 @@ public class FemaleSexChange extends Item {
      */
     public void activate(Level level, GraphicsContext gc) {
         Tile[][] tile = level.getTiles();
-        ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> entitiesOnTile =
+                tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int i = 0; i < entitiesOnTile.size(); i++) {

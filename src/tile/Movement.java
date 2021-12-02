@@ -3,8 +3,8 @@ package tile;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
+
 import java.util.Random;
-import main.level.Level;
 
 /**
  * Main
@@ -25,8 +25,6 @@ public class Movement {
      * The constant rat.
      */
     public static Rat rat;
-    /** */
-    private static int random;
     /**
      * The constant curX.
      */
@@ -35,6 +33,10 @@ public class Movement {
      * The constant curY.
      */
     public static int curY;
+    /**
+     *
+     */
+    private static int random;
 
     private static int generateRandom(int count) {
         return new Random().nextInt((count) + 1);
@@ -77,7 +79,8 @@ public class Movement {
                 }
             }
         } else {
-            if (tiles[curY + 1][curX].isWalkable() && tiles[curY - 1][curX].isWalkable()) {
+            if (tiles[curY + 1][curX].isWalkable() &&
+                    tiles[curY - 1][curX].isWalkable()) {
                 count = 1;
             }
             random = generateRandom(count);
@@ -135,7 +138,8 @@ public class Movement {
                 }
             }
         } else {
-            if (tiles[curY][curX + 1].isWalkable() && tiles[curY][curX - 1].isWalkable()) {
+            if (tiles[curY][curX + 1].isWalkable() &&
+                    tiles[curY][curX - 1].isWalkable()) {
                 count = 1;
             }
             random = generateRandom(count);
@@ -157,8 +161,6 @@ public class Movement {
     }
 
     /**
-     *
-     *
      * @param x
      * @return
      */
@@ -189,8 +191,6 @@ public class Movement {
     }
 
     /**
-     *
-     *
      * @param y
      * @return
      */
@@ -243,8 +243,6 @@ public class Movement {
     }
 
     /**
-     *
-     *
      * @param y
      * @param x
      * @return

@@ -2,11 +2,11 @@ package main.level;
 
 import entity.Item;
 import entity.rat.Rat;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javafx.scene.canvas.GraphicsContext;
 import tile.Tile;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * LevelFileGenerator
@@ -16,24 +16,42 @@ import tile.Tile;
  */
 public class LevelFileGenerator {
 
-    /** */
-    private Level level;
-    /** */
+    /**
+     *
+     */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
-    /** */
+    /**
+     *
+     */
     private final GraphicsContext gc;
-    /** */
+    /**
+     *
+     */
     private final char[][] tiles;
-    /** */
+    /**
+     *
+     */
     private final char[][] spawns;
-    /** */
+    /**
+     *
+     */
     private final int expectedTime;
-    /** */
+    /**
+     *
+     */
     private final int maxRats;
-    /** */
+    /**
+     *
+     */
     private final int sizeY;
-    /** */
+    /**
+     *
+     */
     private final int sizeX;
+    /**
+     *
+     */
+    private Level level;
 
     /**
      * Instantiates a new Level file generator.
@@ -47,8 +65,10 @@ public class LevelFileGenerator {
      * @param expectedTime   the expected time
      * @param maxRats        the max rats
      */
-    public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
-                              char[][] level, char[][] spawns, int expectedTime, int maxRats) {
+    public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate,
+                              GraphicsContext gc, int sizeX, int sizeY,
+                              char[][] level, char[][] spawns, int expectedTime,
+                              int maxRats) {
         this.timeToGenerate = timeToGenerate;
         this.gc = gc;
         this.tiles = level;
@@ -80,17 +100,18 @@ public class LevelFileGenerator {
                 if (spawns[y][x] == 'M') {
                     setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
                 } else if (spawns[y][x] == 'F') {
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE,
+                            false);
                 }
             }
         }
 
-        this.level = new Level(timeToGenerate, expectedTime, maxRats, tilesArray, ratsArray, sizeY, sizeX);
+        this.level =
+                new Level(timeToGenerate, expectedTime, maxRats, tilesArray,
+                        ratsArray, sizeY, sizeX);
     }
 
     /**
-     *
-     *
      * @param tiles
      * @param x
      * @param y
@@ -103,8 +124,6 @@ public class LevelFileGenerator {
     }
 
     /**
-     *
-     *
      * @param tiles
      * @param rats
      * @param x
@@ -112,7 +131,8 @@ public class LevelFileGenerator {
      * @param gender
      * @param adult
      */
-    private void setRat(Tile[][] tiles, ArrayList<Rat> rats, int x, int y, Rat.Gender gender, boolean adult) {
+    private void setRat(Tile[][] tiles, ArrayList<Rat> rats, int x, int y,
+                        Rat.Gender gender, boolean adult) {
         Rat rat = new Rat(gender, adult);
         rat.setCurrentPosX(x);
         rat.setCurrentPosY(y);

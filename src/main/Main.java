@@ -24,8 +24,6 @@ public class Main extends Application {
     }
 
     /**
-     *
-     *
      * @param window
      * @throws Exception
      */
@@ -34,7 +32,8 @@ public class Main extends Application {
         RatSprites.load();
         Platform.setImplicitExit(false);
         StageFunctions.setStage(window);
-        StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Player Entry Screen");
+        StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml",
+                "Player Entry Screen");
         Audio.getValues();
         Audio.playMusic();
     }

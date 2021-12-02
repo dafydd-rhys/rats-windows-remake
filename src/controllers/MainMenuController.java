@@ -1,19 +1,20 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
 import main.level.Level;
 import main.level.LevelLoader;
 import main.stage.StageFunctions;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Main
@@ -24,37 +25,73 @@ import main.stage.StageFunctions;
  */
 public class MainMenuController implements Initializable {
 
-    /**  */
-    @FXML private AnchorPane window;
-    /**  */
-    @FXML private JFXButton levels;
-    /**  */
-    @FXML
-    private JFXButton loadGame;
-    /**  */
-    @FXML private JFXButton scoreboard;
-    /**  */
-    @FXML private JFXButton settings;
-    /**  */
-    @FXML private JFXButton sfx;
-    /**  */
-    @FXML private JFXButton music;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton maximise;
-    /**  */
-    @FXML private JFXButton exit;
-    /**  */
-    @FXML private JFXButton btnExit;
-    /**  */
-    @FXML private ImageView musicImage;
-    /**  */
-    @FXML private ImageView effectsImage;
-
     /**
      *
+     */
+    @FXML
+    private AnchorPane window;
+    /**
      *
+     */
+    @FXML
+    private JFXButton levels;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton loadGame;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton scoreboard;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton btnExit;
+    /**
+     *
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     *
+     */
+    @FXML
+    private ImageView effectsImage;
+
+    /**
      * @param url
      * @param resourceBundle
      */
@@ -71,7 +108,9 @@ public class MainMenuController implements Initializable {
     private void onActions() {
         levels.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\level_select.fxml", "Level Select");
+                StageFunctions.changeScene(
+                        "\\src\\resources\\fxml\\level_select.fxml",
+                        "Level Select");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -81,7 +120,8 @@ public class MainMenuController implements Initializable {
             try {
                 Level.currentLevel = LevelLoader.getCurrentLevel();
                 Level.setIsSave(true);
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml",
+                        "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -90,7 +130,9 @@ public class MainMenuController implements Initializable {
 
         scoreboard.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
+                StageFunctions.changeScene(
+                        "\\src\\resources\\fxml\\scoreboard.fxml",
+                        "Scoreboard");
             } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
                 ex.printStackTrace();
             }

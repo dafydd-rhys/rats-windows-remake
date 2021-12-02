@@ -9,11 +9,6 @@ import entity.weapon.MaleSexChange;
 import entity.weapon.NoEntrySign;
 import entity.weapon.Poison;
 import entity.weapon.Sterilisation;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,12 +18,18 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import main.external.Audio;
 import main.level.Level;
 import tile.Tile;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * Main
@@ -37,22 +38,42 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Inventory {
 
-    /** */
-    private static final ArrayList<Stack<HashMap<Item, ImageView>>> items = new ArrayList<>();
-    /** */
-    private static final Item[] types = {new Bomb(), new DeathRat(), new FemaleSexChange(), new MaleSexChange(),
-            new Gas(), new NoEntrySign(), new Poison(), new Sterilisation()};
-    /** */
+    /**
+     *
+     */
+    private static final ArrayList<Stack<HashMap<Item, ImageView>>> items =
+            new ArrayList<>();
+    /**
+     *
+     */
+    private static final Item[] types =
+            {new Bomb(), new DeathRat(), new FemaleSexChange(),
+                    new MaleSexChange(),
+                    new Gas(), new NoEntrySign(), new Poison(),
+                    new Sterilisation()};
+    /**
+     *
+     */
     private static Level level;
-    /** */
+    /**
+     *
+     */
     private static Canvas canvas;
-    /** */
+    /**
+     *
+     */
     private static GraphicsContext gc;
-    /** */
+    /**
+     *
+     */
     private static Stack<HashMap<Item, ImageView>> storedStack;
-    /** */
+    /**
+     *
+     */
     private static HashMap<Item, ImageView> storedMap;
-    /** */
+    /**
+     *
+     */
     private static Map.Entry<Item, ImageView> storedEntry;
 
     /**
@@ -102,19 +123,23 @@ public class Inventory {
                     if (item.getType() == type && image.isDisable()) {
                         found = true;
                         image.setDisable(false);
-                        AnchorPane.setTopAnchor(image, item.getYOffset() * 40.0 + 10);
+                        AnchorPane.setTopAnchor(image,
+                                item.getYOffset() * 40.0 + 10);
                         AnchorPane.setLeftAnchor(image, i * 35.0 + 5);
 
                         //prevent not being able to drag (image too thin - hard to grab)
                         if (type == Item.TYPE.MALE_CHANGE) {
-                            image.setImage(new Image(System.getProperty("user.dir") +
-                                    "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
-                        } else if (type == Item.TYPE.FEMALE_CHANGE){
-                            image.setImage(new Image(System.getProperty("user.dir") +
-                                    "\\src\\resources\\images\\game\\entities\\female-change-show.png"));
+                            image.setImage(
+                                    new Image(System.getProperty("user.dir") +
+                                            "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
+                        } else if (type == Item.TYPE.FEMALE_CHANGE) {
+                            image.setImage(
+                                    new Image(System.getProperty("user.dir") +
+                                            "\\src\\resources\\images\\game\\entities\\female-change-show.png"));
                         }
 
-                        Platform.runLater(() -> abilities.getChildren().add(image));
+                        Platform.runLater(
+                                () -> abilities.getChildren().add(image));
                         listener(item, image, abilities);
                     }
                 }
@@ -126,13 +151,12 @@ public class Inventory {
     }
 
     /**
-     *
-     *
      * @param item
      * @param image
      * @param abilities
      */
-    private static void listener(Item item, ImageView image, AnchorPane abilities) {
+    private static void listener(Item item, ImageView image,
+                                 AnchorPane abilities) {
         //drags image onto board
         image.setOnDragDetected(event -> {
             Dragboard db = image.startDragAndDrop(TransferMode.ANY);
@@ -170,8 +194,6 @@ public class Inventory {
     }
 
     /**
-     *
-     *
      * @param event
      * @param gc
      * @param abilities
@@ -179,7 +201,10 @@ public class Inventory {
      * @throws LineUnavailableException
      * @throws IOException
      */
-    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    private static void dragAndDrop(DragEvent event, GraphicsContext gc,
+                                    AnchorPane abilities)
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
 
@@ -213,8 +238,6 @@ public class Inventory {
     }
 
     /**
-     *
-     *
      * @param abilities
      */
     private static void reshuffle(AnchorPane abilities) {
@@ -230,9 +253,11 @@ public class Inventory {
 
                     //enables next disabled image
                     if (!image.isDisable()) {
-                        AnchorPane.setTopAnchor(image, item.getYOffset() * 40.0 + 10);
+                        AnchorPane.setTopAnchor(image,
+                                item.getYOffset() * 40.0 + 10);
                         AnchorPane.setLeftAnchor(image, count * 35.0 + 5);
-                        Platform.runLater(() -> abilities.getChildren().add(image));
+                        Platform.runLater(
+                                () -> abilities.getChildren().add(image));
                         listener(item, image, abilities);
                         count++;
                     }

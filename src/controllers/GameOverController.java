@@ -1,20 +1,20 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import main.level.Level;
 import main.stage.StageFunctions;
+import player.Player;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static main.external.Audio.playGameEffect;
-import player.Player;
 
 
 /**
@@ -22,24 +22,43 @@ import player.Player;
  */
 public class GameOverController implements Initializable {
 
-    /** */
-    @FXML private JFXButton exit;
-    /** */
-    @FXML private JFXButton exitbtn;
-    /** */
-    @FXML private JFXButton play;
-    /** */
-    @FXML private JFXButton restart;
-    /** */
-    @FXML private JFXButton menu;
-    /** */
-    @FXML private Text status;
-    /** */
-    @FXML private Text score;
-
     /**
      *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
      *
+     */
+    @FXML
+    private JFXButton exitbtn;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton play;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton restart;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton menu;
+    /**
+     *
+     */
+    @FXML
+    private Text status;
+    /**
+     *
+     */
+    @FXML
+    private Text score;
+
+    /**
      * @param url
      * @param resourceBundle
      */
@@ -84,7 +103,9 @@ public class GameOverController implements Initializable {
      * @throws LineUnavailableException      the line unavailable exception
      * @throws IOException                   the io exception
      */
-    public void playSound(String path) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playSound(String path)
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
         try {
             playGameEffect(System.getProperty("user.dir") + path);
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
@@ -100,7 +121,8 @@ public class GameOverController implements Initializable {
             try {
                 Level.setCurrentLevel(Level.getCurrentLevel() + 1);
                 Level.setIsSave(false);
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml",
+                        "Level " + Level.getCurrentLevel());
                 StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -109,8 +131,9 @@ public class GameOverController implements Initializable {
 
         restart.setOnAction(e -> {
             try {
-                Level.setIsSave(false);;
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                Level.setIsSave(false);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml",
+                        "Level " + Level.getCurrentLevel());
                 StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -119,7 +142,8 @@ public class GameOverController implements Initializable {
 
         menu.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
+                StageFunctions.changeScene(
+                        "\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
                 StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();

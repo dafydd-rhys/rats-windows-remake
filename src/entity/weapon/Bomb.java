@@ -1,12 +1,12 @@
 package entity.weapon;
 
+import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
-import entity.Entity;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -32,7 +32,8 @@ public class Bomb extends Item {
     public Bomb() {
         setEntityType(EntityType.ITEM);
         setEntityName("Bomb");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-4.png"));
+        setImage(new Image(System.getProperty("user.dir") +
+                "/src/resources/images/game/entities/bomb-4.png"));
         setHp(8);
         setDamage(99);
         setRange(0);
@@ -54,22 +55,28 @@ public class Bomb extends Item {
      * plays sound effect
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/bomb.wav");
+    public void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
+        playGameEffect(System.getProperty("user.dir") +
+                "/src/resources/audio/game/bomb.wav");
     }
 
     /**
      * causes bomb to explode after some time
      *
      * @param level used to pass to explode method
-     * @param gc used to pass to explode method
+     * @param gc    used to pass to explode method
      */
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         switch (getHp()) {
-            case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png"));
-            case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png"));
-            case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png"));
+            case 6 -> setImage(new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/bomb-3.png"));
+            case 4 -> setImage(new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/bomb-2.png"));
+            case 2 -> setImage(new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/bomb-1.png"));
             case 0 -> explode(level, gc);
         }
     }
@@ -78,7 +85,7 @@ public class Bomb extends Item {
      * inflict damage in weapon's range
      *
      * @param level gets tiles
-     * @param gc draws effect on affected tiles
+     * @param gc    draws effect on affected tiles
      */
     private void explode(Level level, GraphicsContext gc) {
 
@@ -95,7 +102,8 @@ public class Bomb extends Item {
             int distance = 0;
             while (current.isWalkable()) {
 
-                Image explosion = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-explosion.gif");
+                Image explosion = new Image(System.getProperty("user.dir") +
+                        "/src/resources/images/game/entities/bomb-explosion.gif");
 
                 current = getDirection(direction, distance, tiles);
                 ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
@@ -110,7 +118,8 @@ public class Bomb extends Item {
                 distance++;
 
                 if (current.isWalkable() && current.isCovering()) {
-                    gc.drawImage(explosion, current.getX() * 50, current.getY() * 50);
+                    gc.drawImage(explosion, current.getX() * 50,
+                            current.getY() * 50);
                 }
             }
         }
@@ -122,11 +131,12 @@ public class Bomb extends Item {
      * finds tile in bomb's area of effect
      *
      * @param direction gets direction to next tile
-     * @param distance gets next tile in range
-     * @param tiles gets tile using parameters
+     * @param distance  gets next tile in range
+     * @param tiles     gets tile using parameters
      * @return next tile in direction
      */
-    private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
+    private Tile getDirection(Rat.Direction direction, int distance,
+                              Tile[][] tiles) {
         return switch (direction) {
             case LEFT -> tiles[getCurrentPosY()][getCurrentPosX() - distance];
             case RIGHT -> tiles[getCurrentPosY()][getCurrentPosX() + distance];

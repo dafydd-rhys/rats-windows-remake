@@ -4,17 +4,22 @@ import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.image.ImageView;
 import player.Inventory.Inventory;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import java.util.StringJoiner;
 
 /**
  * LevelSave.java
- *
+ * <p>
  * Saves the current game state to a text file.
  *
  * @author Maurice Petersen (2013396)
@@ -31,6 +36,7 @@ public class LevelSave {
 
     /**
      * Write level data to file.
+     *
      * @throws IOException
      */
     private void writeFile() throws IOException {
@@ -44,14 +50,14 @@ public class LevelSave {
 
         // Rats in current level
         StringJoiner joiner = new StringJoiner(",");
-        for (Rat rat: level.getRats()) {
+        for (Rat rat : level.getRats()) {
             joiner.add(rat.toString());
         }
         lines.add(joiner.toString());
 
         // Items placed on level
         joiner = new StringJoiner(",");
-        for (Item item: level.getItems()) {
+        for (Item item : level.getItems()) {
             joiner.add(item.toString());
         }
         lines.add(joiner.toString());
@@ -70,7 +76,8 @@ public class LevelSave {
         lines.add(joiner.toString());
 
         Path file = Paths.get(saveDir);
-        Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(file, lines, StandardCharsets.UTF_8,
+                StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     public void save() {

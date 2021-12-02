@@ -13,8 +13,39 @@ public class RatSprites {
     /**
      * The constant upMale.
      */
-    public static final Image upMale = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/male-rat.png");
+    public static final Image upMale =
+            new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/male-rat.png");
+    /**
+     * The constant upMaleSterilised.
+     */
+    public static final Image upMaleSterilised =
+            new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/sterilised-male-rat.png");
+    /**
+     * The constant upFemale.
+     */
+    public static final Image upFemale =
+            new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/female-rat.png");
+    /**
+     * The constant upFemaleSterilised.
+     */
+    public static final Image upFemaleSterilised =
+            new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/sterilised-female-rat.png");
+    /**
+     * The constant upBaby.
+     */
+    public static final Image upBaby =
+            new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/baby-rat.png");
+    /**
+     * The constant upDeath.
+     */
+    public static final Image upDeath =
+            new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/death-rat.png");
     /**
      * The constant rightMale.
      */
@@ -27,12 +58,6 @@ public class RatSprites {
      * The constant leftMale.
      */
     public static Image leftMale;
-
-    /**
-     * The constant upMaleSterilised.
-     */
-    public static final Image upMaleSterilised = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/sterilised-male-rat.png");
     /**
      * The constant downMaleSterilised.
      */
@@ -45,12 +70,6 @@ public class RatSprites {
      * The constant rightMaleSterilised.
      */
     public static Image rightMaleSterilised;
-
-    /**
-     * The constant upFemale.
-     */
-    public static final Image upFemale = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/female-rat.png");
     /**
      * The constant rightFemale.
      */
@@ -63,12 +82,6 @@ public class RatSprites {
      * The constant leftFemale.
      */
     public static Image leftFemale;
-
-    /**
-     * The constant upFemaleSterilised.
-     */
-    public static final Image upFemaleSterilised = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/sterilised-female-rat.png");
     /**
      * The constant downFemaleSterilised.
      */
@@ -81,12 +94,6 @@ public class RatSprites {
      * The constant rightFemaleSterilised.
      */
     public static Image rightFemaleSterilised;
-
-    /**
-     * The constant upBaby.
-     */
-    public static final Image upBaby = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/baby-rat.png");
     /**
      * The constant downBaby.
      */
@@ -99,12 +106,6 @@ public class RatSprites {
      * The constant rightBaby.
      */
     public static Image rightBaby;
-
-    /**
-     * The constant upDeath.
-     */
-    public static final Image upDeath = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/death-rat.png");
     /**
      * The constant downDeath.
      */

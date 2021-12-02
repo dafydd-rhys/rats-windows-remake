@@ -1,18 +1,12 @@
 package entity;
 
-import entity.rat.Rat;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
-import tile.Movement;
-import main.external.Audio;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 /**
  * Item
@@ -24,56 +18,30 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public abstract class Item extends Entity {
 
-    /** */
-    private boolean friendlyFire;
-    /** */
-    private boolean canBeAttacked;
-    /** */
-    private Image image;
-    /** */
-    private TYPE type;
-    /** */
-    private int yOffset;
-    /** */
-    private int range;
-
     /**
-     * The enum Type.
+     *
      */
-    public enum TYPE {
-        /**
-         * Bomb type.
-         */
-        BOMB(),
-        /**
-         * Gas type.
-         */
-        GAS(),
-        /**
-         * Death rat type.
-         */
-        DEATH_RAT(),
-        /**
-         * Female change type.
-         */
-        FEMALE_CHANGE(),
-        /**
-         * Male change type.
-         */
-        MALE_CHANGE(),
-        /**
-         * No entry type.
-         */
-        NO_ENTRY(),
-        /**
-         * Poison type.
-         */
-        POISON(),
-        /**
-         * Sterilisation type.
-         */
-        STERILISATION()
-    }
+    private boolean friendlyFire;
+    /**
+     *
+     */
+    private boolean canBeAttacked;
+    /**
+     *
+     */
+    private Image image;
+    /**
+     *
+     */
+    private TYPE type;
+    /**
+     *
+     */
+    private int yOffset;
+    /**
+     *
+     */
+    private int range;
 
     /**
      * Activate.
@@ -93,12 +61,9 @@ public abstract class Item extends Entity {
     /**
      *
      */
-    public abstract void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
-
-    @Override
-    public void setImage(Image image) {
-        this.image = image;
-    }
+    public abstract void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException;
 
     @Override
     public int getHp() {
@@ -143,6 +108,11 @@ public abstract class Item extends Entity {
     @Override
     public Image getImage() {
         return image;
+    }
+
+    @Override
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     /**
@@ -200,15 +170,6 @@ public abstract class Item extends Entity {
     }
 
     /**
-     * Sets type.
-     *
-     * @param type the type
-     */
-    public void setType(TYPE type) {
-        this.type = type;
-    }
-
-    /**
      * Gets type.
      *
      * @return the type
@@ -218,12 +179,12 @@ public abstract class Item extends Entity {
     }
 
     /**
-     * Sets range.
+     * Sets type.
      *
-     * @param range the range
+     * @param type the type
      */
-    public void setRange(int range) {
-        this.range = range;
+    public void setType(TYPE type) {
+        this.type = type;
     }
 
     /**
@@ -233,6 +194,15 @@ public abstract class Item extends Entity {
      */
     public int getRange() {
         return range;
+    }
+
+    /**
+     * Sets range.
+     *
+     * @param range the range
+     */
+    public void setRange(int range) {
+        this.range = range;
     }
 
     @Override
@@ -251,6 +221,44 @@ public abstract class Item extends Entity {
         }
 
         return result;
+    }
+
+    /**
+     * The enum Type.
+     */
+    public enum TYPE {
+        /**
+         * Bomb type.
+         */
+        BOMB(),
+        /**
+         * Gas type.
+         */
+        GAS(),
+        /**
+         * Death rat type.
+         */
+        DEATH_RAT(),
+        /**
+         * Female change type.
+         */
+        FEMALE_CHANGE(),
+        /**
+         * Male change type.
+         */
+        MALE_CHANGE(),
+        /**
+         * No entry type.
+         */
+        NO_ENTRY(),
+        /**
+         * Poison type.
+         */
+        POISON(),
+        /**
+         * Sterilisation type.
+         */
+        STERILISATION()
     }
 
 }

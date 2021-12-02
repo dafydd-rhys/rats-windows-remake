@@ -12,118 +12,178 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
-   <children>
-      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!" />
-            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/rats-icon.png" />
-               </image>
-            </ImageView>
-            <JFXButton fx:id="exit" layoutX="765.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/close.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="maximise" layoutX="731.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/maximise.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="minimize" layoutX="697.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/minimize.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="settings" layoutX="663.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="minimizeIcon1" fitHeight="14.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/settingsIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="sfx" layoutX="629.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="effectsImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/volumeIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="music" layoutX="595.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="musicImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/musicIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="side" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-         <children>
-            <AnchorPane fx:id="abilities" layoutX="5.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="144.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
-            <JFXTextArea fx:id="lblLevel" editable="false" focusColor="GREY" layoutX="50.0" layoutY="-9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="97.0" text="Level: 1" unFocusColor="GREY" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-9.0">
-               <font>
-                  <Font size="29.0" />
-               </font></JFXTextArea>
-            <JFXTextArea fx:id="lblTime" editable="false" focusColor="GREY" layoutX="6.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="190.0" text="Current Time: 100" unFocusColor="#80808000" AnchorPane.bottomAnchor="364.0" AnchorPane.leftAnchor="6.0">
-               <font>
-                  <Font size="11.0" />
-               </font></JFXTextArea>
-            <JFXButton fx:id="mainMenu" alignment="CENTER" layoutX="81.0" layoutY="140.0" prefHeight="22.0" prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Menu" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="81.0">
-               <font>
-                  <Font name="Calibri Light" size="12.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="restartBtn" alignment="CENTER" layoutX="6.0" layoutY="140.0" prefHeight="22.0" prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Restart" AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="6.0">
-               <font>
-                  <Font name="Calibri Light" size="12.0" />
-               </font>
-            </JFXButton>
-            <JFXTextArea fx:id="lblExpected" editable="false" focusColor="RED" layoutX="6.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="190.0" text="Complete By: 100" unFocusColor="#ff000000" AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="6.0">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </JFXTextArea>
-            <ProgressBar fx:id="pr" layoutX="-3.0" layoutY="296.0" prefHeight="42.0" prefWidth="355.0" progress="0.0" rotate="270.0" AnchorPane.bottomAnchor="162.0" AnchorPane.leftAnchor="-3.0" />
-            <JFXTextArea fx:id="lblScore" editable="false" focusColor="RED" layoutX="65.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="59.0" text="Score: 100" unFocusColor="#ff000000" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="36.0">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </JFXTextArea>
-         </children></AnchorPane>
-      <VBox alignment="CENTER" layoutY="30.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
-         <children>
-            <HBox VBox.vgrow="ALWAYS">
-               <children>
-                  <ScrollPane fx:id="gameScroll" fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" HBox.hgrow="ALWAYS">
-                     <content>
-                        <BorderPane fx:id="game" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #f5f0f0;" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16"
+            fx:controller="controllers.GameController">
+    <children>
+        <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!"/>
+                <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/rats-icon.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton fx:id="exit" layoutX="765.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/close.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="maximise" layoutX="731.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/maximise.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="minimize" layoutX="697.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/minimize.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="settings" layoutX="663.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="minimizeIcon1" fitHeight="14.0" fitWidth="24.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/settingsIcon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="sfx" layoutX="629.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="effectsImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/volumeIcon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="music" layoutX="595.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="musicImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/musicIcon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="side" layoutX="600.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0"
+                    style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="30.0">
+            <children>
+                <AnchorPane fx:id="abilities" layoutX="5.0" layoutY="167.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                            minHeight="-Infinity" minWidth="-Infinity" prefHeight="328.0" prefWidth="144.0"
+                            style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="5.0"
+                            AnchorPane.leftAnchor="5.0"/>
+                <JFXTextArea fx:id="lblLevel" editable="false" focusColor="GREY" layoutX="50.0" layoutY="-9.0"
+                             maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                             prefHeight="55.0" prefWidth="97.0" text="Level: 1" unFocusColor="GREY"
+                             AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-9.0">
+                    <font>
+                        <Font size="29.0"/>
+                    </font>
+                </JFXTextArea>
+                <JFXTextArea fx:id="lblTime" editable="false" focusColor="GREY" layoutX="6.0" layoutY="113.0"
+                             maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                             prefHeight="23.0" prefWidth="190.0" text="Current Time: 100" unFocusColor="#80808000"
+                             AnchorPane.bottomAnchor="364.0" AnchorPane.leftAnchor="6.0">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </JFXTextArea>
+                <JFXButton fx:id="mainMenu" alignment="CENTER" layoutX="81.0" layoutY="140.0" prefHeight="22.0"
+                           prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Menu"
+                           AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="81.0">
+                    <font>
+                        <Font name="Calibri Light" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="restartBtn" alignment="CENTER" layoutX="6.0" layoutY="140.0" prefHeight="22.0"
+                           prefWidth="67.0" style="-fx-background-color: darkgrey;" text="Restart"
+                           AnchorPane.bottomAnchor="338.0" AnchorPane.leftAnchor="6.0">
+                    <font>
+                        <Font name="Calibri Light" size="12.0"/>
+                    </font>
+                </JFXButton>
+                <JFXTextArea fx:id="lblExpected" editable="false" focusColor="RED" layoutX="6.0" layoutY="93.0"
+                             maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                             prefHeight="23.0" prefWidth="190.0" text="Complete By: 100" unFocusColor="#ff000000"
+                             AnchorPane.bottomAnchor="384.0" AnchorPane.leftAnchor="6.0">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </JFXTextArea>
+                <ProgressBar fx:id="pr" layoutX="-3.0" layoutY="296.0" prefHeight="42.0" prefWidth="355.0"
+                             progress="0.0" rotate="270.0" AnchorPane.bottomAnchor="162.0"
+                             AnchorPane.leftAnchor="-3.0"/>
+                <JFXTextArea fx:id="lblScore" editable="false" focusColor="RED" layoutX="65.0" layoutY="36.0"
+                             maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                             prefHeight="23.0" prefWidth="59.0" text="Score: 100" unFocusColor="#ff000000"
+                             AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="36.0">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </JFXTextArea>
+            </children>
+        </AnchorPane>
+        <VBox alignment="CENTER" layoutY="30.0" prefHeight="500.0" prefWidth="600.0"
+              style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <HBox VBox.vgrow="ALWAYS">
+                    <children>
+                        <ScrollPane fx:id="gameScroll" fitToHeight="true" fitToWidth="true" minHeight="-Infinity"
+                                    minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0"
+                                    style="-fx-background-color: #f5f0f0;" HBox.hgrow="ALWAYS">
+                            <content>
+                                <BorderPane fx:id="game" maxHeight="1.7976931348623157E308"
+                                            maxWidth="1.7976931348623157E308" style="-fx-background-color: #f5f0f0;"/>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

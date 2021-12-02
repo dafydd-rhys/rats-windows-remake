@@ -2,8 +2,17 @@ package main.level;
 
 import entity.Item;
 import entity.rat.Rat;
-import entity.weapon.*;
-import java.io.*;
+import entity.weapon.Bomb;
+import entity.weapon.DeathRat;
+import entity.weapon.FemaleSexChange;
+import entity.weapon.Gas;
+import entity.weapon.MaleSexChange;
+import entity.weapon.NoEntrySign;
+import entity.weapon.Poison;
+import entity.weapon.Sterilisation;
+
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -11,19 +20,20 @@ import java.util.Scanner;
 
 /**
  * LevelLoader.java
- *
+ * <p>
  * Reads data from a save file.
+ *
  * @author Maurice Petersen (2013396)
  */
 public class LevelLoader {
 
     private final String saveDir;
-    private String levelDir;
-    private Level level;
-    private int currentLevel;
     private final ArrayList<Rat> ratSpawns;
     private final ArrayList<Item> itemSpawns;
     private final ArrayList<Item.TYPE> inventory;
+    private String levelDir;
+    private Level level;
+    private int currentLevel;
     private int currentTick;
 
     public LevelLoader() throws IOException {
@@ -34,6 +44,14 @@ public class LevelLoader {
         this.currentTick = 0;
 
         loadLevel();
+    }
+
+    public static int getCurrentLevel() throws IOException {
+        Scanner scanner =
+                new Scanner(new File("src/resources/config/save.txt"));
+        int currLevel = scanner.nextInt();
+        scanner.close();
+        return currLevel;
     }
 
     private void loadLevel() throws IOException {
@@ -47,12 +65,14 @@ public class LevelLoader {
         Scanner scanner = new Scanner(new File(saveDir));
         this.currentLevel = scanner.nextInt();
         this.currentTick = scanner.nextInt();
-        this.levelDir = "src/resources/config/levels/level" + currentLevel + ".txt";
+        this.levelDir =
+                "src/resources/config/levels/level" + currentLevel + ".txt";
         scanner.close();
     }
 
     /**
      * Reads the line in the save file regarding rat attributes.
+     *
      * @throws IOException
      */
     private void readRatSpawns() throws IOException {
@@ -114,6 +134,7 @@ public class LevelLoader {
 
     /**
      * Reads the line in the save file regarding item attributes.
+     *
      * @throws IOException
      */
     private void readItemSpawns() throws IOException {
@@ -122,7 +143,7 @@ public class LevelLoader {
 
         if (scanner.hasNext()) {
             String[] itemSplit = scanner.next().split(",");
-            for(String itemEntry : itemSplit) {
+            for (String itemEntry : itemSplit) {
                 Item item = null;
 
                 if (itemEntry.contains("B")) {
@@ -145,7 +166,8 @@ public class LevelLoader {
 
                 assert item != null;
                 String[] itemCoords = itemEntry.split(":");
-                item.setHp(Integer.parseInt(String.valueOf(itemCoords[0].charAt(1))));
+                item.setHp(Integer.parseInt(
+                        String.valueOf(itemCoords[0].charAt(1))));
                 item.setCurrentPosX(Integer.parseInt(itemCoords[1]));
                 item.setCurrentPosY(Integer.parseInt(itemCoords[2]));
 
@@ -158,6 +180,7 @@ public class LevelLoader {
 
     /**
      * Reads the line in the save file regarding inventory items.
+     *
      * @throws IOException
      */
     private void readInventoryItems() throws IOException {
@@ -166,7 +189,7 @@ public class LevelLoader {
 
         if (scanner.hasNext()) {
             String[] invSplit = scanner.next().split(",");
-            for(String invEntry : invSplit) {
+            for (String invEntry : invSplit) {
                 if (invEntry.contains("B")) {
                     inventory.add(Item.TYPE.BOMB);
                 } else if (invEntry.contains("D")) {
@@ -186,13 +209,6 @@ public class LevelLoader {
                 }
             }
         }
-    }
-
-    public static int getCurrentLevel() throws IOException {
-        Scanner scanner = new Scanner(new File("src/resources/config/save.txt"));
-        int currLevel = scanner.nextInt();
-        scanner.close();
-        return currLevel;
     }
 
     public int getCurrentTick() {

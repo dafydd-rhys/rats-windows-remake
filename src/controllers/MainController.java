@@ -1,9 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,13 +8,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
 import main.external.MOTD;
-import main.level.Level;
 import main.stage.StageFunctions;
 import player.Player;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Main
@@ -27,36 +27,73 @@ import player.Player;
  */
 public class MainController implements Initializable {
 
-    /**  */
-    @FXML private ComboBox<String> selectTheme;
-    /**  */
-    @FXML private ComboBox<String> selectGeneration;
-    /**  */
-    @FXML private JFXButton sfx;
-    /**  */
-    @FXML private JFXButton music;
-    /**  */
-    @FXML private JFXButton settings;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton maximise;
-    /**  */
-    @FXML private JFXButton exit;
-    /**  */
-    @FXML private TextField playerName;
-    /**  */
-    @FXML private JFXButton proceed;
-    /**  */
-    @FXML private ImageView musicImage;
-    /**  */
-    @FXML private ImageView effectsImage;
-    /**  */
-    @FXML private Text motd;
-
     /**
      *
+     */
+    @FXML
+    private ComboBox<String> selectTheme;
+    /**
      *
+     */
+    @FXML
+    private ComboBox<String> selectGeneration;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     *
+     */
+    @FXML
+    private TextField playerName;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton proceed;
+    /**
+     *
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     *
+     */
+    @FXML
+    private ImageView effectsImage;
+    /**
+     *
+     */
+    @FXML
+    private Text motd;
+
+    /**
      * @param url
      * @param resourceBundle
      */
@@ -67,7 +104,8 @@ public class MainController implements Initializable {
 
         selectTheme.setEditable(false);
         selectGeneration.setEditable(false);
-        selectGeneration.getItems().addAll("Periodic Generation", "Random Generation");
+        selectGeneration.getItems()
+                .addAll("Periodic Generation", "Random Generation");
         selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
@@ -83,8 +121,10 @@ public class MainController implements Initializable {
      *
      */
     private void listeners() {
-        proceed.disableProperty().bind(Bindings.isEmpty(playerName.textProperty())
-                .or(selectTheme.valueProperty().isNull()).or(selectGeneration.valueProperty().isNull()));
+        proceed.disableProperty()
+                .bind(Bindings.isEmpty(playerName.textProperty())
+                        .or(selectTheme.valueProperty().isNull())
+                        .or(selectGeneration.valueProperty().isNull()));
     }
 
     /**
@@ -93,16 +133,19 @@ public class MainController implements Initializable {
     private void onActions() {
         proceed.setOnAction(e -> {
             Player.THEME theme;
-            if (selectTheme.getSelectionModel().getSelectedItem().equals("Default")) {
+            if (selectTheme.getSelectionModel().getSelectedItem()
+                    .equals("Default")) {
                 theme = Player.THEME.SPRING;
-            } else if (selectTheme.getSelectionModel().getSelectedItem().equals("Beach")) {
+            } else if (selectTheme.getSelectionModel().getSelectedItem()
+                    .equals("Beach")) {
                 theme = Player.THEME.BEACH;
             } else {
                 theme = Player.THEME.CHRISTMAS;
             }
 
             Player.ItemGeneration generation;
-            if (selectGeneration.getSelectionModel().getSelectedItem().equals("Periodic Generation")) {
+            if (selectGeneration.getSelectionModel().getSelectedItem()
+                    .equals("Periodic Generation")) {
                 generation = Player.ItemGeneration.PERIODIC;
             } else {
                 generation = Player.ItemGeneration.RANDOM;
@@ -115,7 +158,9 @@ public class MainController implements Initializable {
             }
 
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+                StageFunctions.changeScene(
+                        "\\src\\resources\\fxml\\main_menu.fxml",
+                        "Game Screen");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }

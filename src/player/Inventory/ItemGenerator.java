@@ -1,14 +1,15 @@
 package player.Inventory;
 
 import entity.Item;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import main.level.Level;
 import player.Player;
+
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * PlayerItemGenerator
@@ -19,9 +20,9 @@ import player.Player;
  */
 public class ItemGenerator {
 
+    private static Timer ticker;
     private final AnchorPane abilities;
     private int second = 0;
-    private static Timer ticker;
 
     /**
      * Instantiates a new Item generator.
@@ -31,7 +32,8 @@ public class ItemGenerator {
      * @param gc        the gc
      * @param abilities the abilities
      */
-    public ItemGenerator(Level level, Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
+    public ItemGenerator(Level level, Canvas canvas, GraphicsContext gc,
+                         AnchorPane abilities) {
         this.abilities = abilities;
         Inventory.clear();
         Inventory.load(level, canvas, gc);
@@ -44,7 +46,8 @@ public class ItemGenerator {
                 if (Level.getPaused()) {
                     second++;
 
-                    if (Player.getGeneration() == Player.ItemGeneration.RANDOM) {
+                    if (Player.getGeneration() ==
+                            Player.ItemGeneration.RANDOM) {
                         if (second % 3 == 0) {
                             runRandom();
                         }
@@ -57,6 +60,19 @@ public class ItemGenerator {
 
         //run tick method every 500ms until stopped
         ticker.schedule(task, 0, 1000);
+    }
+
+    /**
+     * Cancel ticker.
+     */
+    public static void cancelTicker() {
+        if (ticker != null) {
+            ticker.cancel();
+        }
+    }
+
+    public static Timer getTicker() {
+        return ticker;
     }
 
     /**
@@ -97,13 +113,16 @@ public class ItemGenerator {
         if (second % level.getTimeToGenerate().get(Item.TYPE.POISON) == 0) {
             enableItem(Item.TYPE.POISON);
         }
-        if (second % level.getTimeToGenerate().get(Item.TYPE.STERILISATION) == 0) {
+        if (second % level.getTimeToGenerate().get(Item.TYPE.STERILISATION) ==
+                0) {
             enableItem(Item.TYPE.STERILISATION);
         }
-        if (second % level.getTimeToGenerate().get(Item.TYPE.FEMALE_CHANGE) == 0) {
+        if (second % level.getTimeToGenerate().get(Item.TYPE.FEMALE_CHANGE) ==
+                0) {
             enableItem(Item.TYPE.FEMALE_CHANGE);
         }
-        if (second % level.getTimeToGenerate().get(Item.TYPE.MALE_CHANGE) == 0) {
+        if (second % level.getTimeToGenerate().get(Item.TYPE.MALE_CHANGE) ==
+                0) {
             enableItem(Item.TYPE.MALE_CHANGE);
         }
         if (second % level.getTimeToGenerate().get(Item.TYPE.NO_ENTRY) == 0) {
@@ -118,21 +137,8 @@ public class ItemGenerator {
         Inventory.enableItem(type, abilities);
     }
 
-    /**
-     * Cancel ticker.
-     */
-    public static void cancelTicker() {
-        if (ticker != null) {
-            ticker.cancel();
-        }
-    }
-
     public int getSecond() {
         return second;
-    }
-
-    public static Timer getTicker() {
-        return ticker;
     }
 
     public AnchorPane getAbilities() {

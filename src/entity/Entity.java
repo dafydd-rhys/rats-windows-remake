@@ -1,11 +1,7 @@
 package entity;
 
 import entity.rat.Rat;
-import tile.Tile;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import main.level.Level;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -58,7 +54,8 @@ public abstract class Entity {
      * @param damageDealt  the damage dealt
      * @param damageTarget the damage target
      */
-    protected void inflictDamage(Level level, int damageDealt, Entity damageTarget){
+    protected void inflictDamage(Level level, int damageDealt,
+                                 Entity damageTarget) {
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
 
         if (damageTarget.getEntityType() == EntityType.RAT) {
@@ -71,7 +68,8 @@ public abstract class Entity {
             if (damageTarget.getHp() <= 0) {
                 Item item = (Item) damageTarget;
                 level.getItems().remove(item);
-                level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].removeEntityFromTile(item);
+                level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].removeEntityFromTile(
+                        item);
             }
         }
     }
@@ -83,20 +81,6 @@ public abstract class Entity {
      */
     public EntityType getEntityType() {
         return entityType;
-    }
-
-    /**
-     * The enum Entity type.
-     */
-    public enum EntityType {
-        /**
-         * Item entity type.
-         */
-        ITEM(),
-        /**
-         * Rat entity type.
-         */
-        RAT()
     }
 
     /**
@@ -179,15 +163,6 @@ public abstract class Entity {
     protected abstract void setCurrentPosY(int currentPosY);
 
     /**
-     * Sets damage.
-     *
-     * @param damage the damage
-     */
-    protected void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    /**
      * Gets damage.
      *
      * @return the damage
@@ -197,13 +172,38 @@ public abstract class Entity {
     }
 
     /**
+     * Sets damage.
+     *
+     * @param damage the damage
+     */
+    protected void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    /**
      * Abstract method to be implemented into subclass that plays audio file when called
      *
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      * @throws LineUnavailableException      the line unavailable exception
      * @throws IOException                   the io exception
      */
-    public abstract void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
+    public abstract void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException;
+
+    /**
+     * The enum Entity type.
+     */
+    public enum EntityType {
+        /**
+         * Item entity type.
+         */
+        ITEM(),
+        /**
+         * Rat entity type.
+         */
+        RAT()
+    }
 
 
 }

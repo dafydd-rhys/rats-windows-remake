@@ -7,11 +7,17 @@ import java.io.IOException;
  */
 public class Score {
 
-    /** */
+    /**
+     *
+     */
     private final int level;
-    /** */
+    /**
+     *
+     */
     private final String name;
-    /** */
+    /**
+     *
+     */
     private final int score;
 
     /**

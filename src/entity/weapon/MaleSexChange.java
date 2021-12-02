@@ -1,13 +1,12 @@
 package entity.weapon;
 
+import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import entity.Entity;
 import main.level.Level;
 import tile.Tile;
-import main.external.Audio;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -31,7 +30,8 @@ public class MaleSexChange extends Item {
     public MaleSexChange() {
         setEntityType(EntityType.ITEM);
         setEntityName("MaleSexChange");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-change.png"));
+        setImage(new Image(System.getProperty("user.dir") +
+                "/src/resources/images/game/entities/male-change.png"));
         setHp(1);
         setDamage(0);
         setRange(1);
@@ -48,8 +48,11 @@ public class MaleSexChange extends Item {
     }
 
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sex_change.wav");
+    public void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
+        playGameEffect(System.getProperty("user.dir") +
+                "/src/resources/audio/game/sex_change.wav");
     }
 
     /**
@@ -58,7 +61,8 @@ public class MaleSexChange extends Item {
      */
     public void activate(Level level, GraphicsContext gc) {
         Tile[][] tile = level.getTiles();
-        ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> entitiesOnTile =
+                tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int i = 0; i < entitiesOnTile.size(); i++) {

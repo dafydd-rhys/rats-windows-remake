@@ -15,9 +15,13 @@ import java.net.URL;
  */
 public class MOTD {
 
-    /** */
+    /**
+     *
+     */
     private final URL puzzleURL;
-    /** */
+    /**
+     *
+     */
     private final URL messageURL;
 
     /**
@@ -27,11 +31,12 @@ public class MOTD {
      */
     public MOTD() throws MalformedURLException {
         puzzleURL = new URL("http://cswebcat.swansea.ac.uk/puzzle");
-        messageURL = new URL ("http://cswebcat.swansea.ac.uk/message");
+        messageURL = new URL("http://cswebcat.swansea.ac.uk/message");
     }
 
     /**
      * Send a GET request to given URL.
+     *
      * @param url url to send request to.
      * @return response
      * @throws IOException
@@ -42,14 +47,17 @@ public class MOTD {
 
         BufferedReader br = null;
         if (100 <= conn.getResponseCode() && conn.getResponseCode() <= 399) {
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            br = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
         }
 
         String inputLine;
         StringBuilder response = new StringBuilder();
         while (true) {
             assert br != null;
-            if ((inputLine = br.readLine()) == null) break;
+            if ((inputLine = br.readLine()) == null) {
+                break;
+            }
             response.append(inputLine);
         }
 
@@ -59,6 +67,7 @@ public class MOTD {
 
     /**
      * Resolves the API puzzle.
+     *
      * @return puzzle solution.
      * @throws IOException
      */

@@ -5,13 +5,16 @@ import javafx.scene.image.Image;
 import main.level.Level;
 import tile.Tile;
 
-import static main.external.Audio.playGameEffect;
-
-import javax.sound.sampled.Line;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
+
+import static main.external.Audio.playGameEffect;
 
 /**
  * Rat.java
@@ -22,72 +25,66 @@ import java.util.*;
  */
 public class Rat extends Entity {
 
-    /** */
-    private Direction direction;
-    /** */
-    private Gender gender;
-    /** */
-    private Image rotatedImage;
-    /** */
-    private Image upImage;
-    /** */
-    private Image downImage;
-    /** */
-    private Image leftImage;
-    /** */
-    private Image rightImage;
-    /** */
-    private int hp;
-    /** */
-    private boolean isAdult;
-    /** */
-    private boolean isSterilised;
-    /** */
-    private boolean isPregnant;
-    /** */
-    private int pregnancyStage;
-    /** */
-    private int growingStage;
-    /** */
-    private final Queue<Rat> babyQueue;
-    /** */
+    /**
+     *
+     */
     private static Level level;
-
     /**
-     * The enum Gender.
+     *
      */
-    public enum Gender {
-        /**
-         * Male gender.
-         */
-        MALE(),
-        /**
-         * Female gender.
-         */
-        FEMALE()
-    }
-
+    private final Queue<Rat> babyQueue;
     /**
-     * The enum Direction.
+     *
      */
-    public enum Direction {
-        /**
-         * Up direction.
-         */
-        UP(),
-        /**
-         * Left direction.
-         */
-        LEFT(),
-        /**
-         * Right direction.
-         */
-        RIGHT(),
-        /**
-         * Down direction.
-         */
-        DOWN()
-    }
+    private Direction direction;
+    /**
+     *
+     */
+    private Gender gender;
+    /**
+     *
+     */
+    private Image rotatedImage;
+    /**
+     *
+     */
+    private Image upImage;
+    /**
+     *
+     */
+    private Image downImage;
+    /**
+     *
+     */
+    private Image leftImage;
+    /**
+     *
+     */
+    private Image rightImage;
+    /**
+     *
+     */
+    private int hp;
+    /**
+     *
+     */
+    private boolean isAdult;
+    /**
+     *
+     */
+    private boolean isSterilised;
+    /**
+     *
+     */
+    private boolean isPregnant;
+    /**
+     *
+     */
+    private int pregnancyStage;
+    /**
+     *
+     */
+    private int growingStage;
 
     /**
      * Instantiates a new Rat.
@@ -116,11 +113,14 @@ public class Rat extends Entity {
 
     private void setSprites() {
         if (!isAdult) {
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
+            setImage(new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/baby-rat.png"));
         } else if (gender == Gender.FEMALE) {
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
-        } else if (gender == Gender.MALE){
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png"));
+            setImage(new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/death-rat.png"));
+        } else if (gender == Gender.MALE) {
+            setImage(new Image(System.getProperty("user.dir") +
+                    "/src/resources/images/game/entities/male-rat.png"));
         }
 
         getImages();
@@ -154,7 +154,7 @@ public class Rat extends Entity {
             rightImage = RatSprites.rightMale;
             downImage = RatSprites.downMale;
             leftImage = RatSprites.leftMale;
-        } else if (isSterilised() && getGender()== Gender.FEMALE) {
+        } else if (isSterilised() && getGender() == Gender.FEMALE) {
             image = RatSprites.upFemale;
             upImage = RatSprites.upFemale;
             rightImage = RatSprites.rightFemale;
@@ -189,7 +189,8 @@ public class Rat extends Entity {
             if (e.getEntityType() == EntityType.RAT) {
                 Rat partner = (Rat) e;
 
-                if (getGender() != partner.getGender() && isAdult() && partner.isAdult()
+                if (getGender() != partner.getGender() && isAdult() &&
+                        partner.isAdult()
                         && isSterilised() && partner.isSterilised()) {
                     mate(partner);
                 }
@@ -234,7 +235,8 @@ public class Rat extends Entity {
                 }
             } else if (getPregnancyStage() > 10) {
                 if (babyQueue.size() > 0) {
-                    level.placeRat(babyQueue.poll(), level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
+                    level.placeRat(babyQueue.poll(),
+                            level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
                 } else {
                     setPregnancyStage(0);
                 }
@@ -258,13 +260,15 @@ public class Rat extends Entity {
     }
 
     /**
-     *
      * @param
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playSound()
+            throws UnsupportedAudioFileException, LineUnavailableException,
+            IOException {
         try {
-            playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+            playGameEffect(System.getProperty("user.dir") +
+                    "/src/resources/audio/game/rat_dying.wav");
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
@@ -307,11 +311,6 @@ public class Rat extends Entity {
         result += String.format("%02d", this.getCurrentPosY());
 
         return result;
-    }
-
-    @Override
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     @Override
@@ -363,7 +362,8 @@ public class Rat extends Entity {
      * Kill.
      */
     public void kill() {
-        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
+        level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(
+                this);
         level.getRats().remove(this);
         level.setScore(Level.getScore() + 10);
         try {
@@ -428,15 +428,6 @@ public class Rat extends Entity {
     }
 
     /**
-     * Sets rotated image.
-     *
-     * @param image the image
-     */
-    public void setRotatedImage(Image image) {
-        this.rotatedImage = image;
-    }
-
-    /**
      * Gets rotated image.
      *
      * @return the rotated image
@@ -445,8 +436,22 @@ public class Rat extends Entity {
         return this.rotatedImage;
     }
 
+    /**
+     * Sets rotated image.
+     *
+     * @param image the image
+     */
+    public void setRotatedImage(Image image) {
+        this.rotatedImage = image;
+    }
+
     public Image getImage() {
         return this.image;
+    }
+
+    @Override
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     /**
@@ -540,6 +545,15 @@ public class Rat extends Entity {
     }
 
     /**
+     * Gets growing stage.
+     *
+     * @return the growing stage
+     */
+    public int getGrowingStage() {
+        return this.growingStage;
+    }
+
+    /**
      * Sets growing stage.
      *
      * @param value the value
@@ -549,12 +563,39 @@ public class Rat extends Entity {
     }
 
     /**
-     * Gets growing stage.
-     *
-     * @return the growing stage
+     * The enum Gender.
      */
-    public int getGrowingStage() {
-        return this.growingStage;
+    public enum Gender {
+        /**
+         * Male gender.
+         */
+        MALE(),
+        /**
+         * Female gender.
+         */
+        FEMALE()
+    }
+
+    /**
+     * The enum Direction.
+     */
+    public enum Direction {
+        /**
+         * Up direction.
+         */
+        UP(),
+        /**
+         * Left direction.
+         */
+        LEFT(),
+        /**
+         * Right direction.
+         */
+        RIGHT(),
+        /**
+         * Down direction.
+         */
+        DOWN()
     }
 
 }

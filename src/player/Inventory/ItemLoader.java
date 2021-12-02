@@ -2,11 +2,12 @@ package player.Inventory;
 
 import entity.Item;
 import javafx.scene.layout.AnchorPane;
+
 import java.util.ArrayList;
 
 /**
  * ItemLoader.java
- *
+ * <p>
  * Loads the inventory items from save file.
  *
  * @author Maurice Petersen (2013396).

@@ -1,6 +1,7 @@
 package main.level;
 
 import entity.Item;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,23 +17,41 @@ import java.util.Scanner;
  */
 public class LevelFileReader {
 
-    /** */
+    /**
+     *
+     */
     private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
-    /** */
-    private char[][] level;
-    /** */
-    private char[][] spawns;
-    /** */
+    /**
+     *
+     */
     private final String lvlDirectory;
-    /** */
+    /**
+     *
+     */
     private final String spawnDirectory;
-    /** */
+    /**
+     *
+     */
+    private char[][] level;
+    /**
+     *
+     */
+    private char[][] spawns;
+    /**
+     *
+     */
     private int expectedTime;
-    /** */
+    /**
+     *
+     */
     private int maxRats;
-    /** */
+    /**
+     *
+     */
     private int sizeX = 0;
-    /** */
+    /**
+     *
+     */
     private int sizeY = 0;
 
     /**
@@ -42,11 +61,13 @@ public class LevelFileReader {
      * @throws IOException the io exception
      */
     public LevelFileReader(int level, boolean isSave) throws IOException {
-        this.lvlDirectory = "src/resources/config/levels/level" + level + ".txt";
-        this.spawnDirectory= "src/resources/config/spawns/level" + level + "-spawns.txt";
+        this.lvlDirectory =
+                "src/resources/config/levels/level" + level + ".txt";
+        this.spawnDirectory =
+                "src/resources/config/spawns/level" + level + "-spawns.txt";
         loadLevel();
 
-        if(!isSave) {
+        if (!isSave) {
             loadSpawns();
         }
     }
@@ -115,8 +136,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @throws IOException
      */
     private void loadLevel() throws IOException {
@@ -124,8 +143,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @throws FileNotFoundException
      */
     private void loadSpawns() throws FileNotFoundException {
@@ -133,8 +150,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @param dir
      * @return
      * @throws FileNotFoundException
@@ -145,16 +160,19 @@ public class LevelFileReader {
 
         if (dir.equals(lvlDirectory)) {
             String[] split = scanner.next().split(",");
-            sizeX = Integer.parseInt(split[0].substring(0, 0) + split[0].substring(1));
+            sizeX = Integer.parseInt(
+                    split[0].substring(0, 0) + split[0].substring(1));
             sizeY = Integer.parseInt(split[1].substring(0, 2));
             maxRats = scanner.nextInt();
             expectedTime = scanner.nextInt();
 
-            for (int i = 0; i < 8; i ++) {
+            for (int i = 0; i < 8; i++) {
                 split = scanner.next().split(",");
                 StringBuilder amount = new StringBuilder(split[1]);
-                timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
-                        Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
+                timeToGenerate.put(getItem(split[0].substring(0, 0) +
+                                split[0].substring(1)),
+                        Integer.parseInt(String.valueOf(
+                                amount.deleteCharAt(amount.length() - 1))));
             }
             scanner.nextLine();
         }
@@ -170,8 +188,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @param item
      * @return
      */

@@ -7,13 +7,21 @@ package scoreboard;
  */
 public class ScoreboardPlayer {
 
-    /** */
+    /**
+     *
+     */
     private String level;
-    /** */
+    /**
+     *
+     */
     private int rank;
-    /** */
+    /**
+     *
+     */
     private String name;
-    /** */
+    /**
+     *
+     */
     private int score;
 
     /**
@@ -24,20 +32,12 @@ public class ScoreboardPlayer {
      * @param name  the name
      * @param score the score
      */
-    public ScoreboardPlayer(final String level, final int rank, final String name, final int score) {
+    public ScoreboardPlayer(final String level, final int rank,
+                            final String name, final int score) {
         this.level = level;
         this.rank = rank;
         this.name = name;
         this.score = score;
-    }
-
-    /**
-     * Sets level.
-     *
-     * @param level the level
-     */
-    public void setLevel(String level) {
-        this.level = level;
     }
 
     /**
@@ -50,12 +50,12 @@ public class ScoreboardPlayer {
     }
 
     /**
-     * Sets rank.
+     * Sets level.
      *
-     * @param rank the rank
+     * @param level the level
      */
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     /**
@@ -68,12 +68,12 @@ public class ScoreboardPlayer {
     }
 
     /**
-     * Sets name.
+     * Sets rank.
      *
-     * @param name the name
+     * @param rank the rank
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     /**
@@ -86,12 +86,12 @@ public class ScoreboardPlayer {
     }
 
     /**
-     * Sets score.
+     * Sets name.
      *
-     * @param score the score
+     * @param name the name
      */
-    public void setScore(int score) {
-        this.score = score;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -101,6 +101,15 @@ public class ScoreboardPlayer {
      */
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Sets score.
+     *
+     * @param score the score
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
 }

@@ -2,21 +2,21 @@ package main.level;
 
 import entity.Item;
 import entity.rat.Rat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.scene.canvas.GraphicsContext;
 import tile.Tile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * LevelLoadGenerator.java
- *
+ * <p>
  * Generates a level from a loaded save file.
  *
  * @author Maurice Petersen (2013396)
  */
 public class LevelLoadGenerator {
 
-    private Level level;
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     private final GraphicsContext gc;
     private final char[][] tiles;
@@ -26,9 +26,12 @@ public class LevelLoadGenerator {
     private final int maxRats;
     private final int sizeY;
     private final int sizeX;
+    private Level level;
 
-    public LevelLoadGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
-                              char[][] level, ArrayList<Rat> ratSpawns, ArrayList<Item> itemSpawns, int expectedTime,
+    public LevelLoadGenerator(HashMap<Item.TYPE, Integer> timeToGenerate,
+                              GraphicsContext gc, int sizeX, int sizeY,
+                              char[][] level, ArrayList<Rat> ratSpawns,
+                              ArrayList<Item> itemSpawns, int expectedTime,
                               int maxRats) {
         this.timeToGenerate = timeToGenerate;
         this.gc = gc;
@@ -69,16 +72,19 @@ public class LevelLoadGenerator {
             setItem(tilesArray, item);
         }
 
-        this.level = new Level(timeToGenerate, expectedTime, maxRats, tilesArray, ratSpawns, sizeY, sizeX);
+        this.level =
+                new Level(timeToGenerate, expectedTime, maxRats, tilesArray,
+                        ratSpawns, sizeY, sizeX);
         this.level.setItems(itemSpawns);
     }
 
     /**
      * Add tile from level file to tile array.
+     *
      * @param tiles tile array
-     * @param x x coordinate
-     * @param y y coordinate
-     * @param type tile type
+     * @param x     x coordinate
+     * @param y     y coordinate
+     * @param type  tile type
      */
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
         Tile tile = new Tile(x, y, type, new ArrayList<>());
@@ -88,8 +94,9 @@ public class LevelLoadGenerator {
 
     /**
      * Add rats to tile.
+     *
      * @param tiles tile array.
-     * @param rat rat to be added.
+     * @param rat   rat to be added.
      */
     private void setRat(Tile[][] tiles, Rat rat) {
         int x = rat.getCurrentPosX();
@@ -103,8 +110,9 @@ public class LevelLoadGenerator {
 
     /**
      * Add item to tile.
+     *
      * @param tiles tile array
-     * @param item item to be added
+     * @param item  item to be added
      */
     private void setItem(Tile[][] tiles, Item item) {
         int x = item.getCurrentPosX();

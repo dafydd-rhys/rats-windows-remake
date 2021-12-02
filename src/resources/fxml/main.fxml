@@ -2,116 +2,166 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
-   <children>
-      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label layoutX="35.0" layoutY="6.0" text="Rats! (1998) Remake!" />
-            <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/rats-icon.png" />
-               </image>
-            </ImageView>
-            <JFXButton fx:id="exit" layoutX="765.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/close.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="maximise" layoutX="731.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/maximise.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="minimize" layoutX="697.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/minimize.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="settings" layoutX="663.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="minimizeIcon1" fitHeight="14.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/settingsIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="sfx" layoutX="629.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="effectsImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/volumeIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="music" layoutX="595.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="5.0">
-               <graphic>
-                  <ImageView fx:id="musicImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu/musicIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="600.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-         <children>
-            <JFXTextArea editable="false" focusColor="GREY" layoutX="10.0" layoutY="31.0" prefHeight="439.0" prefWidth="180.0" text="Rats! is a 1998 2D platform video game developed by Tarantula Studios, published by Take-Two Interactive Software.&#10;&#10;The game was released in the France, Germany, and the United Kingdom for Game Boy and Game Boy Color on 30 December 1998 under the title Reservoir Rat.&#10;&#10;&#10;&#10;&#10;&#10;Credits:&#10;Harry Boyce (2011556)&#10;Stefan Daitoiu (2033160)&#10;Bryan Kok (852650)&#10;Dafydd Maund (2003900)&#10;Maurice Petersen (2013396)&#10;Gareth Wade (1901805)&#10;Dawid Wisniewski (857847)&#10;Chunyuan Zhang (2131205)" unFocusColor="GREY" wrapText="true">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </JFXTextArea>
-         </children></AnchorPane>
-      <VBox alignment="CENTER" layoutY="31.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="31.0">
-         <children>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
-               <children>
-                  <ImageView fx:id="logo1" fitHeight="300.0" fitWidth="150.0" layoutX="227.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/rats-icon.png" />
-                     </image>
-                  </ImageView>
-                  <TextField fx:id="playerName" layoutX="152.0" layoutY="248.0" prefHeight="41.0" prefWidth="300.0" promptText="Player Name" />
-                  <ComboBox fx:id="selectTheme" editable="true" layoutX="153.0" layoutY="318.0" prefHeight="41.0" prefWidth="300.0" promptText="Theme" />
-                  <Text fill="#514d4d" layoutX="155.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Theme" AnchorPane.bottomAnchor="184.98828125" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="374.306640625" AnchorPane.topAnchor="299.05078125" />
-                  <Text fill="#514d4d" layoutX="154.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Player Name" />
-                  <JFXButton fx:id="proceed" alignment="CENTER" layoutX="200.0" layoutY="438.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Continue" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="16.0" />
-                     </font>
-                  </JFXButton>
-                  <Text fx:id="motd" layoutX="14.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="577.0" />
-                  <Text fx:id="motd1" layoutX="239.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Message of the day:" textAlignment="CENTER" wrappingWidth="127.0" />
-                  <ComboBox fx:id="selectGeneration" editable="true" layoutX="153.0" layoutY="387.0" prefHeight="41.0" prefWidth="300.0" promptText="Generation Type" />
-                  <Text fill="#514d4d" layoutX="155.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Generation Type" />
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16"
+            fx:controller="controllers.MainController">
+    <children>
+        <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label layoutX="35.0" layoutY="6.0" text="Rats! (1998) Remake!"/>
+                <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="7.0" layoutY="5.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/rats-icon.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton fx:id="exit" layoutX="765.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="closeIcon" fitHeight="14.0" fitWidth="14.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/close.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="maximise" layoutX="731.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="maximiseIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/maximise.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="minimize" layoutX="697.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="minimizeIcon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/minimize.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="settings" layoutX="663.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="minimizeIcon1" fitHeight="14.0" fitWidth="24.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/settingsIcon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="sfx" layoutX="629.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="effectsImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/volumeIcon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="music" layoutX="595.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="30.0"
+                           style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');"
+                           AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="5.0">
+                    <graphic>
+                        <ImageView fx:id="musicImage" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu/musicIcon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="600.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                    minWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: grey;"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <JFXTextArea editable="false" focusColor="GREY" layoutX="10.0" layoutY="31.0" prefHeight="439.0"
+                             prefWidth="180.0"
+                             text="Rats! is a 1998 2D platform video game developed by Tarantula Studios, published by Take-Two Interactive Software.&#10;&#10;The game was released in the France, Germany, and the United Kingdom for Game Boy and Game Boy Color on 30 December 1998 under the title Reservoir Rat.&#10;&#10;&#10;&#10;&#10;&#10;Credits:&#10;Harry Boyce (2011556)&#10;Stefan Daitoiu (2033160)&#10;Bryan Kok (852650)&#10;Dafydd Maund (2003900)&#10;Maurice Petersen (2013396)&#10;Gareth Wade (1901805)&#10;Dawid Wisniewski (857847)&#10;Chunyuan Zhang (2131205)"
+                             unFocusColor="GREY" wrapText="true">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </JFXTextArea>
+            </children>
+        </AnchorPane>
+        <VBox alignment="CENTER" layoutY="31.0" prefHeight="500.0" prefWidth="600.0"
+              style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="31.0">
+            <children>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                            prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;">
+                    <children>
+                        <ImageView fx:id="logo1" fitHeight="300.0" fitWidth="150.0" layoutX="227.0" layoutY="14.0"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/rats-icon.png"/>
+                            </image>
+                        </ImageView>
+                        <TextField fx:id="playerName" layoutX="152.0" layoutY="248.0" prefHeight="41.0"
+                                   prefWidth="300.0" promptText="Player Name"/>
+                        <ComboBox fx:id="selectTheme" editable="true" layoutX="153.0" layoutY="318.0" prefHeight="41.0"
+                                  prefWidth="300.0" promptText="Theme"/>
+                        <Text fill="#514d4d" layoutX="155.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Select Theme" AnchorPane.bottomAnchor="184.98828125" AnchorPane.leftAnchor="155.0"
+                              AnchorPane.rightAnchor="374.306640625" AnchorPane.topAnchor="299.05078125"/>
+                        <Text fill="#514d4d" layoutX="154.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Enter Player Name"/>
+                        <JFXButton fx:id="proceed" alignment="CENTER" layoutX="200.0" layoutY="438.0" prefHeight="50.0"
+                                   prefWidth="200.0" style="-fx-background-color: #6eace0;" text="Continue"
+                                   textFill="WHITE">
+                            <font>
+                                <Font name="Calibri Light" size="16.0"/>
+                            </font>
+                        </JFXButton>
+                        <Text fx:id="motd" layoutX="14.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              textAlignment="CENTER" wrappingWidth="577.0"/>
+                        <Text fx:id="motd1" layoutX="239.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              style="-fx-font-weight: bold;" text="Message of the day:" textAlignment="CENTER"
+                              wrappingWidth="127.0"/>
+                        <ComboBox fx:id="selectGeneration" editable="true" layoutX="153.0" layoutY="387.0"
+                                  prefHeight="41.0" prefWidth="300.0" promptText="Generation Type"/>
+                        <Text fill="#514d4d" layoutX="155.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Select Generation Type"/>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
