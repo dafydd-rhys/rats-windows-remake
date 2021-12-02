@@ -20,12 +20,15 @@ import static main.external.Audio.playGameEffect;
 /**
  * Sterilisation
  *
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
 public class Sterilisation extends Item {
 
+    /**
+     * Instantiates a new Sterilisation.
+     */
     public Sterilisation() {
         setEntityType(EntityType.ITEM);
         setEntityName("Sterilisation");
@@ -49,6 +52,12 @@ public class Sterilisation extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sterilisation.wav");
     }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         // TODO audio here
@@ -68,10 +77,16 @@ public class Sterilisation extends Item {
         }
     }
 
+    /**
+     *
+     *
+     * @param level
+     * @param i
+     */
     private void checkAdjacent(Level level, int i) {
         Tile[][] tiles = level.getTiles();
 
-        if (getCurrentPosX() + i < level.getCols() - 1 && getCurrentPosX() + i >= 0) {
+        if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
             if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
                 for (Entity entity : entities) {
@@ -85,7 +100,7 @@ public class Sterilisation extends Item {
             }
         }
 
-        if (getCurrentPosY() + i < level.getRows() - 1 && getCurrentPosY() + i >= 0) {
+        if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
             if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
 

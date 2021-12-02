@@ -30,37 +30,31 @@ import javafx.scene.media.Media;
  */
 public class SettingsController implements Initializable {
 
-    @FXML
-    private AnchorPane window;
-    @FXML
-    private Slider musicSlider;
-    @FXML
-    private Slider sfxSlider;
-    @FXML
-    private JFXButton music;
-    @FXML
-    private JFXButton sfx;
-    @FXML
-    private JFXButton mainMenuButton;
-    @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
-    private JFXButton exit;
-    @FXML
-    private ImageView musicImage;
-    @FXML
-    private ImageView effectsImage;
+    /**  */
+    @FXML private Slider musicSlider;
+    /**  */
+    @FXML private Slider sfxSlider;
+    /**  */
+    @FXML private JFXButton minimize;
+    /**  */
+    @FXML private JFXButton exit;
 
+    /**
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        onActions();
         musicSlider.setValue(Audio.getMusic());
         sfxSlider.setValue(Audio.getEffects());
-        onActions();
-        setImages();
     }
 
+    /**
+     *
+     */
     private void onActions() {
         musicSlider.valueProperty().addListener((ov, old, value) -> {
             try {
@@ -84,10 +78,6 @@ public class SettingsController implements Initializable {
                 ex.printStackTrace();
             }
         });
-    }
-
-    private void setImages() {
-
     }
 
 }

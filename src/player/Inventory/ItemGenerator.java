@@ -15,7 +15,7 @@ import player.Player;
  * generator items for player
  * call startGiveItem() to start give player item
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  */
 public class ItemGenerator {
 
@@ -23,6 +23,14 @@ public class ItemGenerator {
     private int second = 0;
     private static Timer ticker;
 
+    /**
+     * Instantiates a new Item generator.
+     *
+     * @param level     the level
+     * @param canvas    the canvas
+     * @param gc        the gc
+     * @param abilities the abilities
+     */
     public ItemGenerator(Level level, Canvas canvas, GraphicsContext gc, AnchorPane abilities) {
         this.abilities = abilities;
         Inventory.clear();
@@ -102,6 +110,9 @@ public class ItemGenerator {
         Inventory.enableItem(type, abilities);
     }
 
+    /**
+     * Cancel ticker.
+     */
     public static void cancelTicker() {
         if (ticker != null) {
             ticker.cancel();

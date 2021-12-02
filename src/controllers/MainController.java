@@ -21,38 +21,44 @@ import player.Player;
 /**
  * Main
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  */
 public class MainController implements Initializable {
 
-    @FXML
-    private ComboBox<String> selectTheme;
-    @FXML
-    private ComboBox<String> selectGeneration;
-    @FXML
-    private JFXButton sfx;
-    @FXML
-    private JFXButton music;
-    @FXML
-    private JFXButton settings;
-    @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
-    private JFXButton exit;
-    @FXML
-    private TextField playerName;
-    @FXML
-    private JFXButton proceed;
-    @FXML
-    private ImageView musicImage;
-    @FXML
-    private ImageView effectsImage;
-    @FXML
-    private Text motd;
+    /**  */
+    @FXML private ComboBox<String> selectTheme;
+    /**  */
+    @FXML private ComboBox<String> selectGeneration;
+    /**  */
+    @FXML private JFXButton sfx;
+    /**  */
+    @FXML private JFXButton music;
+    /**  */
+    @FXML private JFXButton settings;
+    /**  */
+    @FXML private JFXButton minimize;
+    /**  */
+    @FXML private JFXButton maximise;
+    /**  */
+    @FXML private JFXButton exit;
+    /**  */
+    @FXML private TextField playerName;
+    /**  */
+    @FXML private JFXButton proceed;
+    /**  */
+    @FXML private ImageView musicImage;
+    /**  */
+    @FXML private ImageView effectsImage;
+    /**  */
+    @FXML private Text motd;
 
+    /**
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listeners();
@@ -74,11 +80,17 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     *
+     */
     private void listeners() {
         proceed.disableProperty().bind(Bindings.isEmpty(playerName.textProperty())
                 .or(selectTheme.valueProperty().isNull()).or(selectGeneration.valueProperty().isNull()));
     }
 
+    /**
+     *
+     */
     private void onActions() {
         proceed.setOnAction(e -> {
             Player.THEME theme;

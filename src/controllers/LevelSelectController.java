@@ -23,39 +23,45 @@ import player.Player;
  */
 public class LevelSelectController implements Initializable {
 
-    @FXML
-    private AnchorPane window;
-    @FXML
-    private JFXButton level1;
-    @FXML
-    private JFXButton level2;
-    @FXML
-    private JFXButton level3;
-    @FXML
-    private JFXButton level4;
-    @FXML
-    private JFXButton level5;
-    @FXML
-    private JFXButton level6;
-    @FXML
-    private JFXButton mainMenuButton;
-    @FXML
-    private JFXButton settings;
-    @FXML
-    private JFXButton sfx;
-    @FXML
-    private JFXButton music;
-    @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
-    private JFXButton exit;
-    @FXML
-    private ImageView musicImage;
-    @FXML
-    private ImageView effectsImage;
+    /**  */
+    @FXML private AnchorPane window;
+    /**  */
+    @FXML private JFXButton level1;
+    /**  */
+    @FXML private JFXButton level2;
+    /**  */
+    @FXML private JFXButton level3;
+    /**  */
+    @FXML private JFXButton level4;
+    /**  */
+    @FXML private JFXButton level5;
+    /**  */
+    @FXML private JFXButton level6;
+    /**  */
+    @FXML private JFXButton mainMenuButton;
+    /**  */
+    @FXML private JFXButton settings;
+    /**  */
+    @FXML private JFXButton sfx;
+    /**  */
+    @FXML private JFXButton music;
+    /**  */
+    @FXML private JFXButton minimize;
+    /**  */
+    @FXML private JFXButton maximise;
+    /**  */
+    @FXML private JFXButton exit;
+    /**  */
+    @FXML private ImageView musicImage;
+    /**  */
+    @FXML private ImageView effectsImage;
 
+    /**
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
@@ -81,6 +87,9 @@ public class LevelSelectController implements Initializable {
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
+    /**
+     *
+     */
     private void onActions() {
         level1.setOnAction(e -> {
             try {

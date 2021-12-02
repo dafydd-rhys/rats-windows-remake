@@ -18,12 +18,15 @@ import static main.external.Audio.playGameEffect;
 /**
  * FemaleSexChange
  *
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
 public class FemaleSexChange extends Item {
 
+    /**
+     * Instantiates a new Female sex change.
+     */
     public FemaleSexChange() {
         setEntityType(EntityType.ITEM);
         setEntityName("FemaleSexChange");
@@ -47,6 +50,12 @@ public class FemaleSexChange extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sex_change.wav");
     }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
     public void activate(Level level, GraphicsContext gc) {
         Tile[][] tile = level.getTiles();
         ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();

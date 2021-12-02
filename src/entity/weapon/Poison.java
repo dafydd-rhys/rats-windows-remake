@@ -17,12 +17,15 @@ import static main.external.Audio.playGameEffect;
 /**
  * Poison
  *
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
 public class Poison extends Item {
 
+    /**
+     * Instantiates a new Poison.
+     */
     public Poison() {
         setEntityType(EntityType.ITEM);
         setEntityName("Poison");
@@ -46,6 +49,12 @@ public class Poison extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/poison.wav");
     }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
     public void activate(Level level, GraphicsContext gc) {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[this.currentPosY][this.currentPosX].getEntitiesOnTile();
 

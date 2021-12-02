@@ -12,47 +12,56 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
 import main.stage.StageFunctions;
+
 /**
  * Main
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  */
 public class MainMenuController implements Initializable {
 
-    @FXML
-    private AnchorPane window;
-    @FXML
-    private JFXButton levels;
-    @FXML
-    private JFXButton scoreboard;
-    @FXML
-    private JFXButton settings;
-    @FXML
-    private JFXButton sfx;
-    @FXML
-    private JFXButton music;
-    @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
-    private JFXButton exit;
-    @FXML
-    private JFXButton btnExit;
-    @FXML
-    private ImageView musicImage;
-    @FXML
-    private ImageView effectsImage;
+    /**  */
+    @FXML private AnchorPane window;
+    /**  */
+    @FXML private JFXButton levels;
+    /**  */
+    @FXML private JFXButton scoreboard;
+    /**  */
+    @FXML private JFXButton settings;
+    /**  */
+    @FXML private JFXButton sfx;
+    /**  */
+    @FXML private JFXButton music;
+    /**  */
+    @FXML private JFXButton minimize;
+    /**  */
+    @FXML private JFXButton maximise;
+    /**  */
+    @FXML private JFXButton exit;
+    /**  */
+    @FXML private JFXButton btnExit;
+    /**  */
+    @FXML private ImageView musicImage;
+    /**  */
+    @FXML private ImageView effectsImage;
 
+    /**
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
-        setImages();
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
     }
 
+    /**
+     *
+     */
     private void onActions() {
         levels.setOnAction(e -> {
             try {
@@ -107,10 +116,6 @@ public class MainMenuController implements Initializable {
                 ex.printStackTrace();
             }
         });
-    }
-
-    private void setImages() {
-
     }
 
 }

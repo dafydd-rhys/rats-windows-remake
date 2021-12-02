@@ -40,53 +40,59 @@ import tile.Tile;
 /**
  * Main
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  * @author Harry Boyce (2011556)
  * @author Maurice Petersen (2013396)
  */
 public class GameController implements Initializable {
 
-    @FXML
-    private AnchorPane abilities;
-    @FXML
-    private ScrollPane gameScroll;
-    @FXML
-    private BorderPane game;
-    @FXML
-    private JFXButton sfx;
-    @FXML
-    private JFXButton music;
-    @FXML
-    private JFXButton settings;
-    @FXML
-    private JFXButton minimize;
-    @FXML
-    private JFXButton maximise;
-    @FXML
-    private JFXButton exit;
-    @FXML
-    private ImageView musicImage;
-    @FXML
-    private ImageView effectsImage;
-    @FXML
-    private JFXTextArea lblLevel;
-    @FXML
-    private JFXTextArea lblTime;
-    @FXML
-    private JFXTextArea lblScore;
-    @FXML
-    private JFXTextArea lblExpected;
-    @FXML
-    private JFXButton restartBtn;
-    @FXML
-    private JFXButton mainMenu;
+    /**  */
+    @FXML private AnchorPane abilities;
+    /**  */
+    @FXML private ScrollPane gameScroll;
+    /**  */
+    @FXML private BorderPane game;
+    /**  */
+    @FXML private JFXButton sfx;
+    /**  */
+    @FXML private JFXButton music;
+    /**  */
+    @FXML private JFXButton settings;
+    /**  */
+    @FXML private JFXButton minimize;
+    /**  */
+    @FXML private JFXButton maximise;
+    /**  */
+    @FXML private JFXButton exit;
+    /**  */
+    @FXML private ImageView musicImage;
+    /**  */
+    @FXML private ImageView effectsImage;
+    /**  */
+    @FXML private JFXTextArea lblLevel;
+    /**  */
+    @FXML private JFXTextArea lblTime;
+    /**  */
+    @FXML private JFXTextArea lblScore;
+    /**  */
+    @FXML private JFXTextArea lblExpected;
+    /**  */
+    @FXML private JFXButton restartBtn;
+    /**  */
+    @FXML private JFXButton mainMenu;
 
     private static Level level;
     private static GraphicsContext gc;
     private static double currentTick;
     private Timer ticker;
 
+    /**
+     *
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Level.setGameOver(false);
@@ -178,6 +184,9 @@ public class GameController implements Initializable {
         ticker.schedule(task, 500, 500);
     }
 
+    /**
+     *
+     */
     private void onActions() {
         settings.setOnAction(e -> {
             try {
@@ -230,6 +239,11 @@ public class GameController implements Initializable {
 
     }
 
+    /**
+     *
+     *
+     * @param rat
+     */
     private static void move(final Rat rat) {
         Movement.tiles = level.getTiles();
         Movement.rat = rat;
@@ -248,6 +262,9 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     *
+     */
     private static void tick() {
         ArrayList<Rat> rats = level.getRats();
         ArrayList<Item> items = level.getItems();
@@ -284,6 +301,9 @@ public class GameController implements Initializable {
         draw();
     }
 
+    /**
+     *
+     */
     private static void draw() {
         Platform.runLater(() -> {
             Tile[][] tiles = level.getTiles();

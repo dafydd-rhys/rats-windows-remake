@@ -15,6 +15,9 @@ import java.io.IOException;
 import static main.external.Audio.playGameEffect;
 
 
+/**
+ * Controller used to handle the game over screen.
+ */
 public class GameOverController implements Initializable {
 
     @FXML
@@ -40,6 +43,10 @@ public class GameOverController implements Initializable {
     @FXML
     private Text score;
 
+    /**
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (Level.getGameOver() && Level.getGameWon()) {
@@ -67,6 +74,14 @@ public class GameOverController implements Initializable {
         onActions();
     }
 
+    /**
+     * Play sound.
+     *
+     * @param path the path
+     * @throws UnsupportedAudioFileException the unsupported audio file exception
+     * @throws LineUnavailableException      the line unavailable exception
+     * @throws IOException                   the io exception
+     */
     public void playSound(String path) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         try {
             playGameEffect(System.getProperty("user.dir") + path);
@@ -75,6 +90,9 @@ public class GameOverController implements Initializable {
         }
     }
 
+    /**
+     *
+     */
     private void onActions() {
 
         play.setOnAction(e -> {

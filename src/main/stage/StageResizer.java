@@ -15,10 +15,15 @@ import javafx.stage.Stage;
  * ResizeHelper.java
  * Can resize window and also drag window by the top bar
  *
- * @author Dafydd-Rhys Maund (2003900)
+ * @author Dafydd -Rhys Maund (2003900)
  */
 public class StageResizer {
 
+    /**
+     * Add resize listener.
+     *
+     * @param stage the stage
+     */
     public static void addResizeListener(Stage stage) {
         ResizeListener resizeListener = new ResizeListener(stage);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
@@ -33,6 +38,12 @@ public class StageResizer {
         }
     }
 
+    /**
+     *
+     *
+     * @param node
+     * @param listener
+     */
     private static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
         node.addEventHandler(MouseEvent.MOUSE_MOVED, listener);
         node.addEventHandler(MouseEvent.MOUSE_PRESSED, listener);
@@ -48,6 +59,9 @@ public class StageResizer {
         }
     }
 
+    /**
+     *
+     */
     private static class ResizeListener implements EventHandler<MouseEvent> {
         private final Stage stage;
         private Cursor cursorEvent = Cursor.DEFAULT;
@@ -56,6 +70,11 @@ public class StageResizer {
         private double startScreenX = 0;
         private double startScreenY = 0;
 
+        /**
+         * Instantiates a new Resize listener.
+         *
+         * @param stage the stage
+         */
         public ResizeListener(Stage stage) {
             this.stage = stage;
         }

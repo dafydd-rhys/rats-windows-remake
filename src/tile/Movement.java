@@ -13,18 +13,39 @@ import main.level.Level;
  */
 public class Movement {
 
+    /**
+     * The Tiles.
+     */
     public static Tile[][] tiles;
+    /**
+     * The constant current.
+     */
     public static Tile current;
+    /**
+     * The constant rat.
+     */
     public static Rat rat;
-
+    /** */
     private static int random;
+    /**
+     * The constant curX.
+     */
     public static int curX;
+    /**
+     * The constant curY.
+     */
     public static int curY;
 
     private static int generateRandom(int count) {
         return new Random().nextInt((count) + 1);
     }
 
+    /**
+     * Try horizontal.
+     *
+     * @param x  the x
+     * @param x2 the x 2
+     */
     public static void tryHorizontal(int x, int x2) {
         int count = 0;
 
@@ -77,6 +98,12 @@ public class Movement {
         }
     }
 
+    /**
+     * Try vertical.
+     *
+     * @param y  the y
+     * @param y2 the y 2
+     */
     public static void tryVertical(int y, int y2) {
         int count = 0;
 
@@ -129,6 +156,12 @@ public class Movement {
         }
     }
 
+    /**
+     *
+     *
+     * @param x
+     * @return
+     */
     private static boolean moveHorizontal(int x) {
         if (tiles[curY][curX + x].isWalkable()) {
             if (NoEntry(0, x)) {
@@ -155,6 +188,12 @@ public class Movement {
         return true;
     }
 
+    /**
+     *
+     *
+     * @param y
+     * @return
+     */
     private static boolean moveVertical(int y) {
         if (tiles[curY + y][curX].isWalkable()) {
             if (NoEntry(y, 0)) {
@@ -180,6 +219,9 @@ public class Movement {
         return true;
     }
 
+    /**
+     *
+     */
     private static void setRatsDirection() {
         if (rat.getDirection() == Rat.Direction.UP) {
             rat.setRotatedImage(rat.getDownImage());
@@ -200,6 +242,13 @@ public class Movement {
         }
     }
 
+    /**
+     *
+     *
+     * @param y
+     * @param x
+     * @return
+     */
     private static boolean NoEntry(int y, int x) {
         for (Entity entity : tiles[curY + y][curX + x].getEntitiesOnTile()) {
             if (entity.getEntityType() == Entity.EntityType.ITEM) {

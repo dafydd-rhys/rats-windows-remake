@@ -20,13 +20,16 @@ import static main.external.Audio.playGameEffect;
  * Bomb
  *
  * @author Gareth Wade (1901805)
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
- * @author Stefan-Cristian Daitoiu(2033160)
+ * @author Stefan -Cristian Daitoiu(2033160)
  */
 public class Bomb extends Item {
 
+    /**
+     * Instantiates a new Bomb.
+     */
     public Bomb() {
         setEntityType(EntityType.ITEM);
         setEntityName("Bomb");
@@ -50,6 +53,12 @@ public class Bomb extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/bomb.wav");
     }
 
+    /**
+     *
+     *
+     * @param level
+     * @param gc
+     */
     private void countdown(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         switch (getHp()) {
@@ -60,10 +69,22 @@ public class Bomb extends Item {
         }
     }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
     public void activate(Level level, GraphicsContext gc) {
         countdown(level, gc);
     }
 
+    /**
+     *
+     *
+     * @param level
+     * @param gc
+     */
     private void explode(Level level, GraphicsContext gc) {
 
         Tile[][] tiles = level.getTiles();
@@ -104,6 +125,14 @@ public class Bomb extends Item {
         startingTile.removeEntityFromTile(this);
     }
 
+    /**
+     *
+     *
+     * @param direction
+     * @param distance
+     * @param tiles
+     * @return
+     */
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
         return switch (direction) {
             case LEFT -> tiles[getCurrentPosY()][getCurrentPosX() - distance];

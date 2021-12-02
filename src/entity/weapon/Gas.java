@@ -20,7 +20,7 @@ import static main.external.Audio.playGameEffect;
 /**
  * Gas
  *
- * @author Dafydd-Rhys Maund
+ * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
@@ -29,6 +29,9 @@ public class Gas extends Item {
     private int count = -1;
     private ArrayList<Tile> tiles = new ArrayList<>();
 
+    /**
+     * Instantiates a new Gas.
+     */
     public Gas() {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
@@ -52,6 +55,12 @@ public class Gas extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/harry_gas.wav");
     }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         if (getHp() % 2 == 0 && getHp() < 10) {
@@ -91,6 +100,13 @@ public class Gas extends Item {
         }
     }
 
+    /**
+     *
+     *
+     * @param level
+     * @param i
+     * @return
+     */
     private ArrayList<Tile> checkAdjacent(Level level, int i) {
         ArrayList<Tile> seenTiles = new ArrayList<>();
         Tile[][] tiles = level.getTiles();
@@ -109,6 +125,12 @@ public class Gas extends Item {
         return seenTiles;
     }
 
+    /**
+     *
+     *
+     * @param tile
+     * @param level
+     */
     private void checkTile(Tile tile, Level level) {
         ArrayList<Entity> entities = new ArrayList<>(tile.getEntitiesOnTile());
 
@@ -122,6 +144,11 @@ public class Gas extends Item {
         }
     }
 
+    /**
+     * Gets tiles.
+     *
+     * @return the tiles
+     */
     public ArrayList<Tile> getTiles() {
         return tiles;
     }

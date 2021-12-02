@@ -16,15 +16,13 @@ import java.util.ArrayList;
 import static main.external.Audio.playGameEffect;
 
 /**
- * NoEntrySign
- *
- * @author Dafydd-Rhys Maund
- * @author Harry Boyce
- * @author Bryan Kok
+ * The type No entry sign.
  */
-
 public class NoEntrySign extends Item {
 
+    /**
+     * Instantiates a new No entry sign.
+     */
     public NoEntrySign() {
         setEntityType(EntityType.ITEM);
         setEntityName("NoEntry");
@@ -48,6 +46,12 @@ public class NoEntrySign extends Item {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/oof.wav");
     }
 
+    /**
+     *
+     *
+     * @param level the level
+     * @param gc    the gc
+     */
     public void activate(Level level, GraphicsContext gc) {
         switch (getHp()) {
             case 8 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png"));
