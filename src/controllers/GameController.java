@@ -176,7 +176,7 @@ public class GameController implements Initializable {
                         level.setScore(0);
                     } else if (level.getRats().size() == 0) {
                         Level.setGameOver(true);
-                        Level.setGameWon(false);
+                        Level.setGameWon(true);
                         if ((int) currentTick / 2 > level.getExpectedTime()) {
                             level.setScore(0);
                         }
