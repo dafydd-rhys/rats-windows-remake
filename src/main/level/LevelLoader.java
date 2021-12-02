@@ -27,6 +27,7 @@ public class LevelLoader {
     private final ArrayList<Item> itemSpawns;
     private final ArrayList<Item.TYPE> inventory;
     private int currentTick;
+    private int score;
 
     public LevelLoader() throws IOException {
         this.player = Player.getPlayerName();
@@ -35,6 +36,7 @@ public class LevelLoader {
         this.itemSpawns = new ArrayList<>();
         this.inventory = new ArrayList<>();
         this.currentTick = 0;
+        this.score = 0;
 
         loadLevel();
     }
@@ -58,6 +60,7 @@ public class LevelLoader {
         Scanner scanner = new Scanner(new File(saveDir));
         this.currentLevel = scanner.nextInt();
         this.currentTick = scanner.nextInt();
+        this.score = scanner.nextInt();
         this.levelDir = "src/resources/config/levels/level" + currentLevel + ".txt";
         scanner.close();
     }
@@ -67,7 +70,7 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readRatSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(2);
+        String line = Files.readAllLines(Paths.get(saveDir)).get(3);
         Scanner scanner = new Scanner(line);
         if (scanner.hasNext()) {
             String[] ratSplit = scanner.next().split(",");
@@ -128,7 +131,7 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readItemSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(3);
+        String line = Files.readAllLines(Paths.get(saveDir)).get(4);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -172,7 +175,7 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readInventoryItems() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(4);
+        String line = Files.readAllLines(Paths.get(saveDir)).get(5);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -204,6 +207,10 @@ public class LevelLoader {
         int currLevel = scanner.nextInt();
         scanner.close();
         return currLevel;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public int getCurrentTick() {

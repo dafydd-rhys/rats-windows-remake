@@ -47,6 +47,9 @@ public class LevelSave {
         // Current tick
         lines.add(String.valueOf(level.getCurrentTick()));
 
+        // Current score
+        lines.add(String.valueOf(Level.getScore()));
+
         // Rats in current level
         StringJoiner joiner = new StringJoiner(",");
         for (Rat rat: level.getRats()) {
