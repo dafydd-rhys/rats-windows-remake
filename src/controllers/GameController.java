@@ -255,6 +255,7 @@ public class GameController implements Initializable {
 
         restartBtn.setOnAction(e -> {
             try {
+                Level.setIsSave(false);
                 ticker.cancel();
                 currentTick = 0;
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());

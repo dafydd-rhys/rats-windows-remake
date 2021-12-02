@@ -109,7 +109,7 @@ public class GameOverController implements Initializable {
 
         restart.setOnAction(e -> {
             try {
-                Level.setIsSave(false);;
+                Level.setIsSave(false);
                 StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
                 StageFunctions.exitGameOver();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
