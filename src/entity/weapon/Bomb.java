@@ -2,6 +2,7 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
+import java.net.URL;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
@@ -26,13 +27,19 @@ import static main.external.Audio.playGameEffect;
  */
 public class Bomb extends Item {
 
+    private static final String BOMB_IMAGE = System.getProperty("user.dir")
+            + "\\src\\resources\\images\\game\\entities\\bomb-4.png";
+    private static final String EXPLOSION_IMAGE = System.getProperty("user.dir")
+            + "\\src\\resources\\images\\game\\entities\\bomb-4.png";
+
     /**
      * sets bomb attributes
      */
     public Bomb() {
+        URL oi = this.getClass().getResource("images\\Bomb.png");
         setEntityType(EntityType.ITEM);
         setEntityName("Bomb");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-4.png"));
+        setImage(new Image(BOMB_IMAGE));
         setHp(8);
         setDamage(99);
         setRange(0);
@@ -62,7 +69,7 @@ public class Bomb extends Item {
      * causes bomb to explode after some time
      *
      * @param level used to pass to explode method
-     * @param gc used to pass to explode method
+     * @param gc    used to pass to explode method
      */
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
@@ -75,13 +82,12 @@ public class Bomb extends Item {
     }
 
     /**
-     * inflict damage in weapon's range
+     * inflict damage to all rats in cardinal directions from bomb
      *
      * @param level gets tiles
-     * @param gc draws effect on affected tiles
+     * @param gc    draws effect on affected tiles
      */
     private void explode(Level level, GraphicsContext gc) {
-
         Tile[][] tiles = level.getTiles();
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
         try {
@@ -89,17 +95,15 @@ public class Bomb extends Item {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+
         for (Rat.Direction direction : Rat.Direction.values()) {
             Tile current = tiles[getCurrentPosY()][getCurrentPosX()];
 
             int distance = 0;
             while (current.isWalkable()) {
-
-                Image explosion = new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-explosion.gif");
-
                 current = getDirection(direction, distance, tiles);
-                ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
 
+                ArrayList<Entity> entitiesOnTile = current.getEntitiesOnTile();
                 if (!entitiesOnTile.isEmpty()) {
                     for (int i = 0; i < entitiesOnTile.size(); i++) {
                         Entity entity = entitiesOnTile.get(i);
@@ -108,9 +112,8 @@ public class Bomb extends Item {
                 }
 
                 distance++;
-
                 if (current.isWalkable() && current.isCovering()) {
-                    gc.drawImage(explosion, current.getX() * 50, current.getY() * 50);
+                    gc.drawImage(new Image(EXPLOSION_IMAGE), current.getX() * 50, current.getY() * 50);
                 }
             }
         }
@@ -119,12 +122,12 @@ public class Bomb extends Item {
     }
 
     /**
-     * finds tile in bomb's area of effect
+     * finds tile in bomb's area of effect one at a time
      *
      * @param direction gets direction to next tile
      * @param distance gets next tile in range
      * @param tiles gets tile using parameters
-     * @return next tile in direction
+     * @return next tile in bomb's area of effect
      */
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
         return switch (direction) {
