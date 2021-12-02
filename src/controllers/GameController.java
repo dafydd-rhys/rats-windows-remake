@@ -129,7 +129,6 @@ public class GameController implements Initializable {
                     levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
                     levelReader.getExpectedTime(), levelReader.getMaxRats());
             level = generator.getLevel();
-            level.setScore(0);
         } else {
             assert levelLoader != null;
             LevelLoadGenerator loadGenerator = new LevelLoadGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
@@ -137,8 +136,8 @@ public class GameController implements Initializable {
                     levelReader.getExpectedTime(), levelReader.getMaxRats());
             level = loadGenerator.getLevel();
             currentTick = levelLoader.getCurrentTick();
-            level.setScore(0);
         }
+        level.setScore(0);
         pr.setProgress(0);
         progressIncrease = (double) (100 / level.getMaxRats()) / 100;
 

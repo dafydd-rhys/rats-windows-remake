@@ -1,12 +1,9 @@
 package player;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -193,6 +190,28 @@ public class Player {
             writer.write(Player.playerName + ":" + Player.maxLevel + "\n");
             writer.close();
         }
+    }
+
+    public static boolean hasSaveFile() {
+        return listFilesForFolder(new File("src/resources/config/saves/"));
+    }
+
+    public static boolean listFilesForFolder(File folder) {
+        boolean found = false;
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry);
+            } else {
+                String[] playerSplit = fileEntry.getName().split("-");
+                String playerName = playerSplit[1].split("\\.")[0];
+                found = playerName.equals(Player.getPlayerName());
+                if (found) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }

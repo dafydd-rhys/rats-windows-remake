@@ -14,6 +14,7 @@ import main.external.Audio;
 import main.level.Level;
 import main.level.LevelLoader;
 import main.stage.StageFunctions;
+import player.Player;
 
 /**
  * Main
@@ -63,6 +64,10 @@ public class MainMenuController implements Initializable {
         onActions();
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
+        if (!Player.hasSaveFile()) {
+            loadGame.setDisable(true);
+        }
+
     }
 
     /**
