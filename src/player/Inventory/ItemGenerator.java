@@ -15,7 +15,7 @@ import player.Player;
  * generator items for player
  * call startGiveItem() to start give player item
  *
- * @author Dafydd -Rhys Maund (2003900)
+ * @author Dafydd-Rhys Maund (2003900)
  */
 public class ItemGenerator {
 
@@ -41,14 +41,16 @@ public class ItemGenerator {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                second++;
+                if (Level.getPaused()) {
+                    second++;
 
-                if (Player.getGeneration() == Player.ItemGeneration.RANDOM) {
-                    if (second % 3 == 0) {
-                        runRandom();
+                    if (Player.getGeneration() == Player.ItemGeneration.RANDOM) {
+                        if (second % 3 == 0) {
+                            runRandom();
+                        }
+                    } else {
+                        runPeriodic(level);
                     }
-                } else {
-                    runPeriodic(level);
                 }
             }
         };
@@ -57,6 +59,9 @@ public class ItemGenerator {
         ticker.schedule(task, 0, 1000);
     }
 
+    /**
+     *
+     */
     private void runRandom() {
         int random = new Random().nextInt(8);
 
@@ -79,6 +84,9 @@ public class ItemGenerator {
         }
     }
 
+    /**
+     * @param level
+     */
     private void runPeriodic(Level level) {
         if (second % level.getTimeToGenerate().get(Item.TYPE.BOMB) == 0) {
             enableItem(Item.TYPE.BOMB);
@@ -117,6 +125,18 @@ public class ItemGenerator {
         if (ticker != null) {
             ticker.cancel();
         }
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public static Timer getTicker() {
+        return ticker;
+    }
+
+    public AnchorPane getAbilities() {
+        return abilities;
     }
 
 }

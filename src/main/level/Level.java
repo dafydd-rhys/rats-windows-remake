@@ -4,6 +4,7 @@ import entity.rat.Rat;
 import entity.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.control.ProgressBar;
 import tile.Tile;
 
 /**
@@ -41,6 +42,7 @@ public final class Level {
     private static boolean gameOver = false;
     /** */
     private static boolean gameWon = false;
+    private static boolean paused = false;
 
     /**
      * Instantiates a new Level.
@@ -299,6 +301,14 @@ public final class Level {
      */
     public int getExpectedTime() {
         return expectedTime;
+    }
+
+    public static void setPaused(boolean paused) {
+        Level.paused = paused;
+    }
+
+    public static boolean getPaused() {
+        return !paused;
     }
 
 }

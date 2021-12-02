@@ -70,20 +70,8 @@ public class StageFunctions {
      */
     public static void openSettings() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Audio.clickEffect();
-        Stage settingsStage = new Stage();
-        StageFunctions.settingsStage = settingsStage;
-        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\resources\\fxml\\settings.fxml"));
-
-        settingsStage.setMinHeight(230);
-        settingsStage.setMinWidth(400);
-        settingsStage.setAlwaysOnTop(true);
-        settingsStage.setTitle("Settings");
-        settingsStage.initStyle(StageStyle.UNDECORATED);
-        settingsStage.initModality(Modality.WINDOW_MODAL);
-        settingsStage.initOwner(stage);
-        settingsStage.setScene(new Scene(scene));
-        StageResizer.addResizeListener(settingsStage);
-        settingsStage.show();
+        StageFunctions.settingsStage = openPopOut(new URL("file:/" + System.getProperty("user.dir") +
+                "\\src\\resources\\fxml\\settings.fxml"));
     }
 
     /**
@@ -94,21 +82,28 @@ public class StageFunctions {
      * @throws LineUnavailableException      the line unavailable exception
      */
     public static void openGameOver() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        Stage gameOverStage = new Stage();
-        StageFunctions.gameOverStage = gameOverStage;
-        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + "\\src\\resources\\fxml\\game_over.fxml"));
-
-        gameOverStage.setMinHeight(345);
-        gameOverStage.setMinWidth(500);
-        gameOverStage.setAlwaysOnTop(true);
-        gameOverStage.setTitle("Game Over");
-        gameOverStage.initStyle(StageStyle.UNDECORATED);
-        gameOverStage.initModality(Modality.WINDOW_MODAL);
-        gameOverStage.initOwner(stage);
-        gameOverStage.setScene(new Scene(scene));
-        StageResizer.addResizeListener(gameOverStage);
-        gameOverStage.show();
+        StageFunctions.gameOverStage = openPopOut(new URL("file:/" + System.getProperty("user.dir")
+                + "\\src\\resources\\fxml\\game_over.fxml"));
     }
+
+    private static Stage openPopOut(URL url) throws IOException {
+        Stage popStage = new Stage();
+        Parent scene = FXMLLoader.load(url);
+
+        popStage.setResizable(false);
+        popStage.setMinHeight(230);
+        popStage.setMinWidth(400);
+        popStage.setAlwaysOnTop(true);
+        popStage.setTitle("Settings");
+        popStage.initStyle(StageStyle.UNDECORATED);
+        popStage.initModality(Modality.WINDOW_MODAL);
+        popStage.initOwner(stage);
+        popStage.setScene(new Scene(scene));
+        popStage.show();
+
+        return popStage;
+    }
+
 
     /**
      * Mute music.
@@ -222,7 +217,6 @@ public class StageFunctions {
         int reply = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit",
                 "Close Program", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-
             System.exit(1);
         }
     }

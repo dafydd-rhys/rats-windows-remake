@@ -4,7 +4,7 @@ Stefan:45
 Dafydd:42
 Stefan:36
 Stefan:36
-Stefan:33
 Dafydd:33
+Stefan:33
+Dafydd:27
 Daftydd:27
-Dafydd:21

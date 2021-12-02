@@ -15,6 +15,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
 import main.external.MOTD;
+import main.level.Level;
 import main.stage.StageFunctions;
 import player.Player;
 
@@ -66,8 +67,6 @@ public class MainController implements Initializable {
 
         selectTheme.setEditable(false);
         selectGeneration.setEditable(false);
-
-        settings.setDisable(true);
         selectGeneration.getItems().addAll("Periodic Generation", "Random Generation");
         selectTheme.getItems().addAll("Default", "Beach", "Christmas");
         musicImage.setOpacity(Audio.isMuted("music"));
@@ -130,6 +129,14 @@ public class MainController implements Initializable {
         sfx.setOnAction(e -> {
             StageFunctions.muteEffects();
             StageFunctions.toggleOpacity(effectsImage);
+        });
+
+        settings.setOnAction(e -> {
+            try {
+                StageFunctions.openSettings();
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                ex.printStackTrace();
+            }
         });
 
         minimize.setOnAction(e -> StageFunctions.minimize());

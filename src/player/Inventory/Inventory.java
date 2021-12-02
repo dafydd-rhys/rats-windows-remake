@@ -104,14 +104,16 @@ public class Inventory {
                         image.setDisable(false);
                         AnchorPane.setTopAnchor(image, item.getYOffset() * 40.0 + 10);
                         AnchorPane.setLeftAnchor(image, i * 35.0 + 5);
+
+                        //prevent not being able to drag (image too thin - hard to grab)
                         if (type == Item.TYPE.MALE_CHANGE) {
                             image.setImage(new Image(System.getProperty("user.dir") +
                                     "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
-                        }
-                        else if (type == Item.TYPE.FEMALE_CHANGE){
+                        } else if (type == Item.TYPE.FEMALE_CHANGE){
                             image.setImage(new Image(System.getProperty("user.dir") +
                                     "\\src\\resources\\images\\game\\entities\\female-change-show.png"));
                         }
+
                         Platform.runLater(() -> abilities.getChildren().add(image));
                         listener(item, image, abilities);
                     }
@@ -186,7 +188,7 @@ public class Inventory {
 
         //if the tile attempting to drag on is walkable (not themed tile)
         Tile tile = level.getTiles()[y][x];
-        if (tile.isWalkable()) {
+        if (tile.isWalkable() && tile.isCovering()) {
             //removes item from inventory and draws in-game
             level.placeItem(item, tile);
 

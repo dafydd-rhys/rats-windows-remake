@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import entity.rat.Rat;
 import entity.Item;
-import entity.weapon.Bomb;
 import entity.weapon.DeathRat;
 import entity.weapon.Gas;
 import java.io.IOException;
@@ -18,13 +17,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
 import player.Player;
@@ -81,8 +80,11 @@ public class GameController implements Initializable {
     @FXML private JFXButton restartBtn;
     /**  */
     @FXML private JFXButton mainMenu;
+    @FXML
+    private ProgressBar pr;
 
     private static Level level;
+    private static double progressIncrease;
     private static GraphicsContext gc;
     private static double currentTick;
     private Timer ticker;
@@ -99,6 +101,7 @@ public class GameController implements Initializable {
         Level.setGameWon(false);
         lblTime.setEditable(false);
         lblExpected.setEditable(false);
+        pr.setStyle("-fx-accent: #00ff00;");
 
         LevelFileReader levelReader = null;
         try {
@@ -121,6 +124,8 @@ public class GameController implements Initializable {
                 levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
                 levelReader.getExpectedTime(), levelReader.getMaxRats());
         level = generator.getLevel();
+        pr.setProgress(0);
+        progressIncrease = (double) (100 / level.getMaxRats()) / 100;
 
         lblLevel.setText("Level: " + Level.getCurrentLevel());
         lblExpected.setText("Expected: " + level.getExpectedTime() + " seconds");
@@ -137,45 +142,48 @@ public class GameController implements Initializable {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                currentTick += 1;
-
-                if (currentTick % 2 == 0) {
-                    lblTime.setText("Current: " + (int) currentTick / 2 + " seconds");
-                }
-                lblScore.setText("Score: " + Level.getScore());
-                tick();
-
-                if (level.getRats().size() >= level.getMaxRats() || (int) currentTick / 2 > level.getExpectedTime()) {
-                    Level.setGameOver(true);
-                    Level.setGameWon(false);
-                } else if (level.getRats().size() == 0 && (int) currentTick / 2 < level.getExpectedTime()) {
-                    Level.setGameOver(true);
-                    Level.setGameWon(true);
-                }
-
-                if (Level.getGameOver()) {
-                    ticker.cancel();
-                    currentTick = 0;
-
-                    if (Level.getGameWon()) {
-                        try {
-                            Score score = new Score(Level.getCurrentLevel(), Player.getPlayerName(), Level.getScore());
-                            score.addToScoreBoard();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.println(Level.getScore());
-                    } else {
-                        level.setScore(0);
-                        lblScore.setText("Score: " + Level.getScore());
+                if (Level.getPaused()) {
+                    currentTick += 1;
+                    if (currentTick % 2 == 0) {
+                        lblTime.setText("Current: " + (int) currentTick / 2 + " seconds");
                     }
-                    Platform.runLater(() -> {
-                        try {
-                            StageFunctions.openGameOver();
-                        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-                            e.printStackTrace();
+                    lblScore.setText("Score: " + Level.getScore());
+                    tick();
+                    pr.setProgress(level.getRats().size() * progressIncrease);
+
+                    if (level.getRats().size() >= level.getMaxRats() || (int) currentTick / 2 > level.getExpectedTime()) {
+                        Level.setGameOver(true);
+                        Level.setGameWon(false);
+                    } else if (level.getRats().size() == 0 && (int) currentTick / 2 < level.getExpectedTime()) {
+                        Level.setGameOver(true);
+                        Level.setGameWon(true);
+                    }
+
+                    if (Level.getGameOver()) {
+                        ticker.cancel();
+                        currentTick = 0;
+
+                        if (Level.getGameWon()) {
+                            try {
+                                Score score = new Score(Level.getCurrentLevel(), Player.getPlayerName(), Level.getScore());
+                                score.addToScoreBoard();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println(Level.getScore());
+                        } else {
+                            level.setScore(0);
+                            lblScore.setText("Score: " + Level.getScore());
                         }
-                    });
+
+                        Platform.runLater(() -> {
+                            try {
+                                StageFunctions.openGameOver();
+                            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
                 }
             }
         };
@@ -190,6 +198,7 @@ public class GameController implements Initializable {
     private void onActions() {
         settings.setOnAction(e -> {
             try {
+                Level.setPaused(true);
                 StageFunctions.openSettings();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
@@ -227,11 +236,12 @@ public class GameController implements Initializable {
                 ex.printStackTrace();
             }
         });
+
         mainMenu.setOnAction(e -> {
             try {
                 ticker.cancel();
                 currentTick = 0;
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Main " + Level.getCurrentLevel());
+                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }

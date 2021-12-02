@@ -31,6 +31,8 @@ import javafx.scene.media.Media;
 public class SettingsController implements Initializable {
 
     /**  */
+    @FXML private AnchorPane window;
+    /**  */
     @FXML private Slider musicSlider;
     /**  */
     @FXML private Slider sfxSlider;
@@ -63,6 +65,7 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
+
         sfxSlider.valueProperty().addListener((ov, old, value) -> {
             try {
                 Audio.setEffects(value.floatValue());
@@ -70,9 +73,12 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
+
         minimize.setOnAction(e -> StageFunctions.minimizeSettings());
+
         exit.setOnAction(e -> {
             try {
+                Level.setPaused(false);
                 StageFunctions.exitSettings();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
                 ex.printStackTrace();

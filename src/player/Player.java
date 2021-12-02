@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Objects;
 public class Player {
 
     /** */
-    private static final String players = System.getProperty("user.dir") + "\\src\\resources\\config\\players.txt";
+    private static final String players = System.getProperty("user.dir") + "\\src\\resources\\players\\players.txt";
     /** */
     private static String playerName;
     /** */
@@ -144,6 +147,28 @@ public class Player {
         return maxLevel;
     }
 
+    public static void unlockedNew(int level) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(players));
+        ArrayList<String> existingPlayers = new ArrayList<>();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if(!line.equals(playerName + ":" + (level - 1))) {
+                existingPlayers.add(line);
+            } else {
+                existingPlayers.add(playerName + ":" + level);
+                Player.setMaxLevel(level);
+            }
+        }
+
+        PrintWriter writer = new PrintWriter(players, StandardCharsets.UTF_8);
+        for (String player : existingPlayers) {
+            System.out.println(player);
+            writer.println(player);
+        }
+        writer.close();
+    }
+
     /**
      *
      *
@@ -163,7 +188,7 @@ public class Player {
         }
 
         if (!found) {
-            FileWriter writer = new FileWriter(players,true);
+            FileWriter writer = new FileWriter(players, true);
             Player.maxLevel = 1;
             writer.write(Player.playerName + ":" + Player.maxLevel + "\n");
             writer.close();
