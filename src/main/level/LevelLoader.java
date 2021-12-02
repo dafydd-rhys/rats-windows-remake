@@ -3,6 +3,7 @@ package main.level;
 import entity.Item;
 import entity.rat.Rat;
 import entity.weapon.*;
+import player.Player;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 public class LevelLoader {
 
     private final String saveDir;
+    private String player;
     private String levelDir;
     private Level level;
     private int currentLevel;
@@ -27,7 +29,8 @@ public class LevelLoader {
     private int currentTick;
 
     public LevelLoader() throws IOException {
-        this.saveDir = "src/resources/config/save.txt";
+        this.player = Player.getPlayerName();
+        this.saveDir = "src/resources/config/saves/save-" + player + ".txt";
         this.ratSpawns = new ArrayList<>();
         this.itemSpawns = new ArrayList<>();
         this.inventory = new ArrayList<>();
@@ -36,6 +39,10 @@ public class LevelLoader {
         loadLevel();
     }
 
+    /**
+     * Reads the whole save file.
+     * @throws IOException
+     */
     private void loadLevel() throws IOException {
         readLevel();
         readRatSpawns();
@@ -43,6 +50,10 @@ public class LevelLoader {
         readInventoryItems();
     }
 
+    /**
+     * Reads the current level and current tick from the save file.
+     * @throws IOException
+     */
     private void readLevel() throws IOException {
         Scanner scanner = new Scanner(new File(saveDir));
         this.currentLevel = scanner.nextInt();
@@ -189,7 +200,7 @@ public class LevelLoader {
     }
 
     public static int getCurrentLevel() throws IOException {
-        Scanner scanner = new Scanner(new File("src/resources/config/save.txt"));
+        Scanner scanner = new Scanner(new File("src/resources/config/saves/save-" + Player.getPlayerName() + ".txt"));
         int currLevel = scanner.nextInt();
         scanner.close();
         return currLevel;
@@ -210,5 +221,4 @@ public class LevelLoader {
     public ArrayList<Item.TYPE> getInventory() {
         return inventory;
     }
-
 }

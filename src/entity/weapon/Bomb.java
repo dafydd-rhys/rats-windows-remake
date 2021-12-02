@@ -2,6 +2,7 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
+import java.net.URL;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
@@ -35,6 +36,7 @@ public class Bomb extends Item {
      * sets bomb attributes
      */
     public Bomb() {
+        URL oi = this.getClass().getResource("images\\Bomb.png");
         setEntityType(EntityType.ITEM);
         setEntityName("Bomb");
         setImage(new Image(BOMB_IMAGE));
@@ -80,7 +82,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * inflict damage in weapon's range
+     * inflict damage to all rats in cardinal directions from bomb
      *
      * @param level gets tiles
      * @param gc    draws effect on affected tiles
@@ -120,12 +122,12 @@ public class Bomb extends Item {
     }
 
     /**
-     * finds tile in bomb's area of effect
+     * finds tile in bomb's area of effect one at a time
      *
      * @param direction gets direction to next tile
-     * @param distance  gets next tile in range
-     * @param tiles     gets tile using parameters
-     * @return next tile in direction
+     * @param distance gets next tile in range
+     * @param tiles gets tile using parameters
+     * @return next tile in bomb's area of effect
      */
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
         return switch (direction) {

@@ -137,7 +137,6 @@ public class GameController implements Initializable {
             level = loadGenerator.getLevel();
             currentTick = levelLoader.getCurrentTick();
         }
-
         level.setScore(0);
         pr.setProgress(0);
         progressIncrease = (double) (100 / level.getMaxRats()) / 100;
