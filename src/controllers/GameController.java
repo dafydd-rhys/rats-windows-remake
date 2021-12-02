@@ -119,8 +119,9 @@ public class GameController implements Initializable {
             assert levelLoader != null;
             LevelLoadGenerator loadGenerator = new LevelLoadGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
                     levelReader.getSizeY(), levelReader.getLevel(), levelLoader.getRatSpawns(), levelLoader.getItemSpawns(),
-                    levelReader.getExpectedTime(), levelReader.getMaxRats(), levelLoader.getTimeRemaining());
+                    levelReader.getExpectedTime(), levelReader.getMaxRats());
             level = loadGenerator.getLevel();
+            currentTick = levelLoader.getCurrentTick();
         }
 
 
@@ -215,6 +216,9 @@ public class GameController implements Initializable {
 
         exit.setOnAction(e -> {
             try {
+                level.setCurrentTick((int) currentTick);
+                LevelSave ls = new LevelSave(level);
+                ls.save();
                 StageFunctions.exit();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
                 ex.printStackTrace();
@@ -232,6 +236,9 @@ public class GameController implements Initializable {
         });
         mainMenu.setOnAction(e -> {
             try {
+                level.setCurrentTick((int) currentTick);
+                LevelSave ls = new LevelSave(level);
+                ls.save();
                 ticker.cancel();
                 currentTick = 0;
                 StageFunctions.changeScene("\\src\\resources\\fxml\\main.fxml", "Main " + Level.getCurrentLevel());
@@ -263,9 +270,6 @@ public class GameController implements Initializable {
     private static void tick() {
         ArrayList<Rat> rats = level.getRats();
         ArrayList<Item> items = level.getItems();
-
-        LevelSave ls = new LevelSave(level);
-        ls.save();
 
         //adult rats - don't change for-loop to enhanced-for-loop (ConcurrentModificationException)
         if (currentTick % 2 == 0) {

@@ -18,13 +18,14 @@ public class LevelLoader {
     private final ArrayList<Rat> ratSpawns;
     private final ArrayList<Item> itemSpawns;
     private final ArrayList<Item.TYPE> inventory;
-    private int timeRemaining;
+    private int currentTick;
 
     public LevelLoader() throws IOException {
         this.saveDir = "src/resources/config/save.txt";
         this.ratSpawns = new ArrayList<>();
         this.itemSpawns = new ArrayList<>();
         this.inventory = new ArrayList<>();
+        this.currentTick = 0;
 
         loadLevel();
     }
@@ -39,12 +40,13 @@ public class LevelLoader {
     private void readLevel() throws IOException {
         Scanner scanner = new Scanner(new File(saveDir));
         this.currentLevel = scanner.nextInt();
+        this.currentTick = scanner.nextInt();
         this.levelDir = "src/resources/config/levels/level" + currentLevel + ".txt";
         scanner.close();
     }
 
     private void readRatSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(1);
+        String line = Files.readAllLines(Paths.get(saveDir)).get(2);
         Scanner scanner = new Scanner(line);
         if (scanner.hasNext()) {
             String[] ratSplit = scanner.next().split(",");
@@ -107,7 +109,7 @@ public class LevelLoader {
     }
 
     private void readItemSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(2);
+        String line = Files.readAllLines(Paths.get(saveDir)).get(3);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -147,7 +149,7 @@ public class LevelLoader {
     }
 
     private void readInventoryItems() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(3);
+        String line = Files.readAllLines(Paths.get(saveDir)).get(4);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -181,8 +183,8 @@ public class LevelLoader {
         return currLevel;
     }
 
-    public int getTimeRemaining() {
-        return timeRemaining;
+    public int getCurrentTick() {
+        return currentTick;
     }
 
     public ArrayList<Rat> getRatSpawns() {
@@ -197,7 +199,4 @@ public class LevelLoader {
         return inventory;
     }
 
-//    private void enableItem(Item.TYPE type) {
-//        Inventory.enableItem(type, abilities);
-//    }
 }

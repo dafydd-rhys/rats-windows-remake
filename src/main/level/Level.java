@@ -31,6 +31,7 @@ public final class Level {
     private int maxRats;
     private static boolean gameOver = false;
     private static boolean gameWon = false;
+    private int currentTick;
 
     public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats, Tile[][] tiles,
                  ArrayList<Rat> rats, int sizeY, int sizeX) {
@@ -43,6 +44,7 @@ public final class Level {
         this.cols = sizeX;
         this.rows = sizeY;
         this.level = this;
+        this.currentTick = 0;
     }
 
     public void placeItem(Item item, Tile tile) {
@@ -167,4 +169,11 @@ public final class Level {
         return expectedTime;
     }
 
+    public void setCurrentTick(int currentTick) {
+        this.currentTick = currentTick;
+    }
+
+    public int getCurrentTick() {
+        return currentTick;
+    }
 }

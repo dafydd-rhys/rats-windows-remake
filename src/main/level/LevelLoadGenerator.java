@@ -21,11 +21,10 @@ public class LevelLoadGenerator {
     private final int maxRats;
     private final int sizeY;
     private final int sizeX;
-    private final int timeRemaining;
 
     public LevelLoadGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
                               char[][] level, ArrayList<Rat> ratSpawns, ArrayList<Item> itemSpawns, int expectedTime,
-                              int maxRats, int timeRemaining) {
+                              int maxRats) {
         this.timeToGenerate = timeToGenerate;
         this.gc = gc;
         this.tiles = level;
@@ -35,7 +34,6 @@ public class LevelLoadGenerator {
         this.maxRats = maxRats;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.timeRemaining = timeRemaining;
 
         generateLevel();
     }

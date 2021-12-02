@@ -28,8 +28,8 @@ public class LevelSave {
         // Level number
         lines.add(String.valueOf(Level.getCurrentLevel()));
 
-        // TODO Get Time left
-//        lines.add(String.valueOf(level.getExpectedTime()));
+        // Current time
+        lines.add(String.valueOf(level.getCurrentTick()));
 
         // Rats in current level
         StringJoiner joiner = new StringJoiner(",");
