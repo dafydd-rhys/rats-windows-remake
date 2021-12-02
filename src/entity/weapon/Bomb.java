@@ -75,7 +75,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * inflict damage in weapon's range
+     * inflict damage to all rats in cardinal directions from bomb
      *
      * @param level gets tiles
      * @param gc draws effect on affected tiles
@@ -119,12 +119,12 @@ public class Bomb extends Item {
     }
 
     /**
-     * finds tile in bomb's area of effect
+     * finds tile in bomb's area of effect one at a time
      *
      * @param direction gets direction to next tile
      * @param distance gets next tile in range
      * @param tiles gets tile using parameters
-     * @return next tile in direction
+     * @return next tile in bomb's area of effect
      */
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
         return switch (direction) {
