@@ -232,12 +232,11 @@ public class Rat extends Entity {
                     rat.setEntityType(EntityType.RAT);
                     babyQueue.add(rat);
                 }
-            } else if (this.getPregnancyStage() > 10) {
-
+            } else if (getPregnancyStage() > 10) {
                 if (babyQueue.size() > 0) {
                     level.placeRat(babyQueue.poll(), level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
                 } else {
-                    this.setPregnancyStage(0);
+                    setPregnancyStage(0);
                 }
             }
             setPregnancyStage(getPregnancyStage() + 1);
@@ -288,8 +287,8 @@ public class Rat extends Entity {
                 : "N";
 
         result += this.isSterilised()
-                ? "S"
-                : "G";
+                ? "G"
+                : "S";
 
         // TODO add direction
         if (this.direction == Direction.LEFT) {
@@ -474,7 +473,7 @@ public class Rat extends Entity {
      * @return the boolean
      */
     public boolean isSterilised() {
-        return !this.isSterilised;
+        return !isSterilised;
     }
 
     /**
