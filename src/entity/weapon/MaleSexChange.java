@@ -53,8 +53,6 @@ public class MaleSexChange extends Item {
     }
 
     /**
-     *
-     *
      * @param level the level
      * @param gc    the gc
      */
@@ -69,29 +67,20 @@ public class MaleSexChange extends Item {
 
                     if (target.getGender() == Rat.Gender.FEMALE) {
                         target.setGender(Rat.Gender.MALE);
-                        target.setImage(new Image(System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\male-rat.png"));
                         target.getImages();
-                        // TODO audio here
-                        try {
-                            playSound();
-                        } catch (UnsupportedAudioFileException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (LineUnavailableException e) {
-                            e.printStackTrace();
-                        }
-                        this.hp -= 1;
-                        level.getItems().remove(this);
-                        entitiesOnTile.remove(this);
-                        return;
-                    } else {
-                        this.hp -= 1;
-                        level.getItems().remove(this);
-                        entitiesOnTile.remove(this);
-
                     }
+
+                    // TODO audio here
+                    try {
+                        playSound();
+                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    setHp(getHp() - 1);
+                    level.getItems().remove(this);
+                    entitiesOnTile.remove(this);
+                    return;
                 }
             }
         }

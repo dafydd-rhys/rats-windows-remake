@@ -86,20 +86,14 @@ public class LevelLoader {
 
                 if (ratEntry.contains("A")) {
                     isAdult = true;
-                } else if (ratEntry.contains("B")) {
-                    isAdult = false;
                 }
 
                 if (ratEntry.contains("S")) {
                     isSterilized = true;
-                } else if (ratEntry.contains("G")) {
-                    isSterilized = false;
                 }
 
                 if (ratEntry.contains("P")) {
                     isPregnant = true;
-                } else if (ratEntry.contains("N")) {
-                    isPregnant = false;
                 }
 
                 if (ratEntry.contains("L")) {

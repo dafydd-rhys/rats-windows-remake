@@ -140,7 +140,6 @@ public class GameController implements Initializable {
         level.setScore(0);
         pr.setProgress(0);
         progressIncrease = (double) (100 / level.getMaxRats()) / 100;
-
         lblLevel.setText("Level: " + Level.getCurrentLevel());
         lblExpected.setText("Expected: " + level.getExpectedTime() + " seconds");
 
@@ -172,12 +171,14 @@ public class GameController implements Initializable {
                     if (level.getRats().size() >= level.getMaxRats()) {
                         Level.setGameOver(true);
                         Level.setGameWon(false);
-                        if ((int) currentTick / 2 > level.getExpectedTime()) {
-                            level.setScore(0);
-                        }
-                    } else if (level.getRats().size() == 0 && (int) currentTick / 2 < level.getExpectedTime()) {
+                        level.setScore(0);
+                    } else if (level.getRats().size() == 0) {
                         Level.setGameOver(true);
                         Level.setGameWon(true);
+                        if ((int) currentTick / 2 < level.getExpectedTime()) {
+                            int timeLeft = (int) (level.getExpectedTime() - (currentTick / 2));
+                            level.setScore(Level.getScore() + timeLeft);
+                        }
                     }
 
                     if (Level.getGameOver()) {
@@ -331,6 +332,7 @@ public class GameController implements Initializable {
                 }
             }
         }
+
         for (int i = 0; i < items.size(); i++) {
             items.get(i).activate(level, gc);
         }

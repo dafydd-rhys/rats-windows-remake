@@ -65,7 +65,6 @@ public abstract class Entity {
             if (damageTarget.getHp() <= 0) {
                 Rat rat = (Rat) damageTarget;
                 rat.kill();
-                level.setScore(Level.getScore() + 3);
             }
         }
         if (damageTarget.getEntityType() == EntityType.ITEM) {
