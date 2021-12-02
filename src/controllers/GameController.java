@@ -26,6 +26,8 @@ import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.shape.Rectangle;
 import main.level.*;
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
@@ -83,6 +85,8 @@ public class GameController implements Initializable {
     @FXML private JFXButton mainMenu;
     @FXML
     private ProgressBar pr;
+    @FXML
+    private Rectangle percentage;
 
     private static Level level;
     private static double progressIncrease;
@@ -170,6 +174,19 @@ public class GameController implements Initializable {
                     lblScore.setText("Score: " + Level.getScore());
                     tick();
                     pr.setProgress(level.getRats().size() * progressIncrease);
+
+                    double maleRatCount = 0;
+                    for (int i = 0; i<level.getRats().size(); i++){
+                        if (level.getRats().get(i).getGender() == Rat.Gender.MALE ){
+                            maleRatCount += 1;
+                        }
+                    }
+                    double maleRatPercentage = level.getRats().size() * progressIncrease * (maleRatCount / level.getRats().size() ) * 100;
+                    double currentProgress = level.getRats().size() * progressIncrease * 100;
+                    LinearGradient g = LinearGradient.valueOf("linear-gradient(to top, " +
+                            "blue 0%, blue " + maleRatPercentage + "%, pink " + maleRatPercentage + "%, pink "
+                            + currentProgress + "%, grey " + currentProgress + "%, grey 100%)");
+                    percentage.setFill(g);
 
                     if (level.getRats().size() >= level.getMaxRats()) {
                         Level.setGameOver(true);

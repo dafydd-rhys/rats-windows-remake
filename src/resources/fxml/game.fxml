@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
    <children>
@@ -111,6 +112,7 @@
                   <Font size="11.0" />
                </font>
             </JFXTextArea>
+            <Rectangle fx:id="percentage" arcHeight="5.0" arcWidth="5.0" fill="grey" height="357.0" layoutX="155.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" width="45.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="3.0" />
          </children></AnchorPane>
       <VBox alignment="CENTER" layoutY="30.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
          <children>
