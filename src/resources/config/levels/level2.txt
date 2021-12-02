@@ -1,6 +1,6 @@
 [20,20]
 16
-40
+50
 {Bomb,6} {Gas,10} {MaleChange,8} {FemaleChange,8} {NoEntry,10} {Poison,5} {DeathRat,16} {Sterilisation,12}
 GGGGGGGGGGGGGGGGGGGG
 GPPPPPGGGGGGGGGGGGGG
