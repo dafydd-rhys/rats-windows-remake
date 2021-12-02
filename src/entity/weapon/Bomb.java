@@ -33,7 +33,7 @@ public class Bomb extends Item {
             + "\\src\\resources\\images\\game\\entities\\bomb-4.png";
 
     /**
-     * sets bomb attributes
+     * sets item attributes
      */
     public Bomb() {
         URL oi = this.getClass().getResource("images\\Bomb.png");
@@ -50,7 +50,9 @@ public class Bomb extends Item {
     }
 
     /**
-     * instantiates new Bomb
+     * instantiates new item
+     *
+     * @return new bomb item
      */
     @Override
     public Item createNewInstance() {
