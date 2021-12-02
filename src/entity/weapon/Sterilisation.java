@@ -60,67 +60,42 @@ public class Sterilisation extends Item {
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sterilisation.wav");
     }
-    // chotto a minute
+
     /**
-     * 
+     * permanently prevents all rats in effective area from mating. lasts temporarily
      *
      * @param level gets tiles
      * @param gc unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
-        setHp(getHp() - 1);
+        Tile[][] tiles = level.getTiles();
         try {
             playSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
-        if (getHp() > 0) {
-            for (int i = 0; i < getRange() + 1; i++) {
-                checkAdjacent(level, i);
-                checkAdjacent(level, -(i));
+        for (int i = -getRange(); i < getRange() + 1; i++) {
+            for (int j = -getRange(); j < getRange() + 1; j++) {
+                if (getCurrentPosY() + j >= 0 && getCurrentPosY() + j < level.getRows()
+                && getCurrentPosX() + i >= 0 && getCurrentPosX() + i < level.getCols()) {
+                    ArrayList<Entity> entities = tiles[getCurrentPosY() + j][getCurrentPosX() + i].getEntitiesOnTile();
+                    if (!entities.isEmpty()) {
+                        for (int k = 0; k < entities.size(); k++) {
+                            if (entities.get(k).getEntityType() == EntityType.RAT) {
+                                Rat target = (Rat) entities.get(k);
+                                target.setSterilised(true);
+                                target.getImages();
+                            }
+                        }
+                    }
+                }
             }
-        } else {
+        }
+        setHp(getHp() - 1);
+        if (getHp() <= 0) {
             level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
             level.getItems().remove(this);
         }
     }
-
-    /**
-     * permanently disables all rats from mating in its area of effect
-     *
-     * @param level gets tiles
-     * @param i used to check directions
-     */
-    private void checkAdjacent(Level level, int i) {
-        Tile[][] tiles = level.getTiles();
-
-        if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
-            if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
-                ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY()][getCurrentPosX() + i].getEntitiesOnTile());
-
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
-                        target.setSterilised(true);
-                        target.getImages();
-                    }
-                }
-            }
-        }
-
-        if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
-            if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
-                ArrayList<Entity> entities = new ArrayList<>(tiles[getCurrentPosY() + i][getCurrentPosX()].getEntitiesOnTile());
-
-                for (Entity entity : entities) {
-                    if (entity.getEntityType() == EntityType.RAT) {
-                        Rat target = (Rat) entity;
-                        target.setSterilised(true);
-                        target.getImages();
-                    }
-                }
-            }
-        }
-    }
-
 }
+
