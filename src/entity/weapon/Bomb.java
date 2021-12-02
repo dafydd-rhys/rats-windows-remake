@@ -10,7 +10,6 @@ import entity.Entity;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ import static main.external.Audio.playGameEffect;
 public class Bomb extends Item {
 
     /**
-     * Instantiates a new Bomb.
+     * sets bomb attributes
      */
     public Bomb() {
         setEntityType(EntityType.ITEM);
@@ -43,23 +42,29 @@ public class Bomb extends Item {
         setOffsetY(0);
     }
 
+    /**
+     * instantiates new Bomb
+     */
     @Override
     public Item createNewInstance() {
         return new Bomb();
     }
 
+    /**
+     * plays sound effect
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/bomb.wav");
     }
 
     /**
+     * causes bomb to explode after some time
      *
-     *
-     * @param level
-     * @param gc
+     * @param level used to pass to explode method
+     * @param gc used to pass to explode method
      */
-    private void countdown(Level level, GraphicsContext gc) {
+    public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         switch (getHp()) {
             case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png"));
@@ -70,32 +75,20 @@ public class Bomb extends Item {
     }
 
     /**
+     * inflict damage in weapon's range
      *
-     *
-     * @param level the level
-     * @param gc    the gc
-     */
-    public void activate(Level level, GraphicsContext gc) {
-        countdown(level, gc);
-    }
-
-    /**
-     *
-     *
-     * @param level
-     * @param gc
+     * @param level gets tiles
+     * @param gc draws effect on affected tiles
      */
     private void explode(Level level, GraphicsContext gc) {
 
         Tile[][] tiles = level.getTiles();
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
-        // TODO audio here
         try {
             playSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
-        // TODO add explosion sprite for visual guide
         for (Rat.Direction direction : Rat.Direction.values()) {
             Tile current = tiles[getCurrentPosY()][getCurrentPosX()];
 
@@ -126,12 +119,12 @@ public class Bomb extends Item {
     }
 
     /**
+     * finds tile in bomb's area of effect
      *
-     *
-     * @param direction
-     * @param distance
-     * @param tiles
-     * @return
+     * @param direction gets direction to next tile
+     * @param distance gets next tile in range
+     * @param tiles gets tile using parameters
+     * @return next tile in direction
      */
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
         return switch (direction) {
