@@ -1,7 +1,7 @@
 [20,20]
 16
-90
-{Bomb,4} {Gas,10} {MaleChange,5} {FemaleChange,5} {NoEntry,10} {Poison,9} {DeathRat,20} {Sterilisation,16}
+80
+{Bomb,10} {Gas,12} {MaleChange,8} {FemaleChange,8} {NoEntry,11} {Poison,8} {DeathRat,20} {Sterilisation,14}
 GGGGGGGGGGGGGGGGGGGG
 GPPPPPPPPPPPPPPPPPPG
 GPGGGGGGGGGGGGGGGGPG
