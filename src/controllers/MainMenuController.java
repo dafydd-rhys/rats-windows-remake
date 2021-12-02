@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
+import main.level.Level;
+import main.level.LevelLoader;
 import main.stage.StageFunctions;
 
 /**
@@ -18,6 +20,7 @@ import main.stage.StageFunctions;
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
+ * @author Maurice Petersen (2013396)
  */
 public class MainMenuController implements Initializable {
 
@@ -25,6 +28,9 @@ public class MainMenuController implements Initializable {
     @FXML private AnchorPane window;
     /**  */
     @FXML private JFXButton levels;
+    /**  */
+    @FXML
+    private JFXButton loadGame;
     /**  */
     @FXML private JFXButton scoreboard;
     /**  */
@@ -69,6 +75,17 @@ public class MainMenuController implements Initializable {
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
+        });
+
+        loadGame.setOnAction(e -> {
+            try {
+                Level.currentLevel = LevelLoader.getCurrentLevel();
+                Level.setIsSave(true);
+                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                ex.printStackTrace();
+            }
+
         });
 
         scoreboard.setOnAction(e -> {

@@ -18,14 +18,17 @@ public final class Level {
 
     /** The constant currentLevel. */
     public static int currentLevel;
+    public static boolean isSave = false;
+
     /** */
     private Level level;
     /** */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     /** */
     private final ArrayList<Rat> rats;
+
     /** */
-    private final ArrayList<Item> items;
+    private ArrayList<Item> items;
     /** */
     private final Tile[][] tiles;
     /** */
@@ -42,6 +45,9 @@ public final class Level {
     private static boolean gameOver = false;
     /** */
     private static boolean gameWon = false;
+
+    private int currentTick;
+
     private static boolean paused = false;
 
     /**
@@ -57,15 +63,16 @@ public final class Level {
      */
     public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats, Tile[][] tiles,
                  ArrayList<Rat> rats, int sizeY, int sizeX) {
+        this.items = new ArrayList<>();
         this.tiles = tiles;
         this.rats = rats;
         this.timeToGenerate = timeToGenerate;
         this.expectedTime = expectedTime;
         this.maxRats = maxRats;
-        this.items = new ArrayList<>();
         this.cols = sizeX;
         this.rows = sizeY;
         this.level = this;
+        this.currentTick = 0;
     }
 
     /**
@@ -195,6 +202,14 @@ public final class Level {
         return currentLevel;
     }
 
+    public static void setIsSave(boolean isSave) {
+        Level.isSave = isSave;
+    }
+
+    public static boolean isSave() {
+        return Level.isSave;
+    }
+
     /**
      * Gets time to generate.
      *
@@ -258,6 +273,10 @@ public final class Level {
         return rats;
     }
 
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
     /**
      * Gets items.
      *
@@ -303,6 +322,13 @@ public final class Level {
         return expectedTime;
     }
 
+    public void setCurrentTick(int currentTick) {
+        this.currentTick = currentTick;
+    }
+
+    public int getCurrentTick() {
+        return currentTick;
+    }
     public static void setPaused(boolean paused) {
         Level.paused = paused;
     }
