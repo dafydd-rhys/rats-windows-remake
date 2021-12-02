@@ -173,12 +173,13 @@ public class GameController implements Initializable {
                     if (level.getRats().size() >= level.getMaxRats()) {
                         Level.setGameOver(true);
                         Level.setGameWon(false);
+                        level.setScore(0);
+                    } else if (level.getRats().size() == 0) {
+                        Level.setGameOver(true);
+                        Level.setGameWon(false);
                         if ((int) currentTick / 2 > level.getExpectedTime()) {
                             level.setScore(0);
                         }
-                    } else if (level.getRats().size() == 0 && (int) currentTick / 2 < level.getExpectedTime()) {
-                        Level.setGameOver(true);
-                        Level.setGameWon(true);
                     }
 
                     if (Level.getGameOver()) {
