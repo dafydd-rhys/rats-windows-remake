@@ -30,7 +30,7 @@ public class Bomb extends Item {
     private static final String BOMB_IMAGE = System.getProperty("user.dir")
             + "\\src\\resources\\images\\game\\entities\\bomb-4.png";
     private static final String EXPLOSION_IMAGE = System.getProperty("user.dir")
-            + "\\src\\resources\\images\\game\\entities\\bomb-4.png";
+            + "\\src\\resources\\images\\game\\entities\\bomb-0.png";
 
     /**
      * sets item attributes

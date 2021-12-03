@@ -49,40 +49,91 @@ import tile.Tile;
  */
 public class GameController implements Initializable {
 
-    /**  */
-    @FXML private AnchorPane abilities;
-    /**  */
-    @FXML private ScrollPane gameScroll;
-    /**  */
-    @FXML private BorderPane game;
-    /**  */
-    @FXML private JFXButton sfx;
-    /**  */
-    @FXML private JFXButton music;
-    /**  */
-    @FXML private JFXButton settings;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton maximise;
-    /**  */
-    @FXML private JFXButton exit;
-    /**  */
-    @FXML private ImageView musicImage;
-    /**  */
-    @FXML private ImageView effectsImage;
-    /**  */
-    @FXML private JFXTextArea lblLevel;
-    /**  */
-    @FXML private JFXTextArea lblTime;
-    /**  */
-    @FXML private JFXTextArea lblScore;
-    /**  */
-    @FXML private JFXTextArea lblExpected;
-    /**  */
-    @FXML private JFXButton restartBtn;
-    /**  */
-    @FXML private JFXButton mainMenu;
+    /**
+     *
+     */
+    @FXML
+    private AnchorPane abilities;
+    /**
+     *
+     */
+    @FXML
+    private ScrollPane gameScroll;
+    /**
+     *
+     */
+    @FXML
+    private BorderPane game;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     *
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     *
+     */
+    @FXML
+    private ImageView effectsImage;
+    /**
+     *
+     */
+    @FXML
+    private JFXTextArea lblLevel;
+    /**
+     *
+     */
+    @FXML
+    private JFXTextArea lblTime;
+    /**
+     *
+     */
+    @FXML
+    private JFXTextArea lblScore;
+    /**
+     *
+     */
+    @FXML
+    private JFXTextArea lblExpected;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton restartBtn;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton mainMenu;
     @FXML
     private ProgressBar pr;
     @FXML
@@ -95,8 +146,6 @@ public class GameController implements Initializable {
     private Timer ticker;
 
     /**
-     *
-     *
      * @param url
      * @param resourceBundle
      */
@@ -106,7 +155,6 @@ public class GameController implements Initializable {
         Level.setGameWon(false);
         lblTime.setEditable(false);
         lblExpected.setEditable(false);
-        pr.setStyle("-fx-accent: #00ff00;");
 
         LevelFileReader levelReader = null;
         LevelLoader levelLoader = null;
@@ -127,7 +175,7 @@ public class GameController implements Initializable {
 
         game.setCenter(canvas);
         gameScroll.setPannable(true);
-        
+
         if (!Level.isSave()) {
             //generates map and starts items generating
             LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc, levelReader.getSizeX(),
@@ -176,12 +224,12 @@ public class GameController implements Initializable {
                     pr.setProgress(level.getRats().size() * progressIncrease);
 
                     double maleRatCount = 0;
-                    for (int i = 0; i<level.getRats().size(); i++){
-                        if (level.getRats().get(i).getGender() == Rat.Gender.MALE ){
-                            maleRatCount += 1;
+                    for (int i = 0; i < level.getRats().size(); i++) {
+                        if (level.getRats().get(i).getGender() == Rat.Gender.MALE) {
+                            maleRatCount++;
                         }
                     }
-                    double maleRatPercentage = level.getRats().size() * progressIncrease * (maleRatCount / level.getRats().size() ) * 100;
+                    double maleRatPercentage = level.getRats().size() * progressIncrease * (maleRatCount / level.getRats().size()) * 100;
                     double currentProgress = level.getRats().size() * progressIncrease * 100;
                     LinearGradient g = LinearGradient.valueOf("linear-gradient(to top, " +
                             "blue 0%, blue " + maleRatPercentage + "%, pink " + maleRatPercentage + "%, pink "
@@ -298,8 +346,6 @@ public class GameController implements Initializable {
     }
 
     /**
-     *
-     *
      * @param rat
      */
     private static void move(final Rat rat) {
@@ -396,10 +442,12 @@ public class GameController implements Initializable {
 
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
                         for (Tile tile : gas.getTiles()) {
-                            if (gas.getHp() <= 3) {
-                                gc.drawImage(new Image(opacity + gas.getHp() + ".png"), tile.getX() * 50, tile.getY() * 50);
-                            } else {
-                                gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                            if (tile.isCovering()) {
+                                if (gas.getHp() <= 3) {
+                                    gc.drawImage(new Image(opacity + gas.getHp() + ".png"), tile.getX() * 50, tile.getY() * 50);
+                                } else {
+                                    gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                                }
                             }
                         }
                     } else if (item.getType() == Item.TYPE.STERILISATION) {
