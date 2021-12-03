@@ -351,7 +351,7 @@ public class GameController implements Initializable {
     private static void move(final Rat rat) {
         Movement.tiles = level.getTiles();
         Movement.rat = rat;
-        Movement.current = level.getTiles()[rat.getCurrentPosX()][rat.getCurrentPosY()];
+        Movement.current = level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()];
         Movement.curX = rat.getCurrentPosX();
         Movement.curY = rat.getCurrentPosY();
 
