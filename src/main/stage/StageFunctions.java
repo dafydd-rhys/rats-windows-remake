@@ -16,37 +16,53 @@ import main.Resources;
 import main.external.Audio;
 
 /**
- * Main
+ * StageFunctions.java, host of all functions across all fxml.
  *
- * @author Dafydd -Rhys Maund (2003900)
+ * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski (857847)
  */
 public class StageFunctions {
 
     /**
-     *
+     * Main stage.
      */
     private static Stage stage;
     /**
-     *
+     * settings stage.
      */
     private static Stage settingsStage;
     /**
-     *
+     * game over stage.
      */
     private static Stage gameOverStage;
     /**
-     *
+     * profile stage.
      */
     private static Stage profileStage;
+    /**
+     * main stage width.
+     */
+    private static final int STAGE_WIDTH = 800;
+    /**
+     * main stage height.
+     */
+    private static final int STAGE_HEIGHT = 530;
+    /**
+     * pop-out stage width.
+     */
+    private static final int POP_OUT_WIDTH = 400;
+    /**
+     * pop-out stage height.
+     */
+    private static final int POP_OUT_HEIGHT = 230;
 
     /**
-     * Sets stage.
+     * Sets main stage.
      *
-     * @param stage the stage
+     * @param paramStage the stage
      */
-    public static void setStage(Stage stage) {
-        StageFunctions.stage = stage;
+    public static void setStage(final Stage paramStage) {
+        StageFunctions.stage = paramStage;
         stage.initStyle(StageStyle.UNDECORATED);
     }
 
@@ -59,12 +75,13 @@ public class StageFunctions {
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      * @throws LineUnavailableException      the line unavailable exception
      */
-    public static void changeScene(String path, String title) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public static void changeScene(final String path, final String title) throws IOException,
+            UnsupportedAudioFileException, LineUnavailableException {
         Audio.clickEffect();
         Parent scene = FXMLLoader.load(Resources.getFXML(path));
 
-        stage.setMinHeight(530);
-        stage.setMinWidth(800);
+        stage.setMinHeight(STAGE_HEIGHT);
+        stage.setMinWidth(STAGE_WIDTH);
         stage.setAlwaysOnTop(true);
         stage.setTitle(title);
         stage.setScene(new Scene(scene));
@@ -95,17 +112,29 @@ public class StageFunctions {
         StageFunctions.gameOverStage = openPopOut(Resources.getFXML("game_over"));
     }
 
+    /**
+     * open profile stage
+     *
+     * @throws IOException can't find file
+     */
     public static void openProfile() throws IOException {
         StageFunctions.profileStage = openPopOut(Resources.getFXML("profile"));
     }
 
-    private static Stage openPopOut(URL url) throws IOException {
+    /**
+     * Opens pop out stage for fxml.
+     *
+     * @param url url of stage
+     * @return pop out stage
+     * @throws IOException can't find file
+     */
+    private static Stage openPopOut(final URL url) throws IOException {
         Stage popStage = new Stage();
         Parent scene = FXMLLoader.load(url);
 
         popStage.setResizable(false);
-        popStage.setMinHeight(230);
-        popStage.setMinWidth(400);
+        popStage.setMinHeight(POP_OUT_HEIGHT);
+        popStage.setMinWidth(POP_OUT_WIDTH);
         popStage.setAlwaysOnTop(true);
         popStage.setTitle("Settings");
         popStage.initStyle(StageStyle.UNDECORATED);
@@ -220,14 +249,18 @@ public class StageFunctions {
      *
      * @param image the image
      */
-    public static void toggleOpacity(ImageView image) {
-        if (image.getOpacity() == 0.2) {
+    public static void toggleOpacity(final ImageView image) {
+        final double disabled = 0.2;
+        if (image.getOpacity() == disabled) {
             image.setOpacity(1);
         } else {
-            image.setOpacity(0.2);
+            image.setOpacity(disabled);
         }
     }
 
+    /**
+     * @return main stage
+     */
     public static Stage getStage() {
         return stage;
     }

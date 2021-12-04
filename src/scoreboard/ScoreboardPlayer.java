@@ -3,18 +3,26 @@ package scoreboard;
 /**
  * ScoreboardPlayer.
  *
- * @author Dafydd -Rhys Maund (2003900)
+ * @author Dafydd-Rhys Maund (2003900)
  * @author Bryan Kok
  */
 public class ScoreboardPlayer {
 
-    /** */
+    /**
+     *
+     */
     private String level;
-    /** */
+    /**
+     *
+     */
     private int rank;
-    /** */
+    /**
+     *
+     */
     private String name;
-    /** */
+    /**
+     *
+     */
     private int score;
 
     /**

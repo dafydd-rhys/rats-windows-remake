@@ -6,7 +6,7 @@ import java.io.IOException;
  * Score.
  *
  * @author Bryan Kok
- * @author creator of scoreboard
+ * @author Dafydd-Rhys Maund
  */
 
 public class Score {
@@ -74,4 +74,5 @@ public class Score {
     public void setNewScore(final int score) {
         this.newScore = score;
     }
+
 }

@@ -52,8 +52,7 @@ public class Poison extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException,
-            LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("poison"));
     }
 
@@ -64,9 +63,7 @@ public class Poison extends Item {
      * @param gc    unused attribute
      */
     public void activate(final Level level, final GraphicsContext gc) {
-        ArrayList<Entity> entitiesOnTile =
-                level.getTiles()[getCurrentPosY()]
-                        [getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> entitiesOnTile = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
@@ -77,8 +74,7 @@ public class Poison extends Item {
 
                     try {
                         playSound();
-                    } catch (UnsupportedAudioFileException | IOException
-                            | LineUnavailableException e) {
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                         e.printStackTrace();
                     }
 

@@ -56,8 +56,7 @@ public class Sterilisation extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException,
-            LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("sterilisation"));
     }
 
@@ -71,8 +70,7 @@ public class Sterilisation extends Item {
     public void activate(final Level level, final GraphicsContext gc) {
         try {
             playSound();
-        } catch (UnsupportedAudioFileException | IOException
-                | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
 
@@ -86,21 +84,18 @@ public class Sterilisation extends Item {
                             && getCurrentPosX() + i >= 0
                             && getCurrentPosX() + i < level.getCols()) {
 
-                        Tile tile = tiles[getCurrentPosY() + j]
-                                [getCurrentPosX() + i];
+                        Tile tile = tiles[getCurrentPosY() + j][getCurrentPosX() + i];
                         ArrayList<Entity> entities = tile.getEntitiesOnTile();
                         if (!entities.isEmpty()) {
                             for (int k = 0; k < entities.size(); k++) {
-                                if (entities.get(k).getEntityType()
-                                        == EntityType.RAT) {
+                                if (entities.get(k).getEntityType() == EntityType.RAT) {
                                     Rat target = (Rat) entities.get(k);
                                     target.setSterilised(true);
                                     target.getImages();
                                 }
                             }
                         }
-                        if (tile.isWalkable() && tile.isCovering()
-                                && !drawableTiles.contains(tile)) {
+                        if (tile.isWalkable() && tile.isCovering() && !drawableTiles.contains(tile)) {
                             drawableTiles.add(tile);
                         }
                         drawableTiles.remove(startingTile);

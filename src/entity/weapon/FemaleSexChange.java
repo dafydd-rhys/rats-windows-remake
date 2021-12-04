@@ -50,8 +50,7 @@ public class FemaleSexChange extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException,
-            LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("sex_change"));
     }
 
@@ -63,8 +62,7 @@ public class FemaleSexChange extends Item {
      */
     public void activate(final Level level, final GraphicsContext gc) {
         Tile[][] tile = level.getTiles();
-        ArrayList<Entity> entitiesOnTile =
-                tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int i = 0; i < entitiesOnTile.size(); i++) {
@@ -77,8 +75,7 @@ public class FemaleSexChange extends Item {
                     }
                     try {
                         playSound();
-                    } catch (UnsupportedAudioFileException
-                            | LineUnavailableException | IOException e) {
+                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                         e.printStackTrace();
                     }
                     setHp(getHp() - 1);
