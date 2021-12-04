@@ -194,7 +194,6 @@ public class GameController implements Initializable {
      */
     private Timer ticker;
 
-
     /**
      * This runs as soon as the scene is loaded, it simply sets all
      * placeholder values and properties to the fxml controls and also
@@ -236,7 +235,7 @@ public class GameController implements Initializable {
         if (!Level.isSave()) {
             //generates map and starts items generating.
             LevelFileGenerator generator = new LevelFileGenerator(levelReader.getTimeToGenerate(), gc,
-                    levelReader.getSizeX(), levelReader.getSizeY(), levelReader.getLevel(), levelReader.getSpawns(),
+                    levelReader.getSizeX(), levelReader.getSizeY(), levelReader.getLevel(),
                     levelReader.getExpectedTime(), levelReader.getMaxRats());
             level = generator.getLevel();
             level.setScore(0);

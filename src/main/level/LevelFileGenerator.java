@@ -34,10 +34,6 @@ public class LevelFileGenerator {
     /**
      *
      */
-    private final char[][] spawns;
-    /**
-     *
-     */
     private final int expectedTime;
     /**
      *
@@ -60,16 +56,14 @@ public class LevelFileGenerator {
      * @param sizeX          the size x
      * @param sizeY          the size y
      * @param level          the level
-     * @param spawns         the spawns
      * @param expectedTime   the expected time
      * @param maxRats        the max rats
      */
     public LevelFileGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
-                              char[][] level, char[][] spawns, int expectedTime, int maxRats) {
+                              char[][] level, int expectedTime, int maxRats) {
         this.timeToGenerate = timeToGenerate;
         this.gc = gc;
         this.tiles = level;
-        this.spawns = spawns;
         this.expectedTime = expectedTime;
         this.maxRats = maxRats;
         this.sizeX = sizeX;
@@ -91,12 +85,19 @@ public class LevelFileGenerator {
                     setTile(tilesArray, x, y, Tile.TYPE.THEMED);
                 } else if (tiles[y][x] == 'P') {
                     setTile(tilesArray, x, y, Tile.TYPE.PATH);
-                } else {
+                } else if (tiles[y][x] == 'T') {
                     setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
-                }
-                if (spawns[y][x] == 'M') {
+                } else if (tiles[y][x] == 'M') {
+                    setTile(tilesArray, x, y, Tile.TYPE.PATH);
                     setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
-                } else if (spawns[y][x] == 'F') {
+                } else if (tiles[y][x] == 'N') {
+                    setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
+                } else if (tiles[y][x] == 'F') {
+                    setTile(tilesArray, x, y, Tile.TYPE.PATH);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
+                } else if (tiles[y][x] == 'K') {
+                    setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
                     setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
                 }
             }

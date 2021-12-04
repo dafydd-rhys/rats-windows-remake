@@ -28,15 +28,7 @@ public class LevelFileReader {
     /**
      *
      */
-    private char[][] spawns;
-    /**
-     *
-     */
     private final File lvlDirectory;
-    /**
-     *
-     */
-    private final File spawnDirectory;
     /**
      *
      */
@@ -53,6 +45,11 @@ public class LevelFileReader {
      *
      */
     private int sizeY = 0;
+    /**
+     *
+     */
+    private boolean save;
+
 
     /**
      * Instantiates a new Level file reader.
@@ -62,12 +59,8 @@ public class LevelFileReader {
      */
     public LevelFileReader(int level, boolean isSave) throws IOException {
         this.lvlDirectory = Resources.getLevel(level);
-        this.spawnDirectory = Resources.getSpawns(level);
+        this.save = isSave;
         loadLevel();
-
-        if (!isSave) {
-            loadSpawns();
-        }
     }
 
     /**
@@ -77,15 +70,6 @@ public class LevelFileReader {
      */
     public char[][] getLevel() {
         return level;
-    }
-
-    /**
-     * Get spawns char [ ] [ ].
-     *
-     * @return the char [ ] [ ]
-     */
-    public char[][] getSpawns() {
-        return spawns;
     }
 
     /**
@@ -141,13 +125,6 @@ public class LevelFileReader {
     }
 
     /**
-     * @throws FileNotFoundException
-     */
-    private void loadSpawns() throws FileNotFoundException {
-        spawns = readFile(spawnDirectory);
-    }
-
-    /**
      * @param file
      * @return
      * @throws FileNotFoundException
@@ -156,27 +133,35 @@ public class LevelFileReader {
         Scanner scanner = new Scanner(file);
         char[][] array;
 
-        if (file.equals(lvlDirectory)) {
-            String[] split = scanner.next().split(",");
-            sizeX = Integer.parseInt(split[0].substring(0, 0) + split[0].substring(1));
-            sizeY = Integer.parseInt(split[1].substring(0, 2));
-            maxRats = scanner.nextInt();
-            expectedTime = scanner.nextInt();
+        String[] split = scanner.next().split(",");
+        sizeX = Integer.parseInt(split[0].substring(0, 0) + split[0].substring(1));
+        sizeY = Integer.parseInt(split[1].substring(0, 2));
+        maxRats = scanner.nextInt();
+        expectedTime = scanner.nextInt();
 
-            for (int i = 0; i < 8; i++) {
-                split = scanner.next().split(",");
-                StringBuilder amount = new StringBuilder(split[1]);
-                timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
-                        Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
-            }
-            scanner.nextLine();
+        for (int i = 0; i < 8; i++) {
+            split = scanner.next().split(",");
+            StringBuilder amount = new StringBuilder(split[1]);
+            timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
+                    Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
         }
+        scanner.nextLine();
 
         array = new char[sizeY][sizeX];
         for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
             char[] chars = scanner.nextLine().toCharArray();
             for (int i = 0; i < sizeX && i < chars.length; i++) {
-                array[row][i] = chars[i];
+                if (save) {
+                    if (chars[i] == 'M' || chars[i] == 'F') {
+                        array[row][i] = 'P';
+                    } else if (chars[i] == 'N' || chars[i] == 'K') {
+                        array[row][i] = 'T';
+                    } else {
+                        array[row][i] = chars[i];
+                    }
+                } else {
+                    array[row][i] = chars[i];
+                }
             }
         }
         return array;
