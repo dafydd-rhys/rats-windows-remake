@@ -14,7 +14,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Sterilisation
+ * Sterilisation weapon class.
  *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
@@ -25,7 +25,7 @@ public class Sterilisation extends Item {
     private final ArrayList<Tile> drawableTiles = new ArrayList<>();
 
     /**
-     * sets item attributes
+     * Constructor.
      */
     public Sterilisation() {
         setEntityType(EntityType.ITEM);
@@ -39,7 +39,7 @@ public class Sterilisation extends Item {
     }
 
     /**
-     * instantiates item
+     * Instantiates item.
      *
      * @return new sterilisation item
      */
@@ -50,7 +50,7 @@ public class Sterilisation extends Item {
 
 
     /**
-     * plays sound effect
+     * Plays sound effect.
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -58,7 +58,7 @@ public class Sterilisation extends Item {
     }
 
     /**
-     * permanently prevents all rats in effective area from mating. lasts temporarily
+     * Permanently prevents all rats in effective area from mating. lasts temporarily.
      *
      * @param level gets tiles
      * @param gc    unused attribute
@@ -103,6 +103,11 @@ public class Sterilisation extends Item {
         setHp(getHp() - 1);
     }
 
+    /**
+     * Gets an ArrayList of drawable tiles.
+     *
+     * @return ArrayList of drawable tiles
+     */
     public ArrayList<Tile> getDrawableTiles() {
         return drawableTiles;
     }
