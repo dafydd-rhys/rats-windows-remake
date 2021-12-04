@@ -18,19 +18,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public abstract class Item extends Entity {
 
     /**
-     *
+     * The Image.
      */
     private Image image;
     /**
-     *
+     * The Type.
      */
     private TYPE type;
     /**
-     *
+     * The Y Offset.
      */
     private int yOffset;
     /**
-     *
+     * The Range.
      */
     private int range;
 
@@ -88,7 +88,7 @@ public abstract class Item extends Entity {
     public abstract Item createNewInstance();
 
     /**
-     *
+     * Plays sound.
      */
     public abstract void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
 
