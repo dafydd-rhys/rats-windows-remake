@@ -1,7 +1,7 @@
 package main;
 
 /**
- * StartProgram - eliminates errors relating to Application in main class
+ * StartProgram - eliminates errors relating to "Extends Application" in main class.
  *
  * @author Dafydd -Rhys Maund (2003900)
  */
@@ -12,7 +12,7 @@ public class StartProgram {
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         Main.main(args);
     }
 

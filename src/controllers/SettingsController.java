@@ -21,7 +21,7 @@ import main.stage.StageFunctions;
  * @author Dawid Wisniewski (857847)
  */
 public class SettingsController implements Initializable {
-    
+
     /**
      * Slider for music volume.
      */
