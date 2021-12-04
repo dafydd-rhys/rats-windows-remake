@@ -8,7 +8,6 @@ import javafx.scene.control.ButtonType;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
-import main.level.Level;
 import main.stage.StageFunctions;
 
 public class ConfirmDialog {
@@ -17,7 +16,6 @@ public class ConfirmDialog {
     }
 
     public boolean getDecision(String title, String message) {
-        Level.setPaused(true);
         try {
             Audio.clickEffect();
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {

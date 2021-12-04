@@ -311,6 +311,7 @@ public class GameController implements Initializable {
         maximise.setOnAction(e -> StageFunctions.maximise());
 
         exit.setOnAction(e -> {
+            Level.setPaused(true);
             ConfirmDialog dialog = new ConfirmDialog();
             boolean result = dialog.getDecision("Exit Warning", "Are you sure you want to exit?");
 
@@ -324,6 +325,7 @@ public class GameController implements Initializable {
         });
 
         restartBtn.setOnAction(e -> {
+            Level.setPaused(true);
             ConfirmDialog dialog = new ConfirmDialog();
             boolean result = dialog.getDecision("Restart Warning", "Are you sure you want to restart?");
 
@@ -343,6 +345,7 @@ public class GameController implements Initializable {
         });
 
         mainMenu.setOnAction(e -> {
+            Level.setPaused(true);
             ConfirmDialog dialog = new ConfirmDialog();
             boolean result = dialog.getDecision("Return Warning", "Are you sure you want to Main Menu?");
 
