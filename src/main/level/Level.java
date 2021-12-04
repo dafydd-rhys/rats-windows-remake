@@ -24,83 +24,84 @@ public final class Level {
      */
     public static boolean isSave = false;
     /**
-     * Current level
+     * Current level.
      */
     private Level level;
     /**
-     * HashMap for weapons and their respawn rates
+     * HashMap for weapons and their respawn rates.
      */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     /**
-     * ArrayList of Rats in the level
+     * ArrayList of Rats in the level.
      */
     private final ArrayList<Rat> rats;
     /**
-     * ArrayList of Items
+     * ArrayList of Items.
      */
     private ArrayList<Item> items;
     /**
-     *
+     * 2D Array of Tiles.
      */
     private final Tile[][] tiles;
     /**
-     *
+     * Score.
      */
     private static int score;
     /**
-     *
+     * Number of Columns.
      */
     private int cols;
     /**
-     *
+     * Number of Rows.
      */
     private int rows;
     /**
-     *
+     * Expected time to complete the level.
      */
     private int expectedTime;
     /**
-     *
+     * The maximum number of rats allowed on the game board before the player loses.
      */
     private int maxRats;
     /**
-     *
+     * The current game state, if true game over.
      */
     private static boolean gameOver = false;
     /**
-     *
+     * If true the player successfully completed the level.
      */
     private static boolean gameWon = false;
     /**
-     *
+     * The current tick.
      */
     private int currentTick;
     /**
-     *
+     * The current game state, if true the game has been paused.
      */
     private static boolean paused = false;
 
     /**
      * Instantiates a new Level.
      *
-     * @param timeToGenerate the time to generate
-     * @param expectedTime   the expected time
-     * @param maxRats        the max rats
-     * @param tiles          the tiles
-     * @param rats           the rats
-     * @param sizeY          the size y
-     * @param sizeX          the size x
+     * @param paramTimeToGenerate the time to generate
+     * @param paramExpectedTime   the expected time
+     * @param paramMaxRats        the max rats
+     * @param paramTiles          the tiles
+     * @param paramRats           the rats
+     * @param paramSizeY          the size y
+     * @param paramSizeX          the size x
      */
-    public Level(HashMap<Item.TYPE, Integer> timeToGenerate, int expectedTime, int maxRats, Tile[][] tiles,
-                 ArrayList<Rat> rats, int sizeY, int sizeX) {
+    public Level(final HashMap<Item.TYPE, Integer> paramTimeToGenerate, final int paramExpectedTime,
+                 final int paramMaxRats, final Tile[][] paramTiles, final ArrayList<Rat> paramRats,
+                 final int paramSizeY, final int paramSizeX) {
         this.items = new ArrayList<>();
-        this.tiles = tiles;
-        this.rats = rats;
-        this.timeToGenerate = timeToGenerate;
-        this.expectedTime = expectedTime;
-        this.maxRats = maxRats;
-        this.cols = sizeX;
-        this.rows = sizeY;
+        this.tiles = paramTiles;
+        this.rats = paramRats;
+        this.timeToGenerate = paramTimeToGenerate;
+        this.expectedTime = paramExpectedTime;
+        this.maxRats = paramMaxRats;
+        this.cols = paramSizeX;
+        this.rows = paramSizeY;
         this.level = this;
         this.currentTick = 0;
     }
@@ -111,7 +112,7 @@ public final class Level {
      * @param item the item
      * @param tile the tile
      */
-    public void placeItem(Item item, Tile tile) {
+    public void placeItem(final Item item, final Tile tile) {
         item.setCurrentPosX(tile.getX());
         item.setCurrentPosY(tile.getY());
         tile.addEntityToTile(item);
@@ -124,7 +125,7 @@ public final class Level {
      * @param rat  the rat
      * @param tile the tile
      */
-    public void placeRat(Rat rat, Tile tile) {
+    public void placeRat(final Rat rat, final Tile tile) {
         rat.setCurrentPosX(tile.getX());
         rat.setCurrentPosY(tile.getY());
         tile.addEntityToTile(rat);
@@ -134,19 +135,19 @@ public final class Level {
     /**
      * Sets game over.
      *
-     * @param gameOver the game over
+     * @param paramGameOver the game over
      */
-    public static void setGameOver(boolean gameOver) {
-        Level.gameOver = gameOver;
+    public static void setGameOver(final boolean paramGameOver) {
+        Level.gameOver = paramGameOver;
     }
 
     /**
      * Sets game won.
      *
-     * @param gameWon the game won
+     * @param paramGameWon the game won
      */
-    public static void setGameWon(boolean gameWon) {
-        Level.gameWon = gameWon;
+    public static void setGameWon(final boolean paramGameWon) {
+        Level.gameWon = paramGameWon;
     }
 
     /**
@@ -170,10 +171,10 @@ public final class Level {
     /**
      * Sets score.
      *
-     * @param score the score
+     * @param paramScore the score
      */
-    public void setScore(int score) {
-        Level.score = score;
+    public void setScore(final int paramScore) {
+        Level.score = paramScore;
     }
 
     /**
@@ -188,10 +189,10 @@ public final class Level {
     /**
      * Sets level.
      *
-     * @param level the level
+     * @param paramLevel the level
      */
-    public void setLevel(Level level) {
-        this.level = level;
+    public void setLevel(final Level paramLevel) {
+        this.level = paramLevel;
     }
 
     /**
@@ -206,10 +207,10 @@ public final class Level {
     /**
      * Sets current level.
      *
-     * @param currentLevel the current level
+     * @param paramCurrentLevel the current level
      */
-    public static void setCurrentLevel(int currentLevel) {
-        Level.currentLevel = currentLevel;
+    public static void setCurrentLevel(final int paramCurrentLevel) {
+        Level.currentLevel = paramCurrentLevel;
     }
 
     /**
@@ -221,10 +222,20 @@ public final class Level {
         return currentLevel;
     }
 
-    public static void setIsSave(boolean isSave) {
-        Level.isSave = isSave;
+    /**
+     * Set IsSave.
+     *
+     * @param paramIsSave if game is saved
+     */
+    public static void setIsSave(final boolean paramIsSave) {
+        Level.isSave = paramIsSave;
     }
 
+    /**
+     * Get IsSave.
+     *
+     * @return if game is saved
+     */
     public static boolean isSave() {
         return Level.isSave;
     }
@@ -250,10 +261,10 @@ public final class Level {
     /**
      * Sets columns.
      *
-     * @param cols the cols
+     * @param paramCols the cols
      */
-    public void setCols(int cols) {
-        this.cols = cols;
+    public void setCols(final int paramCols) {
+        this.cols = paramCols;
     }
 
     /**
@@ -268,10 +279,10 @@ public final class Level {
     /**
      * Sets rows.
      *
-     * @param rows the rows
+     * @param paramRows the rows
      */
-    public void setRows(int rows) {
-        this.rows = rows;
+    public void setRows(final int paramRows) {
+        this.rows = paramRows;
     }
 
     /**
@@ -292,8 +303,13 @@ public final class Level {
         return rats;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
+    /**
+     * Sets items.
+     *
+     * @param paramItems the items
+     */
+    public void setItems(final ArrayList<Item> paramItems) {
+        this.items = paramItems;
     }
 
     /**
@@ -308,10 +324,10 @@ public final class Level {
     /**
      * Sets max rats.
      *
-     * @param maxRats the max rats
+     * @param paramMaxRats the max rats
      */
-    public void setMaxRats(int maxRats) {
-        this.maxRats = maxRats;
+    public void setMaxRats(final int paramMaxRats) {
+        this.maxRats = paramMaxRats;
     }
 
     /**
@@ -326,10 +342,10 @@ public final class Level {
     /**
      * Sets expected time.
      *
-     * @param expectedTime the expected time
+     * @param paramExpectedTime the expected time
      */
-    public void setExpectedTime(int expectedTime) {
-        this.expectedTime = expectedTime;
+    public void setExpectedTime(final int paramExpectedTime) {
+        this.expectedTime = paramExpectedTime;
     }
 
     /**
@@ -342,16 +358,16 @@ public final class Level {
     }
 
     /**
-     * Sets current tick
+     * Sets current tick.
      *
-     * @param currentTick sets the current tick to this value
+     * @param paramCurrentTick sets the current tick to this value
      */
-    public void setCurrentTick(int currentTick) {
-        this.currentTick = currentTick;
+    public void setCurrentTick(final int paramCurrentTick) {
+        this.currentTick = paramCurrentTick;
     }
 
     /**
-     * Returns current tick
+     * Returns current tick.
      *
      * @return current tick
      */
@@ -360,16 +376,16 @@ public final class Level {
     }
 
     /**
-     * Sets pause
+     * Sets pause.
      *
-     * @param paused
+     * @param paramPaused
      */
-    public static void setPaused(boolean paused) {
-        Level.paused = paused;
+    public static void setPaused(final boolean paramPaused) {
+        Level.paused = paramPaused;
     }
 
     /**
-     * Returns the pause status
+     * Returns the pause status.
      *
      * @return current state of paused boolean
      */
