@@ -24,18 +24,36 @@ import static main.external.Audio.playGameEffect;
  */
 public class Bomb extends Item {
 
+    /** Bomb's HP. */
+    static final int BOMB_HP = 8;
+    /** Bomb's Damage. */
+    static final int BOMB_DAMAGE = 99;
+    /** Bomb's Range. */
+    static final int BOMB_RANGE = 0;
+    /** Bomb's Y Offset. */
+    static final int BOMB_OFFSET_Y = 0;
+    /** Bomb's HP when countdown is at 3. */
+    static final int BOMB_COUNTDOWN_3 = 6;
+    /** Bomb's HP when countdown is at 2. */
+    static final int BOMB_COUNTDOWN_2 = 4;
+    /** Bomb's HP when countdown is at 1. */
+    static final int BOMB_COUNTDOWN_1 = 2;
+    /** Bomb's explosion image X position. */
+    static final int BOMB_EXPLOSION_X = 50;
+    /** Bomb's explosion image X position. */
+    static final int BOMB_EXPLOSION_Y = 50;
     /**
-     * Constructor
+     * Constructor.
      */
     public Bomb() {
         setEntityType(EntityType.ITEM);
         setEntityName("Bomb");
         setImage(Resources.getEntityImage("bomb-4"));
-        setHp(8);
-        setDamage(99);
-        setRange(0);
+        setHp(BOMB_HP);
+        setDamage(BOMB_DAMAGE);
+        setRange(BOMB_RANGE);
         setType(TYPE.BOMB);
-        setOffsetY(0);
+        setOffsetY(BOMB_OFFSET_Y);
     }
 
     /**
@@ -52,7 +70,8 @@ public class Bomb extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException,
+            LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("bomb"));
     }
 
@@ -62,12 +81,15 @@ public class Bomb extends Item {
      * @param level used to pass to explode method
      * @param gc    used to pass to explode method
      */
-    public void activate(Level level, GraphicsContext gc) {
+    public void activate(final Level level, final GraphicsContext gc) {
         setHp(getHp() - 1);
         switch (getHp()) {
-            case 6 -> setImage(Resources.getEntityImage("bomb-3"));
-            case 4 -> setImage(Resources.getEntityImage("bomb-2"));
-            case 2 -> setImage(Resources.getEntityImage("bomb-1"));
+            case BOMB_COUNTDOWN_3 ->
+                    setImage(Resources.getEntityImage("bomb-3"));
+            case BOMB_COUNTDOWN_2 ->
+                    setImage(Resources.getEntityImage("bomb-2"));
+            case BOMB_COUNTDOWN_1 ->
+                    setImage(Resources.getEntityImage("bomb-1"));
             case 0 -> explode(level, gc);
         }
     }
@@ -78,12 +100,13 @@ public class Bomb extends Item {
      * @param level gets tiles
      * @param gc    draws effect on affected tiles
      */
-    private void explode(Level level, GraphicsContext gc) {
+    private void explode(final Level level, final GraphicsContext gc) {
         Tile[][] tiles = level.getTiles();
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
         try {
             playSound();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException
+                | LineUnavailableException e) {
             e.printStackTrace();
         }
 
@@ -104,7 +127,9 @@ public class Bomb extends Item {
 
                 distance++;
                 if (current.isWalkable() && current.isCovering()) {
-                    gc.drawImage(Resources.getEntityImage("bomb-0"), current.getX() * 50, current.getY() * 50);
+                    gc.drawImage(Resources.getEntityImage("bomb-0"),
+                            current.getX() * BOMB_EXPLOSION_X,
+                            current.getY() * BOMB_EXPLOSION_Y);
                 }
             }
         }
@@ -120,7 +145,8 @@ public class Bomb extends Item {
      * @param tiles     gets tile using parameters
      * @return next tile in bomb's area of effect
      */
-    private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {
+    private Tile getDirection(final Rat.Direction direction, final int distance,
+                              final Tile[][] tiles) {
         return switch (direction) {
             case LEFT -> tiles[getCurrentPosY()][getCurrentPosX() - distance];
             case RIGHT -> tiles[getCurrentPosY()][getCurrentPosX() + distance];
