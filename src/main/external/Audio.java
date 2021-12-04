@@ -16,7 +16,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import main.Resources;
 
 /**
- * Main
+ * Audio.java - used to play sounds in the program.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
@@ -24,44 +24,56 @@ import main.Resources;
 public class Audio {
 
     /**
-     *
+     * represent default value for volume.
      */
-    private static float music = 50f;
+    private static final float DEFAULT_VALUE = 50f;
     /**
-     *
+     * The music value produced by the slider in settings.
      */
-    private static float effects = 50f;
+    private static float music = DEFAULT_VALUE;
     /**
-     *
+     * The effects value produced by the slider in settings.
      */
-    private static final float muted = -50f;
+    private static float effects = DEFAULT_VALUE;
     /**
-     *
+     * represent value for 1% volume.
      */
-    private static float musicVolume = -50f + (music * 0.50f);
+    private static final float POINT_OF_VOLUME = 0.5f;
     /**
-     *
+     * Value which represents fully muted sound.
      */
-    private static float effectsVolume = -50f + (music * 0.50f);
+    private static final float FULLY_MUTED = -80f;
     /**
-     *
+     * Value which represents muted.
+     */
+    private static final float MUTED = -50f;
+    /**
+     * The calculated volume of music.
+     */
+    private static float musicVolume = MUTED + (music * POINT_OF_VOLUME);
+    /**
+     * The calculated volume of effects.
+     */
+    private static float effectsVolume = MUTED + (music * POINT_OF_VOLUME);
+    /**
+     * Whether music is currently muted.
      */
     private static boolean musicMuted = false;
     /**
-     *
+     * Whether effects is currently muted.
      */
     private static boolean effectsMuted = false;
     /**
-     *
+     * The clip used to play music.
      */
     private static Clip musicClip = null;
     /**
-     *
+     * The clip used to play effects.
      */
     private static Clip clickEffect = null;
 
     /**
-     * Play music.
+     * Plays music.
      *
      * @throws IOException                   the io exception
      * @throws UnsupportedAudioFileException the unsupported audio file exception
@@ -72,7 +84,8 @@ public class Audio {
         musicClip = AudioSystem.getClip();
         musicClip.open(audio);
 
-        if (musicVolume > muted && !musicMuted) {
+        //makes sure music is not muted
+        if (musicVolume > MUTED && !musicMuted) {
             ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
             musicClip.start();
             musicClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -81,31 +94,34 @@ public class Audio {
 
     /**
      * Play game effect.
-     * e path
      *
+     * @param file the file to be played.
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      * @throws IOException                   the io exception
      * @throws LineUnavailableException      the line unavailable exception
      */
-    public static void playGameEffect(File file) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        if (effectsVolume > muted && !effectsMuted) {
+    public static void playGameEffect(final File file) throws UnsupportedAudioFileException, IOException,
+            LineUnavailableException {
+        if (effectsVolume > MUTED && !effectsMuted) {
             AudioInputStream audio = AudioSystem.getAudioInputStream(file);
-            Clip clickEffect = AudioSystem.getClip();
-            clickEffect.open(audio);
-            ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
-            clickEffect.start();
+            Clip click = AudioSystem.getClip();
+            click.open(audio);
+            ((FloatControl) click.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
+            click.start();
         }
     }
 
     /**
-     * Click effect.
+     * Plays the click effect - used in menu and in-game,
+     * represents user click or dragging something.
      *
      * @throws LineUnavailableException      the line unavailable exception
      * @throws IOException                   the io exception
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      */
     public static void clickEffect() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        if (effectsVolume > muted && !effectsMuted) {
+        //makes sure effects isn't muted
+        if (effectsVolume > MUTED && !effectsMuted) {
             AudioInputStream audio = AudioSystem.getAudioInputStream(Resources.getMenuAudio("click"));
             clickEffect = AudioSystem.getClip();
             clickEffect.open(audio);
@@ -115,17 +131,19 @@ public class Audio {
     }
 
     /**
-     * Sets music.
+     * Sets music volume.
      *
      * @param volume the volume
      * @throws IOException the io exception
      */
-    public static void setMusic(float volume) throws IOException {
+    public static void setMusic(final float volume) throws IOException {
         Audio.music = volume;
-        musicVolume = -50f + (music * 0.50f);
+        musicVolume = MUTED + (music * POINT_OF_VOLUME);
         if (!musicMuted) {
             ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
         }
+
+        //writes new values to .txt
         writeValues();
     }
 
@@ -144,9 +162,9 @@ public class Audio {
      * @param volume the volume
      * @throws IOException the io exception
      */
-    public static void setEffects(float volume) throws IOException {
+    public static void setEffects(final float volume) throws IOException {
         Audio.effects = volume;
-        effectsVolume = -50f + (effects * 0.50f);
+        effectsVolume = MUTED + (effects * POINT_OF_VOLUME);
         writeValues();
     }
 
@@ -160,11 +178,11 @@ public class Audio {
     }
 
     /**
-     * Mute music.
+     * Mutes music.
      */
     public static void muteMusic() {
-        if (musicVolume > muted) {
-            ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
+        if (musicVolume > MUTED) {
+            ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(FULLY_MUTED);
             musicMuted = !musicMuted;
         }
     }
@@ -180,10 +198,9 @@ public class Audio {
     /**
      * Mute effects.
      */
-//Needs to be changed
     public static void muteEffects() {
-        if (effectsVolume > muted) {
-            ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-80f);
+        if (effectsVolume > MUTED) {
+            ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(FULLY_MUTED);
             effectsMuted = !effectsMuted;
         }
     }
@@ -191,7 +208,6 @@ public class Audio {
     /**
      * Resume effects.
      */
-//Needs to be changed
     public static void resumeEffects() {
         ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
         effectsMuted = !effectsMuted;
@@ -228,10 +244,10 @@ public class Audio {
             String[] split = line.split(":");
             if (Objects.equals(split[0], "musicVolume")) {
                 music = Float.parseFloat(split[1]);
-                musicVolume = -50f + (music * 0.50f);
+                musicVolume = MUTED + (music * POINT_OF_VOLUME);
             } else if (Objects.equals(split[0], "effectsVolume")) {
                 effects = Float.parseFloat(split[1]);
-                effectsVolume = -50f + (effects * 0.50f);
+                effectsVolume = MUTED + (effects * POINT_OF_VOLUME);
             }
         }
     }
@@ -242,7 +258,7 @@ public class Audio {
      * @param sound the sound
      * @return the double
      */
-    public static double isMuted(String sound) {
+    public static double isMuted(final String sound) {
         if (Objects.equals(sound, "music")) {
             if (musicMuted) {
                 return 0.2;
@@ -260,6 +276,11 @@ public class Audio {
         }
     }
 
+    /**
+     * Writes updated values to config file.
+     *
+     * @throws IOException caused by file not existing
+     */
     private static void writeValues() throws IOException {
         PrintWriter writer = new PrintWriter(Resources.getSettings(), StandardCharsets.UTF_8);
 
