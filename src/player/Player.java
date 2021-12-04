@@ -1,26 +1,39 @@
 package player;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Objects;
 import main.Resources;
 
 /**
- * Player
+ * Player class, holds player information.
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd Maund (2003900)
  */
 public class Player {
 
-    /** */
+    /**
+     * Current player name.
+     */
     private static String playerName;
-    /** */
+    /**
+     * Current player max level.
+     */
     private static int maxLevel;
-    /** */
+    /**
+     * Current player theme.
+     */
     private static THEME theme;
-    /** */
+    /**
+     * Current player generation.
+     */
     private static ItemGeneration generation;
 
     /**
@@ -58,25 +71,26 @@ public class Player {
     /**
      * Instantiates a new Player.
      *
-     * @param playerName the player name
-     * @param theme      the theme
-     * @param generation the generation
+     * @param paramName the player name
+     * @param paramTheme    the theme
+     * @param paramGeneration the generation
      * @throws IOException the io exception
      */
-    public Player(String playerName, THEME theme, ItemGeneration generation) throws IOException {
-        Player.playerName = playerName;
-        Player.theme = theme;
-        Player.generation = generation;
+    public Player(final String paramName, final THEME paramTheme, final ItemGeneration paramGeneration)
+            throws IOException {
+        Player.playerName = paramName;
+        Player.theme = paramTheme;
+        Player.generation = paramGeneration;
         alreadyPlayed();
     }
 
     /**
      * Sets player name.
      *
-     * @param playerName the player name
+     * @param paramName the player name
      */
-    public static void setPlayerName(String playerName) {
-        Player.playerName = playerName;
+    public static void setPlayerName(final String paramName) {
+        Player.playerName = paramName;
     }
 
     /**
@@ -91,10 +105,10 @@ public class Player {
     /**
      * Sets theme.
      *
-     * @param theme the theme
+     * @param paramTheme the theme
      */
-    public static void setTheme(THEME theme) {
-        Player.theme = theme;
+    public static void setTheme(final THEME paramTheme) {
+        Player.theme = paramTheme;
     }
 
     /**
@@ -109,10 +123,10 @@ public class Player {
     /**
      * Sets generation.
      *
-     * @param generation the generation
+     * @param paramGeneration the generation
      */
-    public static void setGeneration(ItemGeneration generation) {
-        Player.generation = generation;
+    public static void setGeneration(final ItemGeneration paramGeneration) {
+        Player.generation = paramGeneration;
     }
 
     /**
@@ -127,10 +141,10 @@ public class Player {
     /**
      * Sets max level.
      *
-     * @param maxLevel the max level
+     * @param max the max level
      */
-    public static void setMaxLevel(int maxLevel) {
-        Player.maxLevel = maxLevel;
+    public static void setMaxLevel(final int max) {
+        Player.maxLevel = max;
     }
 
     /**
@@ -142,13 +156,20 @@ public class Player {
         return maxLevel;
     }
 
-    public static void unlockedNew(int level) throws IOException {
+
+    /**
+     * Unlocks new level for player.
+     *
+     * @param level the level to be unlocked
+     * @throws IOException if there's error writing to file
+     */
+    public static void unlockedNew(final int level) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(Resources.getPlayers()));
         ArrayList<String> existingPlayers = new ArrayList<>();
 
         String line;
         while ((line = reader.readLine()) != null) {
-            if(!line.equals(playerName + ":" + (level - 1))) {
+            if (!line.equals(playerName + ":" + (level - 1))) {
                 existingPlayers.add(line);
             } else {
                 existingPlayers.add(playerName + ":" + level);
@@ -156,6 +177,7 @@ public class Player {
             }
         }
 
+        //writes file with new unlocked level
         PrintWriter writer = new PrintWriter(Resources.getPlayers(), StandardCharsets.UTF_8);
         for (String player : existingPlayers) {
             writer.println(player);
@@ -164,13 +186,14 @@ public class Player {
     }
 
     /**
+     * Gets already unlocked levels.
      *
-     *
-     * @throws IOException
+     * @throws IOException if there's error writing to file
      */
     private void alreadyPlayed() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(Resources.getPlayers()));
 
+        //if player exist get player
         boolean found = false;
         String line;
         while ((line = reader.readLine()) != null) {
@@ -181,6 +204,7 @@ public class Player {
             }
         }
 
+        //if player doesn't exist create player
         if (!found) {
             FileWriter writer = new FileWriter(Resources.getPlayers(), true);
             Player.maxLevel = 1;
@@ -189,25 +213,33 @@ public class Player {
         }
     }
 
+
+    /**
+     * checks if there is a save file.
+     *
+     * @return save file
+     */
     public static boolean hasSaveFile() {
         return checkForSaveFile(Resources.getSavesFolderPath());
     }
 
     /**
-     * Read through saves folder and check if player has a save file
+     * Read through saves folder and check if player has a save file.
+     *
      * @param folder saves folder
      * @return boolean
      */
-    public static boolean checkForSaveFile(File folder) {
+    public static boolean checkForSaveFile(final File folder) {
         boolean found;
 
+        //checks directory to see if this player has a save file
         for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             if (fileEntry.isDirectory()) {
                 checkForSaveFile(fileEntry);
             } else {
                 String[] playerSplit = fileEntry.getName().split("-");
-                String playerName = playerSplit[1].split("\\.")[0];
-                found = playerName.equals(Player.getPlayerName());
+                String name = playerSplit[1].split("\\.")[0];
+                found = name.equals(Player.getPlayerName());
                 if (found) {
                     return true;
                 }
@@ -217,17 +249,25 @@ public class Player {
         return false;
     }
 
+
+    /**
+     * deletes current player.
+     *
+     * @throws IOException if there's error writing/reading to file
+     */
     public static void deletePlayer() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(Resources.getPlayers()));
         ArrayList<String> existingPlayers = new ArrayList<>();
 
+        //reads file and adds all players apart from this one
         String line;
         while ((line = reader.readLine()) != null) {
-            if(!line.equals(playerName + ":" + maxLevel)) {
+            if (!line.equals(playerName + ":" + maxLevel)) {
                 existingPlayers.add(line);
             }
         }
 
+        //writes players without this one
         PrintWriter writer = new PrintWriter(Resources.getPlayers(), StandardCharsets.UTF_8);
         for (String player : existingPlayers) {
             writer.println(player);
