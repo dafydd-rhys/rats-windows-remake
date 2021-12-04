@@ -14,13 +14,14 @@ import main.level.Level;
 import main.stage.StageFunctions;
 
 /**
- * Settings Controller.
+ * Settings Controller - handles all interaction in settings.fxml.
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd Maund (2003900)
  * @author Dawid Wisniewski (857847)
  */
 public class SettingsController implements Initializable {
+    
     /**
      * Slider for music volume.
      */
@@ -43,11 +44,14 @@ public class SettingsController implements Initializable {
     private JFXButton exit;
 
     /**
-     * @param url
-     * @param resourceBundle
+     * This method is run upon scene being loaded.
+     *
+     * @param url the url of resources.
+     * @param resourceBundle bundle of resources.
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(final URL url, final ResourceBundle resourceBundle) {
+        //adds listeners to controls
         onActions();
         musicSlider.setValue(Audio.getMusic());
         sfxSlider.setValue(Audio.getEffects());
@@ -65,6 +69,7 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
+
         // slider sets the effect volume to the value on the slider when it is moved by the user.
         sfxSlider.valueProperty().addListener((ov, old, value) -> {
             try {
@@ -73,8 +78,10 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
+
         // minimizes scene to user taskbar.
         minimize.setOnAction(e -> StageFunctions.minimizeSettings());
+
         // closes settings window.
         exit.setOnAction(e -> {
             try {
