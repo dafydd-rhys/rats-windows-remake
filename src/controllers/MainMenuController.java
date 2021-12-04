@@ -131,6 +131,7 @@ public class MainMenuController implements Initializable {
 
         loadGame.setOnAction(e -> {
             try {
+                Level.setPaused(false);
                 Level.currentLevel = LevelLoader.getCurrentLevel();
                 Level.setIsSave(true);
                 StageFunctions.changeScene("game", "Level " + Level.getCurrentLevel());
