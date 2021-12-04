@@ -21,31 +21,31 @@ public abstract class Entity {
     /**
      * The Entity type.
      */
-    private EntityType entityType;
+    protected EntityType entityType;
     /**
      * The Entity name.
      */
-    private String entityName;
+    protected String entityName;
     /**
      * The Image.
      */
-    private Image image;
+    protected Image image;
     /**
      * The Hp.
      */
-    private int hp;
+    protected int hp;
     /**
      * The Damage.
      */
-    private int damage;
+    protected int damage;
     /**
      * The Current pos x.
      */
-    private int currentPosX;
+    protected int currentPosX;
     /**
      * The Current pos y.
      */
-    private int currentPosY;
+    protected int currentPosY;
 
     /**
      * Inflict damage.
