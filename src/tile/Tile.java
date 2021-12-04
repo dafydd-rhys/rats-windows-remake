@@ -2,7 +2,9 @@ package tile;
 
 import javafx.scene.image.Image;
 import entity.Entity;
+
 import java.util.ArrayList;
+
 import main.Resources;
 import player.Player;
 
@@ -16,28 +18,46 @@ import player.Player;
  */
 public class Tile {
 
-    /** The list of entities that are currently standing on the Tile. */
+    /**
+     * The list of entities that are currently standing on the Tile.
+     */
     private final ArrayList<Entity> entitiesOnTile;
-    /** X coordinate. */
+    /**
+     * X coordinate.
+     */
     private int x;
-    /** Y coordinate. */
+    /**
+     * Y coordinate.
+     */
     private int y;
-    /** The image/texture of the Tile. */
+    /**
+     * The image/texture of the Tile.
+     */
     private final Image image;
-    /** Indicates whether the Tile can be walked on. */
+    /**
+     * Indicates whether the Tile can be walked on.
+     */
     private final boolean isWalkable;
-    /** Indicates whether the Tile should cover the entities that are standing on it. */
+    /**
+     * Indicates whether the Tile should cover the entities that are standing on it.
+     */
     private final boolean isCovering;
 
     /**
      * The enum Type.
      */
     public enum TYPE {
-        /** Selected theme. */
+        /**
+         * Selected theme.
+         */
         THEMED(),
-        /** Path tile. */
+        /**
+         * Path tile.
+         */
         PATH(),
-        /** Tunnel tile. */
+        /**
+         * Tunnel tile.
+         */
         TUNNEL()
     }
 
@@ -46,7 +66,7 @@ public class Tile {
      *
      * @param paramX              the x
      * @param paramY              the y
-     * @param type           the type
+     * @param type                the type
      * @param paramEntitiesOnTile the entities on tile
      */
     public Tile(final int paramX, final int paramY, final TYPE type, final ArrayList<Entity> paramEntitiesOnTile) {
