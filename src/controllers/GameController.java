@@ -339,9 +339,8 @@ public class GameController implements Initializable {
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                     ex.printStackTrace();
                 }
-            } else {
-                Level.setPaused(false);
             }
+            Level.setPaused(false);
         });
 
         mainMenu.setOnAction(e -> {
