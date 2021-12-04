@@ -8,12 +8,27 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * MOTD.java
- * Message Of The Day
+ * MOTD.java.
+ * Message Of The Day.
  *
- * @author Maurice Peterson
+ * @author Maurice Petersen
  */
 public class MOTD {
+
+    /**
+     * Minimum value for successful response codes.
+     */
+    private static final int MIN_SUCCESSFUL_RESCODE = 200;
+
+    /**
+     * Maximum value for successful response codes.
+     */
+    private static final int MAX_SUCCESSFUL_RESCODE = 299;
+
+    /**
+     * Number of characters in the alphabet used for the caesar cipher.
+     */
+    private static final int ALPHABET_COUNT = 26;
 
     /**
      *
@@ -41,12 +56,13 @@ public class MOTD {
      * @return response
      * @throws IOException
      */
-    private String getRequest(URL url) throws IOException {
+    private String getRequest(final URL url) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
         BufferedReader br = null;
-        if (100 <= conn.getResponseCode() && conn.getResponseCode() <= 399) {
+        if (MIN_SUCCESSFUL_RESCODE <= conn.getResponseCode()
+                && conn.getResponseCode() <= MAX_SUCCESSFUL_RESCODE) {
             br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         }
 
@@ -54,12 +70,12 @@ public class MOTD {
         StringBuilder response = new StringBuilder();
         while (true) {
             assert br != null;
-            if ((inputLine = br.readLine()) == null) break;
+            if ((inputLine = br.readLine()) == null) {
+                conn.disconnect();
+                return response.toString();
+            }
             response.append(inputLine);
         }
-
-        conn.disconnect();
-        return response.toString();
     }
 
     /**
@@ -81,9 +97,9 @@ public class MOTD {
             char c = puzzleArray[i];
             c = (char) (c + shift);
             if (c > 'z') {
-                c = (char) (c - 26);
+                c = (char) (c - ALPHABET_COUNT);
             } else if (c < 'a') {
-                c = (char) (c + 26);
+                c = (char) (c + ALPHABET_COUNT);
             }
 
             puzzleArray[i] = c;

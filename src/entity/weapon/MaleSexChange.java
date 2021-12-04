@@ -21,9 +21,10 @@ import java.util.ArrayList;
  * @author Bryan Kok
  */
 public class MaleSexChange extends Item {
-
+    /** Male Sex Change's Y Offset. */
+    static final int MSC_OFFSET_Y = 4;
     /**
-     * Constructor
+     * Constructor.
      */
     public MaleSexChange() {
         setEntityType(EntityType.ITEM);
@@ -33,7 +34,7 @@ public class MaleSexChange extends Item {
         setDamage(0);
         setRange(1);
         setType(TYPE.MALE_CHANGE);
-        setOffsetY(4);
+        setOffsetY(MSC_OFFSET_Y);
     }
 
     /**
@@ -50,7 +51,8 @@ public class MaleSexChange extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException,
+            LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("sex_change"));
     }
 
@@ -60,9 +62,10 @@ public class MaleSexChange extends Item {
      * @param level gets tiles
      * @param gc    unused attribute
      */
-    public void activate(Level level, GraphicsContext gc) {
+    public void activate(final Level level, final GraphicsContext gc) {
         Tile[][] tile = level.getTiles();
-        ArrayList<Entity> entitiesOnTile = tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
+        ArrayList<Entity> entitiesOnTile =
+                tile[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int i = 0; i < entitiesOnTile.size(); i++) {
@@ -77,7 +80,8 @@ public class MaleSexChange extends Item {
                     // TODO audio here
                     try {
                         playSound();
-                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                    } catch (UnsupportedAudioFileException
+                            | LineUnavailableException | IOException e) {
                         e.printStackTrace();
                     }
 
