@@ -24,8 +24,6 @@ public class NoEntrySign extends Item {
         setHp(10);
         setDamage(0);
         setRange(1);
-        setFriendlyFire(true);
-        setCanBeAttacked(false);
         setType(TYPE.NO_ENTRY);
         setOffsetY(5);
     }

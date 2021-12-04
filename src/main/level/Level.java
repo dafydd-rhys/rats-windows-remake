@@ -7,7 +7,8 @@ import java.util.HashMap;
 import tile.Tile;
 
 /**
- * Level
+ * This class represents the Level.
+ *
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
@@ -17,15 +18,15 @@ public final class Level {
 
     /** The constant currentLevel. */
     public static int currentLevel;
-    /** The constant currentLevel. */
+    /** Save status. */
     public static boolean isSave = false;
-    /** */
+    /** Current level*/
     private Level level;
-    /** */
+    /** HashMap for weapons and their respawn rates*/
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
-    /** */
+    /** ArrayList of Rats in the level*/
     private final ArrayList<Rat> rats;
-    /** */
+    /** ArrayList of Items*/
     private ArrayList<Item> items;
     /** */
     private final Tile[][] tiles;
@@ -74,7 +75,7 @@ public final class Level {
     }
 
     /**
-     * Place item.
+     * Place items an item at the given Tile.
      *
      * @param item the item
      * @param tile the tile
@@ -87,7 +88,7 @@ public final class Level {
     }
 
     /**
-     * Place rat.
+     * Place rat at the given Tile.
      *
      * @param rat  the rat
      * @param tile the tile
@@ -207,7 +208,7 @@ public final class Level {
     }
 
     /**
-     * Get tiles tile [ ] [ ].
+     * Gets a tile at [x][y].
      *
      * @return the tile [ ] [ ]
      */
@@ -216,7 +217,7 @@ public final class Level {
     }
 
     /**
-     * Sets cols.
+     * Sets columns.
      *
      * @param cols the cols
      */
@@ -225,7 +226,7 @@ public final class Level {
     }
 
     /**
-     * Gets cols.
+     * Gets columns.
      *
      * @return the cols
      */
@@ -309,17 +310,37 @@ public final class Level {
         return expectedTime;
     }
 
+    /**
+     * Sets current tick
+     *
+     * @param currentTick sets the current tick to this value
+     */
     public void setCurrentTick(int currentTick) {
         this.currentTick = currentTick;
     }
 
+    /**
+     * Returns current tick
+     *
+     * @return current tick
+     */
     public int getCurrentTick() {
         return currentTick;
     }
+
+    /**
+     * Sets pause
+     *
+     * @param paused
+     */
     public static void setPaused(boolean paused) {
         Level.paused = paused;
     }
 
+    /**
+     * Returns the pause status
+     * @return current state of paused boolean
+     */
     public static boolean getPaused() {
         return !paused;
     }

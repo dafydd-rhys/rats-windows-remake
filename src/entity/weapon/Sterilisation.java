@@ -34,8 +34,6 @@ public class Sterilisation extends Item {
         setHp(10);
         setDamage(0);
         setRange(2);
-        setFriendlyFire(false);
-        setCanBeAttacked(false);
         setType(TYPE.STERILISATION);
         setOffsetY(7);
     }

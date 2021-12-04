@@ -32,8 +32,6 @@ public class MaleSexChange extends Item {
         setHp(1);
         setDamage(0);
         setRange(1);
-        setFriendlyFire(false);
-        setCanBeAttacked(false);
         setType(TYPE.MALE_CHANGE);
         setOffsetY(4);
     }

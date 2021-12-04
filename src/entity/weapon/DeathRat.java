@@ -87,8 +87,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         setHp(5);
         setDamage(5);
         setRange(2);
-        setFriendlyFire(true);
-        setCanBeAttacked(false);
         setType(TYPE.DEATH_RAT);
         setOffsetY(1);
 

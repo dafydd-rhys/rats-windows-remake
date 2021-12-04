@@ -35,8 +35,6 @@ public class Gas extends Item {
         setHp(12);
         setDamage(2);
         setRange(3);
-        setFriendlyFire(true);
-        setCanBeAttacked(false);
         setType(TYPE.GAS);
         setOffsetY(3);
     }

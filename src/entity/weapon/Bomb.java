@@ -34,8 +34,6 @@ public class Bomb extends Item {
         setHp(8);
         setDamage(99);
         setRange(0);
-        setFriendlyFire(true);
-        setCanBeAttacked(false);
         setType(TYPE.BOMB);
         setOffsetY(0);
     }

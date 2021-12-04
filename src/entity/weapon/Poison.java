@@ -31,8 +31,6 @@ public class Poison extends Item {
         setHp(1);
         setDamage(5);
         setRange(1);
-        setFriendlyFire(true);
-        setCanBeAttacked(false);
         setType(TYPE.POISON);
         setOffsetY(6);
     }
