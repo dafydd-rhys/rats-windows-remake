@@ -118,7 +118,7 @@ public class LevelFileReader {
     }
 
     /**
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void loadLevel() throws IOException {
         level = readFile(lvlDirectory);
@@ -127,7 +127,8 @@ public class LevelFileReader {
     /**
      * @param file
      * @return
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException Signals that an attempt to open the file denoted by a specified pathname has
+     *                               failed
      */
     private char[][] readFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);

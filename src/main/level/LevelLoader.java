@@ -46,7 +46,7 @@ public class LevelLoader {
     /**
      * Reads the whole save file.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void loadLevel() throws IOException {
         readLevel();
@@ -58,7 +58,7 @@ public class LevelLoader {
     /**
      * Reads the current level and current tick from the save file.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readLevel() throws IOException {
         Scanner scanner = new Scanner(saveDir);
@@ -72,7 +72,7 @@ public class LevelLoader {
     /**
      * Reads the line in the save file regarding rat attributes.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readRatSpawns() throws IOException {
         String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(3);
@@ -135,7 +135,7 @@ public class LevelLoader {
     /**
      * Reads the line in the save file regarding item attributes.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readItemSpawns() throws IOException {
         String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(4);
@@ -180,7 +180,7 @@ public class LevelLoader {
     /**
      * Reads the line in the save file regarding inventory items.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readInventoryItems() throws IOException {
         String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(5);
