@@ -17,7 +17,7 @@ import main.stage.StageFunctions;
 import player.Player;
 
 /**
- * MainMenu Controller - used to handle all interaction while in main menu
+ * MainMenu Controller - used to handle all interaction while in main menu.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)

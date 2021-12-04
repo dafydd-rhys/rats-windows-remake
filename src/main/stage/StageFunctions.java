@@ -113,7 +113,7 @@ public class StageFunctions {
     }
 
     /**
-     * open profile stage
+     * Opens profile stage.
      *
      * @throws IOException can't find file
      */

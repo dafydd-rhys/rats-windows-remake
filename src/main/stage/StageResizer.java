@@ -23,7 +23,7 @@ public class StageResizer {
     /**
      * Value represents how far off border mouse must be to trigger listener.
      */
-    private final static int BORDER_SIZE = 4;
+    private static final int BORDER_SIZE = 4;
 
     /**
      * Add resize listener - so the stage listens for appropriate inputs.
