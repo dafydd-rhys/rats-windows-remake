@@ -10,12 +10,16 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 /**
- * The type No entry sign.
+ * No entry sign weapon class.
+ *
+ * @author Harry Boyce
+ * @author Bryan Kok
+ * @author Dafydd -Rhys Maund
  */
 public class NoEntrySign extends Item {
 
     /**
-     * sets item attributes
+     * Constructor
      */
     public NoEntrySign() {
         setEntityType(EntityType.ITEM);
@@ -24,14 +28,12 @@ public class NoEntrySign extends Item {
         setHp(10);
         setDamage(0);
         setRange(1);
-        setFriendlyFire(true);
-        setCanBeAttacked(false);
         setType(TYPE.NO_ENTRY);
         setOffsetY(5);
     }
 
     /**
-     * instantiates item
+     * Instantiates item.
      *
      * @return new no entry sign item
      */
@@ -41,7 +43,7 @@ public class NoEntrySign extends Item {
     }
 
     /**
-     * plays sound effect
+     * Plays sound effect.
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -49,7 +51,7 @@ public class NoEntrySign extends Item {
     }
 
     /**
-     * prevents rats from going through its tile until broken
+     * Prevents rats from walking into its tile until broken.
      *
      * @param level gets tiles
      * @param gc    unused attribute
