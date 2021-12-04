@@ -9,17 +9,29 @@ import java.util.ArrayList;
  * <p>
  * Loads the inventory items from save file.
  *
+ * @param items items in inventory
+ * @param abilities ability pane
  * @author Maurice Petersen (2013396).
  */
 public record ItemLoader(ArrayList<Item.TYPE> items, AnchorPane abilities) {
 
-    public ItemLoader(ArrayList<Item.TYPE> items, AnchorPane abilities) {
+    /**
+     * loads all items in save.
+     *
+     * @param items items list
+     * @param abilities inventory pane
+     */
+    public ItemLoader(final ArrayList<Item.TYPE> items, final AnchorPane abilities) {
         this.items = items;
         this.abilities = abilities;
 
         load();
     }
 
+
+    /**
+     * loads all items in save.
+     */
     public void load() {
         for (Item.TYPE item : items) {
             if (item == Item.TYPE.BOMB) {
@@ -42,7 +54,12 @@ public record ItemLoader(ArrayList<Item.TYPE> items, AnchorPane abilities) {
         }
     }
 
-    private void enableItem(Item.TYPE type) {
+    /**
+     * Enables item.
+     *
+     * @param type type of item
+     */
+    private void enableItem(final Item.TYPE type) {
         Inventory.enableItem(type, abilities);
     }
 
