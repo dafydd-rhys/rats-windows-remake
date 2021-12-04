@@ -16,38 +16,43 @@ import player.Player;
  */
 public class Tile {
 
-    /** The list of entities that are currently standing on the Tile */
-    protected final ArrayList<Entity> entitiesOnTile;
+    /** The list of entities that are currently standing on the Tile. */
+    private final ArrayList<Entity> entitiesOnTile;
+    /** X coordinate. */
     private int x;
+    /** Y coordinate. */
     private int y;
-    /** The image/texture of the Tile */
+    /** The image/texture of the Tile. */
     private final Image image;
-    /** Indicates whether the Tile can be walked on */
+    /** Indicates whether the Tile can be walked on. */
     private final boolean isWalkable;
-    /** Indicates whether the Tile should cover the entities that are standing on it */
+    /** Indicates whether the Tile should cover the entities that are standing on it. */
     private final boolean isCovering;
 
     /**
      * The enum Type.
      */
     public enum TYPE {
+        /** Selected theme. */
         THEMED(),
+        /** Path tile. */
         PATH(),
+        /** Tunnel tile. */
         TUNNEL()
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param x              the x
-     * @param y              the y
+     * @param paramX              the x
+     * @param paramY              the y
      * @param type           the type
-     * @param entitiesOnTile the entities on tile
+     * @param paramEntitiesOnTile the entities on tile
      */
-    public Tile(int x, int y, TYPE type, ArrayList<Entity> entitiesOnTile) {
-        this.x = x;
-        this.y = y;
-        this.entitiesOnTile = entitiesOnTile;
+    public Tile(final int paramX, final int paramY, final TYPE type, final ArrayList<Entity> paramEntitiesOnTile) {
+        this.x = paramX;
+        this.y = paramY;
+        this.entitiesOnTile = paramEntitiesOnTile;
 
         if (type == TYPE.THEMED) {
             if (Player.getTheme() == Player.THEME.SPRING) {
@@ -95,18 +100,18 @@ public class Tile {
     /**
      * Sets x.
      *
-     * @param x the x
+     * @param paramX the x
      */
-    public void setX(int x) {
+    public void setX(final int paramX) {
         this.x = x;
     }
 
     /**
      * Sets y.
      *
-     * @param y the y
+     * @param paramY the y
      */
-    public void setY(int y) {
+    public void setY(final int paramY) {
         this.y = y;
     }
 
@@ -124,7 +129,7 @@ public class Tile {
      *
      * @param entity the entity
      */
-    public void addEntityToTile(Entity entity) {
+    public void addEntityToTile(final Entity entity) {
         entitiesOnTile.add(entity);
     }
 
@@ -133,7 +138,7 @@ public class Tile {
      *
      * @param entity the entity
      */
-    public void removeEntityFromTile(Entity entity) {
+    public void removeEntityFromTile(final Entity entity) {
         entitiesOnTile.remove(entity);
     }
 
