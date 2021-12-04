@@ -37,10 +37,6 @@ public class Resources {
      */
     private static final String LEVEL_CONFIG_PATH = "\\src\\resources\\config\\levels\\level";
     /**
-     * spawn path directory.
-     */
-    private static final String SPAWN_CONFIG_PATH = "\\src\\resources\\config\\spawns\\level";
-    /**
      * saves directory.
      */
     private static final String SAVES_CONFIG_PATH = "\\src\\resources\\config\\saves\\save-";
@@ -111,16 +107,6 @@ public class Resources {
      */
     public static File getLevel(final int level) {
         return new File(DIR + LEVEL_CONFIG_PATH + level + ".txt");
-    }
-
-    /**
-     * Retrieves spawns.
-     *
-     * @param level level number.
-     * @return returns file.
-     */
-    public static File getSpawns(final int level) {
-        return new File(DIR + SPAWN_CONFIG_PATH + level + "-spawns.txt");
     }
 
     /**

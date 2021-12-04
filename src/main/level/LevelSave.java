@@ -82,7 +82,7 @@ public class LevelSave {
 
     public void save() {
         try {
-            this.writeFile();
+            writeFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
