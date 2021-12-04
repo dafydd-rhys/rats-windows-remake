@@ -25,23 +25,17 @@ import static main.external.Audio.playGameEffect;
 public class Bomb extends Item {
 
     /** Bomb's HP. */
-    static final int BOMB_HP = 8;
+    private static final int BOMB_HP = 8;
     /** Bomb's Damage. */
-    static final int BOMB_DAMAGE = 99;
-    /** Bomb's Range. */
-    static final int BOMB_RANGE = 0;
-    /** Bomb's Y Offset. */
-    static final int BOMB_OFFSET_Y = 0;
+    private static final int BOMB_DAMAGE = 99;
     /** Bomb's HP when countdown is at 3. */
-    static final int BOMB_COUNTDOWN_3 = 6;
+    private static final int BOMB_COUNTDOWN_3 = 6;
     /** Bomb's HP when countdown is at 2. */
-    static final int BOMB_COUNTDOWN_2 = 4;
-    /** Bomb's HP when countdown is at 1. */
-    static final int BOMB_COUNTDOWN_1 = 2;
+    private static final int BOMB_COUNTDOWN_2 = 4;
     /** Bomb's explosion image X position. */
-    static final int BOMB_EXPLOSION_X = 50;
+    private static final int BOMB_EXPLOSION_X = 50;
     /** Bomb's explosion image X position. */
-    static final int BOMB_EXPLOSION_Y = 50;
+    private static final int BOMB_EXPLOSION_Y = 50;
     /**
      * Constructor.
      */
@@ -51,9 +45,9 @@ public class Bomb extends Item {
         setImage(Resources.getEntityImage("bomb-4"));
         setHp(BOMB_HP);
         setDamage(BOMB_DAMAGE);
-        setRange(BOMB_RANGE);
+        setRange(0);
         setType(TYPE.BOMB);
-        setOffsetY(BOMB_OFFSET_Y);
+        setOffsetY(0);
     }
 
     /**
@@ -88,8 +82,7 @@ public class Bomb extends Item {
                     setImage(Resources.getEntityImage("bomb-3"));
             case BOMB_COUNTDOWN_2 ->
                     setImage(Resources.getEntityImage("bomb-2"));
-            case BOMB_COUNTDOWN_1 ->
-                    setImage(Resources.getEntityImage("bomb-1"));
+            case 2 -> setImage(Resources.getEntityImage("bomb-1"));
             case 0 -> explode(level, gc);
         }
     }
