@@ -3,11 +3,12 @@ package scoreboard;
 import java.io.IOException;
 
 /**
- * The type Score.
+ * Score.
  *
  * @author Bryan Kok
- * @author whoever made this idk
+ * @author creator of scoreboard
  */
+
 public class Score {
 
     /**
@@ -31,9 +32,9 @@ public class Score {
      * @param score the score
      */
     public Score(final int level, final String name, final int score) {
-        this.completedLevel = level;
-        this.newName = name;
-        this.newScore = score;
+        setCompletedLevel(level);
+        setNewName(name);
+        setNewScore(score);
     }
 
     /**

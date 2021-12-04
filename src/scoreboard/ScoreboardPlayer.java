@@ -1,9 +1,10 @@
 package scoreboard;
 
 /**
- * ScoreboardPlayer
+ * ScoreboardPlayer.
  *
  * @author Dafydd -Rhys Maund (2003900)
+ * @author Bryan Kok
  */
 public class ScoreboardPlayer {
 
@@ -19,25 +20,25 @@ public class ScoreboardPlayer {
     /**
      * Instantiates a new Scoreboard player.
      *
-     * @param level the level
-     * @param rank  the rank
-     * @param name  the name
-     * @param score the score
+     * @param newLevel the level
+     * @param newRank  the rank
+     * @param newName  the name
+     * @param newScore the score
      */
-    public ScoreboardPlayer(final String level, final int rank, final String name, final int score) {
-        this.level = level;
-        this.rank = rank;
-        this.name = name;
-        this.score = score;
+    public ScoreboardPlayer(final String newLevel, final int newRank, final String newName, final int newScore) {
+        setLevel(newLevel);
+        setRank(newRank);
+        setName(newName);
+        setScore(newScore);
     }
 
     /**
      * Sets level.
      *
-     * @param level the level
+     * @param newLevel the level
      */
-    public void setLevel(String level) {
-        this.level = level;
+    public void setLevel(final String newLevel) {
+        this.level = newLevel;
     }
 
     /**
@@ -52,10 +53,10 @@ public class ScoreboardPlayer {
     /**
      * Sets rank.
      *
-     * @param rank the rank
+     * @param newRank the rank
      */
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setRank(final int newRank) {
+        this.rank = newRank;
     }
 
     /**
@@ -70,10 +71,10 @@ public class ScoreboardPlayer {
     /**
      * Sets name.
      *
-     * @param name the name
+     * @param newName the name
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String newName) {
+        this.name = newName;
     }
 
     /**
@@ -88,10 +89,10 @@ public class ScoreboardPlayer {
     /**
      * Sets score.
      *
-     * @param score the score
+     * @param newScore the score
      */
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore(final int newScore) {
+        this.score = newScore;
     }
 
     /**

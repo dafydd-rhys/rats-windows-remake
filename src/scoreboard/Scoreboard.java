@@ -15,6 +15,7 @@ import main.Resources;
  * Scoreboard.
  *
  * @author Dafydd -Rhys Maund (2003900)
+ * @author Bryan Kok
  */
 public class Scoreboard {
 
