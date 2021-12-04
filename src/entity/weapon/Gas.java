@@ -50,7 +50,10 @@ public class Gas extends Item {
     }
 
     /**
-     * @param level the level
+     * activates the gas with a range of three tiles,
+     *  searching all adjacent tiles for rat entities and inflicting 2 damage
+     *
+     * @param level used to get the tiles
      * @param gc    the gc
      */
     public void activate(Level level, GraphicsContext gc) {
@@ -96,9 +99,11 @@ public class Gas extends Item {
     }
 
     /**
-     * @param level
-     * @param i
-     * @return
+     * checks if tiles adjacent to the current tile are walkable
+     *
+     * @param level used to get the tiles
+     * @param i range of the bomb at the current tick (expanding)
+     * @return list of walkable tiles
      */
     private ArrayList<Tile> checkAdjacent(Level level, int i) {
         ArrayList<Tile> seenTiles = new ArrayList<>();
@@ -135,8 +140,10 @@ public class Gas extends Item {
     }
 
     /**
-     * @param tile
-     * @param level
+     * checks for entities on the tile and inflicts 2 damage on any rats
+     *
+     * @param tile used to get list of entities on tile
+     * @param level needed to inflict damage
      */
     private void checkTile(Tile tile, Level level) {
         ArrayList<Entity> entities = new ArrayList<>(tile.getEntitiesOnTile());
