@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static main.external.Audio.playGameEffect;
 
 /**
- * Bomb
+ * Bomb weapon class.
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd -Rhys Maund
@@ -25,7 +25,7 @@ import static main.external.Audio.playGameEffect;
 public class Bomb extends Item {
 
     /**
-     * sets item attributes
+     * Constructor
      */
     public Bomb() {
         setEntityType(EntityType.ITEM);
@@ -39,7 +39,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * instantiates new item
+     * Instantiates new item.
      *
      * @return new bomb item
      */
@@ -49,7 +49,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * plays sound effect
+     * Plays sound effect.
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -57,7 +57,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * causes bomb to explode after some time
+     * Causes bomb to explode after some time.
      *
      * @param level used to pass to explode method
      * @param gc    used to pass to explode method
@@ -73,7 +73,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * inflict damage to all rats in cardinal directions from bomb
+     * Inflicts damage to all rats in cardinal directions from bomb.
      *
      * @param level gets tiles
      * @param gc    draws effect on affected tiles
@@ -113,7 +113,7 @@ public class Bomb extends Item {
     }
 
     /**
-     * finds tile in bomb's area of effect one at a time
+     * Finds tile in bomb's area of effect one at a time.
      *
      * @param direction gets direction to next tile
      * @param distance  gets next tile in range

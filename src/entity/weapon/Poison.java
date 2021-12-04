@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Poison
+ * Poison weapon class.
  *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Poison extends Item {
 
     /**
-     * sets item attributes
+     * Constructor
      */
     public Poison() {
         setEntityType(EntityType.ITEM);
@@ -36,7 +36,7 @@ public class Poison extends Item {
     }
 
     /**
-     * instantiates item
+     * Instantiates item.
      *
      * @return new poison item
      */
@@ -46,7 +46,7 @@ public class Poison extends Item {
     }
 
     /**
-     * plays sound effect
+     * Plays sound effect.
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -54,7 +54,7 @@ public class Poison extends Item {
     }
 
     /**
-     * inflicts damage to rat on tile
+     * Inflicts damage to rat on tile.
      *
      * @param level gets tiles
      * @param gc    unused attribute

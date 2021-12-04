@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * MaleSexChange
+ * Male Sex Change weapon class.
  *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MaleSexChange extends Item {
 
     /**
-     * sets item attributes
+     * Constructor
      */
     public MaleSexChange() {
         setEntityType(EntityType.ITEM);
@@ -37,7 +37,7 @@ public class MaleSexChange extends Item {
     }
 
     /**
-     * instantiates item
+     * Instantiates item.
      *
      * @return new male sex change item
      */
@@ -47,7 +47,7 @@ public class MaleSexChange extends Item {
     }
 
     /**
-     * plays sound effect
+     * Plays sound effect.
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -55,7 +55,7 @@ public class MaleSexChange extends Item {
     }
 
     /**
-     * changes affected rats' gender to male
+     * Changes affected rats' gender to male.
      *
      * @param level gets tiles
      * @param gc    unused attribute

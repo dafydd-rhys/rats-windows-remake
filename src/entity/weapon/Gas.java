@@ -14,7 +14,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Gas
+ * Gas weapon class.
  *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
@@ -26,7 +26,7 @@ public class Gas extends Item {
     private final ArrayList<Tile> drawableTiles = new ArrayList<>();
 
     /**
-     * Instantiates a new Gas.
+     * Constructor
      */
     public Gas() {
         setEntityType(EntityType.ITEM);
@@ -39,19 +39,27 @@ public class Gas extends Item {
         setOffsetY(3);
     }
 
+    /**
+     * Instantiates item.
+     *
+     * @return new gas item
+     */
     @Override
     public Item createNewInstance() {
         return new Gas();
     }
 
+    /**
+     * Plays sound effect.
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("gas"));
     }
 
     /**
-     * activates the gas with a range of three tiles,
-     *  searching all adjacent tiles for rat entities and inflicting 2 damage
+     * Activates the gas with a range of three tiles,
+     * searching all adjacent tiles for rat entities and inflicting 2 damage
      *
      * @param level used to get the tiles
      * @param gc    the gc
@@ -99,7 +107,7 @@ public class Gas extends Item {
     }
 
     /**
-     * checks if tiles adjacent to the current tile are walkable
+     * Checks if tiles adjacent to the current tile are walkable.
      *
      * @param level used to get the tiles
      * @param i range of the bomb at the current tick (expanding)
@@ -140,7 +148,7 @@ public class Gas extends Item {
     }
 
     /**
-     * checks for entities on the tile and inflicts 2 damage on any rats
+     * Checks for entities on the tile and inflicts 2 damage on any rats.
      *
      * @param tile used to get list of entities on tile
      * @param level needed to inflict damage

@@ -18,7 +18,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * DeathRat
+ * Death Rat weapon class.
  *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
@@ -99,11 +99,19 @@ public class DeathRat extends Item {//used to extend Entities.Item
         setDirection(values.get(new Random().nextInt(values.size())));
     }
 
+    /**
+     * Instantiates item.
+     *
+     * @return new death rat item
+     */
     @Override
     public Item createNewInstance() {
         return new DeathRat();
     }
 
+    /**
+     * Plays sound effect.
+     */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("rat_dying"));

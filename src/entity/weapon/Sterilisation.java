@@ -25,7 +25,7 @@ public class Sterilisation extends Item {
     private final ArrayList<Tile> drawableTiles = new ArrayList<>();
 
     /**
-     * Constructor.
+     * Constructor
      */
     public Sterilisation() {
         setEntityType(EntityType.ITEM);
@@ -58,10 +58,10 @@ public class Sterilisation extends Item {
     }
 
     /**
-     * Permanently prevents all rats in effective area from mating. lasts temporarily.
+     * Permanently prevents all rats in effective area from mating. L   asts temporarily.
      *
      * @param level gets tiles
-     * @param gc    unused attribute
+     * @param gc    draws effect on affected tiles
      */
     public void activate(Level level, GraphicsContext gc) {
         try {
