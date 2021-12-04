@@ -378,7 +378,7 @@ public final class Level {
     /**
      * Sets pause.
      *
-     * @param paramPaused
+     * @param paramPaused if game is paused then true
      */
     public static void setPaused(final boolean paramPaused) {
         Level.paused = paramPaused;

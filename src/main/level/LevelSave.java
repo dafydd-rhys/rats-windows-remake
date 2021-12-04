@@ -24,10 +24,21 @@ import java.util.*;
  */
 public class LevelSave {
 
+    /**
+     * The save directory.
+     */
     private final File saveDir;
+    /**
+     * The current level.
+     */
     private final Level level;
 
-    public LevelSave(Level currentLevel) {
+    /**
+     * Constructor.
+     *
+     * @param currentLevel the current level.
+     */
+    public LevelSave(final Level currentLevel) {
         this.level = currentLevel;
         this.saveDir = Resources.getSaves(Player.getPlayerName());
     }
@@ -35,7 +46,7 @@ public class LevelSave {
     /**
      * Write level data to file.
      *
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void writeFile() throws IOException {
         ArrayList<String> lines = new ArrayList<>();
@@ -77,9 +88,13 @@ public class LevelSave {
         lines.add(joiner.toString());
 
         Path file = Paths.get(saveDir.toURI());
-        Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
     }
 
+    /**
+     * Saves the game by attempting to write it to a text file.
+     */
     public void save() {
         try {
             writeFile();
