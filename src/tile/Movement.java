@@ -230,7 +230,7 @@ public class Movement {
                 getTiles()[getCurY() + y][getCurX()].addEntityToTile(getRat());
 
                 //move rat
-                getRat().setCurrentPosX(getCurY());
+                getRat().setCurrentPosX(getCurX());
                 getRat().setCurrentPosY(getCurY() + y);
 
                 //set new direction
