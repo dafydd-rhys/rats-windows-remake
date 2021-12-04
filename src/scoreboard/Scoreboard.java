@@ -14,7 +14,7 @@ import main.Resources;
 /**
  * Scoreboard.
  *
- * @author Dafydd -Rhys Maund (2003900)
+ * @author Dafydd-Rhys Maund (2003900)
  * @author Bryan Kok
  */
 public class Scoreboard {
@@ -153,6 +153,7 @@ public class Scoreboard {
 
     /**
      * Sets scoreboard's level.
+     *
      * @param level level of scoreboard.
      */
     public void setBoardLevel(final int level) {
