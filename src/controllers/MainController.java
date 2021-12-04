@@ -19,7 +19,7 @@ import main.stage.StageFunctions;
 import player.Player;
 
 /**
- * Main
+ * MainController - the player entry scene loaded at start of program.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
@@ -27,80 +27,83 @@ import player.Player;
 public class MainController implements Initializable {
 
     /**
-     *
+     * Theme which the player wishes to play in.
      */
     @FXML
     private ComboBox<String> selectTheme;
     /**
-     *
+     * Item generation in which the player wishes to play with.
      */
     @FXML
     private ComboBox<String> selectGeneration;
     /**
-     *
+     * SFX Button - mutes/un-mutes sfx.
      */
     @FXML
     private JFXButton sfx;
     /**
-     *
+     * Music Button - mutes/un-mutes music.
      */
     @FXML
     private JFXButton music;
     /**
-     *
+     * Settings Button - loads settings stage.
      */
     @FXML
     private JFXButton settings;
     /**
-     *
+     * Minimize Button - minimizes window.
      */
     @FXML
     private JFXButton minimize;
     /**
-     *
+     * Maximise Button - maximises window.
      */
     @FXML
     private JFXButton maximise;
     /**
-     *
+     * Exit button - terminates program.
      */
     @FXML
     private JFXButton exit;
     /**
-     *
+     * Name of current player.
      */
     @FXML
     private TextField playerName;
     /**
-     *
+     * Button allowing player to continue.
      */
     @FXML
     private JFXButton proceed;
     /**
-     *
+     * The image used to represent music button.
      */
     @FXML
     private ImageView musicImage;
     /**
-     *
+     * The image used to represent effects button.
      */
     @FXML
     private ImageView effectsImage;
     /**
-     *
+     * The text used to represent message of the day.
      */
     @FXML
     private Text motd;
 
     /**
-     * @param url
-     * @param resourceBundle
+     * This method is run when the scene is loaded.
+     *
+     * @param url url of resources.
+     * @param resourceBundle bundle of resources.
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(final URL url, final ResourceBundle resourceBundle) {
         listeners();
         onActions();
 
+        //makes sure the user can't create any errors.
         selectTheme.setEditable(false);
         selectGeneration.setEditable(false);
         selectGeneration.getItems().addAll("Periodic Generation", "Random Generation");
@@ -115,6 +118,7 @@ public class MainController implements Initializable {
             }
         });
 
+        //displays MOTD.
         try {
             motd.setText(new MOTD().getMessage());
         } catch (IOException e) {
@@ -123,7 +127,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     *
+     * This method ensures the user can't proceed without entering valid data.
      */
     private void listeners() {
         proceed.disableProperty().bind(Bindings.isEmpty(playerName.textProperty())
@@ -131,7 +135,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     *
+     * Listeners for each fxml element, when clicked perform set action.
      */
     private void onActions() {
         proceed.setOnAction(e -> {

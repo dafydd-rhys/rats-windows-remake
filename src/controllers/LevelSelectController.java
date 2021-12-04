@@ -15,7 +15,7 @@ import main.stage.StageFunctions;
 import player.Player;
 
 /**
- * Level select controller.
+ * Level select controller - players can select what level they want to play.
  *
  * @author Gareth Wade (1901805)
  */
@@ -123,13 +123,16 @@ public class LevelSelectController implements Initializable {
     private static final int LEVEL_6 = 6;
 
     /**
-     * @param url
-     * @param resourceBundle
+     * This method is run when this scene is loaded.
+     *
+     * @param url            url of resources.
+     * @param resourceBundle bundle of resources.
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(final URL url, final ResourceBundle resourceBundle) {
         onActions();
 
+        //disables locked levels
         int max = Player.getMaxLevel();
         if (max > LEVEL_1) {
             level2.setDisable(false);
@@ -155,7 +158,7 @@ public class LevelSelectController implements Initializable {
      * Defines actions that occur when a button is clicked as listeners.
      */
     private void onActions() {
-        // loads level 1.
+        //loads level 1.
         level1.setOnAction(e -> {
             try {
                 Level.currentLevel = LEVEL_1;
@@ -165,7 +168,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // loads level 2.
+
+        //loads level 2.
         level2.setOnAction(e -> {
             try {
                 Level.currentLevel = LEVEL_2;
@@ -175,7 +179,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // loads level 3.
+
+        //loads level 3.
         level3.setOnAction(e -> {
             try {
                 Level.currentLevel = LEVEL_3;
@@ -185,7 +190,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // loads level 4.
+
+        //loads level 4.
         level4.setOnAction(e -> {
             try {
                 Level.currentLevel = LEVEL_4;
@@ -195,7 +201,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // loads level 5.
+
+        //loads level 5.
         level5.setOnAction(e -> {
             try {
                 Level.currentLevel = LEVEL_5;
@@ -205,7 +212,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // loads level 6.
+
+        //loads level 6.
         level6.setOnAction(e -> {
             try {
                 Level.currentLevel = LEVEL_6;
@@ -215,7 +223,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // opens settings window.
+
+        //opens settings window.
         settings.setOnAction(e -> {
             try {
                 StageFunctions.openSettings();
@@ -223,7 +232,8 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // change scene to menu scene.
+
+        //change scene to menu scene.
         mainMenuButton.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("main_menu", "Main Menu");
@@ -231,21 +241,26 @@ public class LevelSelectController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        // mutes music volume.
+
+        //mutes music volume.
         music.setOnAction(e -> {
             StageFunctions.muteMusic();
             StageFunctions.toggleOpacity(musicImage);
         });
-        // mutes effect volume.
+
+        //mutes effect volume.
         sfx.setOnAction(e -> {
             StageFunctions.muteEffects();
             StageFunctions.toggleOpacity(effectsImage);
         });
-        // minimizes application to user taskbar.
+
+        //minimizes application to user taskbar.
         minimize.setOnAction(e -> StageFunctions.minimize());
-        // maximizes application to user taskbar.
+
+        //maximizes application to user taskbar.
         maximise.setOnAction(e -> StageFunctions.maximise());
-        // terminates application.
+
+        //terminates application.
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exit();
