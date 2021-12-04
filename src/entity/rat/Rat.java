@@ -9,7 +9,12 @@ import tile.Tile;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.util.*;
+import java.util.Queue;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.List;
+
 
 /**
  * Rat.java.

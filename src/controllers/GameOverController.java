@@ -65,7 +65,7 @@ public class GameOverController implements Initializable {
     private static final int MAX_LEVEL = 6;
 
     /**
-     * This method is run whenever this scene is loaded
+     * This method is run whenever this scene is loaded.
      *
      * @param url            url of resources.
      * @param resourceBundle bundle of resources.
