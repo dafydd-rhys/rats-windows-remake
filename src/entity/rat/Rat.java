@@ -417,7 +417,7 @@ public class Rat extends Entity {
 
     /**
      * Sets rat hp.
-     * @param newHp the hp valyue.
+     * @param newHp the hp value.
      */
     @Override
     public void setHp(final int newHp) {

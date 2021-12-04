@@ -92,51 +92,101 @@ public abstract class Item extends Entity {
      */
     public abstract void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
 
+    /**
+     * Set image.
+     *
+     * @param paramImage the image
+     */
     @Override
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(final Image paramImage) {
+        this.image = paramImage;
     }
 
+    /**
+     * Get HP.
+     *
+     * @return the HP
+     */
     @Override
     public int getHp() {
         return this.hp;
     }
 
+    /**
+     * Set HP.
+     *
+     * @param hp the hp
+     */
     @Override
-    public void setHp(int hp) {
+    public void setHp(final int hp) {
         this.hp = hp;
     }
 
+    /**
+     * Get current X position.
+     *
+     * @return the current X position
+     */
     @Override
     public int getCurrentPosX() {
         return this.currentPosX;
     }
 
+    /**
+     * Set the current X position.
+     *
+     * @param currentPosX the current x position
+     */
     @Override
-    public void setCurrentPosX(int currentPosX) {
+    public void setCurrentPosX(final int currentPosX) {
         this.currentPosX = currentPosX;
     }
 
+    /**
+     * Get the current Y position.
+     *
+     * @return the current Y position
+     */
     @Override
     public int getCurrentPosY() {
         return this.currentPosY;
     }
 
+    /**
+     * Set the current Y position.
+     *
+     * @param currentPosY the current Y position
+     */
     @Override
-    public void setCurrentPosY(int currentPosY) {
+    public void setCurrentPosY(final int currentPosY) {
         this.currentPosY = currentPosY;
     }
 
+    /**
+     * Get the entity name.
+     *
+     * @return the entity name
+     */
     @Override
     public String getEntityName() {
         return this.entityName;
     }
 
+    /**
+     * Set the entity name.
+     *
+     * @param entityName the entity name
+     */
     @Override
-    protected void setEntityName(String entityName) {
+    protected void setEntityName(final String entityName) {
         this.entityName = entityName;
     }
 
+    /**
+     * Get the image.
+     *
+     * @return the image
+     */
     @Override
     public Image getImage() {
         return image;
@@ -145,10 +195,10 @@ public abstract class Item extends Entity {
     /**
      * Sets offset y.
      *
-     * @param yOffset the y offset
+     * @param paramYOffset the y offset
      */
-    public void setOffsetY(int yOffset) {
-        this.yOffset = yOffset;
+    public void setOffsetY(final int paramYOffset) {
+        this.yOffset = paramYOffset;
     }
 
     /**
@@ -163,10 +213,10 @@ public abstract class Item extends Entity {
     /**
      * Sets type.
      *
-     * @param type the type
+     * @param paramType the type
      */
-    public void setType(TYPE type) {
-        this.type = type;
+    public void setType(final TYPE paramType) {
+        this.type = paramType;
     }
 
     /**
@@ -181,10 +231,10 @@ public abstract class Item extends Entity {
     /**
      * Sets range.
      *
-     * @param range the range
+     * @param paramRange the range
      */
-    public void setRange(int range) {
-        this.range = range;
+    public void setRange(final int paramRange) {
+        this.range = paramRange;
     }
 
     /**
@@ -196,6 +246,11 @@ public abstract class Item extends Entity {
         return range;
     }
 
+    /**
+     * Creates a string of the current position.
+     *
+     * @return the current position as a string
+     */
     @Override
     public String toString() {
         String result = "";

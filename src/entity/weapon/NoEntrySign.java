@@ -55,8 +55,7 @@ public class NoEntrySign extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException,
-            LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("oof"));
     }
 
@@ -73,8 +72,7 @@ public class NoEntrySign extends Item {
             case NES_2 -> setImage(Resources.getEntityImage("no-entry-sign-2"));
             case 2 -> setImage(Resources.getEntityImage("no-entry-sign-1"));
             case 0 -> {
-                level.getTiles()[getCurrentPosY()]
-                        [getCurrentPosX()].removeEntityFromTile(this);
+                level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
                 level.getItems().remove(this);
             }
         }

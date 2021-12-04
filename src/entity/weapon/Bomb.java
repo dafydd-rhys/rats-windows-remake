@@ -64,8 +64,7 @@ public class Bomb extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException,
-            LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("bomb"));
     }
 
@@ -78,10 +77,8 @@ public class Bomb extends Item {
     public void activate(final Level level, final GraphicsContext gc) {
         setHp(getHp() - 1);
         switch (getHp()) {
-            case BOMB_COUNTDOWN_3 ->
-                    setImage(Resources.getEntityImage("bomb-3"));
-            case BOMB_COUNTDOWN_2 ->
-                    setImage(Resources.getEntityImage("bomb-2"));
+            case BOMB_COUNTDOWN_3 -> setImage(Resources.getEntityImage("bomb-3"));
+            case BOMB_COUNTDOWN_2 -> setImage(Resources.getEntityImage("bomb-2"));
             case 2 -> setImage(Resources.getEntityImage("bomb-1"));
             case 0 -> explode(level, gc);
         }
@@ -98,8 +95,7 @@ public class Bomb extends Item {
         Tile startingTile = tiles[getCurrentPosY()][getCurrentPosX()];
         try {
             playSound();
-        } catch (UnsupportedAudioFileException | IOException
-                | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
 
@@ -120,8 +116,7 @@ public class Bomb extends Item {
 
                 distance++;
                 if (current.isWalkable() && current.isCovering()) {
-                    gc.drawImage(Resources.getEntityImage("bomb-0"),
-                            current.getX() * BOMB_EXPLOSION_X,
+                    gc.drawImage(Resources.getEntityImage("bomb-0"), current.getX() * BOMB_EXPLOSION_X,
                             current.getY() * BOMB_EXPLOSION_Y);
                 }
             }
@@ -138,8 +133,7 @@ public class Bomb extends Item {
      * @param tiles     gets tile using parameters
      * @return next tile in bomb's area of effect
      */
-    private Tile getDirection(final Rat.Direction direction, final int distance,
-                              final Tile[][] tiles) {
+    private Tile getDirection(final Rat.Direction direction, final int distance, final Tile[][] tiles) {
         return switch (direction) {
             case LEFT -> tiles[getCurrentPosY()][getCurrentPosX() - distance];
             case RIGHT -> tiles[getCurrentPosY()][getCurrentPosX() + distance];

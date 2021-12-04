@@ -64,8 +64,7 @@ public class Gas extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException,
-            LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("gas"));
     }
 
@@ -85,15 +84,13 @@ public class Gas extends Item {
 
         try {
             playSound();
-        } catch (UnsupportedAudioFileException | IOException
-                | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
 
         if (getHp() > 0) {
             if (count >= 0) {
-                Tile startingTile =
-                        level.getTiles()[getCurrentPosY()][getCurrentPosX()];
+                Tile startingTile = level.getTiles()[getCurrentPosY()][getCurrentPosX()];
                 checkTile(startingTile, level);
 
                 ArrayList<Tile> fTiles = checkAdjacent(level, count);
@@ -115,8 +112,7 @@ public class Gas extends Item {
                 drawableTiles.remove(startingTile);
             }
         } else {
-            level.getTiles()[getCurrentPosY()][getCurrentPosX()].
-                    removeEntityFromTile(this);
+            level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
             level.getItems().remove(this);
         }
     }
@@ -132,39 +128,26 @@ public class Gas extends Item {
         ArrayList<Tile> seenTiles = new ArrayList<>();
         Tile[][] tiles = level.getTiles();
 
-        if (getCurrentPosX() + i < level.getCols()
-                && getCurrentPosX() + i >= 0) {
-            if (tiles[getCurrentPosY()][getCurrentPosX() + i]
-                    .isWalkable()) {
-                seenTiles.add(tiles[getCurrentPosY()]
-                        [getCurrentPosX() + i]);
-
+        if (getCurrentPosX() + i < level.getCols() && getCurrentPosX() + i >= 0) {
+            if (tiles[getCurrentPosY()][getCurrentPosX() + i].isWalkable()) {
+                seenTiles.add(tiles[getCurrentPosY()][getCurrentPosX() + i]);
                 for (int j = -count; j < count; j++) {
-                    if (getCurrentPosY() + j < level.getRows()
-                            && getCurrentPosY() + j >= 0) {
-                        if (tiles[getCurrentPosY() + j][getCurrentPosX() + i]
-                                .isWalkable()) {
-                            seenTiles.add(tiles[getCurrentPosY() + j]
-                                    [getCurrentPosX() + i]);
+                    if (getCurrentPosY() + j < level.getRows() && getCurrentPosY() + j >= 0) {
+                        if (tiles[getCurrentPosY() + j][getCurrentPosX() + i].isWalkable()) {
+                            seenTiles.add(tiles[getCurrentPosY() + j][getCurrentPosX() + i]);
                         }
                     }
                 }
             }
         }
 
-        if (getCurrentPosY() + i < level.getRows()
-                && getCurrentPosY() + i >= 0) {
-            if (tiles[getCurrentPosY() + i][getCurrentPosX()]
-                    .isWalkable()) {
+        if (getCurrentPosY() + i < level.getRows() && getCurrentPosY() + i >= 0) {
+            if (tiles[getCurrentPosY() + i][getCurrentPosX()].isWalkable()) {
                 seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX()]);
-
                 for (int j = -count; j < count; j++) {
-                    if (getCurrentPosX() + j < level.getCols()
-                            && getCurrentPosX() + j >= 0) {
-                        if (tiles[getCurrentPosY() + i]
-                                [getCurrentPosX() + j].isWalkable()) {
-                            seenTiles.add(tiles[getCurrentPosY() + i]
-                                    [getCurrentPosX() + j]);
+                    if (getCurrentPosX() + j < level.getCols() && getCurrentPosX() + j >= 0) {
+                        if (tiles[getCurrentPosY() + i][getCurrentPosX() + j].isWalkable()) {
+                            seenTiles.add(tiles[getCurrentPosY() + i][getCurrentPosX() + j]);
                         }
                     }
                 }
