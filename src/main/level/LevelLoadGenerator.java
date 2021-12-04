@@ -16,35 +16,87 @@ import tile.Tile;
  */
 public class LevelLoadGenerator {
 
+    /**
+     * The current level.
+     */
     private Level level;
+    /**
+     * Hashmap of the times to generate each item.
+     */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
+    /**
+     *
+     */
     private final GraphicsContext gc;
+    /**
+     * 2D array of tiles.
+     */
     private final char[][] tiles;
+    /**
+     * List of rat spawns.
+     */
     private final ArrayList<Rat> ratSpawns;
+    /**
+     * List of item spawns.
+     */
     private final ArrayList<Item> itemSpawns;
+    /**
+     * Expected time to complete the level.
+     */
     private final int expectedTime;
+    /**
+     * The maximum number of rats allowed on the game board before the player loses.
+     */
     private final int maxRats;
+    /**
+     * The size of the level's Y axis.
+     */
     private final int sizeY;
+    /**
+     * The size of the level's X axis.
+     */
     private final int sizeX;
+    /**
+     * The Image's X position.
+     */
+    private static final int IMAGE_X = 50;
+    /**
+     * The Image's Y position.
+     */
+    private static final int IMAGE_Y = 50;
 
-    public LevelLoadGenerator(HashMap<Item.TYPE, Integer> timeToGenerate, GraphicsContext gc, int sizeX, int sizeY,
-                              char[][] level, ArrayList<Rat> ratSpawns, ArrayList<Item> itemSpawns, int expectedTime,
-                              int maxRats) {
-        this.timeToGenerate = timeToGenerate;
-        this.gc = gc;
-        this.tiles = level;
-        this.ratSpawns = ratSpawns;
-        this.itemSpawns = itemSpawns;
-        this.expectedTime = expectedTime;
-        this.maxRats = maxRats;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+    /**
+     * Constructor.
+     *
+     * @param paramTimeToGenerate hashmap of times to generate each item
+     * @param paramGC
+     * @param paramSizeX size of X axis
+     * @param paramSizeY size of Y axis
+     * @param paramLevel current level
+     * @param paramRatSpawns list of rat spawns
+     * @param paramItemSpawns list of item spawns
+     * @param paramExpectedTime expected time to complete the level
+     * @param paramMaxRats maximum number of rats allowed on the game board before the player loses
+     */
+    public LevelLoadGenerator(final HashMap<Item.TYPE, Integer> paramTimeToGenerate, final GraphicsContext paramGC,
+                              final int paramSizeX, final int paramSizeY, final char[][] paramLevel,
+                              final ArrayList<Rat> paramRatSpawns, final ArrayList<Item> paramItemSpawns,
+                              final int paramExpectedTime, final int paramMaxRats) {
+        this.timeToGenerate = paramTimeToGenerate;
+        this.gc = paramGC;
+        this.tiles = paramLevel;
+        this.ratSpawns = paramRatSpawns;
+        this.itemSpawns = paramItemSpawns;
+        this.expectedTime = paramExpectedTime;
+        this.maxRats = paramMaxRats;
+        this.sizeX = paramSizeX;
+        this.sizeY = paramSizeY;
 
         generateLevel();
     }
 
     /**
-     * Generates the level
+     * Generates the level.
      */
     private void generateLevel() {
         Tile[][] tilesArray = new Tile[sizeY][sizeX];
@@ -76,46 +128,51 @@ public class LevelLoadGenerator {
     /**
      * Add tile from level file to tile array.
      *
-     * @param tiles tile array
+     * @param paramTiles tile array
      * @param x     x coordinate
      * @param y     y coordinate
      * @param type  tile type
      */
-    private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
+    private void setTile(final Tile[][] paramTiles, final int x, final int y, final Tile.TYPE type) {
         Tile tile = new Tile(x, y, type, new ArrayList<>());
-        tiles[y][x] = tile;
-        gc.drawImage(tile.getImage(), x * 50, y * 50);
+        paramTiles[y][x] = tile;
+        gc.drawImage(tile.getImage(), x * IMAGE_X, y * IMAGE_Y);
     }
 
     /**
      * Add rats to tile.
      *
-     * @param tiles tile array.
+     * @param paramTiles tile array.
      * @param rat   rat to be added.
      */
-    private void setRat(Tile[][] tiles, Rat rat) {
+    private void setRat(final Tile[][] paramTiles, final Rat rat) {
         int x = rat.getCurrentPosX();
         int y = rat.getCurrentPosY();
-        tiles[y][x].addEntityToTile(rat);
+        paramTiles[y][x].addEntityToTile(rat);
 
-        if (tiles[y][x].isCovering()) {
-            gc.drawImage(rat.getImage(), x * 50, y * 50);
+        if (paramTiles[y][x].isCovering()) {
+            gc.drawImage(rat.getImage(), x * IMAGE_X, y * IMAGE_Y);
         }
     }
 
     /**
      * Add item to tile.
      *
-     * @param tiles tile array
+     * @param paramTiles tile array
      * @param item  item to be added
      */
-    private void setItem(Tile[][] tiles, Item item) {
+    private void setItem(final Tile[][] paramTiles, final Item item) {
         int x = item.getCurrentPosX();
         int y = item.getCurrentPosY();
 
-        tiles[y][x].addEntityToTile(item);
+        paramTiles[y][x].addEntityToTile(item);
     }
 
+    /**
+     * Get level.
+     *
+     * @return level
+     */
     public Level getLevel() {
         return this.level;
     }
