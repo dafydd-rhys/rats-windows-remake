@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Rat.java
+ * Rat.java.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
@@ -21,63 +21,102 @@ import java.util.*;
 public class Rat extends Entity {
 
     /**
-     *
+     * Rat HP value.
+     */
+    private static final int RAT_HP = 5;
+
+    /**
+     * Max pregnancy stage.
+     */
+    private static final int MAX_PREGNANCY_STAGE = 10;
+
+    /**
+     * Max growing stage.
+     */
+    private static final int MAX_GROWING_STAGE = 10;
+
+    /**
+     * Amount of score a player gets for killing a rat.
+     */
+    private static final int RAT_SCORE = 10;
+
+    /**
+     * Range for the amount of babies a rat can give birth to.
+     */
+    private static final int BABY_RANGE = 5;
+
+    /**
+     * Direction the rat is facing.
      */
     private Direction direction;
+
     /**
-     *
+     * Rat's gender.
      */
     private Gender gender;
+
     /**
-     *
+     * Rat's rotated image.
      */
     private Image rotatedImage;
+
     /**
-     *
+     * Rat's up image.
      */
     private Image upImage;
+
     /**
-     *
+     * Rat's down image.
      */
     private Image downImage;
+
     /**
-     *
+     * Rat's left image.
      */
     private Image leftImage;
+
     /**
-     *
+     * Rat's right image.
      */
     private Image rightImage;
+
     /**
-     *
+     * Rat's HP (Hit points).
      */
     private int hp;
+
     /**
-     *
+     * Whether the rat is adult or not.
      */
     private boolean isAdult;
+
     /**
-     *
+     * Whether the rat is sterilized or not.
      */
     private boolean isSterilised;
+
     /**
-     *
+     * Whether the rat is pregnant or not.
      */
     private boolean isPregnant;
+
     /**
-     *
+     * Rat's pregnancy stage.
      */
     private int pregnancyStage;
+
     /**
-     *
+     * Rat's growing stage.
      */
     private int growingStage;
+
     /**
-     *
+     * Pregnant rat's babies.
      */
     private final Queue<Rat> babyQueue;
+
     /**
-     *
+     * Current level.
      */
     private static Level level;
 
@@ -120,16 +159,16 @@ public class Rat extends Entity {
     /**
      * Instantiates a new Rat.
      *
-     * @param gender  the gender
-     * @param isAdult the is adult
+     * @param ratGender  the gender.
+     * @param ratIsAdult if rat is adult.
      */
-    public Rat(Gender gender, boolean isAdult) {
+    public Rat(final Gender ratGender, final boolean ratIsAdult) {
         setEntityType(EntityType.RAT);
         setEntityName("Rat");
-        setHp(5);
+        setHp(RAT_HP);
         setDamage(0);
-        setGender(gender);
-        setAdult(isAdult);
+        setGender(ratGender);
+        setAdult(ratIsAdult);
         setSterilised(false);
         setPregnant(false);
         setPregnancyStage(0);
@@ -142,6 +181,9 @@ public class Rat extends Entity {
         setDirection(values.get(new Random().nextInt(values.size())));
     }
 
+    /**
+     * Set rat sprites based on rat type.
+     */
     private void setSprites() {
         if (!isAdult) {
             setImage(Resources.getEntityImage("baby-rat"));
@@ -159,10 +201,10 @@ public class Rat extends Entity {
     /**
      * Sets level.
      *
-     * @param level the level
+     * @param newLevel the level
      */
-    public void setLevel(Level level) {
-        Rat.level = level;
+    public void setLevel(final Level newLevel) {
+        Rat.level = newLevel;
     }
 
     /**
@@ -210,7 +252,7 @@ public class Rat extends Entity {
      *
      * @param currentTile current tile the rat is standing on.
      */
-    public void findPartner(Tile currentTile) {
+    public void findPartner(final Tile currentTile) {
         ArrayList<Entity> entities = currentTile.getEntitiesOnTile();
         for (Entity e : entities) {
             if (e.getEntityType() == EntityType.RAT) {
@@ -229,7 +271,7 @@ public class Rat extends Entity {
      *
      * @param rat other rat.
      */
-    public void mate(Rat rat) {
+    public void mate(final Rat rat) {
         if (getGender() == Gender.MALE && !rat.isPregnant()) {
             rat.setPregnant(true);
         } else if (getGender() == Gender.FEMALE && !isPregnant()) {
@@ -247,7 +289,7 @@ public class Rat extends Entity {
         if (getGender() == Gender.FEMALE && isPregnant()) {
             if (getPregnancyStage() == 1) {
                 Random rand = new Random();
-                int randomNum = rand.nextInt((5) + 1);
+                int randomNum = rand.nextInt((BABY_RANGE) + 1);
 
                 for (int i = 0; i < randomNum; i++) {
                     Rat rat;
@@ -259,7 +301,7 @@ public class Rat extends Entity {
                     rat.setEntityType(EntityType.RAT);
                     babyQueue.add(rat);
                 }
-            } else if (getPregnancyStage() > 10) {
+            } else if (getPregnancyStage() > MAX_PREGNANCY_STAGE) {
                 if (babyQueue.size() > 0) {
                     level.placeRat(babyQueue.poll(), level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
                 } else {
@@ -274,7 +316,7 @@ public class Rat extends Entity {
      * Allows baby rats to grow into adult rats.
      */
     public void growUp() {
-        if (getGrowingStage() >= 10) {
+        if (getGrowingStage() >= MAX_GROWING_STAGE) {
             if (!isAdult()) {
                 setAdult(true);
                 getImages();
@@ -284,6 +326,10 @@ public class Rat extends Entity {
         }
     }
 
+    /**
+     * Returns the number of babies a pregnant rat is carrying. Then clears the baby queue.
+     * @return baby queue size
+     */
     public int killBabies() {
         int size = babyQueue.size();
         babyQueue.clear();
@@ -292,7 +338,10 @@ public class Rat extends Entity {
     }
 
     /**
-     *
+     * Plays a sound.
+     * @throws UnsupportedAudioFileException if audio file is unrecognized/unsupported.
+     * @throws LineUnavailableException if audio file is unavailable.
+     * @throws IOException if unable to read file.
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -303,10 +352,15 @@ public class Rat extends Entity {
         }
     }
 
+    /**
+     * Returns a string representation of the object.
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         String result = "";
 
+        // Add rat attributes.
         result += getGender() == Gender.FEMALE
                 ? "F"
                 : "M";
@@ -323,7 +377,7 @@ public class Rat extends Entity {
                 ? "G"
                 : "S";
 
-        // TODO add direction
+        // Add current direction rat is facing.
         if (this.direction == Direction.LEFT) {
             result += "L";
         } else if (this.direction == Direction.RIGHT) {
@@ -334,6 +388,7 @@ public class Rat extends Entity {
             result += "D";
         }
 
+        // Add current position
         result += ":";
         result += String.format("%02d", this.getCurrentPosX());
         result += ":";
@@ -342,67 +397,107 @@ public class Rat extends Entity {
         return result;
     }
 
+    /**
+     * Set rat image.
+     * @param image the image
+     */
     @Override
-    public void setImage(Image image) {
+    public void setImage(final Image image) {
         this.image = image;
     }
 
+    /**
+     * Returns rat hp.
+     * @return rat hp value.
+     */
     @Override
     public int getHp() {
         return this.hp;
     }
 
+    /**
+     * Sets rat hp.
+     * @param newHp the hp valyue.
+     */
     @Override
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setHp(final int newHp) {
+        this.hp = newHp;
     }
 
+    /**
+     * Returns current rat position X.
+     * @return rat position X.
+     */
     @Override
     public int getCurrentPosX() {
         return this.currentPosX;
     }
 
+    /**
+     * Sets current rat position X.
+     * @param currentPosX the current pos X.
+     */
     @Override
-    public void setCurrentPosX(int currentPosX) {
+    public void setCurrentPosX(final int currentPosX) {
         this.currentPosX = currentPosX;
     }
 
+    /**
+     * Returns current rat position Y.
+     * @return rat position Y.
+     */
     @Override
     public int getCurrentPosY() {
         return this.currentPosY;
     }
 
+    /**
+     * Sets current rat position Y.
+     * @param currentPosY the current pos Y.
+     */
     @Override
-    public void setCurrentPosY(int currentPosY) {
+    public void setCurrentPosY(final int currentPosY) {
         this.currentPosY = currentPosY;
     }
 
+    /**
+     * Returns entity name.
+     * @return entity name.
+     */
     @Override
     public String getEntityName() {
         return this.entityName;
     }
 
+    /**
+     * Sets the entity name.
+     * @param entityName the entity name.
+     */
     @Override
-    protected void setEntityName(String entityName) {
+    protected void setEntityName(final String entityName) {
         this.entityName = entityName;
     }
 
+    /**
+     * Returns entity type.
+     * @return entity type.
+     */
     @Override
     public EntityType getEntityType() {
         return super.getEntityType();
     }
 
     /**
-     * Kill.
+     * Kills the rat.
      */
     public void kill() {
         if (isPregnant()) {
-            level.setScore(Level.getScore() + (killBabies() * 10));
+            level.setScore(Level.getScore() + (killBabies() * RAT_SCORE));
         }
 
         level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
         level.getRats().remove(this);
-        level.setScore(Level.getScore() + 10);
+        level.setScore(Level.getScore() + RAT_SCORE);
         try {
             playSound();
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
@@ -422,10 +517,10 @@ public class Rat extends Entity {
     /**
      * Sets gender.
      *
-     * @param gender the gender
+     * @param newGender the gender
      */
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setGender(final Gender newGender) {
+        this.gender = newGender;
     }
 
     /**
@@ -442,7 +537,7 @@ public class Rat extends Entity {
      *
      * @param pregnant the pregnant
      */
-    public void setPregnant(boolean pregnant) {
+    public void setPregnant(final boolean pregnant) {
         this.isPregnant = pregnant;
     }
 
@@ -458,10 +553,10 @@ public class Rat extends Entity {
     /**
      * Sets pregnancy stage.
      *
-     * @param pregnancyStage the pregnancy stage
+     * @param newPregnancyStage the pregnancy stage
      */
-    public void setPregnancyStage(int pregnancyStage) {
-        this.pregnancyStage = pregnancyStage;
+    public void setPregnancyStage(final int newPregnancyStage) {
+        this.pregnancyStage = newPregnancyStage;
     }
 
     /**
@@ -469,7 +564,7 @@ public class Rat extends Entity {
      *
      * @param image the image
      */
-    public void setRotatedImage(Image image) {
+    public void setRotatedImage(final Image image) {
         this.rotatedImage = image;
     }
 
@@ -482,6 +577,10 @@ public class Rat extends Entity {
         return this.rotatedImage;
     }
 
+    /**
+     * Returns the rat image.
+     * @return rat image.
+     */
     public Image getImage() {
         return this.image;
     }
@@ -500,7 +599,7 @@ public class Rat extends Entity {
      *
      * @param adult the adult
      */
-    public void setAdult(boolean adult) {
+    public void setAdult(final boolean adult) {
         this.isAdult = adult;
     }
 
@@ -518,7 +617,7 @@ public class Rat extends Entity {
      *
      * @param sterilised the sterilised
      */
-    public void setSterilised(boolean sterilised) {
+    public void setSterilised(final boolean sterilised) {
         this.isSterilised = sterilised;
     }
 
@@ -534,10 +633,10 @@ public class Rat extends Entity {
     /**
      * Sets direction.
      *
-     * @param direction the direction
+     * @param newDirection the direction
      */
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void setDirection(final Direction newDirection) {
+        this.direction = newDirection;
     }
 
     /**
@@ -581,7 +680,7 @@ public class Rat extends Entity {
      *
      * @param value the value
      */
-    public void setGrowingStage(int value) {
+    public void setGrowingStage(final int value) {
         this.growingStage = value;
     }
 
