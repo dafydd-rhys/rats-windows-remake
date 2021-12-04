@@ -71,6 +71,13 @@ public class MainController implements Initializable {
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
 
+        // Allows only alphanumeric characters to be inserted.
+        playerName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z\\d*")) {
+                playerName.setText(newValue.replaceAll("[^\\sa-zA-Z\\d]", ""));
+            }
+        });
+
         try {
             motd.setText(new MOTD().getMessage());
         } catch (IOException e) {
