@@ -4,10 +4,9 @@ import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import java.util.Random;
-import main.level.Level;
 
 /**
- * Main
+ * Movement.java, class used to handle rat movement.
  *
  * @author Dafydd Maund (2003900)
  */
@@ -16,50 +15,59 @@ public class Movement {
     /**
      * The Tiles.
      */
-    public static Tile[][] tiles;
+    private static Tile[][] tiles;
     /**
      * The constant current.
      */
-    public static Tile current;
+    private static Tile current;
     /**
      * The constant rat.
      */
-    public static Rat rat;
+    private static Rat rat;
     /** */
     private static int random;
     /**
      * The constant curX.
      */
-    public static int curX;
+    private static int curX;
     /**
      * The constant curY.
      */
-    public static int curY;
+    private static int curY;
 
-    private static int generateRandom(int count) {
+    /**
+     * generate random number.
+     *
+     * @param count random between 0 and count
+     * @return generated random
+     */
+    private static int generateRandom(final int count) {
         return new Random().nextInt((count) + 1);
     }
 
     /**
-     * Try horizontal.
+     * Try horizontal movement.
      *
-     * @param x  the x
-     * @param x2 the x 2
+     * @param x  direction travelling
+     * @param x2 opposite direction travelling
      */
-    public static void tryHorizontal(int x, int x2) {
+    public static void tryHorizontal(final int x, final int x2) {
         int count = 0;
 
-        if (tiles[curY][curX + x].isWalkable()) {
-            if (tiles[curY + 1][curX].isWalkable()) {
+        //can move forward
+        if (getTiles()[getCurY()][getCurX() + x].isWalkable()) {
+            //can move forward & up or down (if yes at crossroads/corner)
+            if (getTiles()[getCurY() + 1][getCurX()].isWalkable()) {
                 count++;
-            } else if (tiles[curY - 1][curX].isWalkable()) {
+            } else if (getTiles()[getCurY() - 1][getCurX()].isWalkable()) {
                 count++;
             }
-            random = generateRandom(count);
+            setRandom(generateRandom(count));
 
-            if (random == 0) {
+            //randomizes which direction to move, works with 2 or 3 dir cause of generateRandom(count)
+            if (getRandom() == 0) {
                 moveHorizontal(x);
-            } else if (random == 1) {
+            } else if (getRandom() == 1) {
                 if (moveVertical(1)) {
                     if (moveVertical(-1)) {
                         if (moveHorizontal(x)) {
@@ -67,7 +75,7 @@ public class Movement {
                         }
                     }
                 }
-            } else if (random == 2) {
+            } else if (getRandom() == 2) {
                 if (moveVertical(-1)) {
                     if (moveVertical(1)) {
                         if (moveHorizontal(x)) {
@@ -77,12 +85,16 @@ public class Movement {
                 }
             }
         } else {
-            if (tiles[curY + 1][curX].isWalkable() && tiles[curY - 1][curX].isWalkable()) {
+            //can't move forward
+            if (getTiles()[getCurY() + 1][getCurX()].isWalkable()
+                    && getTiles()[getCurY() - 1][getCurX()].isWalkable()) {
                 count = 1;
             }
-            random = generateRandom(count);
+            setRandom(generateRandom(count));
 
-            if (random == 0) {
+            //randomizes movement in case of 2 directions
+            //turns around if you can't move
+            if (getRandom() == 0) {
                 if (moveVertical(1)) {
                     if (moveVertical(-1)) {
                         moveHorizontal(x2);
@@ -99,25 +111,28 @@ public class Movement {
     }
 
     /**
-     * Try vertical.
+     * Try vertical movement.
      *
-     * @param y  the y
-     * @param y2 the y 2
+     * @param y  direction travelling
+     * @param y2 opposite direction travelling
      */
-    public static void tryVertical(int y, int y2) {
+    public static void tryVertical(final int y, final int y2) {
         int count = 0;
 
-        if (tiles[curY + y][curX].isWalkable()) {
-            if (tiles[curY][curX + 1].isWalkable()) {
+        //can move in same direction
+        if (getTiles()[getCurY() + y][getCurX()].isWalkable()) {
+            //can move forward & left or right (if yes at crossroads/corner)
+            if (getTiles()[getCurY()][getCurX() + 1].isWalkable()) {
                 count++;
-            } else if (tiles[curY][curX - 1].isWalkable()) {
+            } else if (getTiles()[getCurY()][getCurX() - 1].isWalkable()) {
                 count++;
             }
-            random = generateRandom(count);
+            setRandom(generateRandom(count));
 
-            if (random == 0) {
+            //randomizes which direction to move, works with 2 or 3 dir cause of generateRandom(count)
+            if (getRandom() == 0) {
                 moveVertical(y);
-            } else if (random == 1) {
+            } else if (getRandom() == 1) {
                 if (moveHorizontal(1)) {
                     if (moveHorizontal(-1)) {
                         if (moveVertical(y)) {
@@ -135,12 +150,16 @@ public class Movement {
                 }
             }
         } else {
-            if (tiles[curY][curX + 1].isWalkable() && tiles[curY][curX - 1].isWalkable()) {
+            //can't move in same dir
+            if (getTiles()[getCurY()][getCurX() + 1].isWalkable()
+                    && getTiles()[getCurY()][getCurX() - 1].isWalkable()) {
                 count = 1;
             }
-            random = generateRandom(count);
+            setRandom(generateRandom(count));
 
-            if (random == 0) {
+            //randomizes movement in case of 2 directions
+            //turns around if you can't move
+            if (getRandom() == 0) {
                 if (moveHorizontal(-1)) {
                     if (moveHorizontal(1)) {
                         moveVertical(y2);
@@ -157,30 +176,36 @@ public class Movement {
     }
 
     /**
+     * moves horizontal.
      *
-     *
-     * @param x
-     * @return
+     * @param x direction
+     * @return if rat is moved
      */
-    private static boolean moveHorizontal(int x) {
-        if (tiles[curY][curX + x].isWalkable()) {
-            if (NoEntry(0, x)) {
-                current.removeEntityFromTile(rat);
-                tiles[curY][curX].getEntitiesOnTile().remove(rat);
-                tiles[curY][curX + x].addEntityToTile(rat);
+    private static boolean moveHorizontal(final int x) {
+        //if next tile is walkable
+        if (getTiles()[getCurY()][getCurX() + x].isWalkable()) {
+            //if not entry sign
+            if (noEntry(0, x)) {
+                //remove rat from current
+                getCurrent().removeEntityFromTile(getRat());
+                getTiles()[getCurY()][getCurX()].getEntitiesOnTile().remove(getRat());
+                getTiles()[getCurY()][getCurX() + x].addEntityToTile(getRat());
 
-                rat.setCurrentPosX(curX + x);
-                rat.setCurrentPosY(curY);
+                //move rat
+                getRat().setCurrentPosX(getCurX() + x);
+                getRat().setCurrentPosY(getCurY());
 
+                //set new direction
                 if (x == -1) {
-                    rat.setRotatedImage(rat.getLeftImage());
-                    rat.setDirection(Rat.Direction.LEFT);
+                    getRat().setRotatedImage(getRat().getLeftImage());
+                    getRat().setDirection(Rat.Direction.LEFT);
                 } else {
-                    rat.setRotatedImage(rat.getRightImage());
-                    rat.setDirection(Rat.Direction.RIGHT);
+                    getRat().setRotatedImage(getRat().getRightImage());
+                    getRat().setDirection(Rat.Direction.RIGHT);
                 }
                 return false;
             } else {
+                //sets rats opposite direction
                 setRatsDirection();
             }
         }
@@ -189,30 +214,36 @@ public class Movement {
     }
 
     /**
+     * moves vertical.
      *
-     *
-     * @param y
-     * @return
+     * @param y direction
+     * @return if rat is moved
      */
-    private static boolean moveVertical(int y) {
-        if (tiles[curY + y][curX].isWalkable()) {
-            if (NoEntry(y, 0)) {
-                current.removeEntityFromTile(rat);
-                tiles[curY][curX].getEntitiesOnTile().remove(rat);
-                tiles[curY + y][curX].addEntityToTile(rat);
+    private static boolean moveVertical(final int y) {
+        //if next tile is walkable
+        if (getTiles()[getCurY() + y][getCurX()].isWalkable()) {
+            //if not entry sign
+            if (noEntry(y, 0)) {
+                //remove rat from current
+                getCurrent().removeEntityFromTile(getRat());
+                getTiles()[getCurY()][getCurX()].getEntitiesOnTile().remove(getRat());
+                getTiles()[getCurY() + y][getCurX()].addEntityToTile(getRat());
 
-                rat.setCurrentPosX(curX);
-                rat.setCurrentPosY(curY + y);
+                //move rat
+                getRat().setCurrentPosX(getCurY());
+                getRat().setCurrentPosY(getCurY() + y);
 
+                //set new direction
                 if (y == -1) {
-                    rat.setRotatedImage(rat.getUpImage());
-                    rat.setDirection(Rat.Direction.UP);
+                    getRat().setRotatedImage(getRat().getUpImage());
+                    getRat().setDirection(Rat.Direction.UP);
                 } else {
-                    rat.setRotatedImage(rat.getDownImage());
-                    rat.setDirection(Rat.Direction.DOWN);
+                    getRat().setRotatedImage(getRat().getDownImage());
+                    getRat().setDirection(Rat.Direction.DOWN);
                 }
                 return false;
             } else {
+                //sets rats opposite direction
                 setRatsDirection();
             }
         }
@@ -220,46 +251,145 @@ public class Movement {
     }
 
     /**
-     *
+     * changes rats dir and image to opposite.
      */
     private static void setRatsDirection() {
-        if (rat.getDirection() == Rat.Direction.UP) {
-            rat.setRotatedImage(rat.getDownImage());
-            rat.setDirection(Rat.Direction.DOWN);
-            rat.setCurrentPosY(curY + 1);
-        } else if (rat.getDirection() == Rat.Direction.DOWN) {
-            rat.setRotatedImage(rat.getUpImage());
-            rat.setDirection(Rat.Direction.UP);
-            rat.setCurrentPosY(curY - 1);
-        } else if (rat.getDirection() == Rat.Direction.LEFT) {
-            rat.setRotatedImage(rat.getRightImage());
-            rat.setDirection(Rat.Direction.RIGHT);
-            rat.setCurrentPosX(curX + 1);
-        } else if (rat.getDirection() == Rat.Direction.RIGHT) {
-            rat.setRotatedImage(rat.getLeftImage());
-            rat.setDirection(Rat.Direction.LEFT);
-            rat.setCurrentPosX(curX - 1);
+        //set rats opposite direction and image for that dir
+        if (getRat().getDirection() == Rat.Direction.UP) {
+            getRat().setRotatedImage(getRat().getDownImage());
+            getRat().setDirection(Rat.Direction.DOWN);
+            getRat().setCurrentPosY(getCurY() + 1);
+        } else if (getRat().getDirection() == Rat.Direction.DOWN) {
+            getRat().setRotatedImage(getRat().getUpImage());
+            getRat().setDirection(Rat.Direction.UP);
+            getRat().setCurrentPosY(getCurY() - 1);
+        } else if (getRat().getDirection() == Rat.Direction.LEFT) {
+            getRat().setRotatedImage(getRat().getRightImage());
+            getRat().setDirection(Rat.Direction.RIGHT);
+            getRat().setCurrentPosX(getCurX() + 1);
+        } else if (getRat().getDirection() == Rat.Direction.RIGHT) {
+            getRat().setRotatedImage(getRat().getLeftImage());
+            getRat().setDirection(Rat.Direction.LEFT);
+            getRat().setCurrentPosX(getCurX() - 1);
         }
     }
 
     /**
+     * checks if no entry is at position.
      *
-     *
-     * @param y
-     * @param x
-     * @return
+     * @param y y coordinate
+     * @param x x coordinate
+     * @return if no entry is at position
      */
-    private static boolean NoEntry(int y, int x) {
-        for (Entity entity : tiles[curY + y][curX + x].getEntitiesOnTile()) {
+    private static boolean noEntry(final int y, final int x) {
+        //loops through entities
+        for (Entity entity : getTiles()[getCurY() + y][getCurX() + x].getEntitiesOnTile()) {
             if (entity.getEntityType() == Entity.EntityType.ITEM) {
                 Item item = (Item) entity;
                 if (item.getType() == Item.TYPE.NO_ENTRY) {
+                    //remove hp from no entry
                     item.setHp(item.getHp() - 2);
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    /**
+     * set tiles.
+     *
+     * @param t tiles
+     */
+    public static void setTiles(final Tile[][] t) {
+        Movement.tiles = t;
+    }
+
+    /**
+     * sets rat.
+     *
+     * @param r rat
+     */
+    public static void setRat(final Rat r) {
+        Movement.rat = r;
+    }
+
+    /**
+     * sets current tile.
+     *
+     * @param c current tile
+     */
+    public static void setCurrent(final Tile c) {
+        Movement.current = c;
+    }
+
+    /**
+     * sets current y.
+     *
+     * @param y current y
+     */
+    public static void setCurY(final int y) {
+        Movement.curY = y;
+    }
+
+    /**
+     * sets current x.
+     *
+     * @param x current x
+     */
+    public static void setCurX(final int x) {
+        Movement.curX = x;
+    }
+
+    /**
+     * sets random.
+     *
+     * @param r random num
+     */
+    public static void setRandom(final int r) {
+        Movement.random = r;
+    }
+
+    /**
+     * @return tiles
+     */
+    public static Tile[][] getTiles() {
+        return tiles;
+    }
+
+    /**
+     * @return rat
+     */
+    public static Rat getRat() {
+        return rat;
+    }
+
+    /**
+     * @return current tile
+     */
+    public static Tile getCurrent() {
+        return current;
+    }
+
+    /**
+     * @return current y
+     */
+    public static int getCurY() {
+        return curY;
+    }
+
+    /**
+     * @return current x
+     */
+    public static int getCurX() {
+        return curX;
+    }
+
+    /**
+     * @return random num
+     */
+    public static int getRandom() {
+        return random;
     }
 
 }

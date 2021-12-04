@@ -441,11 +441,11 @@ public class GameController implements Initializable {
      */
     private static void move(final Rat rat) {
         //sets all relevant information to get correct movement.
-        Movement.tiles = level.getTiles();
-        Movement.rat = rat;
-        Movement.current = level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()];
-        Movement.curX = rat.getCurrentPosX();
-        Movement.curY = rat.getCurrentPosY();
+        Movement.setTiles(level.getTiles());
+        Movement.setRat(rat);
+        Movement.setCurrent(level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()]);
+        Movement.setCurX(rat.getCurrentPosX());
+        Movement.setCurY(rat.getCurrentPosY());
 
         //based on direction try and move.
         if (rat.getDirection() == Rat.Direction.LEFT) {
