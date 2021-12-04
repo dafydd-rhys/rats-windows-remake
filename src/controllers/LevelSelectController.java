@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import main.external.Audio;
 import main.level.Level;
 import main.stage.StageFunctions;
@@ -23,42 +22,88 @@ import player.Player;
  */
 public class LevelSelectController implements Initializable {
 
-    /**  */
-    @FXML private AnchorPane window;
-    /**  */
-    @FXML private JFXButton level1;
-    /**  */
-    @FXML private JFXButton level2;
-    /**  */
-    @FXML private JFXButton level3;
-    /**  */
-    @FXML private JFXButton level4;
-    /**  */
-    @FXML private JFXButton level5;
-    /**  */
-    @FXML private JFXButton level6;
-    /**  */
-    @FXML private JFXButton mainMenuButton;
-    /**  */
-    @FXML private JFXButton settings;
-    /**  */
-    @FXML private JFXButton sfx;
-    /**  */
-    @FXML private JFXButton music;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton maximise;
-    /**  */
-    @FXML private JFXButton exit;
-    /**  */
-    @FXML private ImageView musicImage;
-    /**  */
-    @FXML private ImageView effectsImage;
-
     /**
      *
+     */
+    @FXML
+    private AnchorPane window;
+    /**
      *
+     */
+    @FXML
+    private JFXButton level1;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton level2;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton level3;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton level4;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton level5;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton level6;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton mainMenuButton;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     *
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     *
+     */
+    @FXML
+    private ImageView effectsImage;
+
+    /**
      * @param url
      * @param resourceBundle
      */

@@ -24,8 +24,6 @@ public class Main extends Application {
     }
 
     /**
-     *
-     *
      * @param window
      * @throws Exception
      */

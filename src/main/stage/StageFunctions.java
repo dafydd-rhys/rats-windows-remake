@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.*;
+import main.ConfirmDialog;
 import main.Resources;
 import main.external.Audio;
 
@@ -23,12 +23,22 @@ import main.external.Audio;
  */
 public class StageFunctions {
 
-    /** */
+    /**
+     *
+     */
     private static Stage stage;
-    /** */
+    /**
+     *
+     */
     private static Stage settingsStage;
-    /** */
+    /**
+     *
+     */
     private static Stage gameOverStage;
+    /**
+     *
+     */
+    private static Stage profileStage;
 
     /**
      * Sets stage.
@@ -85,6 +95,10 @@ public class StageFunctions {
         StageFunctions.gameOverStage = openPopOut(Resources.getFXML("game_over"));
     }
 
+    public static void openProfile() throws IOException {
+        StageFunctions.profileStage = openPopOut(Resources.getFXML("profile"));
+    }
+
     private static Stage openPopOut(URL url) throws IOException {
         Stage popStage = new Stage();
         Parent scene = FXMLLoader.load(url);
@@ -99,6 +113,7 @@ public class StageFunctions {
         popStage.initOwner(stage);
         popStage.setScene(new Scene(scene));
         popStage.show();
+        StageResizer.addResizeListener(popStage);
 
         return popStage;
     }
@@ -108,7 +123,7 @@ public class StageFunctions {
      * Mute music.
      */
     public static void muteMusic() {
-        if(Audio.isMusicMuted()) {
+        if (Audio.isMusicMuted()) {
             Audio.resumeMusic();
         } else {
             Audio.muteMusic();
@@ -119,7 +134,7 @@ public class StageFunctions {
      * Mute effects.
      */
     public static void muteEffects() {
-        if(Audio.isEffectsMuted()) {
+        if (Audio.isEffectsMuted()) {
             Audio.resumeEffects();
         } else {
             Audio.muteEffects();
@@ -156,12 +171,10 @@ public class StageFunctions {
      */
     public static void exit() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Audio.clickEffect();
-        JFrame frame = new JFrame();
-        frame.setAlwaysOnTop(true);
+        ConfirmDialog dialog = new ConfirmDialog();
 
-        int reply = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit",
-                "Close Program", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
+        boolean result = dialog.getDecision("Exit Warning", "Are you sure you want to exit?");
+        if (result) {
             System.exit(1);
         }
     }
@@ -176,6 +189,18 @@ public class StageFunctions {
     public static void exitSettings() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Audio.clickEffect();
         settingsStage.close();
+    }
+
+    /**
+     * Exit settings.
+     *
+     * @throws UnsupportedAudioFileException the unsupported audio file exception
+     * @throws LineUnavailableException      the line unavailable exception
+     * @throws IOException                   the io exception
+     */
+    public static void exitProfile() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Audio.clickEffect();
+        profileStage.close();
     }
 
     /**
@@ -196,28 +221,15 @@ public class StageFunctions {
      * @param image the image
      */
     public static void toggleOpacity(ImageView image) {
-        if(image.getOpacity() == 0.2) {
+        if (image.getOpacity() == 0.2) {
             image.setOpacity(1);
-        } else { image.setOpacity(0.2); }
+        } else {
+            image.setOpacity(0.2);
+        }
     }
 
-    /**
-     * Exit game.
-     *
-     * @throws UnsupportedAudioFileException the unsupported audio file exception
-     * @throws LineUnavailableException      the line unavailable exception
-     * @throws IOException                   the io exception
-     */
-    public static void exitGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        Audio.clickEffect();
-        JFrame frame = new JFrame();
-        frame.setAlwaysOnTop(true);
-
-        int reply = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit",
-                "Close Program", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-            System.exit(1);
-        }
+    public static Stage getStage() {
+        return stage;
     }
 
 }

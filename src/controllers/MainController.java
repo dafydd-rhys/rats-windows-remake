@@ -26,36 +26,73 @@ import player.Player;
  */
 public class MainController implements Initializable {
 
-    /**  */
-    @FXML private ComboBox<String> selectTheme;
-    /**  */
-    @FXML private ComboBox<String> selectGeneration;
-    /**  */
-    @FXML private JFXButton sfx;
-    /**  */
-    @FXML private JFXButton music;
-    /**  */
-    @FXML private JFXButton settings;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton maximise;
-    /**  */
-    @FXML private JFXButton exit;
-    /**  */
-    @FXML private TextField playerName;
-    /**  */
-    @FXML private JFXButton proceed;
-    /**  */
-    @FXML private ImageView musicImage;
-    /**  */
-    @FXML private ImageView effectsImage;
-    /**  */
-    @FXML private Text motd;
-
     /**
      *
+     */
+    @FXML
+    private ComboBox<String> selectTheme;
+    /**
      *
+     */
+    @FXML
+    private ComboBox<String> selectGeneration;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     *
+     */
+    @FXML
+    private TextField playerName;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton proceed;
+    /**
+     *
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     *
+     */
+    @FXML
+    private ImageView effectsImage;
+    /**
+     *
+     */
+    @FXML
+    private Text motd;
+
+    /**
      * @param url
      * @param resourceBundle
      */

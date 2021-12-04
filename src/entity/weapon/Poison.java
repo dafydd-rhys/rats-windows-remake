@@ -1,19 +1,16 @@
 package entity.weapon;
 
+import static main.external.Audio.playGameEffect;
 import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import entity.Entity;
 import main.Resources;
 import main.level.Level;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static main.external.Audio.playGameEffect;
 
 /**
  * Poison
@@ -62,14 +59,14 @@ public class Poison extends Item {
      * inflicts damage to rat on tile
      *
      * @param level gets tiles
-     * @param gc unused attribute
+     * @param gc    unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         ArrayList<Entity> entitiesOnTile = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
-                if (entitiesOnTile.get(k).getEntityType() == EntityType.RAT){
+                if (entitiesOnTile.get(k).getEntityType() == EntityType.RAT) {
                     Rat targetRat = (Rat) entitiesOnTile.get(k);
                     inflictDamage(level, getDamage(), targetRat);
                     setHp(getHp() - 1);

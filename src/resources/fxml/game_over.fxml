@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameOverController">
    <children>
-      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="bar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="39.0" layoutY="7.0" text="Rats! (1996) Remake!" />
             <ImageView fx:id="minimizedLogo" fitHeight="22.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -30,9 +30,9 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <VBox alignment="CENTER" layoutY="30.0" prefHeight="335.0" prefWidth="416.0" style="-fx-background-color: #f5f0f0;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <VBox alignment="CENTER" layoutY="30.0" prefHeight="335.0" prefWidth="416.0" style="-fx-background-color: #f5f0f0; -fx-border-color: black;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="483.0" style="-fx-background-color: #f5f0f0;">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="477.0" style="-fx-background-color: #f5f0f0;">
                <children>
                   <JFXButton fx:id="restart" layoutX="253.0" layoutY="199.0" prefHeight="50.0" prefWidth="185.0" style="-fx-background-color: #6eace0;" text="Restart Level" textFill="WHITE">
                      <font>

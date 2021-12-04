@@ -27,6 +27,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Rectangle;
+import main.ConfirmDialog;
 import main.Resources;
 import main.level.*;
 import player.Inventory.Inventory;
@@ -215,7 +216,7 @@ public class GameController implements Initializable {
             @Override
             public void run() {
                 if (Level.getPaused()) {
-                    currentTick += 1;
+                    currentTick++;
                     if (currentTick % 2 == 0) {
                         lblTime.setText("Current: " + (int) currentTick / 2 + " seconds");
                     }
@@ -310,37 +311,54 @@ public class GameController implements Initializable {
         maximise.setOnAction(e -> StageFunctions.maximise());
 
         exit.setOnAction(e -> {
-            try {
+            ConfirmDialog dialog = new ConfirmDialog();
+            boolean result = dialog.getDecision("Exit Warning", "Are you sure you want to exit?");
+
+            if (result) {
                 level.setCurrentTick((int) currentTick);
-                LevelSave ls = new LevelSave(level);
-                ls.save();
-                StageFunctions.exit();
-            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
-                ex.printStackTrace();
+                new LevelSave(level).save();
+                System.exit(1);
+            } else {
+                Level.setPaused(false);
             }
         });
 
         restartBtn.setOnAction(e -> {
-            try {
+            ConfirmDialog dialog = new ConfirmDialog();
+            boolean result = dialog.getDecision("Restart Warning", "Are you sure you want to restart?");
+
+            if (result) {
                 Level.setIsSave(false);
                 ticker.cancel();
                 currentTick = 0;
-                StageFunctions.changeScene("game", "Level " + Level.getCurrentLevel());
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-                ex.printStackTrace();
+
+                try {
+                    StageFunctions.changeScene("game", "Level " + Level.getCurrentLevel());
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                Level.setPaused(false);
             }
         });
 
         mainMenu.setOnAction(e -> {
-            try {
+            ConfirmDialog dialog = new ConfirmDialog();
+            boolean result = dialog.getDecision("Return Warning", "Are you sure you want to Main Menu?");
+
+            if (result) {
                 level.setCurrentTick((int) currentTick);
-                LevelSave ls = new LevelSave(level);
-                ls.save();
+                new LevelSave(level).save();
                 ticker.cancel();
                 currentTick = 0;
-                StageFunctions.changeScene("main_menu", "Main Menu");
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-                ex.printStackTrace();
+
+                try {
+                    StageFunctions.changeScene("main_menu", "Main Menu");
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                Level.setPaused(false);
             }
         });
 

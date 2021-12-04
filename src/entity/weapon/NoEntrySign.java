@@ -1,5 +1,6 @@
 package entity.weapon;
 
+import static main.external.Audio.playGameEffect;
 import entity.Item;
 import javafx.scene.canvas.GraphicsContext;
 import main.Resources;
@@ -7,8 +8,6 @@ import main.level.Level;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-
-import static main.external.Audio.playGameEffect;
 
 /**
  * The type No entry sign.
@@ -53,7 +52,7 @@ public class NoEntrySign extends Item {
      * prevents rats from going through its tile until broken
      *
      * @param level gets tiles
-     * @param gc unused attribute
+     * @param gc    unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         switch (getHp()) {

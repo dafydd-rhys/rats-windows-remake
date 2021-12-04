@@ -1,25 +1,21 @@
 package entity.weapon;
 
+import static main.external.Audio.playGameEffect;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
 import entity.rat.RatSprites;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.Resources;
 import main.level.Level;
 import tile.Tile;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import static main.external.Audio.playGameEffect;
 
 /**
  * DeathRat
@@ -30,19 +26,33 @@ import static main.external.Audio.playGameEffect;
  */
 public class DeathRat extends Item {//used to extend Entities.Item
 
-    /** */
+    /**
+     *
+     */
     private Direction direction;
-    /** */
+    /**
+     *
+     */
     private int currentTick = 0;
-    /** */
+    /**
+     *
+     */
     private Image rotatedImage;
-    /** */
+    /**
+     *
+     */
     private final Image upImage;
-    /** */
+    /**
+     *
+     */
     private final Image downImage;
-    /** */
+    /**
+     *
+     */
     private final Image leftImage;
-    /** */
+    /**
+     *
+     */
     private final Image rightImage;
 
     /**
@@ -102,8 +112,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     *
-     *
      * @param level the level
      * @param gc    the gc
      */
@@ -117,8 +125,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     *
-     *
      * @param level
      */
     private void move(Level level) {
@@ -141,8 +147,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     *
-     *
      * @param level
      */
     private void checkForOpposition(Level level) {
@@ -381,8 +385,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         *
-         *
          * @param x
          * @return
          */
@@ -413,8 +415,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         *
-         *
          * @param y
          * @return
          */
@@ -467,8 +467,6 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         *
-         *
          * @param y
          * @param x
          * @return

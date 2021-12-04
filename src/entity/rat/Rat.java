@@ -1,14 +1,11 @@
 package entity.rat;
 
+import static main.external.Audio.playGameEffect;
 import entity.Entity;
 import javafx.scene.image.Image;
 import main.Resources;
 import main.level.Level;
 import tile.Tile;
-
-import static main.external.Audio.playGameEffect;
-
-import javax.sound.sampled.Line;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -23,35 +20,65 @@ import java.util.*;
  */
 public class Rat extends Entity {
 
-    /** */
+    /**
+     *
+     */
     private Direction direction;
-    /** */
+    /**
+     *
+     */
     private Gender gender;
-    /** */
+    /**
+     *
+     */
     private Image rotatedImage;
-    /** */
+    /**
+     *
+     */
     private Image upImage;
-    /** */
+    /**
+     *
+     */
     private Image downImage;
-    /** */
+    /**
+     *
+     */
     private Image leftImage;
-    /** */
+    /**
+     *
+     */
     private Image rightImage;
-    /** */
+    /**
+     *
+     */
     private int hp;
-    /** */
+    /**
+     *
+     */
     private boolean isAdult;
-    /** */
+    /**
+     *
+     */
     private boolean isSterilised;
-    /** */
+    /**
+     *
+     */
     private boolean isPregnant;
-    /** */
+    /**
+     *
+     */
     private int pregnancyStage;
-    /** */
+    /**
+     *
+     */
     private int growingStage;
-    /** */
+    /**
+     *
+     */
     private final Queue<Rat> babyQueue;
-    /** */
+    /**
+     *
+     */
     private static Level level;
 
     /**
@@ -120,7 +147,7 @@ public class Rat extends Entity {
             setImage(Resources.getEntityImage("baby-rat"));
         } else if (gender == Gender.FEMALE) {
             setImage(Resources.getEntityImage("death-rat"));
-        } else if (gender == Gender.MALE){
+        } else if (gender == Gender.MALE) {
             setImage(Resources.getEntityImage("male-rat"));
         }
 
@@ -154,7 +181,7 @@ public class Rat extends Entity {
             rightImage = RatSprites.rightMale;
             downImage = RatSprites.downMale;
             leftImage = RatSprites.leftMale;
-        } else if (isSterilised() && getGender()== Gender.FEMALE) {
+        } else if (isSterilised() && getGender() == Gender.FEMALE) {
             image = RatSprites.upFemale;
             upImage = RatSprites.upFemale;
             rightImage = RatSprites.rightFemale;
@@ -266,7 +293,6 @@ public class Rat extends Entity {
 
     /**
      *
-     * @param
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -281,19 +307,19 @@ public class Rat extends Entity {
     public String toString() {
         String result = "";
 
-        result += this.getGender() == Gender.FEMALE
+        result += getGender() == Gender.FEMALE
                 ? "F"
                 : "M";
 
-        result += this.isAdult()
+        result += isAdult()
                 ? "A"
                 : "B";
 
-        result += this.isPregnant()
+        result += isPregnant()
                 ? "P"
                 : "N";
 
-        result += this.isSterilised()
+        result += isSterilised()
                 ? "G"
                 : "S";
 

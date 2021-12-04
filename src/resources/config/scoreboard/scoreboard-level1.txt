@@ -1,4 +1,5 @@
 Dafydd:550
+Dafydd:122
 Dafydd:97
 Dafydd:93
 Harry:75
@@ -6,5 +7,4 @@ Daftydd:63
 Dafydd:60
 Stefan:45
 Dafydd:42
-Stefan:36
 Stefan:36

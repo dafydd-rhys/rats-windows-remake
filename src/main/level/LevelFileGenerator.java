@@ -4,7 +4,6 @@ import entity.Item;
 import entity.rat.Rat;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javafx.scene.canvas.GraphicsContext;
 import tile.Tile;
 
@@ -16,23 +15,41 @@ import tile.Tile;
  */
 public class LevelFileGenerator {
 
-    /** */
+    /**
+     *
+     */
     private Level level;
-    /** */
+    /**
+     *
+     */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
-    /** */
+    /**
+     *
+     */
     private final GraphicsContext gc;
-    /** */
+    /**
+     *
+     */
     private final char[][] tiles;
-    /** */
+    /**
+     *
+     */
     private final char[][] spawns;
-    /** */
+    /**
+     *
+     */
     private final int expectedTime;
-    /** */
+    /**
+     *
+     */
     private final int maxRats;
-    /** */
+    /**
+     *
+     */
     private final int sizeY;
-    /** */
+    /**
+     *
+     */
     private final int sizeX;
 
     /**
@@ -89,8 +106,6 @@ public class LevelFileGenerator {
     }
 
     /**
-     *
-     *
      * @param tiles
      * @param x
      * @param y
@@ -103,8 +118,6 @@ public class LevelFileGenerator {
     }
 
     /**
-     *
-     *
      * @param tiles
      * @param rats
      * @param x

@@ -13,8 +13,9 @@ import java.util.Scanner;
 
 /**
  * LevelLoader.java
- *
+ * <p>
  * Reads data from a save file.
+ *
  * @author Maurice Petersen (2013396)
  */
 public class LevelLoader {
@@ -44,6 +45,7 @@ public class LevelLoader {
 
     /**
      * Reads the whole save file.
+     *
      * @throws IOException
      */
     private void loadLevel() throws IOException {
@@ -55,6 +57,7 @@ public class LevelLoader {
 
     /**
      * Reads the current level and current tick from the save file.
+     *
      * @throws IOException
      */
     private void readLevel() throws IOException {
@@ -68,6 +71,7 @@ public class LevelLoader {
 
     /**
      * Reads the line in the save file regarding rat attributes.
+     *
      * @throws IOException
      */
     private void readRatSpawns() throws IOException {
@@ -130,6 +134,7 @@ public class LevelLoader {
 
     /**
      * Reads the line in the save file regarding item attributes.
+     *
      * @throws IOException
      */
     private void readItemSpawns() throws IOException {
@@ -138,7 +143,7 @@ public class LevelLoader {
 
         if (scanner.hasNext()) {
             String[] itemSplit = scanner.next().split(",");
-            for(String itemEntry : itemSplit) {
+            for (String itemEntry : itemSplit) {
                 Item item = null;
 
                 if (itemEntry.contains("B")) {
@@ -174,6 +179,7 @@ public class LevelLoader {
 
     /**
      * Reads the line in the save file regarding inventory items.
+     *
      * @throws IOException
      */
     private void readInventoryItems() throws IOException {
@@ -182,7 +188,7 @@ public class LevelLoader {
 
         if (scanner.hasNext()) {
             String[] invSplit = scanner.next().split(",");
-            for(String invEntry : invSplit) {
+            for (String invEntry : invSplit) {
                 if (invEntry.contains("B")) {
                     inventory.add(Item.TYPE.BOMB);
                 } else if (invEntry.contains("D")) {

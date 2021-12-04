@@ -2,19 +2,15 @@ package entity.weapon;
 
 import entity.Item;
 import entity.rat.Rat;
-import java.net.URL;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import main.Resources;
 import main.level.Level;
 import tile.Tile;
 import entity.Entity;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import static main.external.Audio.playGameEffect;
 
 /**
@@ -122,8 +118,8 @@ public class Bomb extends Item {
      * finds tile in bomb's area of effect one at a time
      *
      * @param direction gets direction to next tile
-     * @param distance gets next tile in range
-     * @param tiles gets tile using parameters
+     * @param distance  gets next tile in range
+     * @param tiles     gets tile using parameters
      * @return next tile in bomb's area of effect
      */
     private Tile getDirection(Rat.Direction direction, int distance, Tile[][] tiles) {

@@ -1,16 +1,9 @@
 package entity;
 
-import entity.rat.Rat;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.level.Level;
-import tile.Movement;
-import main.external.Audio;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -24,17 +17,29 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public abstract class Item extends Entity {
 
-    /** */
+    /**
+     *
+     */
     private boolean friendlyFire;
-    /** */
+    /**
+     *
+     */
     private boolean canBeAttacked;
-    /** */
+    /**
+     *
+     */
     private Image image;
-    /** */
+    /**
+     *
+     */
     private TYPE type;
-    /** */
+    /**
+     *
+     */
     private int yOffset;
-    /** */
+    /**
+     *
+     */
     private int range;
 
     /**
@@ -238,7 +243,6 @@ public abstract class Item extends Entity {
     @Override
     public String toString() {
         String result = "";
-
         result += getEntityName().charAt(0);
 
         if (getCurrentPosX() != 0 && getCurrentPosY() != 0) {

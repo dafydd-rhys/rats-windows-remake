@@ -1,13 +1,8 @@
 package entity;
 
 import entity.rat.Rat;
-import tile.Tile;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import main.level.Level;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -58,7 +53,7 @@ public abstract class Entity {
      * @param damageDealt  the damage dealt
      * @param damageTarget the damage target
      */
-    protected void inflictDamage(Level level, int damageDealt, Entity damageTarget){
+    protected void inflictDamage(Level level, int damageDealt, Entity damageTarget) {
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
 
         if (damageTarget.getEntityType() == EntityType.RAT) {

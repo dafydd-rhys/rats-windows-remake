@@ -17,23 +17,41 @@ import main.Resources;
  */
 public class LevelFileReader {
 
-    /** */
+    /**
+     *
+     */
     private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
-    /** */
+    /**
+     *
+     */
     private char[][] level;
-    /** */
+    /**
+     *
+     */
     private char[][] spawns;
-    /** */
+    /**
+     *
+     */
     private final File lvlDirectory;
-    /** */
+    /**
+     *
+     */
     private final File spawnDirectory;
-    /** */
+    /**
+     *
+     */
     private int expectedTime;
-    /** */
+    /**
+     *
+     */
     private int maxRats;
-    /** */
+    /**
+     *
+     */
     private int sizeX = 0;
-    /** */
+    /**
+     *
+     */
     private int sizeY = 0;
 
     /**
@@ -47,7 +65,7 @@ public class LevelFileReader {
         this.spawnDirectory = Resources.getSpawns(level);
         loadLevel();
 
-        if(!isSave) {
+        if (!isSave) {
             loadSpawns();
         }
     }
@@ -116,8 +134,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @throws IOException
      */
     private void loadLevel() throws IOException {
@@ -125,8 +141,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @throws FileNotFoundException
      */
     private void loadSpawns() throws FileNotFoundException {
@@ -134,8 +148,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @param file
      * @return
      * @throws FileNotFoundException
@@ -151,7 +163,7 @@ public class LevelFileReader {
             maxRats = scanner.nextInt();
             expectedTime = scanner.nextInt();
 
-            for (int i = 0; i < 8; i ++) {
+            for (int i = 0; i < 8; i++) {
                 split = scanner.next().split(",");
                 StringBuilder amount = new StringBuilder(split[1]);
                 timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
@@ -171,8 +183,6 @@ public class LevelFileReader {
     }
 
     /**
-     *
-     *
      * @param item
      * @return
      */

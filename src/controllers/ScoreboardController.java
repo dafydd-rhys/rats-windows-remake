@@ -14,10 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import main.external.Audio;
 import main.stage.StageFunctions;
 import scoreboard.Scoreboard;
@@ -32,37 +30,82 @@ import scoreboard.ScoreboardPlayer;
  */
 public class ScoreboardController implements Initializable {
 
-    /** levelSelector - combo box holding all scoreboard options */
-    @FXML private ComboBox<String> levelSelector;
-    /** scoreboard - table that holds the top 10 players */
-    @FXML private TableView<ScoreboardPlayer> scoreboard;
-    /** level - level row representing the top 10 players for this particular level */
-    @FXML private TableColumn<ScoreboardPlayer, String> level;
-    /** rank - rank of the player in question */
-    @FXML private TableColumn<ScoreboardPlayer, Integer> rank;
-    /** name - name of the player in question */
-    @FXML private TableColumn<ScoreboardPlayer, String> name;
-    /** score - score of the player in question */
-    @FXML private TableColumn<ScoreboardPlayer, Integer> score;
-    /** sfxMute - button that mutes effect sound */
-    @FXML private JFXButton sfx;
-    /** musicMute - button that mutes music */
-    @FXML private JFXButton music;
-    /** settings - button that opens the setting window */
-    @FXML private JFXButton settings;
-    /** minimize - button that minimizes window */
-    @FXML private JFXButton minimize;
-    /** maximise - button that minimizes window */
-    @FXML private JFXButton maximise;
-    /** back - button that goes back to previous window */
-    @FXML private JFXButton back;
-    /** exit - button that exits program */
-    @FXML private JFXButton exit;
-    /** musicImage - Image within JFXButton music */
-    @FXML private ImageView musicImage;
-    /** effectsImage - Image within JFXButton sfx */
-    @FXML private ImageView effectsImage;
-    
+    /**
+     * levelSelector - combo box holding all scoreboard options
+     */
+    @FXML
+    private ComboBox<String> levelSelector;
+    /**
+     * scoreboard - table that holds the top 10 players
+     */
+    @FXML
+    private TableView<ScoreboardPlayer> scoreboard;
+    /**
+     * level - level row representing the top 10 players for this particular level
+     */
+    @FXML
+    private TableColumn<ScoreboardPlayer, String> level;
+    /**
+     * rank - rank of the player in question
+     */
+    @FXML
+    private TableColumn<ScoreboardPlayer, Integer> rank;
+    /**
+     * name - name of the player in question
+     */
+    @FXML
+    private TableColumn<ScoreboardPlayer, String> name;
+    /**
+     * score - score of the player in question
+     */
+    @FXML
+    private TableColumn<ScoreboardPlayer, Integer> score;
+    /**
+     * sfxMute - button that mutes effect sound
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     * musicMute - button that mutes music
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     * settings - button that opens the setting window
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     * minimize - button that minimizes window
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     * maximise - button that minimizes window
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     * back - button that goes back to previous window
+     */
+    @FXML
+    private JFXButton back;
+    /**
+     * exit - button that exits program
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     * musicImage - Image within JFXButton music
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     * effectsImage - Image within JFXButton sfx
+     */
+    @FXML
+    private ImageView effectsImage;
+
     /**
      * Main
      *
@@ -98,7 +141,7 @@ public class ScoreboardController implements Initializable {
 
     /**
      * OnActions() - adds listeners to buttons (when button is clicked -> do this)
-     *
+     * <p>
      * minimize - minimize window
      * maximise - maximise window
      * back - go back to previous window
@@ -123,7 +166,7 @@ public class ScoreboardController implements Initializable {
                 ex.printStackTrace();
             }
         });
-        back.setOnAction(e-> {
+        back.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("main_menu", "Game Screen");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
@@ -141,7 +184,7 @@ public class ScoreboardController implements Initializable {
 
     /**
      * scoreboardListener() - adds listener to comboBox (when combo box is edited -> do this)
-     *
+     * <p>
      * levelSelector - combo box
      * when combo box is changed check in row 1 (level row) for all rows that contain new value and show them
      */

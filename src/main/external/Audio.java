@@ -23,23 +23,41 @@ import main.Resources;
  */
 public class Audio {
 
-    /** */
+    /**
+     *
+     */
     private static float music = 50f;
-    /** */
+    /**
+     *
+     */
     private static float effects = 50f;
-    /** */
+    /**
+     *
+     */
     private static final float muted = -50f;
-    /** */
+    /**
+     *
+     */
     private static float musicVolume = -50f + (music * 0.50f);
-    /** */
+    /**
+     *
+     */
     private static float effectsVolume = -50f + (music * 0.50f);
-    /** */
+    /**
+     *
+     */
     private static boolean musicMuted = false;
-    /** */
+    /**
+     *
+     */
     private static boolean effectsMuted = false;
-    /** */
+    /**
+     *
+     */
     private static Clip musicClip = null;
-    /** */
+    /**
+     *
+     */
     private static Clip clickEffect = null;
 
     /**
@@ -63,7 +81,8 @@ public class Audio {
 
     /**
      * Play game effect.
-     *e path
+     * e path
+     *
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      * @throws IOException                   the io exception
      * @throws LineUnavailableException      the line unavailable exception
@@ -104,7 +123,7 @@ public class Audio {
     public static void setMusic(float volume) throws IOException {
         Audio.music = volume;
         musicVolume = -50f + (music * 0.50f);
-        if(!musicMuted) {
+        if (!musicMuted) {
             ((FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(musicVolume);
         }
         writeValues();
@@ -183,14 +202,18 @@ public class Audio {
      *
      * @return the boolean
      */
-    public static boolean isMusicMuted() {return musicMuted;}
+    public static boolean isMusicMuted() {
+        return musicMuted;
+    }
 
     /**
      * Is effects muted boolean.
      *
      * @return the boolean
      */
-    public static boolean isEffectsMuted() {return effectsMuted;}
+    public static boolean isEffectsMuted() {
+        return effectsMuted;
+    }
 
     /**
      * Gets values.
@@ -220,15 +243,21 @@ public class Audio {
      * @return the double
      */
     public static double isMuted(String sound) {
-        if(Objects.equals(sound, "music")) {
-            if(musicMuted) {
+        if (Objects.equals(sound, "music")) {
+            if (musicMuted) {
                 return 0.2;
-            } else { return 1; }
-        } else if(Objects.equals(sound, "effects")) {
-            if(effectsMuted) {
+            } else {
+                return 1;
+            }
+        } else if (Objects.equals(sound, "effects")) {
+            if (effectsMuted) {
                 return 0.2;
-            } else { return 1; }
-        } else { return 0; }
+            } else {
+                return 1;
+            }
+        } else {
+            return 0;
+        }
     }
 
     private static void writeValues() throws IOException {

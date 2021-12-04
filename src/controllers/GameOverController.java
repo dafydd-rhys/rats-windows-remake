@@ -20,24 +20,43 @@ import player.Player;
  */
 public class GameOverController implements Initializable {
 
-    /** */
-    @FXML private JFXButton exit;
-    /** */
-    @FXML private JFXButton exitbtn;
-    /** */
-    @FXML private JFXButton play;
-    /** */
-    @FXML private JFXButton restart;
-    /** */
-    @FXML private JFXButton menu;
-    /** */
-    @FXML private Text status;
-    /** */
-    @FXML private Text score;
-
     /**
      *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
      *
+     */
+    @FXML
+    private JFXButton exitbtn;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton play;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton restart;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton menu;
+    /**
+     *
+     */
+    @FXML
+    private Text status;
+    /**
+     *
+     */
+    @FXML
+    private Text score;
+
+    /**
      * @param url
      * @param resourceBundle
      */

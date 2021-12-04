@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import main.ConfirmDialog;
 import main.external.Audio;
 import main.level.Level;
 import main.level.LevelLoader;
@@ -25,48 +26,95 @@ import player.Player;
  */
 public class MainMenuController implements Initializable {
 
-    /**  */
-    @FXML private AnchorPane window;
-    /**  */
-    @FXML private JFXButton levels;
-    /**  */
-    @FXML private JFXButton loadGame;
-    /**  */
-    @FXML private JFXButton scoreboard;
-    /**  */
-    @FXML private JFXButton settings;
-    /**  */
-    @FXML private JFXButton sfx;
-    /**  */
-    @FXML private JFXButton music;
-    /**  */
-    @FXML private JFXButton minimize;
-    /**  */
-    @FXML private JFXButton maximise;
-    /**  */
-    @FXML private JFXButton exit;
-    /**  */
-    @FXML private JFXButton btnExit;
-    /**  */
-    @FXML private ImageView musicImage;
-    /**  */
-    @FXML private ImageView effectsImage;
-
     /**
      *
+     */
+    @FXML
+    private AnchorPane window;
+    /**
      *
+     */
+    @FXML
+    private JFXButton levels;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton loadGame;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton scoreboard;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton settings;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton sfx;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton music;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton minimize;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton maximise;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton exit;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton btnExit;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton profile;
+    /**
+     *
+     */
+    @FXML
+    private JFXButton signOut;
+    /**
+     *
+     */
+    @FXML
+    private ImageView musicImage;
+    /**
+     *
+     */
+    @FXML
+    private ImageView effectsImage;
+
+    /**
      * @param url
      * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         onActions();
+
         musicImage.setOpacity(Audio.isMuted("music"));
         effectsImage.setOpacity(Audio.isMuted("effects"));
         if (!Player.hasSaveFile()) {
             loadGame.setDisable(true);
         }
-
     }
 
     /**
@@ -116,6 +164,27 @@ public class MainMenuController implements Initializable {
         sfx.setOnAction(e -> {
             StageFunctions.muteEffects();
             StageFunctions.toggleOpacity(effectsImage);
+        });
+
+        profile.setOnAction(e -> {
+            try {
+                StageFunctions.openProfile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        signOut.setOnAction(e -> {
+            ConfirmDialog dialog = new ConfirmDialog();
+            boolean result = dialog.getDecision("Sign Out Warning!", "Are you sure you want to sign out?");
+
+            if (result) {
+                try {
+                    StageFunctions.changeScene("main", "Player Entry Screen");
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+                    ex.printStackTrace();
+                }
+            }
         });
 
         minimize.setOnAction(e -> StageFunctions.minimize());

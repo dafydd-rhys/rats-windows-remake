@@ -9,7 +9,7 @@ import tile.Tile;
 
 /**
  * LevelLoadGenerator.java
- *
+ * <p>
  * Generates a level from a loaded save file.
  *
  * @author Maurice Petersen (2013396)
@@ -75,10 +75,11 @@ public class LevelLoadGenerator {
 
     /**
      * Add tile from level file to tile array.
+     *
      * @param tiles tile array
-     * @param x x coordinate
-     * @param y y coordinate
-     * @param type tile type
+     * @param x     x coordinate
+     * @param y     y coordinate
+     * @param type  tile type
      */
     private void setTile(Tile[][] tiles, int x, int y, Tile.TYPE type) {
         Tile tile = new Tile(x, y, type, new ArrayList<>());
@@ -88,8 +89,9 @@ public class LevelLoadGenerator {
 
     /**
      * Add rats to tile.
+     *
      * @param tiles tile array.
-     * @param rat rat to be added.
+     * @param rat   rat to be added.
      */
     private void setRat(Tile[][] tiles, Rat rat) {
         int x = rat.getCurrentPosX();
@@ -103,8 +105,9 @@ public class LevelLoadGenerator {
 
     /**
      * Add item to tile.
+     *
      * @param tiles tile array
-     * @param item item to be added
+     * @param item  item to be added
      */
     private void setItem(Tile[][] tiles, Item item) {
         int x = item.getCurrentPosX();

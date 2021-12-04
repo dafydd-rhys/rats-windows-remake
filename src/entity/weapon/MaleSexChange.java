@@ -1,21 +1,17 @@
 package entity.weapon;
 
+import static main.external.Audio.playGameEffect;
 import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import entity.Entity;
 import main.Resources;
 import main.level.Level;
 import tile.Tile;
-import main.external.Audio;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static main.external.Audio.playGameEffect;
 
 /**
  * MaleSexChange
@@ -64,7 +60,7 @@ public class MaleSexChange extends Item {
      * changes affected rats' gender to male
      *
      * @param level gets tiles
-     * @param gc unused attribute
+     * @param gc    unused attribute
      */
     public void activate(Level level, GraphicsContext gc) {
         Tile[][] tile = level.getTiles();

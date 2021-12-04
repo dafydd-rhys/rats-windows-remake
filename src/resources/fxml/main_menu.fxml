@@ -113,6 +113,24 @@
                         <Font name="Calibri Light" size="16.0" />
                      </font>
                   </JFXButton>
+                  <JFXButton fx:id="profile" layoutX="554.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="41.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu/profile.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="signOut" layoutX="5.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="41.0" style="-fx-graphic: url('@../../../images/email.png'); -fx-background-image: url('@../../../images/email.png');">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/menu/sign-out.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children>

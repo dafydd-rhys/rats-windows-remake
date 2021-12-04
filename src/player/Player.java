@@ -158,7 +158,6 @@ public class Player {
 
         PrintWriter writer = new PrintWriter(Resources.getPlayers(), StandardCharsets.UTF_8);
         for (String player : existingPlayers) {
-            System.out.println(player);
             writer.println(player);
         }
         writer.close();
@@ -216,6 +215,24 @@ public class Player {
         }
 
         return false;
+    }
+
+    public static void deletePlayer() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(Resources.getPlayers()));
+        ArrayList<String> existingPlayers = new ArrayList<>();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if(!line.equals(playerName + ":" + maxLevel)) {
+                existingPlayers.add(line);
+            }
+        }
+
+        PrintWriter writer = new PrintWriter(Resources.getPlayers(), StandardCharsets.UTF_8);
+        for (String player : existingPlayers) {
+            writer.println(player);
+        }
+        writer.close();
     }
 
 }

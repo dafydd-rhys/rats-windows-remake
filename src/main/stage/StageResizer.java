@@ -39,8 +39,6 @@ public class StageResizer {
     }
 
     /**
-     *
-     *
      * @param node
      * @param listener
      */

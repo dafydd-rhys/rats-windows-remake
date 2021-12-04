@@ -1,22 +1,17 @@
 package entity.weapon;
 
+import static main.external.Audio.playGameEffect;
 import entity.Entity;
 import entity.Item;
 import entity.rat.Rat;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import main.Resources;
 import main.level.Level;
 import tile.Tile;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import static main.external.Audio.playGameEffect;
 
 /**
  * Sterilisation

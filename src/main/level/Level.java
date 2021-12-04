@@ -4,7 +4,6 @@ import entity.rat.Rat;
 import entity.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javafx.scene.control.ProgressBar;
 import tile.Tile;
 
 /**
@@ -44,9 +43,9 @@ public final class Level {
     private static boolean gameOver = false;
     /** */
     private static boolean gameWon = false;
-
+    /** */
     private int currentTick;
-
+    /** */
     private static boolean paused = false;
 
     /**
