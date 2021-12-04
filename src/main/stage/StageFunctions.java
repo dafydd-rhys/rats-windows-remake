@@ -12,6 +12,7 @@ import javafx.stage.StageStyle;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import main.Resources;
 import main.external.Audio;
 
 /**
@@ -50,7 +51,7 @@ public class StageFunctions {
      */
     public static void changeScene(String path, String title) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Audio.clickEffect();
-        Parent scene = FXMLLoader.load(new URL("file:/" + System.getProperty("user.dir") + path));
+        Parent scene = FXMLLoader.load(Resources.getFXML(path));
 
         stage.setMinHeight(530);
         stage.setMinWidth(800);
@@ -70,8 +71,7 @@ public class StageFunctions {
      */
     public static void openSettings() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Audio.clickEffect();
-        StageFunctions.settingsStage = openPopOut(new URL("file:/" + System.getProperty("user.dir") +
-                "\\src\\resources\\fxml\\settings.fxml"));
+        StageFunctions.settingsStage = openPopOut(Resources.getFXML("settings"));
     }
 
     /**
@@ -82,8 +82,7 @@ public class StageFunctions {
      * @throws LineUnavailableException      the line unavailable exception
      */
     public static void openGameOver() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        StageFunctions.gameOverStage = openPopOut(new URL("file:/" + System.getProperty("user.dir")
-                + "\\src\\resources\\fxml\\game_over.fxml"));
+        StageFunctions.gameOverStage = openPopOut(Resources.getFXML("game_over"));
     }
 
     private static Stage openPopOut(URL url) throws IOException {

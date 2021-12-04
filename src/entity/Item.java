@@ -239,15 +239,15 @@ public abstract class Item extends Entity {
     public String toString() {
         String result = "";
 
-        result += this.getEntityName().charAt(0);
+        result += getEntityName().charAt(0);
 
-        if (this.getCurrentPosX() != 0 && this.getCurrentPosY() != 0) {
-            result += this.getHp();
+        if (getCurrentPosX() != 0 && getCurrentPosY() != 0) {
+            result += getHp();
 
             result += ":";
-            result += String.format("%02d", this.getCurrentPosX());
+            result += String.format("%02d", getCurrentPosX());
             result += ":";
-            result += String.format("%02d", this.getCurrentPosY());
+            result += String.format("%02d", getCurrentPosY());
         }
 
         return result;

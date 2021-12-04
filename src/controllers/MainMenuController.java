@@ -75,7 +75,7 @@ public class MainMenuController implements Initializable {
     private void onActions() {
         levels.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\level_select.fxml", "Level Select");
+                StageFunctions.changeScene("level_select", "Level Select");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -85,7 +85,7 @@ public class MainMenuController implements Initializable {
             try {
                 Level.currentLevel = LevelLoader.getCurrentLevel();
                 Level.setIsSave(true);
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                StageFunctions.changeScene("game", "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -94,7 +94,7 @@ public class MainMenuController implements Initializable {
 
         scoreboard.setOnAction(e -> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\scoreboard.fxml", "Scoreboard");
+                StageFunctions.changeScene("scoreboard", "Scoreboard");
             } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
                 ex.printStackTrace();
             }

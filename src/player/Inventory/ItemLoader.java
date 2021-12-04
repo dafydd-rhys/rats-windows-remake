@@ -6,15 +6,12 @@ import java.util.ArrayList;
 
 /**
  * ItemLoader.java
- *
+ * <p>
  * Loads the inventory items from save file.
  *
  * @author Maurice Petersen (2013396).
  */
-public class ItemLoader {
-
-    private final AnchorPane abilities;
-    private final ArrayList<Item.TYPE> items;
+public record ItemLoader(ArrayList<Item.TYPE> items, AnchorPane abilities) {
 
     public ItemLoader(ArrayList<Item.TYPE> items, AnchorPane abilities) {
         this.items = items;

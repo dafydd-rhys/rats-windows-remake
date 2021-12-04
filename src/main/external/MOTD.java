@@ -99,8 +99,7 @@ public class MOTD {
         String secret = getPuzzle();
         URL newURL = new URL(messageURL + "?solution=" + secret);
         String response = getRequest(newURL);
-        String message = response.split("\\(")[0];
-        return message;
+        return response.split("\\(")[0];
     }
 
 }

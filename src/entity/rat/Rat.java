@@ -2,6 +2,7 @@ package entity.rat;
 
 import entity.Entity;
 import javafx.scene.image.Image;
+import main.Resources;
 import main.level.Level;
 import tile.Tile;
 
@@ -116,15 +117,14 @@ public class Rat extends Entity {
 
     private void setSprites() {
         if (!isAdult) {
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/baby-rat.png"));
+            setImage(Resources.getEntityImage("baby-rat"));
         } else if (gender == Gender.FEMALE) {
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
+            setImage(Resources.getEntityImage("death-rat"));
         } else if (gender == Gender.MALE){
-            setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-rat.png"));
+            setImage(Resources.getEntityImage("male-rat"));
         }
 
         getImages();
-
         List<Direction> values = List.of(Direction.values());
         setDirection(values.get(new Random().nextInt(values.size())));
     }
@@ -218,7 +218,7 @@ public class Rat extends Entity {
      */
     public void giveBirth() {
         if (getGender() == Gender.FEMALE && isPregnant()) {
-            if (getPregnancyStage() == 10) {
+            if (getPregnancyStage() == 1) {
                 Random rand = new Random();
                 int randomNum = rand.nextInt((5) + 1);
 
@@ -257,6 +257,13 @@ public class Rat extends Entity {
         }
     }
 
+    public int killBabies() {
+        int size = babyQueue.size();
+        babyQueue.clear();
+
+        return size;
+    }
+
     /**
      *
      * @param
@@ -264,7 +271,7 @@ public class Rat extends Entity {
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         try {
-            playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+            playGameEffect(Resources.getGameAudio("oof"));
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
@@ -363,6 +370,10 @@ public class Rat extends Entity {
      * Kill.
      */
     public void kill() {
+        if (isPregnant()) {
+            level.setScore(Level.getScore() + (killBabies() * 10));
+        }
+
         level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
         level.getRats().remove(this);
         level.setScore(Level.getScore() + 10);

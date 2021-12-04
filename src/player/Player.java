@@ -3,8 +3,8 @@ package player;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
+import main.Resources;
 
 /**
  * Player
@@ -14,8 +14,6 @@ import java.util.Objects;
  */
 public class Player {
 
-    /** */
-    private static final String players = System.getProperty("user.dir") + "\\src\\resources\\players\\players.txt";
     /** */
     private static String playerName;
     /** */
@@ -145,7 +143,7 @@ public class Player {
     }
 
     public static void unlockedNew(int level) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(players));
+        BufferedReader reader = new BufferedReader(new FileReader(Resources.getPlayers()));
         ArrayList<String> existingPlayers = new ArrayList<>();
 
         String line;
@@ -158,7 +156,7 @@ public class Player {
             }
         }
 
-        PrintWriter writer = new PrintWriter(players, StandardCharsets.UTF_8);
+        PrintWriter writer = new PrintWriter(Resources.getPlayers(), StandardCharsets.UTF_8);
         for (String player : existingPlayers) {
             System.out.println(player);
             writer.println(player);
@@ -172,7 +170,7 @@ public class Player {
      * @throws IOException
      */
     private void alreadyPlayed() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(players));
+        BufferedReader reader = new BufferedReader(new FileReader(Resources.getPlayers()));
 
         boolean found = false;
         String line;
@@ -185,7 +183,7 @@ public class Player {
         }
 
         if (!found) {
-            FileWriter writer = new FileWriter(players, true);
+            FileWriter writer = new FileWriter(Resources.getPlayers(), true);
             Player.maxLevel = 1;
             writer.write(Player.playerName + ":" + Player.maxLevel + "\n");
             writer.close();
@@ -193,7 +191,7 @@ public class Player {
     }
 
     public static boolean hasSaveFile() {
-        return checkforSaveFile(new File("src/resources/config/saves/"));
+        return checkForSaveFile(Resources.getSavesFolder());
     }
 
     /**
@@ -201,11 +199,12 @@ public class Player {
      * @param folder saves folder
      * @return boolean
      */
-    public static boolean checkforSaveFile(File folder) {
-        boolean found = false;
-        for (final File fileEntry : folder.listFiles()) {
+    public static boolean checkForSaveFile(File folder) {
+        boolean found;
+
+        for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
             if (fileEntry.isDirectory()) {
-                checkforSaveFile(fileEntry);
+                checkForSaveFile(fileEntry);
             } else {
                 String[] playerSplit = fileEntry.getName().split("-");
                 String playerName = playerSplit[1].split("\\.")[0];

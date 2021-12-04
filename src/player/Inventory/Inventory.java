@@ -17,13 +17,13 @@ import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import main.Resources;
 import main.external.Audio;
 import main.level.Level;
 import tile.Tile;
@@ -107,11 +107,9 @@ public class Inventory {
 
                         //prevent not being able to drag (image too thin - hard to grab)
                         if (type == Item.TYPE.MALE_CHANGE) {
-                            image.setImage(new Image(System.getProperty("user.dir") +
-                                    "\\src\\resources\\images\\game\\entities\\male-change-show.png"));
+                            image.setImage(Resources.getEntityImage("male-change-show"));
                         } else if (type == Item.TYPE.FEMALE_CHANGE){
-                            image.setImage(new Image(System.getProperty("user.dir") +
-                                    "\\src\\resources\\images\\game\\entities\\female-change-show.png"));
+                            image.setImage(Resources.getEntityImage("female-change-show"));
                         }
 
                         Platform.runLater(() -> abilities.getChildren().add(image));
@@ -179,7 +177,8 @@ public class Inventory {
      * @throws LineUnavailableException
      * @throws IOException
      */
-    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    private static void dragAndDrop(DragEvent event, GraphicsContext gc, AnchorPane abilities)
+            throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int x = ((int) event.getX() / 50);
         int y = ((int) event.getY() / 50);
 

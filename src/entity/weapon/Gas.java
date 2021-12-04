@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.Resources;
 import main.level.Level;
 import tile.Tile;
 
@@ -35,7 +36,7 @@ public class Gas extends Item {
     public Gas() {
         setEntityType(EntityType.ITEM);
         setEntityName("Gas");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/gas-grenade.png"));
+        setImage(Resources.getEntityImage("gas"));
         setHp(12);
         setDamage(2);
         setRange(3);
@@ -52,7 +53,7 @@ public class Gas extends Item {
 
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/harry_gas.wav");
+        playGameEffect(Resources.getGameAudio("gas"));
     }
 
     /**

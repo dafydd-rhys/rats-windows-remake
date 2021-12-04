@@ -18,15 +18,14 @@ public final class Level {
 
     /** The constant currentLevel. */
     public static int currentLevel;
+    /** The constant currentLevel. */
     public static boolean isSave = false;
-
     /** */
     private Level level;
     /** */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     /** */
     private final ArrayList<Rat> rats;
-
     /** */
     private ArrayList<Item> items;
     /** */
@@ -99,17 +98,6 @@ public final class Level {
         rat.setCurrentPosY(tile.getY());
         tile.addEntityToTile(rat);
         rats.add(rat);
-    }
-
-    /**
-     * Gets entities on tile.
-     */
-    public void getEntitiesOnTile() {
-        for (Tile[] tileY : this.tiles) {
-            for (Tile tileX : tileY) {
-                System.out.println(tileX.getEntitiesOnTile());
-            }
-        }
     }
 
     /**

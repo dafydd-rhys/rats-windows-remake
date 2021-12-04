@@ -5,6 +5,7 @@ import entity.rat.Rat;
 import java.net.URL;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.Resources;
 import main.level.Level;
 import tile.Tile;
 import entity.Entity;
@@ -27,19 +28,13 @@ import static main.external.Audio.playGameEffect;
  */
 public class Bomb extends Item {
 
-    private static final String BOMB_IMAGE = System.getProperty("user.dir")
-            + "\\src\\resources\\images\\game\\entities\\bomb-4.png";
-    private static final String EXPLOSION_IMAGE = System.getProperty("user.dir")
-            + "\\src\\resources\\images\\game\\entities\\bomb-0.png";
-
     /**
      * sets item attributes
      */
     public Bomb() {
-        URL oi = this.getClass().getResource("images\\Bomb.png");
         setEntityType(EntityType.ITEM);
         setEntityName("Bomb");
-        setImage(new Image(BOMB_IMAGE));
+        setImage(Resources.getEntityImage("bomb-4"));
         setHp(8);
         setDamage(99);
         setRange(0);
@@ -64,7 +59,7 @@ public class Bomb extends Item {
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/bomb.wav");
+        playGameEffect(Resources.getGameAudio("bomb"));
     }
 
     /**
@@ -76,9 +71,9 @@ public class Bomb extends Item {
     public void activate(Level level, GraphicsContext gc) {
         setHp(getHp() - 1);
         switch (getHp()) {
-            case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-3.png"));
-            case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-2.png"));
-            case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/bomb-1.png"));
+            case 6 -> setImage(Resources.getEntityImage("bomb-3"));
+            case 4 -> setImage(Resources.getEntityImage("bomb-2"));
+            case 2 -> setImage(Resources.getEntityImage("bomb-1"));
             case 0 -> explode(level, gc);
         }
     }
@@ -115,7 +110,7 @@ public class Bomb extends Item {
 
                 distance++;
                 if (current.isWalkable() && current.isCovering()) {
-                    gc.drawImage(new Image(EXPLOSION_IMAGE), current.getX() * 50, current.getY() * 50);
+                    gc.drawImage(Resources.getEntityImage("bomb-0"), current.getX() * 50, current.getY() * 50);
                 }
             }
         }

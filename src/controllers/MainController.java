@@ -15,7 +15,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
 import main.external.MOTD;
-import main.level.Level;
 import main.stage.StageFunctions;
 import player.Player;
 
@@ -115,7 +114,7 @@ public class MainController implements Initializable {
             }
 
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+                StageFunctions.changeScene("main_menu", "Game Screen");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }

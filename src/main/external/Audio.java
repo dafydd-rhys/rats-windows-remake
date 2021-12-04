@@ -13,6 +13,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import main.Resources;
 
 /**
  * Main
@@ -37,12 +38,6 @@ public class Audio {
     /** */
     private static boolean effectsMuted = false;
     /** */
-    private static final File clickPath = new File(System.getProperty("user.dir") + "\\src\\resources\\audio\\menu\\click.wav");
-    /** */
-    private static final File musicPath = new File(System.getProperty("user.dir") + "\\src\\resources\\audio\\menu\\music.wav");
-    /** */
-    private static final String settingsPath = System.getProperty("user.dir") + "\\src\\resources\\config\\settings.txt";
-    /** */
     private static Clip musicClip = null;
     /** */
     private static Clip clickEffect = null;
@@ -55,7 +50,7 @@ public class Audio {
      * @throws LineUnavailableException      the line unavailable exception
      */
     public static void playMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
+        AudioInputStream audio = AudioSystem.getAudioInputStream(Resources.getMenuAudio("music"));
         musicClip = AudioSystem.getClip();
         musicClip.open(audio);
 
@@ -68,16 +63,14 @@ public class Audio {
 
     /**
      * Play game effect.
-     *
-     * @param path the path
+     *e path
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      * @throws IOException                   the io exception
      * @throws LineUnavailableException      the line unavailable exception
      */
-    public static void playGameEffect(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public static void playGameEffect(File file) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (effectsVolume > muted && !effectsMuted) {
-            File effectPath = new File(path);
-            AudioInputStream audio = AudioSystem.getAudioInputStream(effectPath);
+            AudioInputStream audio = AudioSystem.getAudioInputStream(file);
             Clip clickEffect = AudioSystem.getClip();
             clickEffect.open(audio);
             ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
@@ -94,7 +87,7 @@ public class Audio {
      */
     public static void clickEffect() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (effectsVolume > muted && !effectsMuted) {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(clickPath);
+            AudioInputStream audio = AudioSystem.getAudioInputStream(Resources.getMenuAudio("click"));
             clickEffect = AudioSystem.getClip();
             clickEffect.open(audio);
             ((FloatControl) clickEffect.getControl(FloatControl.Type.MASTER_GAIN)).setValue(effectsVolume);
@@ -205,7 +198,7 @@ public class Audio {
      * @throws IOException the io exception
      */
     public static void getValues() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(settingsPath));
+        BufferedReader reader = new BufferedReader(new FileReader(Resources.getSettings()));
 
         String line;
         while ((line = reader.readLine()) != null) {
@@ -239,7 +232,7 @@ public class Audio {
     }
 
     private static void writeValues() throws IOException {
-        PrintWriter writer = new PrintWriter(settingsPath, StandardCharsets.UTF_8);
+        PrintWriter writer = new PrintWriter(Resources.getSettings(), StandardCharsets.UTF_8);
 
         writer.println("musicVolume:" + music);
         writer.println("effectsVolume:" + effects);

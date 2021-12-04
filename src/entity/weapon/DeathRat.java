@@ -12,6 +12,7 @@ import java.util.Random;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.Resources;
 import main.level.Level;
 import tile.Tile;
 
@@ -72,7 +73,7 @@ public class DeathRat extends Item {//used to extend Entities.Item
     public DeathRat() {
         setEntityType(EntityType.ITEM);
         setEntityName("DeathRat");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/death-rat.png"));
+        setImage(Resources.getEntityImage("death-rat"));
         setHp(5);
         setDamage(5);
         setRange(2);
@@ -97,7 +98,7 @@ public class DeathRat extends Item {//used to extend Entities.Item
 
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/rat_dying.wav");
+        playGameEffect(Resources.getGameAudio("rat_dying"));
     }
 
     /**

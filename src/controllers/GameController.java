@@ -25,9 +25,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Rectangle;
+import main.Resources;
 import main.level.*;
 import player.Inventory.Inventory;
 import player.Inventory.ItemGenerator;
@@ -229,6 +229,7 @@ public class GameController implements Initializable {
                             maleRatCount++;
                         }
                     }
+
                     double maleRatPercentage = level.getRats().size() * progressIncrease * (maleRatCount / level.getRats().size()) * 100;
                     double currentProgress = level.getRats().size() * progressIncrease * 100;
                     LinearGradient g = LinearGradient.valueOf("linear-gradient(to top, " +
@@ -324,7 +325,7 @@ public class GameController implements Initializable {
                 Level.setIsSave(false);
                 ticker.cancel();
                 currentTick = 0;
-                StageFunctions.changeScene("\\src\\resources\\fxml\\game.fxml", "Level " + Level.getCurrentLevel());
+                StageFunctions.changeScene("game", "Level " + Level.getCurrentLevel());
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -337,7 +338,7 @@ public class GameController implements Initializable {
                 ls.save();
                 ticker.cancel();
                 currentTick = 0;
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Main Menu");
+                StageFunctions.changeScene("main_menu", "Main Menu");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -432,32 +433,30 @@ public class GameController implements Initializable {
                 if (level.getTiles()[item.getCurrentPosY()][item.getCurrentPosX()].isCovering()) {
                     if (item.getType() == Item.TYPE.DEATH_RAT) {
                         DeathRat deathRat = (DeathRat) item;
-                        gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+                        gc.drawImage(deathRat.getRotatedImage(), item.getCurrentPosX() * 50 + 10,
+                                item.getCurrentPosY() * 50 + 10);
                     } else if (item.getType() == Item.TYPE.GAS) {
                         Gas gas = (Gas) item;
-                        Image smoke = new Image(System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\gas-cloud.png");
-                        String opacity = System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\gas-cloud-opacity";
+                        gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10,
+                                item.getCurrentPosY() * 50 + 10);
 
-                        gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
                         for (Tile tile : gas.getTiles()) {
                             if (tile.isCovering()) {
                                 if (gas.getHp() <= 3) {
-                                    gc.drawImage(new Image(opacity + gas.getHp() + ".png"), tile.getX() * 50, tile.getY() * 50);
+                                    gc.drawImage(Resources.getEntityImage("gas-cloud" + gas.getHp()),
+                                            tile.getX() * 50, tile.getY() * 50);
                                 } else {
-                                    gc.drawImage(smoke, tile.getX() * 50, tile.getY() * 50);
+                                    gc.drawImage(Resources.getEntityImage("gas-cloud"),
+                                            tile.getX() * 50, tile.getY() * 50);
                                 }
                             }
                         }
                     } else if (item.getType() == Item.TYPE.STERILISATION) {
                         Sterilisation sterilisation = (Sterilisation) item;
-                        Image splash = new Image(System.getProperty("user.dir") +
-                                "\\src\\resources\\images\\game\\entities\\splash.png");
-
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);
+
                         for (Tile tile : sterilisation.getDrawableTiles()) {
-                            gc.drawImage(splash, tile.getX() * 50, tile.getY() * 50);
+                            gc.drawImage(Resources.getEntityImage("splash"), tile.getX() * 50, tile.getY() * 50);
                         }
                     } else {
                         gc.drawImage(item.getImage(), item.getCurrentPosX() * 50 + 10, item.getCurrentPosY() * 50 + 10);

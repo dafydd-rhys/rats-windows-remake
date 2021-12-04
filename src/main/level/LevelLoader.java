@@ -3,6 +3,7 @@ package main.level;
 import entity.Item;
 import entity.rat.Rat;
 import entity.weapon.*;
+import main.Resources;
 import player.Player;
 import java.io.*;
 import java.nio.file.Files;
@@ -18,9 +19,9 @@ import java.util.Scanner;
  */
 public class LevelLoader {
 
-    private final String saveDir;
+    private final File saveDir;
     private String player;
-    private String levelDir;
+    private File levelDir;
     private Level level;
     private int currentLevel;
     private final ArrayList<Rat> ratSpawns;
@@ -31,7 +32,7 @@ public class LevelLoader {
 
     public LevelLoader() throws IOException {
         this.player = Player.getPlayerName();
-        this.saveDir = "src/resources/config/saves/save-" + player + ".txt";
+        this.saveDir = Resources.getSaves(player);
         this.ratSpawns = new ArrayList<>();
         this.itemSpawns = new ArrayList<>();
         this.inventory = new ArrayList<>();
@@ -57,11 +58,11 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readLevel() throws IOException {
-        Scanner scanner = new Scanner(new File(saveDir));
+        Scanner scanner = new Scanner(saveDir);
         this.currentLevel = scanner.nextInt();
         this.currentTick = scanner.nextInt();
         this.score = scanner.nextInt();
-        this.levelDir = "src/resources/config/levels/level" + currentLevel + ".txt";
+        this.levelDir = Resources.getLevel(currentLevel);
         scanner.close();
     }
 
@@ -70,8 +71,9 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readRatSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(3);
+        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(3);
         Scanner scanner = new Scanner(line);
+
         if (scanner.hasNext()) {
             String[] ratSplit = scanner.next().split(",");
             for (String ratEntry : ratSplit) {
@@ -131,7 +133,7 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readItemSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(4);
+        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(4);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -175,7 +177,7 @@ public class LevelLoader {
      * @throws IOException
      */
     private void readInventoryItems() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir)).get(5);
+        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(5);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -203,7 +205,7 @@ public class LevelLoader {
     }
 
     public static int getCurrentLevel() throws IOException {
-        Scanner scanner = new Scanner(new File("src/resources/config/saves/save-" + Player.getPlayerName() + ".txt"));
+        Scanner scanner = new Scanner(Resources.getSaves(Player.getPlayerName()));
         int currLevel = scanner.nextInt();
         scanner.close();
         return currLevel;

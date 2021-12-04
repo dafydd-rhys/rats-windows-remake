@@ -3,6 +3,7 @@ package tile;
 import javafx.scene.image.Image;
 import entity.Entity;
 import java.util.ArrayList;
+import main.Resources;
 import player.Player;
 
 /**
@@ -59,32 +60,32 @@ public class Tile {
 
         if (type == TYPE.THEMED) {
             if (Player.getTheme() == Player.THEME.SPRING) {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/grass.png");
+                image = Resources.getTileImage("grass");
             } else if (Player.getTheme() == Player.THEME.BEACH) {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/sand.png");
+                image = Resources.getTileImage("sand");
             } else {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/snow.png");
+                image = Resources.getTileImage("snow");
             }
 
             this.isWalkable = false;
             this.isCovering = false;
         } else if (type == TYPE.PATH) {
             if (Player.getTheme() == Player.THEME.SPRING) {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path.png");
+                image = Resources.getTileImage("path");
             } else if (Player.getTheme() == Player.THEME.BEACH) {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path_sand.png");
+                image = Resources.getTileImage("path_sand");
             } else {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/path_snow.png");
+                image = Resources.getTileImage("path_snow");
             }
             this.isWalkable = true;
             this.isCovering = false;
         } else {
             if (Player.getTheme() == Player.THEME.SPRING) {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel.png");
+                image = Resources.getTileImage("tunnel");
             } else if (Player.getTheme() == Player.THEME.BEACH) {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel_sand.png");
+                image = Resources.getTileImage("tunnel_sand");
             } else {
-                image = new Image(System.getProperty("user.dir") + "/src/resources/images/game/tiles/tunnel_snow.png");
+                image = Resources.getTileImage("tunnel_snow");
             }
             this.isWalkable = true;
             this.isCovering = true;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import main.Resources;
 import main.level.Level;
 import tile.Tile;
 
@@ -34,7 +35,7 @@ public class Sterilisation extends Item {
     public Sterilisation() {
         setEntityType(EntityType.ITEM);
         setEntityName("Sterilisation");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/sterilisation.png"));
+        setImage(Resources.getEntityImage("sterilisation"));
         setHp(10);
         setDamage(0);
         setRange(2);
@@ -60,7 +61,7 @@ public class Sterilisation extends Item {
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sterilisation.wav");
+        playGameEffect(Resources.getGameAudio("sterilisation"));
     }
 
     /**

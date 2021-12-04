@@ -1,17 +1,12 @@
 package entity.weapon;
 
 import entity.Item;
-import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import entity.Entity;
+import main.Resources;
 import main.level.Level;
-import tile.Tile;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static main.external.Audio.playGameEffect;
 
@@ -26,7 +21,7 @@ public class NoEntrySign extends Item {
     public NoEntrySign() {
         setEntityType(EntityType.ITEM);
         setEntityName("NoEntry");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-5.png"));
+        setImage(Resources.getEntityImage("no-entry-sign-5"));
         setHp(10);
         setDamage(0);
         setRange(1);
@@ -51,7 +46,7 @@ public class NoEntrySign extends Item {
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/oof.wav");
+        playGameEffect(Resources.getGameAudio("oof"));
     }
 
     /**
@@ -62,10 +57,10 @@ public class NoEntrySign extends Item {
      */
     public void activate(Level level, GraphicsContext gc) {
         switch (getHp()) {
-            case 8 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-4.png"));
-            case 6 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-3.png"));
-            case 4 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-2.png"));
-            case 2 -> setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/no-entry-sign-1.png"));
+            case 8 -> setImage(Resources.getEntityImage("no-entry-sign-4"));
+            case 6 -> setImage(Resources.getEntityImage("no-entry-sign-3"));
+            case 4 -> setImage(Resources.getEntityImage("no-entry-sign-2"));
+            case 2 -> setImage(Resources.getEntityImage("no-entry-sign-1"));
             case 0 -> {
                 level.getTiles()[getCurrentPosY()][getCurrentPosX()].removeEntityFromTile(this);
                 level.getItems().remove(this);

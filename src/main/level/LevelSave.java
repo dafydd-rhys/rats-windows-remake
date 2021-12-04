@@ -2,7 +2,9 @@ package main.level;
 
 import entity.Item;
 import entity.rat.Rat;
+import java.io.File;
 import javafx.scene.image.ImageView;
+import main.Resources;
 import player.Inventory.Inventory;
 import player.Player;
 
@@ -23,15 +25,12 @@ import java.util.*;
  */
 public class LevelSave {
 
-    private final String saveDir;
+    private final File saveDir;
     private final Level level;
-    private final String player;
 
     public LevelSave(Level currentLevel) {
         this.level = currentLevel;
-        this.player = Player.getPlayerName();
-        this.saveDir = "src/resources/config/saves/save-" + player + ".txt";
-
+        this.saveDir = Resources.getSaves(Player.getPlayerName());
     }
 
     /**
@@ -77,7 +76,7 @@ public class LevelSave {
         }
         lines.add(joiner.toString());
 
-        Path file = Paths.get(saveDir);
+        Path file = Paths.get(saveDir.toURI());
         Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 

@@ -125,7 +125,7 @@ public class ScoreboardController implements Initializable {
         });
         back.setOnAction(e-> {
             try {
-                StageFunctions.changeScene("\\src\\resources\\fxml\\main_menu.fxml", "Game Screen");
+                StageFunctions.changeScene("main_menu", "Game Screen");
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
                 ex.printStackTrace();
             }
@@ -154,6 +154,7 @@ public class ScoreboardController implements Initializable {
             String lowerCaseFilter = newValue.toLowerCase();
             return String.valueOf(myObject.getLevel()).toLowerCase().contains(lowerCaseFilter);
         }));
+
         SortedList<ScoreboardPlayer> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(scoreboard.comparatorProperty());
         scoreboard.setItems(sortedData);

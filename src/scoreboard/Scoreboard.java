@@ -1,7 +1,7 @@
 package scoreboard;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import main.Resources;
 
 /**
  * Scoreboard
@@ -22,7 +23,7 @@ public class Scoreboard {
     /** */
     private final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
     /** */
-    private final String directory;
+    private final File directory;
 
     /**
      * Instantiates a new Scoreboard.
@@ -32,16 +33,15 @@ public class Scoreboard {
      */
     public Scoreboard(int level) throws IOException {
         this.level = level;
-        this.directory = "src/resources/config/scoreboard/scoreboard-level" + level + ".txt";
+        this.directory = Resources.getScoreboard(level);
     }
 
     /**
      * Gets scoreboard.
      *
-     * @return the scoreboard
      * @throws IOException the io exception
      */
-    public List<ScoreboardPlayer> getScoreboard() throws IOException {
+    public void getScoreboard() throws IOException {
         scoreboardPlayers.clear();
         BufferedReader reader = new BufferedReader(new FileReader(directory));
 
@@ -52,8 +52,6 @@ public class Scoreboard {
             scoreboardPlayers.add(new ScoreboardPlayer("Level " + level, count, split[0], Integer.parseInt(split[1])));
             count++;
         }
-
-        return scoreboardPlayers;
     }
 
     /**
@@ -66,8 +64,8 @@ public class Scoreboard {
         ArrayList<ScoreboardPlayer> allScoreboardPlayers = new ArrayList<>();
 
         for (int i = 1; i < 7; i++) {
-            String dir = "src/resources/config/scoreboard/scoreboard-level" + i + ".txt";
-            BufferedReader reader = new BufferedReader(new FileReader(dir));
+            File file = Resources.getScoreboard(i);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
 
             int count = 1;
             String line;

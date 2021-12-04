@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+import main.Resources;
 
 /**
  * LevelFileReader
@@ -23,9 +24,9 @@ public class LevelFileReader {
     /** */
     private char[][] spawns;
     /** */
-    private final String lvlDirectory;
+    private final File lvlDirectory;
     /** */
-    private final String spawnDirectory;
+    private final File spawnDirectory;
     /** */
     private int expectedTime;
     /** */
@@ -42,8 +43,8 @@ public class LevelFileReader {
      * @throws IOException the io exception
      */
     public LevelFileReader(int level, boolean isSave) throws IOException {
-        this.lvlDirectory = "src/resources/config/levels/level" + level + ".txt";
-        this.spawnDirectory= "src/resources/config/spawns/level" + level + "-spawns.txt";
+        this.lvlDirectory = Resources.getLevel(level);
+        this.spawnDirectory = Resources.getSpawns(level);
         loadLevel();
 
         if(!isSave) {
@@ -135,15 +136,15 @@ public class LevelFileReader {
     /**
      *
      *
-     * @param dir
+     * @param file
      * @return
      * @throws FileNotFoundException
      */
-    private char[][] readFile(String dir) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(dir));
+    private char[][] readFile(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
         char[][] array;
 
-        if (dir.equals(lvlDirectory)) {
+        if (file.equals(lvlDirectory)) {
             String[] split = scanner.next().split(",");
             sizeX = Integer.parseInt(split[0].substring(0, 0) + split[0].substring(1));
             sizeY = Integer.parseInt(split[1].substring(0, 2));

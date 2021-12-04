@@ -5,6 +5,7 @@ import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import entity.Entity;
+import main.Resources;
 import main.level.Level;
 import tile.Tile;
 import main.external.Audio;
@@ -31,7 +32,7 @@ public class MaleSexChange extends Item {
     public MaleSexChange() {
         setEntityType(EntityType.ITEM);
         setEntityName("MaleSexChange");
-        setImage(new Image(System.getProperty("user.dir") + "/src/resources/images/game/entities/male-change.png"));
+        setImage(Resources.getEntityImage("male-change"));
         setHp(1);
         setDamage(0);
         setRange(1);
@@ -39,7 +40,6 @@ public class MaleSexChange extends Item {
         setCanBeAttacked(false);
         setType(TYPE.MALE_CHANGE);
         setOffsetY(4);
-        //setSound(new Sound(System.getProperty("user.dir") + "/src/resources/audio/game"));
     }
 
     /**
@@ -57,7 +57,7 @@ public class MaleSexChange extends Item {
      */
     @Override
     public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        playGameEffect(System.getProperty("user.dir") + "/src/resources/audio/game/sex_change.wav");
+        playGameEffect(Resources.getGameAudio("sex_change"));
     }
 
     /**

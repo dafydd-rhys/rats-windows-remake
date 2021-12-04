@@ -4,6 +4,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import main.Resources;
 
 /**
  * The type Rat sprites.
@@ -13,8 +14,7 @@ public class RatSprites {
     /**
      * The constant upMale.
      */
-    public static final Image upMale = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/male-rat.png");
+    public static final Image upMale = Resources.getEntityImage("male-rat");
     /**
      * The constant rightMale.
      */
@@ -31,8 +31,7 @@ public class RatSprites {
     /**
      * The constant upMaleSterilised.
      */
-    public static final Image upMaleSterilised = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/sterilised-male-rat.png");
+    public static final Image upMaleSterilised = Resources.getEntityImage("sterilised-male-rat");
     /**
      * The constant downMaleSterilised.
      */
@@ -49,8 +48,7 @@ public class RatSprites {
     /**
      * The constant upFemale.
      */
-    public static final Image upFemale = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/female-rat.png");
+    public static final Image upFemale = Resources.getEntityImage("female-rat");
     /**
      * The constant rightFemale.
      */
@@ -67,8 +65,7 @@ public class RatSprites {
     /**
      * The constant upFemaleSterilised.
      */
-    public static final Image upFemaleSterilised = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/sterilised-female-rat.png");
+    public static final Image upFemaleSterilised = Resources.getEntityImage("sterilised-female-rat");
     /**
      * The constant downFemaleSterilised.
      */
@@ -85,8 +82,7 @@ public class RatSprites {
     /**
      * The constant upBaby.
      */
-    public static final Image upBaby = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/baby-rat.png");
+    public static final Image upBaby = Resources.getEntityImage("baby-rat");
     /**
      * The constant downBaby.
      */
@@ -103,8 +99,7 @@ public class RatSprites {
     /**
      * The constant upDeath.
      */
-    public static final Image upDeath = new Image(System.getProperty("user.dir") +
-            "/src/resources/images/game/entities/death-rat.png");
+    public static final Image upDeath = Resources.getEntityImage("death-rat");
     /**
      * The constant downDeath.
      */
