@@ -225,7 +225,7 @@ public final class Level {
     /**
      * Set IsSave.
      *
-     * @param paramIsSave if game is saved
+     * @param paramIsSave if game is a save file
      */
     public static void setIsSave(final boolean paramIsSave) {
         Level.isSave = paramIsSave;
@@ -234,7 +234,7 @@ public final class Level {
     /**
      * Get IsSave.
      *
-     * @return if game is saved
+     * @return if loading a save file
      */
     public static boolean isSave() {
         return Level.isSave;
