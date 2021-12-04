@@ -9,44 +9,75 @@ import tile.Tile;
 /**
  * This class represents the Level.
  *
- *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Maurice Petersen (2013396)
  */
 public final class Level {
 
-    /** The constant currentLevel. */
+    /**
+     * The constant currentLevel.
+     */
     public static int currentLevel;
-    /** Save status. */
+    /**
+     * Save status.
+     */
     public static boolean isSave = false;
-    /** Current level*/
+    /**
+     * Current level
+     */
     private Level level;
-    /** HashMap for weapons and their respawn rates*/
+    /**
+     * HashMap for weapons and their respawn rates
+     */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
-    /** ArrayList of Rats in the level*/
+    /**
+     * ArrayList of Rats in the level
+     */
     private final ArrayList<Rat> rats;
-    /** ArrayList of Items*/
+    /**
+     * ArrayList of Items
+     */
     private ArrayList<Item> items;
-    /** */
+    /**
+     *
+     */
     private final Tile[][] tiles;
-    /** */
+    /**
+     *
+     */
     private static int score;
-    /** */
+    /**
+     *
+     */
     private int cols;
-    /** */
+    /**
+     *
+     */
     private int rows;
-    /** */
+    /**
+     *
+     */
     private int expectedTime;
-    /** */
+    /**
+     *
+     */
     private int maxRats;
-    /** */
+    /**
+     *
+     */
     private static boolean gameOver = false;
-    /** */
+    /**
+     *
+     */
     private static boolean gameWon = false;
-    /** */
+    /**
+     *
+     */
     private int currentTick;
-    /** */
+    /**
+     *
+     */
     private static boolean paused = false;
 
     /**
@@ -339,6 +370,7 @@ public final class Level {
 
     /**
      * Returns the pause status
+     *
      * @return current state of paused boolean
      */
     public static boolean getPaused() {
