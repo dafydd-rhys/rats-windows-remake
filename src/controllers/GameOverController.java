@@ -17,44 +17,48 @@ import player.Player;
 
 /**
  * Controller used to handle the game over screen.
+ * @author Gareth Wade (1901805)
+ * @author Chunyuan Zhang
  */
 public class GameOverController implements Initializable {
 
     /**
-     *
+     * JavaFX Button for closing the stage window.
      */
     @FXML
     private JFXButton exit;
     /**
-     *
+     * JavaFX Button for terminating application window.
      */
     @FXML
     private JFXButton exitbtn;
     /**
-     *
+     * JavaFX Button for proceeding to next scene.
      */
     @FXML
     private JFXButton play;
     /**
-     *
+     * JavaFX Button for resetting current scene.
      */
     @FXML
     private JFXButton restart;
     /**
-     *
+     * JavaFX Button for proceeding to menu scene.
      */
     @FXML
     private JFXButton menu;
     /**
-     *
+     * JavaFX Text to show application status.
      */
     @FXML
     private Text status;
     /**
-     *
+     * JavaFX Text to show application score.
      */
     @FXML
     private Text score;
+
+    private static final int MAX_LEVEL = 6;
 
     /**
      * @param url
@@ -70,7 +74,7 @@ public class GameOverController implements Initializable {
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                 e.printStackTrace();
             }
-            if (Level.getCurrentLevel() + 1 <= 6) {
+            if (Level.getCurrentLevel() + 1 <= MAX_LEVEL) {
                 play.setDisable(false);
                 if (Player.getMaxLevel() < Level.getCurrentLevel() + 1) {
                     try {
@@ -110,9 +114,10 @@ public class GameOverController implements Initializable {
     }
 
     /**
-     *
+     * Defines actions that occur when a button is clicked as listeners.
      */
     private void onActions() {
+        // changes current players max level +=1 and begins the next level.
         play.setOnAction(e -> {
             try {
                 Level.setCurrentLevel(Level.getCurrentLevel() + 1);
@@ -123,7 +128,7 @@ public class GameOverController implements Initializable {
                 ex.printStackTrace();
             }
         });
-
+        // reloads the current level from file.
         restart.setOnAction(e -> {
             try {
                 Level.setIsSave(false);
@@ -133,7 +138,7 @@ public class GameOverController implements Initializable {
                 ex.printStackTrace();
             }
         });
-
+        // change scene to menu scene.
         menu.setOnAction(e -> {
             try {
                 StageFunctions.changeScene("main_menu", "Main Menu");
@@ -142,7 +147,7 @@ public class GameOverController implements Initializable {
                 ex.printStackTrace();
             }
         });
-
+        // closes game over window.
         exit.setOnAction(e -> {
             try {
                 StageFunctions.exitGameOver();
@@ -150,7 +155,7 @@ public class GameOverController implements Initializable {
                 ex.printStackTrace();
             }
         });
-
+        // terminates application.
         exitbtn.setOnAction(e -> {
             try {
                 StageFunctions.exit();

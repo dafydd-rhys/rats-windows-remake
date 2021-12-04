@@ -37,7 +37,7 @@ public class SettingsController implements Initializable {
     @FXML
     private JFXButton minimize;
     /**
-     * JavaFX Button for terminating application window.
+     * JavaFX Button for closing scene.
      */
     @FXML
     private JFXButton exit;
@@ -73,9 +73,9 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
-        // minimizes application to user taskbar.
+        // minimizes scene to user taskbar.
         minimize.setOnAction(e -> StageFunctions.minimizeSettings());
-        // terminates application.
+        // closes settings window.
         exit.setOnAction(e -> {
             try {
                 Level.setPaused(false);
