@@ -8,7 +8,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Item
+ * An abstract class representing Items (Weapons).
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
@@ -17,14 +17,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public abstract class Item extends Entity {
 
-    /**
-     *
-     */
-    private boolean friendlyFire;
-    /**
-     *
-     */
-    private boolean canBeAttacked;
     /**
      *
      */
@@ -148,42 +140,6 @@ public abstract class Item extends Entity {
     @Override
     public Image getImage() {
         return image;
-    }
-
-    /**
-     * Is friendly fire boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isFriendlyFire() {
-        return friendlyFire;
-    }
-
-    /**
-     * Sets friendly fire.
-     *
-     * @param friendlyFire the friendly fire
-     */
-    public void setFriendlyFire(boolean friendlyFire) {
-        this.friendlyFire = friendlyFire;
-    }
-
-    /**
-     * Can be attacked boolean.
-     *
-     * @return the boolean
-     */
-    public boolean canBeAttacked() {
-        return canBeAttacked;
-    }
-
-    /**
-     * Sets can be attacked.
-     *
-     * @param canBeAttacked the can be attacked
-     */
-    public void setCanBeAttacked(boolean canBeAttacked) {
-        this.canBeAttacked = canBeAttacked;
     }
 
     /**

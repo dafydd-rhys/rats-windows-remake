@@ -347,7 +347,7 @@ public class GameController implements Initializable {
         mainMenu.setOnAction(e -> {
             Level.setPaused(true);
             ConfirmDialog dialog = new ConfirmDialog();
-            boolean result = dialog.getDecision("Return Warning", "Are you sure you want to Main Menu?");
+            boolean result = dialog.getDecision("Return Warning", "Are you sure you want to return to Main Menu?");
 
             if (result) {
                 level.setCurrentTick((int) currentTick);

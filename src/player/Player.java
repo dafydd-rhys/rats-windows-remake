@@ -190,7 +190,7 @@ public class Player {
     }
 
     public static boolean hasSaveFile() {
-        return checkForSaveFile(Resources.getSavesFolder());
+        return checkForSaveFile(Resources.getSavesFolderPath());
     }
 
     /**

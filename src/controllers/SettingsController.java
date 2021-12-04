@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import main.external.Audio;
@@ -15,36 +14,30 @@ import main.level.Level;
 import main.stage.StageFunctions;
 
 /**
- * Settings Controller
+ * Settings Controller.
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd Maund (2003900)
  * @author Dawid Wisniewski (857847)
  */
 public class SettingsController implements Initializable {
-
     /**
-     *
-     */
-    @FXML
-    private AnchorPane window;
-    /**
-     *
+     * Slider for music volume.
      */
     @FXML
     private Slider musicSlider;
     /**
-     *
+     * Slider for effects volume.
      */
     @FXML
     private Slider sfxSlider;
     /**
-     *
+     * JavaFX Button for minimizing application window.
      */
     @FXML
     private JFXButton minimize;
     /**
-     *
+     * JavaFX Button for terminating application window.
      */
     @FXML
     private JFXButton exit;
@@ -61,9 +54,10 @@ public class SettingsController implements Initializable {
     }
 
     /**
-     *
+     * Defines actions that occur when a button is clicked as listeners.
      */
     private void onActions() {
+        // slider sets the music volume to the value on the slider when it is moved by the user.
         musicSlider.valueProperty().addListener((ov, old, value) -> {
             try {
                 Audio.setMusic(value.floatValue());
@@ -71,7 +65,7 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
-
+        // slider sets the effect volume to the value on the slider when it is moved by the user.
         sfxSlider.valueProperty().addListener((ov, old, value) -> {
             try {
                 Audio.setEffects(value.floatValue());
@@ -79,9 +73,9 @@ public class SettingsController implements Initializable {
                 e.printStackTrace();
             }
         });
-
+        // minimizes application to user taskbar.
         minimize.setOnAction(e -> StageFunctions.minimizeSettings());
-
+        // terminates application.
         exit.setOnAction(e -> {
             try {
                 Level.setPaused(false);
