@@ -8,43 +8,44 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 /**
- * Entity
+ * Entity.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
  * @author Stefan -Cristian Daitoiu
  * @author Harry Boyce
+ * @author Bryan Kok
  */
 public abstract class Entity {
 
     /**
      * The Entity type.
      */
-    protected EntityType entityType;
+    private EntityType entityType;
     /**
      * The Entity name.
      */
-    protected String entityName;
+    private String entityName;
     /**
      * The Image.
      */
-    protected Image image;
+    private Image image;
     /**
      * The Hp.
      */
-    protected int hp;
+    private int hp;
     /**
      * The Damage.
      */
-    protected int damage;
+    private int damage;
     /**
      * The Current pos x.
      */
-    protected int currentPosX;
+    private int currentPosX;
     /**
      * The Current pos y.
      */
-    protected int currentPosY;
+    private int currentPosY;
 
     /**
      * Inflict damage.
@@ -53,7 +54,7 @@ public abstract class Entity {
      * @param damageDealt  the damage dealt
      * @param damageTarget the damage target
      */
-    protected void inflictDamage(Level level, int damageDealt, Entity damageTarget) {
+    protected void inflictDamage(final Level level, final int damageDealt, final Entity damageTarget) {
         damageTarget.setHp(damageTarget.getHp() - damageDealt);
 
         if (damageTarget.getEntityType() == EntityType.RAT) {
@@ -97,9 +98,9 @@ public abstract class Entity {
     /**
      * Sets entity type.
      *
-     * @param entityType the entity type
+     * @param newEntityType the entity type
      */
-    public void setEntityType(EntityType entityType) {
+    public void setEntityType(final EntityType newEntityType) {
         this.entityType = entityType;
     }
 
@@ -113,9 +114,9 @@ public abstract class Entity {
     /**
      * Sets entity name.
      *
-     * @param entityName the entity name
+     * @param newEntityName the entity name
      */
-    protected abstract void setEntityName(String entityName);
+    protected abstract void setEntityName(String newEntityName);
 
     /**
      * Gets image.
@@ -127,9 +128,9 @@ public abstract class Entity {
     /**
      * Sets image.
      *
-     * @param image the image
+     * @param newImage the image
      */
-    protected abstract void setImage(Image image);
+    protected abstract void setImage(Image newImage);
 
     /**
      * Gets hp.
@@ -141,9 +142,9 @@ public abstract class Entity {
     /**
      * Sets hp.
      *
-     * @param hp the hp
+     * @param newHp the set hp
      */
-    protected abstract void setHp(int hp);
+    protected abstract void setHp(int newHp);
 
     /**
      * Gets current pos x.
@@ -155,9 +156,9 @@ public abstract class Entity {
     /**
      * Sets current pos x.
      *
-     * @param currentPosX the current pos x
+     * @param newPosX the changed pos x
      */
-    protected abstract void setCurrentPosX(int currentPosX);
+    protected abstract void setCurrentPosX(int newPosX);
 
     /**
      * Gets current pos y.
@@ -169,17 +170,17 @@ public abstract class Entity {
     /**
      * Sets current pos y.
      *
-     * @param currentPosY the current pos y
+     * @param newPosY the changed pos y
      */
-    protected abstract void setCurrentPosY(int currentPosY);
+    protected abstract void setCurrentPosY(int newPosY);
 
     /**
      * Sets damage.
      *
-     * @param damage the damage
+     * @param dealtDamage the damage
      */
-    protected void setDamage(int damage) {
-        this.damage = damage;
+    protected void setDamage(final int dealtDamage) {
+        this.damage = dealtDamage;
     }
 
     /**
@@ -192,7 +193,7 @@ public abstract class Entity {
     }
 
     /**
-     * Abstract method to be implemented into subclass that plays audio file when called
+     * Abstract method to be implemented into subclass that plays audio file when called.
      *
      * @throws UnsupportedAudioFileException the unsupported audio file exception
      * @throws LineUnavailableException      the line unavailable exception
