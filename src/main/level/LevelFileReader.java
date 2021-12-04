@@ -9,7 +9,7 @@ import java.util.Scanner;
 import main.Resources;
 
 /**
- * LevelFileReader
+ * LevelFileReader.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski (857847)
@@ -18,47 +18,52 @@ import main.Resources;
 public class LevelFileReader {
 
     /**
-     *
+     * Hashmap of the time to generate each item.
      */
     private final HashMap<Item.TYPE, Integer> timeToGenerate = new HashMap<>();
     /**
-     *
+     * 2D array of the level.
      */
     private char[][] level;
     /**
-     *
+     * The directory of the level.
      */
     private final File lvlDirectory;
     /**
-     *
+     * The expected time to complete the level.
      */
     private int expectedTime;
     /**
-     *
+     * The maximum number of rats allowed on the game board before the player loses.
      */
     private int maxRats;
     /**
-     *
+     * The size of the level's X axis.
      */
     private int sizeX = 0;
     /**
-     *
+     * The size of the level's Y axis.
      */
     private int sizeY = 0;
     /**
-     *
+     * True if loading game save.
      */
     private boolean save;
+    /**
+     * The amount of items.
+     */
+    private static final int AMOUNT_OF_ITEMS = 8;
 
 
     /**
      * Instantiates a new Level file reader.
      *
-     * @param level the level
+     * @param paramLevel the level
+     * @param isSave true if reading a save file
      * @throws IOException the io exception
      */
-    public LevelFileReader(int level, boolean isSave) throws IOException {
-        this.lvlDirectory = Resources.getLevel(level);
+    public LevelFileReader(final int paramLevel, final boolean isSave) throws IOException {
+        this.lvlDirectory = Resources.getLevel(paramLevel);
         this.save = isSave;
         loadLevel();
     }
@@ -125,12 +130,12 @@ public class LevelFileReader {
     }
 
     /**
-     * @param file
-     * @return
+     * @param file the file to be read
+     * @return array of ??
      * @throws FileNotFoundException Signals that an attempt to open the file denoted by a specified pathname has
      *                               failed
      */
-    private char[][] readFile(File file) throws FileNotFoundException {
+    private char[][] readFile(final File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         char[][] array;
 
@@ -140,7 +145,7 @@ public class LevelFileReader {
         maxRats = scanner.nextInt();
         expectedTime = scanner.nextInt();
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < AMOUNT_OF_ITEMS; i++) {
             split = scanner.next().split(",");
             StringBuilder amount = new StringBuilder(split[1]);
             timeToGenerate.put(getItem(split[0].substring(0, 0) + split[0].substring(1)),
@@ -169,10 +174,10 @@ public class LevelFileReader {
     }
 
     /**
-     * @param item
-     * @return
+     * @param item item
+     * @return the item
      */
-    private Item.TYPE getItem(String item) {
+    private Item.TYPE getItem(final String item) {
         return switch (item) {
             case "Bomb" -> Item.TYPE.BOMB;
             case "Gas" -> Item.TYPE.GAS;
