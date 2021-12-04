@@ -153,7 +153,7 @@ public class GameOverController implements Initializable {
 
         exitbtn.setOnAction(e -> {
             try {
-                StageFunctions.exitGameOver();
+                StageFunctions.exit();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
                 ex.printStackTrace();
             }
