@@ -7,41 +7,32 @@ import main.Resources;
 import player.Player;
 
 /**
- * LevelFileGenerator
+ * The class responsible for the attributes of a Tile.
+ * There are 3 kinds of Tiles: Path, Tunnel and Grass.
+ * Each one of them has different properties and image (selected theme also affects it).
  *
  * @author Dawid Wisniewski
  * @author Dafydd -Rhys Maund (2003900)
  */
 public class Tile {
 
-    /** Entities on tile */
+    /** The list of entities that are currently standing on the Tile */
     protected final ArrayList<Entity> entitiesOnTile;
-    /** */
     private int x;
-    /** */
     private int y;
-    /** */
+    /** The image/texture of the Tile */
     private final Image image;
-    /** */
+    /** Indicates whether the Tile can be walked on */
     private final boolean isWalkable;
-    /** */
+    /** Indicates whether the Tile should cover the entities that are standing on it */
     private final boolean isCovering;
 
     /**
      * The enum Type.
      */
     public enum TYPE {
-        /**
-         * Themed type.
-         */
         THEMED(),
-        /**
-         * Path type.
-         */
         PATH(),
-        /**
-         * Tunnel type.
-         */
         TUNNEL()
     }
 
