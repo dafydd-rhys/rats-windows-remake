@@ -20,19 +20,22 @@ import java.util.ArrayList;
  * @author Bryan Kok
  */
 public class Poison extends Item {
-
+    /** Poison's Damage. */
+    private static final int POISON_DAMAGE = 5;
+    /** Poison's Y Offset. */
+    private static final int POISON_OFFSET_Y = 6;
     /**
-     * Constructor
+     * Constructor.
      */
     public Poison() {
         setEntityType(EntityType.ITEM);
         setEntityName("Poison");
         setImage(Resources.getEntityImage("poison"));
         setHp(1);
-        setDamage(5);
+        setDamage(POISON_DAMAGE);
         setRange(1);
         setType(TYPE.POISON);
-        setOffsetY(6);
+        setOffsetY(POISON_OFFSET_Y);
     }
 
     /**
@@ -49,7 +52,8 @@ public class Poison extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException,
+            LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("poison"));
     }
 
@@ -59,8 +63,10 @@ public class Poison extends Item {
      * @param level gets tiles
      * @param gc    unused attribute
      */
-    public void activate(Level level, GraphicsContext gc) {
-        ArrayList<Entity> entitiesOnTile = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
+    public void activate(final Level level, final GraphicsContext gc) {
+        ArrayList<Entity> entitiesOnTile =
+                level.getTiles()[getCurrentPosY()]
+                        [getCurrentPosX()].getEntitiesOnTile();
 
         if (!entitiesOnTile.isEmpty()) {
             for (int k = 0; k < entitiesOnTile.size(); k++) {
@@ -71,7 +77,8 @@ public class Poison extends Item {
 
                     try {
                         playSound();
-                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                    } catch (UnsupportedAudioFileException | IOException
+                            | LineUnavailableException e) {
                         e.printStackTrace();
                     }
 

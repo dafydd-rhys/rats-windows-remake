@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class MaleSexChange extends Item {
     /** Male Sex Change's Y Offset. */
-    static final int MSC_OFFSET_Y = 4;
+    private static final int MSC_OFFSET_Y = 4;
     /**
      * Constructor.
      */

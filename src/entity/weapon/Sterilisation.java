@@ -21,21 +21,24 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Bryan Kok
  */
 public class Sterilisation extends Item {
-
+    /** List of tiles that can be drawn on. */
     private final ArrayList<Tile> drawableTiles = new ArrayList<>();
-
+    /** Sterilisation's HP. */
+    private static final int STERILISATION_HP = 10;
+    /** Sterilisation's Y Offset. */
+    private static final int STERILISATION_OFFSET_Y = 7;
     /**
-     * Constructor
+     * Constructor.
      */
     public Sterilisation() {
         setEntityType(EntityType.ITEM);
         setEntityName("Sterilisation");
         setImage(Resources.getEntityImage("sterilisation"));
-        setHp(10);
+        setHp(STERILISATION_HP);
         setDamage(0);
         setRange(2);
         setType(TYPE.STERILISATION);
-        setOffsetY(7);
+        setOffsetY(STERILISATION_OFFSET_Y);
     }
 
     /**
@@ -53,20 +56,23 @@ public class Sterilisation extends Item {
      * Plays sound effect.
      */
     @Override
-    public void playSound() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void playSound() throws UnsupportedAudioFileException,
+            LineUnavailableException, IOException {
         playGameEffect(Resources.getGameAudio("sterilisation"));
     }
 
     /**
-     * Permanently prevents all rats in effective area from mating. L   asts temporarily.
+     * Permanently prevents all rats in effective area from mating,
+     * lasts temporarily.
      *
      * @param level gets tiles
      * @param gc    draws effect on affected tiles
      */
-    public void activate(Level level, GraphicsContext gc) {
+    public void activate(final Level level, final GraphicsContext gc) {
         try {
             playSound();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException
+                | LineUnavailableException e) {
             e.printStackTrace();
         }
 
@@ -75,21 +81,26 @@ public class Sterilisation extends Item {
         if (getHp() > 0) {
             for (int i = -getRange(); i < getRange() + 1; i++) {
                 for (int j = -getRange(); j < getRange() + 1; j++) {
-                    if (getCurrentPosY() + j >= 0 && getCurrentPosY() + j < level.getRows()
-                            && getCurrentPosX() + i >= 0 && getCurrentPosX() + i < level.getCols()) {
+                    if (getCurrentPosY() + j >= 0
+                            && getCurrentPosY() + j < level.getRows()
+                            && getCurrentPosX() + i >= 0
+                            && getCurrentPosX() + i < level.getCols()) {
 
-                        Tile tile = tiles[getCurrentPosY() + j][getCurrentPosX() + i];
+                        Tile tile = tiles[getCurrentPosY() + j]
+                                [getCurrentPosX() + i];
                         ArrayList<Entity> entities = tile.getEntitiesOnTile();
                         if (!entities.isEmpty()) {
                             for (int k = 0; k < entities.size(); k++) {
-                                if (entities.get(k).getEntityType() == EntityType.RAT) {
+                                if (entities.get(k).getEntityType()
+                                        == EntityType.RAT) {
                                     Rat target = (Rat) entities.get(k);
                                     target.setSterilised(true);
                                     target.getImages();
                                 }
                             }
                         }
-                        if (tile.isWalkable() && tile.isCovering() && !drawableTiles.contains(tile)) {
+                        if (tile.isWalkable() && tile.isCovering()
+                                && !drawableTiles.contains(tile)) {
                             drawableTiles.add(tile);
                         }
                         drawableTiles.remove(startingTile);
