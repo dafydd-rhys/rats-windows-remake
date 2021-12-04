@@ -12,17 +12,23 @@ import java.util.List;
 import main.Resources;
 
 /**
- * Scoreboard
+ * Scoreboard.
  *
  * @author Dafydd -Rhys Maund (2003900)
  */
 public class Scoreboard {
 
-    /** */
-    private final int level;
-    /** */
+    /**
+     * Level of scoreboard.
+     */
+    private int boardLevel;
+    /**
+     * List of players in scoreboard.
+     */
     private final List<ScoreboardPlayer> scoreboardPlayers = new ArrayList<>();
-    /** */
+    /**
+     * File directory.
+     */
     private final File directory;
 
     /**
@@ -31,8 +37,8 @@ public class Scoreboard {
      * @param level the level
      * @throws IOException the io exception
      */
-    public Scoreboard(int level) throws IOException {
-        this.level = level;
+    public Scoreboard(final int level) throws IOException {
+        setBoardLevel(level);
         this.directory = Resources.getScoreboard(level);
     }
 
@@ -49,7 +55,7 @@ public class Scoreboard {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] split = line.split(":");
-            scoreboardPlayers.add(new ScoreboardPlayer("Level " + level, count, split[0], Integer.parseInt(split[1])));
+            scoreboardPlayers.add(new ScoreboardPlayer("Level " + boardLevel, count, split[0], Integer.parseInt(split[1])));
             count++;
         }
     }
@@ -62,8 +68,8 @@ public class Scoreboard {
      */
     public ArrayList<ScoreboardPlayer> getAll() throws IOException {
         ArrayList<ScoreboardPlayer> allScoreboardPlayers = new ArrayList<>();
-
-        for (int i = 1; i < 7; i++) {
+        final int limit = 7;
+        for (int i = 1; i < limit; i++) {
             File file = Resources.getScoreboard(i);
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
@@ -84,9 +90,10 @@ public class Scoreboard {
      * @param player the player
      * @throws IOException the io exception
      */
-    public void add(ScoreboardPlayer player) throws IOException {
+    public void add(final ScoreboardPlayer player) throws IOException {
+        final int limit = 9;
         if (player.getScore() > scoreboardPlayers.get(scoreboardPlayers.size() - 1).getScore()) {
-            if (scoreboardPlayers.size() > 9) {
+            if (scoreboardPlayers.size() > limit) {
                 remove(scoreboardPlayers.get(scoreboardPlayers.size() - 1));
             }
             scoreboardPlayers.add(player);
@@ -99,7 +106,7 @@ public class Scoreboard {
      *
      * @param player the player
      */
-    public void remove(ScoreboardPlayer player) {
+    public void remove(final ScoreboardPlayer player) {
         scoreboardPlayers.remove(player);
     }
 
@@ -130,7 +137,7 @@ public class Scoreboard {
 
 
     /**
-     *
+     * Writes score in a file.
      *
      * @throws IOException
      */
@@ -141,6 +148,14 @@ public class Scoreboard {
             writer.println(player.getName() + ":" + player.getScore());
         }
         writer.close();
+    }
+
+    /**
+     * Sets scoreboard's level.
+     * @param level level of scoreboard.
+     */
+    public void setBoardLevel(final int level) {
+        this.boardLevel = level;
     }
 
 }
