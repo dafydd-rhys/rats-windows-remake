@@ -147,11 +147,11 @@ public class LevelFileReader {
                     Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
         }
         scanner.nextLine();
-
+        
         array = new char[sizeY][sizeX];
         for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
             char[] chars = scanner.nextLine().toCharArray();
-            for (int i = 0; i < sizeX && i < chars.length; i++) {
+            for (int i = 0; i < sizeX; i++) {
                 if (save) {
                     if (chars[i] == 'M' || chars[i] == 'F') {
                         array[row][i] = 'P';

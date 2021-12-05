@@ -74,7 +74,11 @@ public class GameOverController implements Initializable {
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         //if level was won
         if (Level.getGameOver() && Level.getGameWon()) {
-            status.setText("You Won!");
+            if (Level.getCurrentLevel() == MAX_LEVEL) {
+                status.setText("Congratulations! You completed the game.");
+            } else {
+                status.setText("You Won Level" + Level.getCurrentLevel() + "!");
+            }
 
             try {
                 playSound("level-win");
@@ -95,7 +99,7 @@ public class GameOverController implements Initializable {
                 }
             }
         } else if (Level.getGameOver()) {
-            status.setText("You Lost!");
+            status.setText("You Lost Level " + Level.getCurrentLevel() + "!");
             try {
                 playSound("level-fail");
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
