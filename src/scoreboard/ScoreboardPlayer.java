@@ -1,7 +1,7 @@
 package scoreboard;
 
 /**
- * ScoreboardPlayer.
+ * ScoreboardPlayer - used to store and display player info
  *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Bryan Kok

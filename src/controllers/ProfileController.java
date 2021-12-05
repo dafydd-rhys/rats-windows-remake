@@ -13,6 +13,9 @@ import main.ConfirmDialog;
 import main.stage.StageFunctions;
 import player.Player;
 
+/**
+ * Controller used to handle interaction with profile.fxml
+ */
 public class ProfileController implements Initializable {
 
     /**

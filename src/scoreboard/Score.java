@@ -3,7 +3,7 @@ package scoreboard;
 import java.io.IOException;
 
 /**
- * Score.
+ * Score - used to add to scoreboard
  *
  * @author Bryan Kok
  * @author Dafydd-Rhys Maund

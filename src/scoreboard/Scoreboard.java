@@ -12,7 +12,7 @@ import java.util.List;
 import main.Resources;
 
 /**
- * Scoreboard.
+ * Scoreboard - used to show top 10 players
  *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Bryan Kok

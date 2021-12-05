@@ -62,7 +62,7 @@ public class DeathRat extends Item {
     private static final int HP_AND_DMG = 5;
 
     /**
-     * The enum Direction.
+     * The DeathRats movement direction.
      */
     public enum Direction {
         /**
@@ -278,7 +278,7 @@ public class DeathRat extends Item {
          */
         private static DeathRat rat;
         /**
-         *
+         * randomly generated number (used for direction)
          */
         private static int random;
         /**
@@ -606,6 +606,8 @@ public class DeathRat extends Item {
         }
 
         /**
+         * gets tiles on board
+         *
          * @return tiles
          */
         public static Tile[][] getTiles() {
@@ -613,6 +615,8 @@ public class DeathRat extends Item {
         }
 
         /**
+         * gets this death rat
+         *
          * @return rat
          */
         public static DeathRat getRat() {
@@ -620,6 +624,8 @@ public class DeathRat extends Item {
         }
 
         /**
+         * gets current tile
+         *
          * @return current tile
          */
         public static Tile getCurrent() {
@@ -627,6 +633,8 @@ public class DeathRat extends Item {
         }
 
         /**
+         * gets current y coordinate
+         *
          * @return current y
          */
         public static int getCurY() {
@@ -634,6 +642,8 @@ public class DeathRat extends Item {
         }
 
         /**
+         * gets current x coordinate
+         *
          * @return current x
          */
         public static int getCurX() {
@@ -641,6 +651,8 @@ public class DeathRat extends Item {
         }
 
         /**
+         * gets randomly generated number
+         *
          * @return random num
          */
         public static int getRandom() {

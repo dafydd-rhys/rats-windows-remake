@@ -24,7 +24,9 @@ public class Movement {
      * The constant rat.
      */
     private static Rat rat;
-    /** */
+    /**
+     * random number generated
+     */
     private static int random;
     /**
      * The constant curX.
@@ -351,6 +353,8 @@ public class Movement {
     }
 
     /**
+     * gets tiles on board
+     *
      * @return tiles
      */
     public static Tile[][] getTiles() {
@@ -358,6 +362,8 @@ public class Movement {
     }
 
     /**
+     * gets current rat
+     *
      * @return rat
      */
     public static Rat getRat() {
@@ -365,6 +371,8 @@ public class Movement {
     }
 
     /**
+     * gets current tile
+     *
      * @return current tile
      */
     public static Tile getCurrent() {
@@ -372,6 +380,8 @@ public class Movement {
     }
 
     /**
+     * gets current y coordinate
+     *
      * @return current y
      */
     public static int getCurY() {
@@ -379,6 +389,8 @@ public class Movement {
     }
 
     /**
+     * gets current x coordinate
+     *
      * @return current x
      */
     public static int getCurX() {
@@ -386,6 +398,8 @@ public class Movement {
     }
 
     /**
+     * returns random number generated.
+     *
      * @return random num
      */
     public static int getRandom() {

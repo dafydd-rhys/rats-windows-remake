@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * MOTD.java.
  * Message Of The Day.
  *
  * @author Maurice Petersen
@@ -31,11 +30,11 @@ public class MOTD {
     private static final int ALPHABET_COUNT = 26;
 
     /**
-     *
+     * The URL to the puzzle
      */
     private final URL puzzleURL;
     /**
-     *
+     * The URL to the message
      */
     private final URL messageURL;
 

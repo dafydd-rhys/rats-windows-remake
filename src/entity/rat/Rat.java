@@ -142,7 +142,7 @@ public class Rat extends Entity {
     private boolean isMating;
 
     /**
-     * The enum Gender.
+     * The enum Gender - describes rats sex.
      */
     public enum Gender {
         /**
@@ -156,7 +156,7 @@ public class Rat extends Entity {
     }
 
     /**
-     * The enum Direction.
+     * The enum Direction - describes rats movement direction.
      */
     public enum Direction {
         /**
