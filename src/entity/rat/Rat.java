@@ -1,5 +1,6 @@
 package entity.rat;
 
+import main.external.Audio;
 import static main.external.Audio.playGameEffect;
 import entity.Entity;
 import javafx.scene.image.Image;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.List;
-
 
 /**
  * Rat.java.
@@ -31,9 +31,14 @@ public class Rat extends Entity {
     private static final int RAT_HP = 5;
 
     /**
-     * Max pregnancy stage.
+     * Max pregnancy stage - how long until giving birth.
      */
-    private static final int MAX_PREGNANCY_STAGE = 10;
+    private static final int MAX_PREGNANCY_STAGE = 6;
+
+    /**
+     * Mate for this long.
+     */
+    private static final int MAX_MATE_STAGE = 4;
 
     /**
      * Max growing stage.
@@ -124,6 +129,16 @@ public class Rat extends Entity {
      * Current level.
      */
     private static Level level;
+
+    /**
+     * how long rat has been mating.
+     */
+    private int mateCounter = 0;
+
+    /**
+     * whether rat is mating.
+     */
+    private boolean isMating;
 
     /**
      * The enum Gender.
@@ -279,8 +294,32 @@ public class Rat extends Entity {
     public void mate(final Rat rat) {
         if (getGender() == Gender.MALE && !rat.isPregnant()) {
             rat.setPregnant(true);
+            this.setMating(true);
+            rat.setMating(true);
         } else if (getGender() == Gender.FEMALE && !isPregnant()) {
             setPregnant(true);
+            this.setMating(true);
+            rat.setMating(true);
+        }
+    }
+
+
+    /**
+     * Adds to mate counter.
+     *
+     * @param rat the rat that needs increasing
+     * @throws UnsupportedAudioFileException incorrect audio file
+     * @throws LineUnavailableException audio file
+     * @throws IOException audio file not found
+     */
+    public void keepMating(final Rat rat) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        rat.setMateCounter(rat.getMateCounter() + 1);
+
+        if (rat.getMateCounter() >= MAX_MATE_STAGE) {
+            rat.setMating(false);
+            rat.setMateCounter(0);
+        } else {
+            Audio.playGameEffect(Resources.getGameAudio("mating"));
         }
     }
 
@@ -290,7 +329,7 @@ public class Rat extends Entity {
      * Checks if rat is pregnant
      * Checks if rat pregnancy stage is at max value
      */
-    public void giveBirth() {
+    public void giveBirth() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (getGender() == Gender.FEMALE && isPregnant()) {
             if (getPregnancyStage() == 1) {
                 Random rand = new Random();
@@ -309,6 +348,7 @@ public class Rat extends Entity {
             } else if (getPregnancyStage() > MAX_PREGNANCY_STAGE) {
                 if (babyQueue.size() > 0) {
                     level.placeRat(babyQueue.poll(), level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
+                    Audio.playGameEffect(Resources.getGameAudio("spawn"));
                 } else {
                     setPregnancyStage(0);
                 }
@@ -490,6 +530,38 @@ public class Rat extends Entity {
     @Override
     public EntityType getEntityType() {
         return super.getEntityType();
+    }
+
+    /**
+     * set whether rat is mating.
+     *
+     * @param value is rat mating
+     */
+    public void setMating(final boolean value) {
+        this.isMating = value;
+    }
+
+    /**
+     * @return whether rat is mating.
+     */
+    public boolean getMating() {
+        return this.isMating;
+    }
+
+    /**
+     * sets mate counter.
+     *
+     * @param counter new counter value
+     */
+    public void setMateCounter(final int counter) {
+        mateCounter = counter;
+    }
+
+    /**
+     * @return mate counter
+     */
+    public int getMateCounter() {
+        return mateCounter;
     }
 
     /**

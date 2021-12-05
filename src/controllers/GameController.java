@@ -10,7 +10,6 @@ import entity.weapon.Sterilisation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -283,7 +282,11 @@ public class GameController implements Initializable {
                     }
 
                     //runs tick (rats and items run for tick).
-                    tick();
+                    try {
+                        tick();
+                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                        e.printStackTrace();
+                    }
 
                     //updates all values related to new game state.
                     lblScore.setText("Score: " + Level.getScore());
@@ -465,7 +468,7 @@ public class GameController implements Initializable {
      * This method basically runs all relevant methods to each entity,
      * for instance will move all rats and activate each item.
      */
-    private static void tick() {
+    private static void tick() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         ArrayList<Rat> rats = level.getRats();
         ArrayList<Item> items = level.getItems();
 
@@ -476,9 +479,13 @@ public class GameController implements Initializable {
                     Rat rat = rats.get(i);
                     rat.setLevel(level);
 
-                    move(rat);
-                    rat.findPartner(level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()]);
-                    rat.giveBirth();
+                    if (rat.getMating()) {
+                        rat.keepMating(rat);
+                    } else {
+                        move(rat);
+                        rat.findPartner(level.getTiles()[rat.getCurrentPosY()][rat.getCurrentPosX()]);
+                        rat.giveBirth();
+                    }
                 }
             }
         }

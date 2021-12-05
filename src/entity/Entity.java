@@ -101,7 +101,7 @@ public abstract class Entity {
      * @param newEntityType the entity type
      */
     public void setEntityType(final EntityType newEntityType) {
-        this.entityType = entityType;
+        entityType = newEntityType;
     }
 
     /**
