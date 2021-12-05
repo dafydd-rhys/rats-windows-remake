@@ -14,7 +14,7 @@ public class RatSprites {
     /**
      * The constant upMale.
      */
-    public static final Image upMale = Resources.getEntityImage("male-rat");
+    public static final Image UP_MALE = Resources.getEntityImage("male-rat");
     /**
      * The constant rightMale.
      */
@@ -31,7 +31,7 @@ public class RatSprites {
     /**
      * The constant upMaleSterilised.
      */
-    public static final Image upMaleSterilised = Resources.getEntityImage("sterilised-male-rat");
+    public static final Image UP_MALE_STERILISED = Resources.getEntityImage("sterilised-male-rat");
     /**
      * The constant downMaleSterilised.
      */
@@ -48,7 +48,7 @@ public class RatSprites {
     /**
      * The constant upFemale.
      */
-    public static final Image upFemale = Resources.getEntityImage("female-rat");
+    public static final Image UP_FEMALE  = Resources.getEntityImage("female-rat");
     /**
      * The constant rightFemale.
      */
@@ -65,7 +65,7 @@ public class RatSprites {
     /**
      * The constant upFemaleSterilised.
      */
-    public static final Image upFemaleSterilised = Resources.getEntityImage("sterilised-female-rat");
+    public static final Image UP_FEMALE_STERILISED = Resources.getEntityImage("sterilised-female-rat");
     /**
      * The constant downFemaleSterilised.
      */
@@ -82,7 +82,7 @@ public class RatSprites {
     /**
      * The constant upBaby.
      */
-    public static final Image upBaby = Resources.getEntityImage("baby-rat");
+    public static final Image UP_BABY = Resources.getEntityImage("baby-rat");
     /**
      * The constant downBaby.
      */
@@ -95,11 +95,10 @@ public class RatSprites {
      * The constant rightBaby.
      */
     public static Image rightBaby;
-
     /**
      * The constant upDeath.
      */
-    public static final Image upDeath = Resources.getEntityImage("death-rat");
+    public static final Image UP_DEATH = Resources.getEntityImage("death-rat");
     /**
      * The constant downDeath.
      */
@@ -112,34 +111,47 @@ public class RatSprites {
      * The constant rightDeath.
      */
     public static Image rightDeath;
+    /**
+     * Angle to get image rotated right.
+     */
+    private static final int RIGHT = 90;
+    /**
+     * Angle to get image rotated down.
+     */
+    private static final int DOWN = 180;
+    /**
+     * Angle to get image rotated left.
+     */
+    private static final int LEFT = 270;
 
     /**
-     * Load.
+     * Load - when loaded create an image for every direction of all type of rats.
      */
     public static void load() {
-        rightMale = rotate(upMale, 90);
-        downMale = rotate(upMale, 180);
-        leftMale = rotate(upMale, 270);
+        //rotates image in all directions - does for each image
+        rightMale = rotate(UP_MALE, RIGHT);
+        downMale = rotate(UP_MALE, DOWN);
+        leftMale = rotate(UP_MALE, LEFT);
 
-        rightMaleSterilised = rotate(upMaleSterilised, 90);
-        downMaleSterilised = rotate(upMaleSterilised, 180);
-        leftMaleSterilised = rotate(upMaleSterilised, 270);
+        rightMaleSterilised = rotate(UP_MALE_STERILISED, RIGHT);
+        downMaleSterilised = rotate(UP_MALE_STERILISED, DOWN);
+        leftMaleSterilised = rotate(UP_MALE_STERILISED, LEFT);
 
-        rightFemale = rotate(upFemale, 90);
-        downFemale = rotate(upFemale, 180);
-        leftFemale = rotate(upFemale, 270);
+        rightFemale = rotate(UP_FEMALE, RIGHT);
+        downFemale = rotate(UP_FEMALE, DOWN);
+        leftFemale = rotate(UP_FEMALE, LEFT);
 
-        rightFemaleSterilised = rotate(upFemaleSterilised, 90);
-        downFemaleSterilised = rotate(upFemaleSterilised, 180);
-        leftFemaleSterilised = rotate(upFemaleSterilised, 270);
+        rightFemaleSterilised = rotate(UP_FEMALE_STERILISED, RIGHT);
+        downFemaleSterilised = rotate(UP_FEMALE_STERILISED, DOWN);
+        leftFemaleSterilised = rotate(UP_FEMALE_STERILISED, LEFT);
 
-        rightBaby = rotate(upBaby, 90);
-        downBaby = rotate(upBaby, 180);
-        leftBaby = rotate(upBaby, 270);
+        rightBaby = rotate(UP_BABY, RIGHT);
+        downBaby = rotate(UP_BABY, DOWN);
+        leftBaby = rotate(UP_BABY, LEFT);
 
-        rightDeath = rotate(upDeath, 90);
-        downDeath = rotate(upDeath, 180);
-        leftDeath = rotate(upDeath, 270);
+        rightDeath = rotate(UP_DEATH, RIGHT);
+        downDeath = rotate(UP_DEATH, DOWN);
+        leftDeath = rotate(UP_DEATH, LEFT);
     }
 
     /**
@@ -149,7 +161,7 @@ public class RatSprites {
      * @param angle the angle
      * @return the image
      */
-    public static Image rotate(Image img, int angle) {
+    public static Image rotate(final Image img, final int angle) {
         ImageView iv = new ImageView(img);
         iv.setRotate(angle);
         SnapshotParameters params = new SnapshotParameters();

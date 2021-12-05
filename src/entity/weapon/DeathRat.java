@@ -24,36 +24,40 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Harry Boyce
  * @author Bryan Kok
  */
-public class DeathRat extends Item {//used to extend Entities.Item
+public class DeathRat extends Item {
 
     /**
-     *
+     * Direction of death rat.
      */
     private Direction direction;
     /**
-     *
+     * current tick of level.
      */
     private int currentTick = 0;
     /**
-     *
+     * rotated image of death rat.
      */
     private Image rotatedImage;
     /**
-     *
+     * up image of death rat.
      */
     private final Image upImage;
     /**
-     *
+     * down image of death rat.
      */
     private final Image downImage;
     /**
-     *
+     * left image of death rat.
      */
     private final Image leftImage;
     /**
-     *
+     * right image of death rat.
      */
     private final Image rightImage;
+    /**
+     * hp/damage - death rat.
+     */
+    private static final int HP_AND_DMG = 5;
 
     /**
      * The enum Direction.
@@ -84,13 +88,13 @@ public class DeathRat extends Item {//used to extend Entities.Item
         setEntityType(EntityType.ITEM);
         setEntityName("DeathRat");
         setImage(Resources.getEntityImage("death-rat"));
-        setHp(5);
-        setDamage(5);
+        setHp(HP_AND_DMG);
+        setDamage(HP_AND_DMG);
         setRange(2);
         setType(TYPE.DEATH_RAT);
         setOffsetY(1);
 
-        upImage = RatSprites.upDeath;
+        upImage = RatSprites.UP_DEATH;
         rightImage = RatSprites.rightDeath;
         downImage = RatSprites.downDeath;
         leftImage = RatSprites.leftDeath;
@@ -118,10 +122,12 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
+     * activates rats listener.
+     *
      * @param level the level
      * @param gc    the gc
      */
-    public void activate(Level level, GraphicsContext gc) {
+    public void activate(final Level level, final GraphicsContext gc) {
         currentTick++;
         checkForOpposition(level);
         int moveTick = 2;
@@ -131,14 +137,16 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     * @param level
+     * moves death rat.
+     *
+     * @param level current level
      */
-    private void move(Level level) {
-        DeathRatMovement.tiles = level.getTiles();
-        DeathRatMovement.rat = this;
-        DeathRatMovement.current = level.getTiles()[getCurrentPosY()][getCurrentPosX()];
-        DeathRatMovement.curX = getCurrentPosX();
-        DeathRatMovement.curY = getCurrentPosY();
+    private void move(final Level level) {
+        DeathRatMovement.setTiles(level.getTiles());
+        DeathRatMovement.setRat(this);
+        DeathRatMovement.setCurrent(level.getTiles()[getCurrentPosY()][getCurrentPosX()]);
+        DeathRatMovement.setCurX(getCurrentPosX());
+        DeathRatMovement.setCurY(getCurrentPosY());
 
         if (getDirection() == Direction.LEFT) {
             DeathRatMovement.tryHorizontal(-1, 1);
@@ -153,9 +161,11 @@ public class DeathRat extends Item {//used to extend Entities.Item
     }
 
     /**
-     * @param level
+     * checks for rats to kill.
+     *
+     * @param level level
      */
-    private void checkForOpposition(Level level) {
+    private void checkForOpposition(final Level level) {
         ArrayList<Entity> entities = level.getTiles()[getCurrentPosY()][getCurrentPosX()].getEntitiesOnTile();
 
         if (!entities.isEmpty()) {
@@ -177,10 +187,10 @@ public class DeathRat extends Item {//used to extend Entities.Item
     /**
      * Sets direction.
      *
-     * @param direction the direction
+     * @param dir the direction
      */
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void setDirection(final Direction dir) {
+        this.direction = dir;
     }
 
     /**
@@ -195,10 +205,10 @@ public class DeathRat extends Item {//used to extend Entities.Item
     /**
      * Sets rotated image.
      *
-     * @param rotatedImage the rotated image
+     * @param image the rotated image
      */
-    public void setRotatedImage(Image rotatedImage) {
-        this.rotatedImage = rotatedImage;
+    public void setRotatedImage(final Image image) {
+        this.rotatedImage = image;
     }
 
     /**
@@ -246,54 +256,71 @@ public class DeathRat extends Item {//used to extend Entities.Item
         return leftImage;
     }
 
+    /**
+     * Movement.java, class used to handle rat movement.
+     *
+     * @author Dafydd Maund (2003900)
+     */
     private static class DeathRatMovement {
 
-        private static int random;
-        /**
-         * The constant rat.
-         */
-        public static DeathRat rat;
         /**
          * The Tiles.
          */
-        public static Tile[][] tiles;
+        private static Tile[][] tiles;
         /**
          * The constant current.
          */
-        public static Tile current;
+        private static Tile current;
+        /**
+         * The constant rat.
+         */
+        private static DeathRat rat;
+        /**
+         *
+         */
+        private static int random;
         /**
          * The constant curX.
          */
-        public static int curX;
+        private static int curX;
         /**
          * The constant curY.
          */
-        public static int curY;
+        private static int curY;
 
-        private static int generateRandom(int count) {
+        /**
+         * generate random number.
+         *
+         * @param count random between 0 and count
+         * @return generated random
+         */
+        private static int generateRandom(final int count) {
             return new Random().nextInt((count) + 1);
         }
 
         /**
-         * Try horizontal.
+         * Try horizontal movement.
          *
-         * @param x  the x
-         * @param x2 the x 2
+         * @param x  direction travelling
+         * @param x2 opposite direction travelling
          */
-        public static void tryHorizontal(int x, int x2) {
+        public static void tryHorizontal(final int x, final int x2) {
             int count = 0;
 
-            if (tiles[curY][curX + x].isWalkable()) {
-                if (tiles[curY + 1][curX].isWalkable()) {
+            //can move forward
+            if (getTiles()[getCurY()][getCurX() + x].isWalkable()) {
+                //can move forward & up or down (if yes at crossroads/corner)
+                if (getTiles()[getCurY() + 1][getCurX()].isWalkable()) {
                     count++;
-                } else if (tiles[curY - 1][curX].isWalkable()) {
+                } else if (getTiles()[getCurY() - 1][getCurX()].isWalkable()) {
                     count++;
                 }
-                random = generateRandom(count);
+                setRandom(generateRandom(count));
 
-                if (random == 0) {
+                //randomizes which direction to move, works with 2 or 3 dir cause of generateRandom(count)
+                if (getRandom() == 0) {
                     moveHorizontal(x);
-                } else if (random == 1) {
+                } else if (getRandom() == 1) {
                     if (moveVertical(1)) {
                         if (moveVertical(-1)) {
                             if (moveHorizontal(x)) {
@@ -301,7 +328,7 @@ public class DeathRat extends Item {//used to extend Entities.Item
                             }
                         }
                     }
-                } else if (random == 2) {
+                } else if (getRandom() == 2) {
                     if (moveVertical(-1)) {
                         if (moveVertical(1)) {
                             if (moveHorizontal(x)) {
@@ -311,12 +338,16 @@ public class DeathRat extends Item {//used to extend Entities.Item
                     }
                 }
             } else {
-                if (tiles[curY + 1][curX].isWalkable() && tiles[curY - 1][curX].isWalkable()) {
+                //can't move forward
+                if (getTiles()[getCurY() + 1][getCurX()].isWalkable()
+                        && getTiles()[getCurY() - 1][getCurX()].isWalkable()) {
                     count = 1;
                 }
-                random = generateRandom(count);
+                setRandom(generateRandom(count));
 
-                if (random == 0) {
+                //randomizes movement in case of 2 directions
+                //turns around if you can't move
+                if (getRandom() == 0) {
                     if (moveVertical(1)) {
                         if (moveVertical(-1)) {
                             moveHorizontal(x2);
@@ -333,25 +364,28 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         * Try vertical.
+         * Try vertical movement.
          *
-         * @param y  the y
-         * @param y2 the y 2
+         * @param y  direction travelling
+         * @param y2 opposite direction travelling
          */
-        public static void tryVertical(int y, int y2) {
+        public static void tryVertical(final int y, final int y2) {
             int count = 0;
 
-            if (tiles[curY + y][curX].isWalkable()) {
-                if (tiles[curY][curX + 1].isWalkable()) {
+            //can move in same direction
+            if (getTiles()[getCurY() + y][getCurX()].isWalkable()) {
+                //can move forward & left or right (if yes at crossroads/corner)
+                if (getTiles()[getCurY()][getCurX() + 1].isWalkable()) {
                     count++;
-                } else if (tiles[curY][curX - 1].isWalkable()) {
+                } else if (getTiles()[getCurY()][getCurX() - 1].isWalkable()) {
                     count++;
                 }
-                random = generateRandom(count);
+                setRandom(generateRandom(count));
 
-                if (random == 0) {
+                //randomizes which direction to move, works with 2 or 3 dir cause of generateRandom(count)
+                if (getRandom() == 0) {
                     moveVertical(y);
-                } else if (random == 1) {
+                } else if (getRandom() == 1) {
                     if (moveHorizontal(1)) {
                         if (moveHorizontal(-1)) {
                             if (moveVertical(y)) {
@@ -369,12 +403,16 @@ public class DeathRat extends Item {//used to extend Entities.Item
                     }
                 }
             } else {
-                if (tiles[curY][curX + 1].isWalkable() && tiles[curY][curX - 1].isWalkable()) {
+                //can't move in same dir
+                if (getTiles()[getCurY()][getCurX() + 1].isWalkable()
+                        && getTiles()[getCurY()][getCurX() - 1].isWalkable()) {
                     count = 1;
                 }
-                random = generateRandom(count);
+                setRandom(generateRandom(count));
 
-                if (random == 0) {
+                //randomizes movement in case of 2 directions
+                //turns around if you can't move
+                if (getRandom() == 0) {
                     if (moveHorizontal(-1)) {
                         if (moveHorizontal(1)) {
                             moveVertical(y2);
@@ -391,103 +429,220 @@ public class DeathRat extends Item {//used to extend Entities.Item
         }
 
         /**
-         * @param x
-         * @return
-         */
-        private static boolean moveHorizontal(int x) {
-            if (tiles[curY][curX + x].isWalkable()) {
-                if (NoEntry(0, x)) {
-                    current.removeEntityFromTile(rat);
-                    tiles[curY][curX].getEntitiesOnTile().remove(rat);
-                    tiles[curY][curX + x].addEntityToTile(rat);
-
-                    rat.setCurrentPosX(curX + x);
-                    rat.setCurrentPosY(curY);
-
-                    if (x == -1) {
-                        rat.setRotatedImage(rat.getLeftImage());
-                        rat.setDirection(Direction.LEFT);
-                    } else {
-                        rat.setRotatedImage(rat.getRightImage());
-                        rat.setDirection(Direction.RIGHT);
-                    }
-                    return false;
-                } else {
-                    setRatsDirection();
-                }
-            }
-
-            return true;
-        }
-
-        /**
-         * @param y
-         * @return
-         */
-        private static boolean moveVertical(int y) {
-            if (tiles[curY + y][curX].isWalkable()) {
-                if (NoEntry(y, 0)) {
-                    current.removeEntityFromTile(rat);
-                    tiles[curY][curX].getEntitiesOnTile().remove(rat);
-                    tiles[curY + y][curX].addEntityToTile(rat);
-
-                    rat.setCurrentPosX(curX);
-                    rat.setCurrentPosY(curY + y);
-
-                    if (y == -1) {
-                        rat.setRotatedImage(rat.getUpImage());
-                        rat.setDirection(Direction.UP);
-                    } else {
-                        rat.setRotatedImage(rat.getDownImage());
-                        rat.setDirection(Direction.DOWN);
-                    }
-                    return false;
-                } else {
-                    setRatsDirection();
-                }
-            }
-            return true;
-        }
-
-        /**
+         * moves horizontal.
          *
+         * @param x direction
+         * @return if rat is moved
+         */
+        private static boolean moveHorizontal(final int x) {
+            //if next tile is walkable
+            if (getTiles()[getCurY()][getCurX() + x].isWalkable()) {
+                //if not entry sign
+                if (noEntry(0, x)) {
+                    //remove rat from current
+                    getCurrent().removeEntityFromTile(getRat());
+                    getTiles()[getCurY()][getCurX()].getEntitiesOnTile().remove(getRat());
+                    getTiles()[getCurY()][getCurX() + x].addEntityToTile(getRat());
+
+                    //move rat
+                    getRat().setCurrentPosX(getCurX() + x);
+                    getRat().setCurrentPosY(getCurY());
+
+                    //set new direction
+                    if (x == -1) {
+                        getRat().setRotatedImage(getRat().getLeftImage());
+                        getRat().setDirection(Direction.LEFT);
+                    } else {
+                        getRat().setRotatedImage(getRat().getRightImage());
+                        getRat().setDirection(Direction.RIGHT);
+                    }
+                    return false;
+                } else {
+                    //sets rats opposite direction
+                    setRatsDirection();
+                }
+            }
+
+            return true;
+        }
+
+        /**
+         * moves vertical.
+         *
+         * @param y direction
+         * @return if rat is moved
+         */
+        private static boolean moveVertical(final int y) {
+            //if next tile is walkable
+            if (getTiles()[getCurY() + y][getCurX()].isWalkable()) {
+                //if not entry sign
+                if (noEntry(y, 0)) {
+                    //remove rat from current
+                    getCurrent().removeEntityFromTile(getRat());
+                    getTiles()[getCurY()][getCurX()].getEntitiesOnTile().remove(getRat());
+                    getTiles()[getCurY() + y][getCurX()].addEntityToTile(getRat());
+
+                    //move rat
+                    getRat().setCurrentPosX(getCurX());
+                    getRat().setCurrentPosY(getCurY() + y);
+
+                    //set new direction
+                    if (y == -1) {
+                        getRat().setRotatedImage(getRat().getUpImage());
+                        getRat().setDirection(Direction.UP);
+                    } else {
+                        getRat().setRotatedImage(getRat().getDownImage());
+                        getRat().setDirection(Direction.DOWN);
+                    }
+                    return false;
+                } else {
+                    //sets rats opposite direction
+                    setRatsDirection();
+                }
+            }
+            return true;
+        }
+
+        /**
+         * changes rats dir and image to opposite.
          */
         private static void setRatsDirection() {
-            if (rat.getDirection() == Direction.UP) {
-                rat.setRotatedImage(rat.getDownImage());
-                rat.setDirection(Direction.DOWN);
-                rat.setCurrentPosY(curY + 1);
-            } else if (rat.getDirection() == Direction.DOWN) {
-                rat.setRotatedImage(rat.getUpImage());
-                rat.setDirection(Direction.UP);
-                rat.setCurrentPosY(curY - 1);
-            } else if (rat.getDirection() == Direction.LEFT) {
-                rat.setRotatedImage(rat.getRightImage());
-                rat.setDirection(Direction.RIGHT);
-                rat.setCurrentPosX(curX + 1);
-            } else if (rat.getDirection() == Direction.RIGHT) {
-                rat.setRotatedImage(rat.getLeftImage());
-                rat.setDirection(Direction.LEFT);
-                rat.setCurrentPosX(curX - 1);
+            //set rats opposite direction and image for that dir
+            if (getRat().getDirection() == Direction.UP) {
+                getRat().setRotatedImage(getRat().getDownImage());
+                getRat().setDirection(Direction.DOWN);
+                getRat().setCurrentPosY(getCurY() + 1);
+            } else if (getRat().getDirection() == Direction.DOWN) {
+                getRat().setRotatedImage(getRat().getUpImage());
+                getRat().setDirection(Direction.UP);
+                getRat().setCurrentPosY(getCurY() - 1);
+            } else if (getRat().getDirection() == Direction.LEFT) {
+                getRat().setRotatedImage(getRat().getRightImage());
+                getRat().setDirection(Direction.RIGHT);
+                getRat().setCurrentPosX(getCurX() + 1);
+            } else if (getRat().getDirection() == Direction.RIGHT) {
+                getRat().setRotatedImage(getRat().getLeftImage());
+                getRat().setDirection(Direction.LEFT);
+                getRat().setCurrentPosX(getCurX() - 1);
             }
         }
 
         /**
-         * @param y
-         * @param x
-         * @return
+         * checks if no entry is at position.
+         *
+         * @param y y coordinate
+         * @param x x coordinate
+         * @return if no entry is at position
          */
-        private static boolean NoEntry(int y, int x) {
-            for (Entity entity : tiles[curY + y][curX + x].getEntitiesOnTile()) {
+        private static boolean noEntry(final int y, final int x) {
+            //loops through entities
+            for (Entity entity : getTiles()[getCurY() + y][getCurX() + x].getEntitiesOnTile()) {
                 if (entity.getEntityType() == Entity.EntityType.ITEM) {
                     Item item = (Item) entity;
                     if (item.getType() == Item.TYPE.NO_ENTRY) {
+                        //remove hp from no entry
                         item.setHp(item.getHp() - 2);
                         return false;
                     }
                 }
             }
             return true;
+        }
+
+        /**
+         * set tiles.
+         *
+         * @param t tiles
+         */
+        public static void setTiles(final Tile[][] t) {
+            DeathRatMovement.tiles = t;
+        }
+
+        /**
+         * sets rat.
+         *
+         * @param r rat
+         */
+        public static void setRat(final DeathRat r) {
+            DeathRatMovement.rat = r;
+        }
+
+        /**
+         * sets current tile.
+         *
+         * @param c current tile
+         */
+        public static void setCurrent(final Tile c) {
+            DeathRatMovement.current = c;
+        }
+
+        /**
+         * sets current y.
+         *
+         * @param y current y
+         */
+        public static void setCurY(final int y) {
+            DeathRatMovement.curY = y;
+        }
+
+        /**
+         * sets current x.
+         *
+         * @param x current x
+         */
+        public static void setCurX(final int x) {
+            DeathRatMovement.curX = x;
+        }
+
+        /**
+         * sets random.
+         *
+         * @param r random num
+         */
+        public static void setRandom(final int r) {
+            DeathRatMovement.random = r;
+        }
+
+        /**
+         * @return tiles
+         */
+        public static Tile[][] getTiles() {
+            return tiles;
+        }
+
+        /**
+         * @return rat
+         */
+        public static DeathRat getRat() {
+            return rat;
+        }
+
+        /**
+         * @return current tile
+         */
+        public static Tile getCurrent() {
+            return current;
+        }
+
+        /**
+         * @return current y
+         */
+        public static int getCurY() {
+            return curY;
+        }
+
+        /**
+         * @return current x
+         */
+        public static int getCurX() {
+            return curX;
+        }
+
+        /**
+         * @return random num
+         */
+        public static int getRandom() {
+            return random;
         }
 
     }
