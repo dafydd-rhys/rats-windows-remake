@@ -3,4 +3,4 @@ test.txt:1
 Dafydd1:1
 Dafydd:6
 Gareth:2
-Admin:1
+Admin:6
