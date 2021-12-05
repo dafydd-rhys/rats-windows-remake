@@ -9,6 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * An abstract class representing Items (Weapons).
+ * All weapon sprites were created by us.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski
