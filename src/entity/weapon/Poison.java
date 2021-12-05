@@ -15,6 +15,8 @@ import java.util.ArrayList;
 /**
  * Poison weapon class.
  *
+ * Sprite created by Stefan.
+ *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok

@@ -16,6 +16,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * Sterilisation weapon class.
  *
+ * Sprite from https://www.flaticon.com/free-icon/sterilization_2610584
+ *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok

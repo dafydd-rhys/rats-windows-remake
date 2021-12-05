@@ -16,6 +16,8 @@ import java.util.ArrayList;
 /**
  * Female Sex Change weapon class.
  *
+ * Sprite from: https://iconarchive.com/show/flatastic-7-icons-by-custom-icon-design/Female-icon.html.
+ *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok

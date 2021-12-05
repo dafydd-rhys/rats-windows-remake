@@ -24,6 +24,8 @@ import scoreboard.ScoreboardPlayer;
 /**
  * ScoreboardController - used to manage fxml elements in scoreboard scene.
  *
+ * Menu icons created by group
+ *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Stefan-Cristian Daitoiu (2033160)
  */

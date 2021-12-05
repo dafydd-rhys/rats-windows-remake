@@ -3,6 +3,7 @@ package entity.weapon;
 import entity.Item;
 import entity.rat.Rat;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import main.Resources;
 import main.level.Level;
 import tile.Tile;
@@ -15,6 +16,8 @@ import static main.external.Audio.playGameEffect;
 
 /**
  * Bomb weapon class.
+ *
+ * Sprite created by Jackey.
  *
  * @author Gareth Wade (1901805)
  * @author Dafydd -Rhys Maund
@@ -99,6 +102,7 @@ public class Bomb extends Item {
             e.printStackTrace();
         }
 
+        Image explosion = Resources.getEntityImage("bomb-0");
         for (Rat.Direction direction : Rat.Direction.values()) {
             Tile current = tiles[getCurrentPosY()][getCurrentPosX()];
 
@@ -115,9 +119,8 @@ public class Bomb extends Item {
                 }
 
                 distance++;
-                if (current.isWalkable() && current.isCovering()) {
-                    gc.drawImage(Resources.getEntityImage("bomb-0"), current.getX() * BOMB_EXPLOSION_X,
-                            current.getY() * BOMB_EXPLOSION_Y);
+                if (current.isCovering() && current.isWalkable()) {
+                    gc.drawImage(explosion, current.getX() * BOMB_EXPLOSION_X, current.getY() * BOMB_EXPLOSION_Y);
                 }
             }
         }

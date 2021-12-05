@@ -19,6 +19,8 @@ import player.Player;
 /**
  * MainMenu Controller - used to handle all interaction while in main menu.
  *
+ * Menu icons created by group
+ *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  * @author Maurice Petersen (2013396)

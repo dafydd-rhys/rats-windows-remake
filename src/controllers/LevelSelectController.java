@@ -17,6 +17,8 @@ import player.Player;
 /**
  * Level select controller - players can select what level they want to play.
  *
+ * Menu icons created by group
+ *
  * @author Gareth Wade (1901805)
  */
 public class LevelSelectController implements Initializable {

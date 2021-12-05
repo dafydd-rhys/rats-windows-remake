@@ -12,6 +12,8 @@ import java.io.IOException;
 /**
  * No entry sign weapon class.
  *
+ * Sprite created by Jackey.
+ *
  * @author Harry Boyce
  * @author Bryan Kok
  * @author Dafydd -Rhys Maund

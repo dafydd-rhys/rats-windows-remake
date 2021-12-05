@@ -16,6 +16,8 @@ import main.stage.StageFunctions;
 /**
  * Settings Controller - handles all interaction in settings.fxml.
  *
+ * Menu icons created by group
+ *
  * @author Gareth Wade (1901805)
  * @author Dafydd Maund (2003900)
  * @author Dawid Wisniewski (857847)

@@ -8,6 +8,10 @@ import main.Resources;
 
 /**
  * The type Rat sprites.
+ *
+ * Sprites created by Stefan.
+ *
+ * @author Dafydd-Rhys Maund
  */
 public class RatSprites {
 

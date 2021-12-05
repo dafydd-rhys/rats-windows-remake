@@ -50,6 +50,8 @@ import tile.Tile;
  * This is GameController.java, this is where all in-game procedures take place e.g.
  * drawing game, updating tick and overall where the game is played and displayed to the player.
  *
+ * Menu icons created by group
+ *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  * @author Harry Boyce (2011556)

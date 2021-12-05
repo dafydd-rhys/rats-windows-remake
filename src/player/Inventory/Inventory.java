@@ -284,7 +284,9 @@ public class Inventory {
                         AnchorPane.setLeftAnchor(image, count * X_OFFSET + X_OFFSET_ADD);
 
                         //redraws sorted inventory
-                        Platform.runLater(() -> abilities.getChildren().add(image));
+                        if (!abilities.getChildren().contains(image)) {
+                            Platform.runLater(() -> abilities.getChildren().add(image));
+                        }
                         listener(item, image, abilities);
                         count++;
                     }

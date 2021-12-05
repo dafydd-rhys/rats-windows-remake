@@ -20,6 +20,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * Death Rat weapon class.
  *
+ * Sprite created by Stefan.
+ *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok

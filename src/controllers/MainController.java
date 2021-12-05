@@ -21,6 +21,8 @@ import player.Player;
 /**
  * MainController - the player entry scene loaded at start of program.
  *
+ * Menu icons created by group
+ *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  */

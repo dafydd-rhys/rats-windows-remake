@@ -20,7 +20,18 @@ import main.Resources;
  *
  * All sounds are taken from https://freesound.org/ and are under Creative Commons
  *
- * EXAMPLE sound (example.wav) by SomeUser taken from: https://freesound.org/people/kMoon/sounds/90797/
+ * Bomb Sound (bomb.wav) by ERH taken from: https://freesound.org/people/ERH/sounds/46414/
+ * Gas Sound (gas.wav) created by Harry.
+ * Level-Won Sound (level-won.wav) by qubodup taken from: https://freesound.org/people/qubodup/sounds/442943/
+ * Level-Fail Sound (level-fail.wav) by rhodesmas taken from: https://freesound.org/people/rhodesmas/sounds/342756/
+ * Mating Sound (mating.wav) by prissguerrero taken from: https://freesound.org/people/prissguerrero/sounds/572651/
+ * oof Sound (oof.wav) by TheDaveDude taken from: https://freesound.org/people/Thedavedude/sounds/438912/
+ * Poison Sound (poison.wav) by Mrthenoronha taken from: https://freesound.org/people/Mrthenoronha/sounds/514292/
+ * Sex change Sound (sex_change.wav) by jhyland taken from: https://freesound.org/people/jhyland/sounds/539678/
+ * Spawn Sound (spawn.wav) by Grubzyy taken from: https://freesound.org/people/Grubzyy/sounds/422730/
+ * Sterilisation Sound (sterilisation.wav) by Iridiuss taken from: https://freesound.org/people/Iridiuss/sounds/519414/
+ * Click Sound (click.wav) by EminYILDIRIM taken from: https://freesound.org/people/EminYILDIRIM/sounds/536108/
+ * Music (music.wav) by Xythe taken from: https://freesound.org/people/Xythe/sounds/516912/
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)

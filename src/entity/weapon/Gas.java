@@ -16,11 +16,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * Gas weapon class.
  *
+ * Sprite from https://creazilla.com/nodes/1999401-green-grenade-clipart
+ *
  * @author Dafydd -Rhys Maund
  * @author Harry Boyce
  * @author Bryan Kok
  */
 public class Gas extends Item {
+
     /** Range of the Bomb at the current tick. */
     private int count = 0;
     /** List of tiles that can be drawn on. */

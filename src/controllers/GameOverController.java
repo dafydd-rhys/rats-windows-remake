@@ -18,6 +18,8 @@ import player.Player;
 /**
  * Controller used to handle the game over screen.
  *
+ * Menu icons created by group
+ *
  * @author Gareth Wade (1901805)
  * @author Chunyuan Zhang
  */

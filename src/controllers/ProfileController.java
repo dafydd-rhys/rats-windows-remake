@@ -44,6 +44,8 @@ public class ProfileController implements Initializable {
     /**
      * This method is run upon this scene being loaded.
      *
+     * Menu icons created by group
+     *
      * @param url url of resources.
      * @param resourceBundle bundle of resources.
      */
