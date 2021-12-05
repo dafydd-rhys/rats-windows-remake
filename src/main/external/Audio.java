@@ -18,6 +18,10 @@ import main.Resources;
 /**
  * Audio.java - used to play sounds in the program.
  *
+ * All sounds are taken from https://freesound.org/ and are under Creative Commons
+ *
+ * EXAMPLE sound (example.wav) by SomeUser taken from: https://freesound.org/people/kMoon/sounds/90797/
+ *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Gareth Wade (1901805)
  */
