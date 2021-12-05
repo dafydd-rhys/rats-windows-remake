@@ -20,17 +20,52 @@ import java.util.Scanner;
  */
 public class LevelLoader {
 
+    /**
+     * The directory where the save is stored.
+     */
     private final File saveDir;
+    /**
+     * The player's name.
+     */
     private String player;
+    /**
+     * The directory where the level is stored.
+     */
     private File levelDir;
+    /**
+     * The level.
+     */
     private Level level;
+    /**
+     * The current level.
+     */
     private int currentLevel;
+    /**
+     * List of rat spawns.
+     */
     private final ArrayList<Rat> ratSpawns;
+    /**
+     * List of item spawns.
+     */
     private final ArrayList<Item> itemSpawns;
+    /**
+     * List of items in player's inventory.
+     */
     private final ArrayList<Item.TYPE> inventory;
+    /**
+     * The current tick.
+     */
     private int currentTick;
+    /**
+     * The score.
+     */
     private int score;
 
+    /**
+     * Constructor.
+     *
+     * @throws IOException Signals that an I/O exception of some sort has occurred
+     */
     public LevelLoader() throws IOException {
         this.player = Player.getPlayerName();
         this.saveDir = Resources.getSaves(player);
@@ -210,6 +245,12 @@ public class LevelLoader {
         }
     }
 
+    /**
+     * Gets the current level of the save.
+     *
+     * @return current level
+     * @throws IOException Signals that an I/O exception of some sort has occurred
+     */
     public static int getCurrentLevel() throws IOException {
         Scanner scanner = new Scanner(Resources.getSaves(Player.getPlayerName()));
         int currLevel = scanner.nextInt();
