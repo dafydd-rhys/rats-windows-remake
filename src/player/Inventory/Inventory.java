@@ -31,7 +31,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Inventory.java, used to manage inventory, add, remove & interact.
+ * Inventory.java, used to manage inventory, add, remove and interact.
  *
  * @author Dafydd -Rhys Maund (2003900)
  */

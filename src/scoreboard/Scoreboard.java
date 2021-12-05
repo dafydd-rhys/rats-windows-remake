@@ -140,7 +140,7 @@ public class Scoreboard {
     /**
      * Writes score in a file.
      *
-     * @throws IOException
+     * @throws IOException the io exception
      */
     private void writeToFile() throws IOException {
         PrintWriter writer = new PrintWriter(directory, StandardCharsets.UTF_8);

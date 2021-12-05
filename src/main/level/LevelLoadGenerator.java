@@ -69,7 +69,7 @@ public class LevelLoadGenerator {
      * Constructor.
      *
      * @param paramTimeToGenerate hashmap of times to generate each item
-     * @param paramGC
+     * @param paramGC used to draw on the canvas
      * @param paramSizeX size of X axis
      * @param paramSizeY size of Y axis
      * @param paramLevel current level

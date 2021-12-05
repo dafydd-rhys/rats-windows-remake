@@ -84,7 +84,7 @@ public class ItemGenerator {
     }
 
     /**
-     * runs random item generation.
+     * Runs random item generation (every 3 seconds creates a new item).
      */
     private void runRandom() {
         //creates random number
@@ -111,7 +111,9 @@ public class ItemGenerator {
     }
 
     /**
-     * @param level
+     * Runs periodic item generation (values taken from level.txt).
+     *
+     * @param level the current level
      */
     private void runPeriodic(final Level level) {
         if (second % level.getTimeToGenerate().get(Item.TYPE.BOMB) == 0) {
@@ -140,6 +142,11 @@ public class ItemGenerator {
         }
     }
 
+    /**
+     * Adds a usable item to the inventory.
+     *
+     * @param type weapon type.
+     */
     private void enableItem(final Item.TYPE type) {
         Inventory.enableItem(type, abilities);
     }

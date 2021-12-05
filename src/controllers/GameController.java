@@ -468,6 +468,10 @@ public class GameController implements Initializable {
     /**
      * This method basically runs all relevant methods to each entity,
      * for instance will move all rats and activate each item.
+     *
+     * @throws UnsupportedAudioFileException the unsupported audio file exception
+     * @throws LineUnavailableException      the line unavailable exception
+     * @throws IOException                   the io exception
      */
     private static void tick() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         ArrayList<Rat> rats = level.getRats();
