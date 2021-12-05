@@ -156,23 +156,23 @@ public class GameController implements Initializable {
     /**
      * The size of a tile on the board.
      */
-    private final static int TILE_SIZE = 50;
+    private static final  int TILE_SIZE = 50;
     /**
      * Offset of images on the tile.
      */
-    private final static int OFFSET = 10;
+    private static final  int OFFSET = 10;
     /**
      * Time at which item images begin to fade relative to health (gas cloud).
      */
-    private final static int START_FADE = 3;
+    private static final  int START_FADE = 3;
     /**
      * Delay in which each tick is ran.
      */
-    private final static int DELAY = 500;
+    private static final  int DELAY = 500;
     /**
      * Value at which the progress bar is full.
      */
-    private final static int COMPLETE_BAR = 100;
+    private static final  int COMPLETE_BAR = 100;
     /**
      * The current level instance.
      */
@@ -350,7 +350,6 @@ public class GameController implements Initializable {
                 }
             }
         };
-
         //run tickers task every 500ms until stopped
         ticker.schedule(task, DELAY, DELAY);
     }
