@@ -190,7 +190,7 @@ public class Tile {
     }
 
     /**
-     * Is covering boolean.
+     * Returns inverted isCovering Boolean.
      *
      * @return the boolean
      */
