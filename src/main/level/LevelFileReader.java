@@ -48,7 +48,7 @@ public class LevelFileReader {
     /**
      * True if loading game save.
      */
-    private boolean save;
+    private final boolean save;
     /**
      * The amount of items.
      */
@@ -123,7 +123,7 @@ public class LevelFileReader {
     }
 
     /**
-     * @throws IOException Signals that an I/O exception of some sort has occurred
+     * @throws IOException Signals that an I/O exception to some sort has occurred
      */
     private void loadLevel() throws IOException {
         level = readFile(lvlDirectory);
