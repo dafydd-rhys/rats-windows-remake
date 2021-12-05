@@ -24,7 +24,7 @@ public class LevelFileGenerator {
      */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     /**
-     *
+     * drawer for the canvas
      */
     private final GraphicsContext gc;
     /**
@@ -97,16 +97,16 @@ public class LevelFileGenerator {
                     setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
                 } else if (tiles[y][x] == 'M') {
                     setTile(tilesArray, x, y, Tile.TYPE.PATH);
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE);
                 } else if (tiles[y][x] == 'N') {
                     setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE, false);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.MALE);
                 } else if (tiles[y][x] == 'F') {
                     setTile(tilesArray, x, y, Tile.TYPE.PATH);
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE);
                 } else if (tiles[y][x] == 'K') {
                     setTile(tilesArray, x, y, Tile.TYPE.TUNNEL);
-                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE, false);
+                    setRat(tilesArray, ratsArray, x, y, Rat.Gender.FEMALE);
                 }
             }
         }
@@ -132,11 +132,10 @@ public class LevelFileGenerator {
      * @param x X coordinate of rat
      * @param y Y coordinate of rat
      * @param gender gender of rat
-     * @param adult if the rat is an adult or a baby
      */
     private void setRat(final Tile[][] paramTiles, final ArrayList<Rat> rats, final int x, final int y,
-                        final Rat.Gender gender, final boolean adult) {
-        Rat rat = new Rat(gender, adult);
+                        final Rat.Gender gender) {
+        Rat rat = new Rat(gender, false);
         rat.setCurrentPosX(x);
         rat.setCurrentPosY(y);
 

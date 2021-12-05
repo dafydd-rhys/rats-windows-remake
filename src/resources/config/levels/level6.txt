@@ -1,4 +1,4 @@
-[38,33]
+[37,33]
 18
 90
 {Bomb,14} {Gas,12} {MaleChange,6} {FemaleChange,6} {NoEntry,15} {Poison,6} {DeathRat,35} {Sterilisation,18}

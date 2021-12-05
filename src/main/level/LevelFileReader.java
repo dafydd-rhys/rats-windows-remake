@@ -48,7 +48,7 @@ public class LevelFileReader {
     /**
      * True if loading game save.
      */
-    private boolean save;
+    private final boolean save;
     /**
      * The amount of items.
      */
@@ -123,7 +123,7 @@ public class LevelFileReader {
     }
 
     /**
-     * @throws IOException Signals that an I/O exception of some sort has occurred
+     * @throws IOException Signals that an I/O exception to some sort has occurred
      */
     private void loadLevel() throws IOException {
         level = readFile(lvlDirectory);
@@ -152,11 +152,11 @@ public class LevelFileReader {
                     Integer.parseInt(String.valueOf(amount.deleteCharAt(amount.length() - 1))));
         }
         scanner.nextLine();
-
+        
         array = new char[sizeY][sizeX];
         for (int row = 0; scanner.hasNextLine() && row < sizeY; row++) {
             char[] chars = scanner.nextLine().toCharArray();
-            for (int i = 0; i < sizeX && i < chars.length; i++) {
+            for (int i = 0; i < sizeX; i++) {
                 if (save) {
                     if (chars[i] == 'M' || chars[i] == 'F') {
                         array[row][i] = 'P';

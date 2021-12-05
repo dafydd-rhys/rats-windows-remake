@@ -10,6 +10,7 @@ import entity.weapon.Sterilisation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -204,6 +205,7 @@ public class GameController implements Initializable {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
+        Level.setPaused(false);
         Level.setGameOver(false);
         Level.setGameWon(false);
         lblTime.setEditable(false);
