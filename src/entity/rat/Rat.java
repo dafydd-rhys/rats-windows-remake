@@ -17,7 +17,8 @@ import java.util.Random;
 import java.util.List;
 
 /**
- * Rat.java.
+ * This class represents the rat.
+ * All rat sprites were created by us.
  *
  * @author Dafydd -Rhys Maund (2003900)
  * @author Dawid Wisniewski

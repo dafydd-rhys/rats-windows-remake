@@ -25,7 +25,7 @@ public class LevelLoadGenerator {
      */
     private final HashMap<Item.TYPE, Integer> timeToGenerate;
     /**
-     *
+     * Used to draw on the canvas.
      */
     private final GraphicsContext gc;
     /**

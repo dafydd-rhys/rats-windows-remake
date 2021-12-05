@@ -21,6 +21,21 @@ import java.util.Scanner;
 public class LevelLoader {
 
     /**
+     * Line number in the save file regarding rat spawns.
+     */
+    private static final int RATS_LINE = 3;
+
+    /**
+     * Line number in the save file regarding item spawns.
+     */
+    private static final int ITEMS_LINE = 4;
+
+    /**
+     * Line number in the save file regarding inventory items.
+     */
+    private static final int INV_LINE = 5;
+
+    /**
      * The directory where the save is stored.
      */
     private final File saveDir;
@@ -110,7 +125,7 @@ public class LevelLoader {
      * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readRatSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(3);
+        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(RATS_LINE);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -173,7 +188,7 @@ public class LevelLoader {
      * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readItemSpawns() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(4);
+        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(ITEMS_LINE);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -218,7 +233,7 @@ public class LevelLoader {
      * @throws IOException Signals that an I/O exception of some sort has occurred
      */
     private void readInventoryItems() throws IOException {
-        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(5);
+        String line = Files.readAllLines(Paths.get(saveDir.toURI())).get(INV_LINE);
         Scanner scanner = new Scanner(line);
 
         if (scanner.hasNext()) {
@@ -258,22 +273,42 @@ public class LevelLoader {
         return currLevel;
     }
 
+    /**
+     * Get current score.
+     * @return score.
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Get current game tick.
+     * @return game tick.
+     */
     public int getCurrentTick() {
         return currentTick;
     }
 
+    /**
+     * Get arraylist of rat spawns.
+     * @return arraylist of rat spawns.
+     */
     public ArrayList<Rat> getRatSpawns() {
         return ratSpawns;
     }
 
+    /**
+     * Get arraylist of item spawns.
+     * @return arraylist of item spawns.
+     */
     public ArrayList<Item> getItemSpawns() {
         return itemSpawns;
     }
 
+    /**
+     * Get arraylist of inventory items.
+     * @return arraylist of inventory items.
+     */
     public ArrayList<Item.TYPE> getInventory() {
         return inventory;
     }
