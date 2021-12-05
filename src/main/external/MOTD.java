@@ -53,7 +53,7 @@ public class MOTD {
      *
      * @param url url to send request to.
      * @return response
-     * @throws IOException
+     * @throws IOException link cannot be found.
      */
     private String getRequest(final URL url) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -81,7 +81,7 @@ public class MOTD {
      * Resolves the API puzzle.
      *
      * @return puzzle solution.
-     * @throws IOException
+     * @throws IOException link cannot be found.
      */
     private String getPuzzle() throws IOException {
         String puzzleString = getRequest(puzzleURL).toLowerCase();

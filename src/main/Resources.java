@@ -134,6 +134,7 @@ public class Resources {
      *
      * @param fxml path of wanted file.
      * @return returns URL of fxml.
+     * @throws MalformedURLException url does not exist.
      */
     public static URL getFXML(final String fxml) throws MalformedURLException {
         return new URL("file:/" + DIR + FXML_PATH + fxml + ".fxml");

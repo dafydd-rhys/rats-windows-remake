@@ -329,6 +329,10 @@ public class Rat extends Entity {
      * Checks if rat is female
      * Checks if rat is pregnant
      * Checks if rat pregnancy stage is at max value
+     *
+     * @throws UnsupportedAudioFileException incorrect audio file
+     * @throws LineUnavailableException audio file
+     * @throws IOException audio file not found
      */
     public void giveBirth() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if (getGender() == Gender.FEMALE && isPregnant()) {
