@@ -18,6 +18,8 @@ import main.external.Audio;
 /**
  * StageFunctions.java, host of all functions across all fxml.
  *
+ * Rats icon created by dawid
+ *
  * @author Dafydd-Rhys Maund (2003900)
  * @author Dawid Wisniewski (857847)
  */
@@ -86,6 +88,7 @@ public class StageFunctions {
         stage.setTitle(title);
         stage.setScene(new Scene(scene));
         StageResizer.addResizeListener(stage);
+        stage.getIcons().add(Resources.getImage("rats-icon"));
         stage.show();
     }
 
