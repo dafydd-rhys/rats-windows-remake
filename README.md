@@ -7,25 +7,56 @@ This project is a complete remake of the game Rats! created as part of a module 
 ## Features
 The features of this program:
 
-* Player Stats
-  * Track your career highscores (score/level)
+* Player
+  * Create a new profile
+  * Manage profile
+  * Track your score on each level
   * Compete in leaderboards against other players
 
-* Items
-  * 
+* Rats
+  * Rats move intelligently around maps
+  * Interact with other rats
+  * Interact with items on board
 
+* Items
+  * Can be used to kill rats
+  * Can be used to change rat properties
+  * Can be used to hinder rat performance
+
+* Level
+  * Crisp level design
+  * Diverse level structure
+  * Challenging and interactive maps
+
+* Inventory
+  * Implementation of player inventory
+  * Multiple types of generation
+  * Easy and simple interaction
+
+* Scoreboard
+  * Add player scores to leadboards
+  * Tracks top 10 performers
+  * Stores information for each level
+
+* External Features
+  * Implementation of calm music
+  * Implementation of immersive sound effects
+  * Implementation of generated message of the day
 
 * Graphical User Interface
   * Implementation of JavaFX.
   * Simple and nice-looking.
   * Easy to use.
 
-## Author(s)
+## Watch Game
+You can view a video of this game [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+## Contributor(s) (In Order)
 * [Dafydd Maund](https://github.com/Stryzhh)
 * [Dawid Wisniewski](https://github.com/SnickyBicky)
-* [Stefan Daitoiu](https://github.com/Ethosss)
 * [Gareth Wade](https://github.com/WickedI)
-* [Bryan Kok](https://github.com/DishonestOne)
 * [Maurice Petersen](https://github.com/devhambe)
 * [Harry Boyce](https://github.com/harryboyce2011556)
+* [Bryan Kok](https://github.com/DishonestOne)
 * [Chunyuan Zhang](https://github.com/HtmlIsTheBestProgrammingLanaguage)
+* [Stefan Daitoiu](https://github.com/Ethosss)
